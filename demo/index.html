@@ -3,6 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <style>
+      .demo-calendar {
+        border: 1px solid #adadad;
+        box-shadow: 0 0 16px #ccc;
+        max-width: 500px;
+      }
       body {
         background: #fafafa;
       }
@@ -16,18 +21,10 @@
       import '../dist/src/components/tabs/index.js';
       import '../dist/src/components/tab/index.js';
       import '../dist/src/components/tab-panel/index.js';
+      import '../dist/src/components/calendar/index.js';
 
       render(
-        html` <bcg-tabs>
-          <bcg-tab slot="tab">Info</bcg-tab>
-          <bcg-tab-panel slot="panel">
-            Info page with lots of information about us.
-          </bcg-tab-panel>
-          <bcg-tab slot="tab">Work</bcg-tab>
-          <bcg-tab-panel slot="panel">
-            Work page that showcases our work.
-          </bcg-tab-panel></bcg-tabs
-        >`,
+        html` <bcg-calendar class="demo-calendar"></bcg-calendar> `,
         document.querySelector('#demo')
       );
     </script>
