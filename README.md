@@ -13,6 +13,9 @@
 - [x] Steps
 - [x] Button
 - [x] Input
+- [x] Radio Group
+- [x] Select Rich
+- [ ] Select
 
 - [ ] Combobox
 - [ ] Checkbox Group
@@ -29,9 +32,6 @@
 - [ ] Input Tel Dropdown
 - [ ] Input Tel
 - [ ] Listbox
-- [ ] Radio Group
-- [ ] Select Rich
-- [ ] Select
 
 ### TODO
 

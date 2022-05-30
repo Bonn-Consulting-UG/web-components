@@ -33,6 +33,8 @@
     "@lion/pagination": "^0.8.0",
     "@lion/progress-indicator": "^0.8.0",
     "@lion/radio-group": "^0.20.0",
+    "@lion/select": "^0.16.0",
+    "@lion/select-rich": "^0.30.1",
     "@lion/steps": "^0.11.0",
     "@lion/switch": "^0.20.1",
     "@lion/tabs": "^0.12.0",
