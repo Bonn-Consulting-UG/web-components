@@ -1,1 +1,1 @@
-export const tagPrefix:String = "bcg"  
+export const tagPrefix: String = 'bcg';

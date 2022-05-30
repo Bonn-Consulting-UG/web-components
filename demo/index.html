@@ -8,6 +8,11 @@
         box-shadow: 0 0 16px #ccc;
         max-width: 500px;
       }
+
+      .demo-tooltip-invoker {
+        margin: 50px;
+      }
+
       body {
         background: #fafafa;
       }
@@ -26,9 +31,16 @@
       import '../dist/src/components/accordion/index.js';
       import '../dist/src/components/pagination/index.js';
       import '../dist/src/components/progress/index.js';
+      import '../dist/src/components/switch/index.js';
+      import '../dist/src/components/collapsible/index.js';
+      import '../dist/src/components/textarea/index.js';
+      import '../dist/src/components/tooltip/index.js';
 
       render(
-        html` <bcg-progress></bcg-progress>`,
+        html` <bcg-tooltip has-arrow>
+          <button slot="invoker" class="demo-tooltip-invoker">Hover me</button>
+          <div slot="content">This is a tooltip</div></bcg-tooltip
+        >`,
         document.querySelector('#demo')
       );
     </script>

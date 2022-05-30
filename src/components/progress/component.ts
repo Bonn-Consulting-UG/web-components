@@ -1,6 +1,5 @@
-import { html,css } from '@lion/core';
+import { html, css } from '@lion/core';
 import { LionProgressIndicator } from '@lion/progress-indicator';
-
 
 export class BcgProgress extends LionProgressIndicator {
   static get styles() {
@@ -49,7 +48,6 @@ export class BcgProgress extends LionProgressIndicator {
     ];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   render() {
     return html`
       <svg class="progress--icon" viewBox="20 20 47 47">
@@ -57,5 +55,4 @@ export class BcgProgress extends LionProgressIndicator {
       </svg>
     `;
   }
-
 }
