@@ -30,6 +30,7 @@
     "@lion/core": "^0.22.0",
     "@lion/dialog": "^0.15.0",
     "@lion/input": "^0.17.0",
+    "@lion/input-date": "^0.14.0",
     "@lion/pagination": "^0.8.0",
     "@lion/progress-indicator": "^0.8.0",
     "@lion/radio-group": "^0.20.0",

@@ -1,4 +1,6 @@
-### Components Wrapped
+## Components Wrapped
+
+### Completed
 
 - [x] Accordion
 - [x] Calendar
@@ -15,7 +17,10 @@
 - [x] Input
 - [x] Radio Group
 - [x] Select Rich
-- [ ] Select
+- [x] Select
+- [x] Input Date
+
+### To be done:
 
 - [ ] Combobox
 - [ ] Checkbox Group
@@ -33,7 +38,7 @@
 - [ ] Input Tel
 - [ ] Listbox
 
-### TODO
+## TODO
 
 - [ ] LitElements extendend imports doesnt allow styling.
 - [x] Switch import breaks Build/TS
