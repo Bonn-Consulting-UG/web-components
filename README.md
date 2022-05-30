@@ -11,27 +11,27 @@
 - [x] Textarea
 - [x] Tooltip
 - [x] Steps
-- [x]Button
+- [x] Button
+- [x] Input
 
-- [ ]Combobox
-- [ ]Checkbox Group
-- [ ]Fieldset
-- [ ]Form
-- [ ]Icon
-- [ ]Input Amount
-- [ ]Input Date
-- [ ]Input Datepicker
-- [ ]Input Email
-- [ ]Input Iban
-- [ ]Input Range
-- [ ]Input Stepper
-- [ ]Input Tel Dropdown
-- [ ]Input Tel
-- [ ]Input
-- [ ]Listbox
-- [ ]Radio Group
-- [ ]Select Rich
-- [ ]Select
+- [ ] Combobox
+- [ ] Checkbox Group
+- [ ] Fieldset
+- [ ] Form
+- [ ] Icon
+- [ ] Input Amount
+- [ ] Input Date
+- [ ] Input Datepicker
+- [ ] Input Email
+- [ ] Input Iban
+- [ ] Input Range
+- [ ] Input Stepper
+- [ ] Input Tel Dropdown
+- [ ] Input Tel
+- [ ] Listbox
+- [ ] Radio Group
+- [ ] Select Rich
+- [ ] Select
 
 ### TODO
 
@@ -41,3 +41,4 @@
 - [ ] skipLibCheck in TS Config skips all Typechecking in Libarys
 - [ ] Refactor Tabs
 - [ ] Look into SSR WebComponents
+- [ ] Rename Components file to the compoents name instead -> Readability in Editor
