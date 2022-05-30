@@ -32,12 +32,12 @@
 - [x] Input Tel Dropdown
 - [x] Input Tel
 - [x] Checkbox Group
+- [x] Form
 
 ### To be done:
 
 - [ ] Combobox
 - [ ] Fieldset
-- [ ] Form
 - [ ] Icon
 - [ ] Listbox
 
