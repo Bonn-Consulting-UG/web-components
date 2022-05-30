@@ -48,11 +48,13 @@
 - [ ] Check for missing CSS within Classes
 - [ ] LitElements extendend imports doesnt allow styling.
 - [ ] fix -> eslint-disable import/extensions
+- [ ] Add Storybook for each component
+
+--- Low Prio
 
 - [ ] Steps event handling ??? and type referencing
 - [ ] skipLibCheck in TS Config skips all Typechecking in Libarys
 - [ ] Refactor Tabs
-- [ ] Add Storybook for each component
 - [ ] Look into SSR WebComponents
 - [ ] Rename Components file to the compoents name instead -> Readability in Editor
 
