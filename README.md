@@ -24,29 +24,38 @@
 - [x] Input Date
 - [x] Input Iban
 - [x] Input Email
+- [x] Input Datepicker
+- [x] Input Range
+- [x] Input Date
+- [x] Input Stepper
+- [x] Input Amount
+- [x] Input Tel Dropdown
+- [x] Input Tel
+- [x] Checkbox Group
 
 ### To be done:
 
 - [ ] Combobox
-- [ ] Checkbox Group
 - [ ] Fieldset
 - [ ] Form
 - [ ] Icon
-- [ ] Input Amount
-- [ ] Input Date
-- [ ] Input Datepicker
-- [ ] Input Range
-- [ ] Input Stepper
-- [ ] Input Tel Dropdown
-- [ ] Input Tel
 - [ ] Listbox
 
 ## TODO
 
+--- High Prio
+
+- [ ] Check for missing CSS within Classes
 - [ ] LitElements extendend imports doesnt allow styling.
-- [x] Switch import breaks Build/TS
+- [ ] fix -> eslint-disable import/extensions
+
 - [ ] Steps event handling ??? and type referencing
 - [ ] skipLibCheck in TS Config skips all Typechecking in Libarys
 - [ ] Refactor Tabs
+- [ ] Add Storybook for each component
 - [ ] Look into SSR WebComponents
 - [ ] Rename Components file to the compoents name instead -> Readability in Editor
+
+### Completed
+
+- [x] Switch import breaks Build/TS
