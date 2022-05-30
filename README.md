@@ -20,6 +20,7 @@
 - [x] Select
 - [x] Input Date
 - [x] Input Iban
+- [x] Input Email
 
 ### To be done:
 
@@ -31,8 +32,6 @@
 - [ ] Input Amount
 - [ ] Input Date
 - [ ] Input Datepicker
-- [ ] Input Email
-
 - [ ] Input Range
 - [ ] Input Stepper
 - [ ] Input Tel Dropdown
