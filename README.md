@@ -9,6 +9,9 @@
 - [x] Progress Indicator
 - [x] Switch
 - [x] Tabs
+- [x] Tabs Button
+- [x] Tabs Panel
+- [x] Tabs
 - [x] Collapsible
 - [x] Textarea
 - [x] Tooltip
