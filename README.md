@@ -8,9 +8,11 @@
 - [x] Switch
 - [x] Tabs
 - [x] Collapsible
-- [x]Textarea
+- [x] Textarea
+- [x] Tooltip
+- [x] Steps
+- [x]Button
 
-- [ ]Button
 - [ ]Combobox
 - [ ]Checkbox Group
 - [ ]Fieldset
@@ -30,5 +32,12 @@
 - [ ]Radio Group
 - [ ]Select Rich
 - [ ]Select
-- [ ]Steps
-- [ ]Tooltip
+
+### TODO
+
+- [ ] LitElements extendend imports doesnt allow styling.
+- [x] Switch import breaks Build/TS
+- [ ] Steps event handling ??? and type referencing
+- [ ] skipLibCheck in TS Config skips all Typechecking in Libarys
+- [ ] Refactor Tabs
+- [ ] Look into SSR WebComponents

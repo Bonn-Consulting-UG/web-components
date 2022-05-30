@@ -35,12 +35,11 @@
       import '../dist/src/components/collapsible/index.js';
       import '../dist/src/components/textarea/index.js';
       import '../dist/src/components/tooltip/index.js';
+      import '../dist/src/components/steps/index.js';
+      import '../dist/src/components/button/index.js';
 
       render(
-        html` <bcg-tooltip has-arrow>
-          <button slot="invoker" class="demo-tooltip-invoker">Hover me</button>
-          <div slot="content">This is a tooltip</div></bcg-tooltip
-        >`,
+        html` <bcg-button>Default</bcg-button>`,
         document.querySelector('#demo')
       );
     </script>
