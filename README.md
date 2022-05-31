@@ -1,13 +1,20 @@
+## Providers
+
+- [ ] Icon
+- [ ] Form
+- [ ] Core
+- [ ] Localize
+- [ ] Overlays
+
 ## Storybook
 
-### Completed
+### Completed :
+
+### To be done:
 
 - [ ] Tabs Button
 - [ ] Tabs Panel
 - [ ] Tabs
-
-### To be done:
-
 - [ ] Combobox
 - [ ] Fieldset
 - [ ] Icon
@@ -41,13 +48,38 @@
 - [ ] Checkbox Group
 - [ ] Form
 
+## TODO
+
+--- High Prio
+
+- [ ] Check for missing CSS within Classes
+- [ ] LitElements extendend imports doesnt allow styling.
+- [ ] fix -> eslint-disable import/extensions
+- [ ] Add Storybook for each component
+- [ ] Combobox (Functionality seems broken abit ? Lion Docs are not completed for it yet )
+- [ ] Dialog (Currently opens but doesnt close ? overlay provider ?)
+- [ ] Icon (Currently doesnt show icons cause we dont have a icons provider)
+
+--- Low Prio
+
+- [ ] Steps event handling ??? and type referencing
+- [ ] skipLibCheck in TS Config skips all Typechecking in Libarys
+- [ ] Vscode/typescript linting buggs on combobox file ?? has no problem compiling but seems to be an expected token
+- [ ] Refactor Tabs
+- [ ] Look into SSR WebComponents
+- [ ] Rename Components file to the compoents name instead -> Readability in Editor
+
+### Completed
+
+- [x] Switch import breaks Build/TS
+
 ## Components Wrapped
 
 ### Completed
 
 - [x] Accordion
 - [x] Calendar
-- [x] Dialog
+- [x] Dialog (Currently opens but doesnt close ? overlay provider ?)
 - [x] Pagination
 - [x] Progress Indicator
 - [x] Switch
@@ -79,29 +111,4 @@
 - [x] Combobox (Functionality seems broken abit ? Lion Docs are not completed for it yet )
 - [x] Fieldset
 - [x] Listbox
-- [x] Icon
-
-### To be done:
-
-## TODO
-
---- High Prio
-
-- [ ] Check for missing CSS within Classes
-- [ ] LitElements extendend imports doesnt allow styling.
-- [ ] fix -> eslint-disable import/extensions
-- [ ] Add Storybook for each component
-- [ ] Combobox (Functionality seems broken abit ? Lion Docs are not completed for it yet )
-
---- Low Prio
-
-- [ ] Steps event handling ??? and type referencing
-- [ ] skipLibCheck in TS Config skips all Typechecking in Libarys
-- [ ] Vscode/typescript linting buggs on combobox file ?? has no problem compiling but seems to be an expected token
-- [ ] Refactor Tabs
-- [ ] Look into SSR WebComponents
-- [ ] Rename Components file to the compoents name instead -> Readability in Editor
-
-### Completed
-
-- [x] Switch import breaks Build/TS
+- [x] Icon (Currently doesnt show icons cause we dont have a icons provider)
