@@ -1,3 +1,46 @@
+## Storybook
+
+### Completed
+
+- [ ] Tabs Button
+- [ ] Tabs Panel
+- [ ] Tabs
+
+### To be done:
+
+- [ ] Combobox
+- [ ] Fieldset
+- [ ] Icon
+- [ ] Listbox
+- [ ] Accordion
+- [ ] Calendar
+- [ ] Dialog
+- [ ] Pagination
+- [ ] Progress Indicator
+- [ ] Switch
+- [ ] Tabs
+- [ ] Collapsible
+- [ ] Te tarea
+- [ ] Tooltip
+- [ ] Steps
+- [ ] Button
+- [ ] Input
+- [ ] Radio Group
+- [ ] Select Rich
+- [ ] Select
+- [ ] Input Date
+- [ ] Input Iban
+- [ ] Input Email
+- [ ] Input Datepicker
+- [ ] Input Range
+- [ ] Input Date
+- [ ] Input Stepper
+- [ ] Input Amount
+- [ ] Input Tel Dropdown
+- [ ] Input Tel
+- [ ] Checkbox Group
+- [ ] Form
+
 ## Components Wrapped
 
 ### Completed
@@ -33,13 +76,12 @@
 - [x] Input Tel
 - [x] Checkbox Group
 - [x] Form
+- [x] Combobox (Functionality seems broken abit ? Lion Docs are not completed for it yet )
+- [x] Fieldset
+- [x] Listbox
+- [x] Icon
 
 ### To be done:
-
-- [ ] Combobox
-- [ ] Fieldset
-- [ ] Icon
-- [ ] Listbox
 
 ## TODO
 
@@ -49,11 +91,13 @@
 - [ ] LitElements extendend imports doesnt allow styling.
 - [ ] fix -> eslint-disable import/extensions
 - [ ] Add Storybook for each component
+- [ ] Combobox (Functionality seems broken abit ? Lion Docs are not completed for it yet )
 
 --- Low Prio
 
 - [ ] Steps event handling ??? and type referencing
 - [ ] skipLibCheck in TS Config skips all Typechecking in Libarys
+- [ ] Vscode/typescript linting buggs on combobox file ?? has no problem compiling but seems to be an expected token
 - [ ] Refactor Tabs
 - [ ] Look into SSR WebComponents
 - [ ] Rename Components file to the compoents name instead -> Readability in Editor
