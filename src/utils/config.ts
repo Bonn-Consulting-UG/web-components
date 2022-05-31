@@ -3,6 +3,7 @@ export const tagPrefix: String = 'bcg';
 interface component {
   [key: string]: string;
 }
+
 export const componentNames: component = {
   tabs: `${tagPrefix}-tabs`,
   tabbutton: `${tagPrefix}-tab-button`,
