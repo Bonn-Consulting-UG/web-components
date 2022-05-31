@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgTabButton } from './component';
-import { tagPrefix } from '../../config';
+import { BcgTabButton } from './tab-button';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-tab-button`, BcgTabButton);
+window.customElements.define(componentNames.tabbutton, BcgTabButton);

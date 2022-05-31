@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgCalendar } from './component'
-import { tagPrefix } from "../../config"
+import { BcgCalendar } from './calendar';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-calendar`, BcgCalendar);
-
+window.customElements.define(componentNames.calendar, BcgCalendar);

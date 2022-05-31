@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgInputIban } from './component';
-import { tagPrefix } from '../../config';
+import { BcgInputIban } from './input-iban';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-input-iban`, BcgInputIban);
+window.customElements.define(componentNames.inputiban, BcgInputIban);

@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgFieldSet } from './component';
-import { tagPrefix } from '../../config';
+import { BcgFieldSet } from './fieldset';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-fieldset`, BcgFieldSet);
+window.customElements.define(componentNames.fieldset, BcgFieldSet);

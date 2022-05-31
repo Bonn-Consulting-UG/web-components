@@ -1,8 +1,8 @@
 /* eslint-disable import/extensions */
-import { BcgInputDatepicker } from './component';
-import { tagPrefix } from '../../config';
+import { BcgInputDatepicker } from './input-datepicker';
+import { componentNames } from '../../config';
 
 window.customElements.define(
-  `${tagPrefix}-input-datepicker`,
+  componentNames.inputdatepicker,
   BcgInputDatepicker
 );

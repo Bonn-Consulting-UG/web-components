@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgInputRange } from './component';
-import { tagPrefix } from '../../config';
+import { BcgInputRange } from './input-range';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-input-range`, BcgInputRange);
+window.customElements.define(componentNames.inputrange, BcgInputRange);

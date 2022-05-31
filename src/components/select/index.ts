@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import { BcgSelect } from './select';
 
-import { tagPrefix } from '../../config';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-select`, BcgSelect);
+window.customElements.define(componentNames.select, BcgSelect);

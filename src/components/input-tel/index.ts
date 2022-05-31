@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgInputTel } from './component';
-import { tagPrefix } from '../../config';
+import { BcgInputTel } from './input-tel';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-input-tel`, BcgInputTel);
+window.customElements.define(componentNames.inputtel, BcgInputTel);

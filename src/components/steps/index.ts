@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgSteps } from './component';
-import { tagPrefix } from '../../config';
+import { BcgSteps } from './steps';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-steps`, BcgSteps);
+window.customElements.define(componentNames.steps, BcgSteps);

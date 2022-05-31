@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgCollapsible } from './component';
-import { tagPrefix } from '../../config';
+import { BcgCollapsible } from './collapsible';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-collapsible`, BcgCollapsible);
+window.customElements.define(componentNames.collapsible, BcgCollapsible);

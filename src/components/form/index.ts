@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgForm } from './component';
-import { tagPrefix } from '../../config';
+import { BcgForm } from './form';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-form`, BcgForm);
+window.customElements.define(componentNames.form, BcgForm);

@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgSwitch } from './component';
-import { tagPrefix } from '../../config';
+import { BcgSwitch } from './switch';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-switch`, BcgSwitch);
+window.customElements.define(componentNames.switch, BcgSwitch);

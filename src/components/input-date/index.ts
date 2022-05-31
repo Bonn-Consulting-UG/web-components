@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgInputDate } from './component';
-import { tagPrefix } from '../../config';
+import { BcgInputDate } from './input-date';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-input-date`, BcgInputDate);
+window.customElements.define(componentNames.inputdate, BcgInputDate);

@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import { BcgSelectRich } from './select-rich';
 
-import { tagPrefix } from '../../config';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-select-rich`, BcgSelectRich);
+window.customElements.define(componentNames.selectrich, BcgSelectRich);

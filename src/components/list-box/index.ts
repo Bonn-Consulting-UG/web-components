@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgListBox } from './component';
-import { tagPrefix } from '../../config';
+import { BcgListBox } from './list-box';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-listbox`, BcgListBox);
+window.customElements.define(componentNames.listbox, BcgListBox);

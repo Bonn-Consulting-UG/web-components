@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgCheckboxGroup } from './component';
-import { tagPrefix } from '../../config';
+import { BcgCheckboxGroup } from './checkbox-group';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-checkbox-group`, BcgCheckboxGroup);
+window.customElements.define(componentNames.checkboxgroup, BcgCheckboxGroup);

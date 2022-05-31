@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgInputEmail } from './component';
-import { tagPrefix } from '../../config';
+import { BcgInputEmail } from './input-email';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-input-email`, BcgInputEmail);
+window.customElements.define(componentNames.inputemail, BcgInputEmail);

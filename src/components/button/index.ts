@@ -3,8 +3,8 @@ import { BcgButton } from './button';
 import { BcgButtonReset } from './button-reset';
 import { BcgButtonSubmit } from './button-submit';
 
-import { tagPrefix } from '../../config';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-button`, BcgButton);
-window.customElements.define(`${tagPrefix}-button-reset`, BcgButtonReset);
-window.customElements.define(`${tagPrefix}-button-submit`, BcgButtonSubmit);
+window.customElements.define(componentNames.button, BcgButton);
+window.customElements.define(componentNames.buttonreset, BcgButtonReset);
+window.customElements.define(componentNames.buttonsubmit, BcgButtonSubmit);

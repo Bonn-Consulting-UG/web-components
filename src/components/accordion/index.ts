@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgAccordion } from './component'
-import { tagPrefix } from "../../config"
+import { BcgAccordion } from './accordion';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-accordion`, BcgAccordion);
-
+window.customElements.define(componentNames.accordion, BcgAccordion);

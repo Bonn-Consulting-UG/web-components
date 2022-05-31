@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgPagination } from './component'
-import { tagPrefix } from "../../config"
+import { BcgPagination } from './pagination';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-pagination`, BcgPagination);
-
+window.customElements.define(componentNames.pagination, BcgPagination);

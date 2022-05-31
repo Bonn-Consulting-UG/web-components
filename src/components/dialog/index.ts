@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgDialog } from './component'
-import { tagPrefix } from "../../config"
+import { BcgDialog } from './dialog';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-dialog`, BcgDialog);
-
+window.customElements.define(componentNames.dialog, BcgDialog);

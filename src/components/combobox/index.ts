@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BchCombobox } from './component';
-import { tagPrefix } from '../../config';
+import { BchCombobox } from './combobox';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-combobox`, BchCombobox);
+window.customElements.define(componentNames.combobox, BchCombobox);

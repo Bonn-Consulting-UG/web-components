@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgTabs } from './component'
-import { tagPrefix } from "../../config"
+import { BcgTabs } from './tabs';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-tabs`, BcgTabs);
-
+window.customElements.define(componentNames.tabs, BcgTabs);

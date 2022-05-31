@@ -1,8 +1,8 @@
 /* eslint-disable import/extensions */
-import { BcgInputTelDropdown } from './component';
-import { tagPrefix } from '../../config';
+import { BcgInputTelDropdown } from './input-tel-dropdown';
+import { componentNames } from '../../config';
 
 window.customElements.define(
-  `${tagPrefix}-input-tel-dropdown`,
+  componentNames.inputteldropdown,
   BcgInputTelDropdown
 );

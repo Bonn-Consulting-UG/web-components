@@ -1,6 +1,6 @@
 import { html, LitElement, ScopedElementsMixin } from '@lion/core';
 import { LionFieldset } from '@lion/fieldset';
-import { BcgInput } from '../input/component.js';
+import { BcgInput } from '../input/input.js';
 
 export class BcgFieldSet extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {

@@ -1,7 +1,7 @@
 import { LionForm } from '@lion/form';
 import { html, css, ScopedElementsMixin, LitElement } from '@lion/core';
 
-import { BcgInput } from '../input/component.js';
+import { BcgInput } from '../input/input.js';
 
 export class BcgForm extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {

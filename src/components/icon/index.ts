@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgIcon } from './component';
-import { tagPrefix } from '../../config';
+import { BcgIcon } from './icon';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-icon`, BcgIcon);
+window.customElements.define(componentNames.icon, BcgIcon);

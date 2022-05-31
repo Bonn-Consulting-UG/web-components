@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgInputStepper } from './component';
-import { tagPrefix } from '../../config';
+import { BcgInputStepper } from './input-stepper';
+import { componentNames } from '../../config';
 
-window.customElements.define(`${tagPrefix}-input-stepper`, BcgInputStepper);
+window.customElements.define(componentNames.inputstepper, BcgInputStepper);

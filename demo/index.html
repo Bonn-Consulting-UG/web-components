@@ -23,9 +23,12 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script type="module">
       import { html, render } from 'lit';
-      import '../dist/src/components/icon/index.js';
+      import '../dist/src/components/calendar/index.js';
 
-      render(html` <bcg-icon></bcg-icon>`, document.querySelector('#demo'));
+      render(
+        html` <bcg-calendar></bcg-calendar>`,
+        document.querySelector('#demo')
+      );
     </script>
   </body>
 </html>
