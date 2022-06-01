@@ -5,6 +5,7 @@
 - [ ] Core
 - [ ] Localize
 - [ ] Overlays
+- [ ] Porting Mixins from https://github.com/divriots/simba/tree/main/form-core/src to TS (Considered an Antipattern in TS cause compiler cant figure out the type of class due to decorators -> still creates valid JS)
 
 ## Storybook
 

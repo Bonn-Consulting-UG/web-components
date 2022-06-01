@@ -16,7 +16,9 @@
     "rootDir": "./",
     "declaration": true,
     "incremental": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
-  "include": ["**/*.ts", "src/component/*.js"]
+  "include": ["**/*.ts", "src/component/*.js"],
+  "exclude": ["src/utils/_mixins", "dist"]
+
 }
