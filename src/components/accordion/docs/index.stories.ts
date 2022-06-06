@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'button',
+  title: 'Accordion',
   component: 'bcg-accordion',
   argTypes: {
     content: {
@@ -26,6 +26,7 @@ interface ArgTypes {
   content: Array<ContentArgs>;
 }
 
-const Template: Story<ArgTypes> = () => html` <bcg-button>Test</bcg-button> `;
+const Template: Story<ArgTypes> = () =>
+  html` <bcg-accordion>Test</bcg-accordion> `;
 
 export const Default = Template.bind({});
