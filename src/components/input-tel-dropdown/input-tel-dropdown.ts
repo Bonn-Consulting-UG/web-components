@@ -16,8 +16,8 @@ export class BcgInputTelDropdown extends ScopedElementsMixin(LitElement) {
   render() {
     return html`
       <intl-input-tel-dropdown
-        .preferredRegions="${['NL', 'PH']}"
-        .modelValue=${'+639608920056'}
+        .preferredRegions="${['DE', 'EN']}"
+        .modelValue=${'+491608920056'}
         label="Telephone number"
         help-text="Advanced dropdown and styling"
         name="phoneNumber"
