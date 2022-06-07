@@ -19,8 +19,8 @@ export class BcgCheckboxGroup extends ScopedElementsMixin(LitElement) {
         .choiceValue=${'Archimedes'}
       ></lion-checkbox>
       <lion-checkbox
-        label="Francis Bacon"
-        .choiceValue=${'Francis Bacon'}
+        label="Francis Bacon1"
+        .choiceValue=${'Francis Bacon1'}
       ></lion-checkbox>
       <lion-checkbox
         label="Marie Curie"

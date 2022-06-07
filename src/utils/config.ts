@@ -40,4 +40,5 @@ export const componentNames: component = {
   listbox: `${tagPrefix}-listbox`,
   fieldset: `${tagPrefix}-fieldset`,
   icon: `${tagPrefix}-icon`,
+  buttondecorator: `${tagPrefix}-button-decorator`, // Test Only
 };

@@ -5,7 +5,7 @@
 - [ ] Core
 - [ ] Localize
 - [ ] Overlays
-- [ ] Porting Mixins from https://github.com/divriots/simba/tree/main/form-core/src to TS (Considered an Antipattern in TS cause compiler cant figure out the type of class due to decorators -> still creates valid JS)
+- [ ] Porting Mixins from https://github.com/divriots/simba/tree/main/form-core/src to TS (Considered an Antipattern in TS cause compiler cant figure out the type of class due to decorators -> still creates valid JS / Using a Dedupe Mixin)
 
 ## Storybook
 
@@ -53,12 +53,15 @@
 
 --- High Prio
 
+- [ ] Dedupe Imports
+
 - [ ] Check for missing CSS within Classes
 - [ ] LitElements extendend imports doesnt allow styling.
 - [ ] fix -> eslint-disable import/extensions
 - [ ] Add Storybook for each component
 - [ ] Combobox (Functionality seems broken abit ? Lion Docs are not completed for it yet )
 - [ ] Icon (Currently doesnt show icons cause we dont have a icons provider)
+- [ ] Pagination currently has no Accessibility Features ?
 
 --- Low Prio
 

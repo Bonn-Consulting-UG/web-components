@@ -1,9 +1,9 @@
-import { html, TemplateResult } from 'lit';
+import { html, TemplateResult } from '@lion/core';
 import '../index.js';
 
 export default {
-  title: 'Button',
-  component: 'bcg-button',
+  title: 'Decorator Button(Internal Test Component)',
+  component: 'bcg-button-decorator',
   argTypes: {
     label: {},
   },
@@ -20,12 +20,12 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = args =>
-  html` <bcg-button .label="${args.label}"></bcg-button> `;
+  html` <bcg-button-decorator .label="${args.label}"></bcg-button-decorator> `;
 
-const Default = Template.bind({});
+const Test = Template.bind({});
 
-Default.args = {
+Test.args = {
   label: 'Test',
 };
 
-export { Default };
+export { Test };

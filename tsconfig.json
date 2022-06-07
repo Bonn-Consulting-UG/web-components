@@ -17,8 +17,9 @@
     "declaration": true,
     "incremental": true,
     "skipLibCheck": true,
+    "useDefineForClassFields": false
   },
-  "include": ["**/*.ts", "src/component/*.js"],
+  "include": ["**/*.ts", "src/component/*.js", "src/component/docs/*.js", "src/components/button/docs/index.stories.ts"],
   "exclude": ["src/utils/_mixins", "dist"]
 
 }
