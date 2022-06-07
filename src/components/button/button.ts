@@ -17,6 +17,7 @@ export class BcgButton extends ScopedElementsMixin(LitElement) {
   constructor() {
     super();
     this.label = 'Default Label';
+    console.log(this.label);
   }
 
   static get scopedElements() {
@@ -24,7 +25,6 @@ export class BcgButton extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    console.log(this.label);
     return html` <lion-button> ${this.label} </lion-button>`;
   }
 }

@@ -4,12 +4,6 @@
   "license": "MIT",
   "author": "bcg-components",
   "version": "0.0.0",
-  "main": "dist/src/index.js",
-  "module": "dist/src/index.js",
-  "exports": {
-    ".": "./dist/src/index.js",
-    "./test-component.js": "./dist/src/test-component.js"
-  },
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
@@ -23,8 +17,6 @@
     "storybook:build": "tsc && npm run analyze -- --exclude dist && build-storybook"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.17.12",
-    "@babel/plugin-proposal-decorators": "^7.18.2",
     "@lion/accordion": "^0.10.0",
     "@lion/button": "^0.18.0",
     "@lion/calendar": "^0.20.0",
@@ -60,14 +52,13 @@
     "@lion/textarea": "^0.16.0",
     "@lion/tooltip": "^0.24.0",
     "dark-theme-utils": "^0.4.0",
-    "ts-loader": "^9.3.0"
+    "lit": "^2.2.5"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@open-wc/dev-server-hmr": "^0.1.2",
     "@open-wc/eslint-config": "^7.0.0",
     "@open-wc/testing": "next",
-    "@rollup/plugin-node-resolve": "^13.3.0",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "@web/dev-server": "^0.1.31",
@@ -83,7 +74,6 @@
     "tslib": "^2.4.0",
     "typescript": "^4.7.3"
   },
-  "customElements": "custom-elements.json",
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "extends": [

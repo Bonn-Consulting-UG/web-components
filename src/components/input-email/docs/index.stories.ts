@@ -2,8 +2,8 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'InputDatepicker',
-  component: 'bcg-input-datepicker',
+  title: 'InputEmail',
+  component: 'bcg-input-email',
   argTypes: {
     content: {
       options: [],
@@ -27,6 +27,6 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = () =>
-  html` <bcg-input-datepicker></bcg-input-datepicker> `;
+  html` <bcg-input-email></bcg-input-email> `;
 
 export const Default = Template.bind({});

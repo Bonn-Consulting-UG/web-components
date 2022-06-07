@@ -2,6 +2,23 @@ import { html, LitElement, ScopedElementsMixin } from '@lion/core';
 import { LionCollapsible } from '@lion/collapsible';
 
 export class BcgCollapsible extends ScopedElementsMixin(LitElement) {
+  buttonLabel: string;
+
+  content: string;
+
+  constructor() {
+    super();
+    this.buttonLabel = 'Default Label';
+    this.content = '123';
+  }
+
+  static get properties() {
+    return {
+      buttonLabel: { type: String },
+      content: { type: String },
+    };
+  }
+
   static get scopedElements() {
     return { 'lion-collapsible': LionCollapsible };
   }
@@ -9,12 +26,8 @@ export class BcgCollapsible extends ScopedElementsMixin(LitElement) {
   render() {
     return html`
       <lion-collapsible opened>
-        <button slot="invoker">More about cars</button>
-        <div slot="content">
-          Most definitions of cars say that they run primarily on roads, seat
-          one to eight people, have four tires, and mainly transport people
-          rather than goods.
-        </div>
+        <button slot="invoker">${this.buttonLabel}</button>
+        <div slot="content">${this.content}</div>
       </lion-collapsible>
     `;
   }

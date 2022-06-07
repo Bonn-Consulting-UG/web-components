@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
 import { BcgTooltip } from './tooltip';
-import { tagPrefix } from '../../utils/config';
+import { componentNames } from '../../utils/config';
 
-window.customElements.define(`${tagPrefix}-tooltip`, BcgTooltip);
+window.customElements.define(componentNames.tooltip, BcgTooltip);

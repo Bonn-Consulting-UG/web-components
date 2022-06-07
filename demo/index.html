@@ -23,12 +23,11 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script type="module">
       import { html, render } from 'lit';
-      import '../dist/src/components/calendar/index.js';
+      import '../dist/src/components/tabs/index.js';
+      import '../dist/src/components/tab-button/index.js';
+      import '../dist/src/components/tab-panel/index.js';
 
-      render(
-        html` <bcg-calendar></bcg-calendar>`,
-        document.querySelector('#demo')
-      );
+      render(html` <bcg-tabs> </bcg-tabs>`, document.querySelector('#demo'));
     </script>
   </body>
 </html>

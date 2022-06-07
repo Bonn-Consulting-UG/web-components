@@ -19,8 +19,8 @@ export class BcgForm extends ScopedElementsMixin(LitElement) {
     return html`
       <lion-form>
         <form>
-          <bcg-input></bcg-input>
-          <bcg-input></bcg-input>
+          <bcg-input label="First Name"></bcg-input>
+          <bcg-input label="Last Name"></bcg-input>
         </form>
       </lion-form>
     `;
