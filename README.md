@@ -58,7 +58,6 @@
 - [ ] Check for missing CSS within Classes
 - [ ] LitElements extendend imports doesnt allow styling.
 - [ ] fix -> eslint-disable import/extensions
-- [ ] Add Storybook for each component
 - [ ] Combobox (Functionality seems broken abit ? Lion Docs are not completed for it yet )
 - [ ] Icon (Currently doesnt show icons cause we dont have a icons provider)
 - [ ] Pagination currently has no Accessibility Features ?
@@ -67,15 +66,16 @@
 
 - [ ] Steps event handling ??? and type referencing
 - [ ] skipLibCheck in TS Config skips all Typechecking in Libarys
-- [ ] Vscode/typescript linting buggs on combobox file ?? has no problem compiling but seems to be an expected token
-- [ ] Refactor Tabs
 - [ ] Look into SSR WebComponents
-- [ ] Rename Components file to the compoents name instead -> Readability in Editor
 
 ### Completed
 
 - [x] Dialog (Currently opens but doesnt close ? overlay provider ?)
 - [x] Switch import breaks Build/TS
+- [x] Add Storybook for each component
+- [x] Refactor Tabs
+- [x] Vscode/typescript linting buggs on combobox file ?? has no problem compiling but seems to be an expected token
+- [x] Rename Components file to the compoents name instead -> Readability in Editor
 
 ## Components Wrapped
 
