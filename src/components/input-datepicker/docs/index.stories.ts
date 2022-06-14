@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'InputDatepicker',
+  title: 'Components/InputDatepicker',
   component: 'bcg-input-datepicker',
   argTypes: {
     content: {

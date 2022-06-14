@@ -4,7 +4,7 @@ import '../../tab-panel/index.js';
 import '../../tab-button/index.js';
 
 export default {
-  title: 'Tabs',
+  title: 'Components/Tabs',
   argTypes: {
     content: {
       options: [],

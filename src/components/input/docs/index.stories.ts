@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'Input',
+  title: 'Components/Input',
   component: 'bcg-input',
   argTypes: {
     content: {

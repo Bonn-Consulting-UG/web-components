@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'Select',
+  title: 'Components/Select',
   component: 'bcg-select',
   argTypes: {
     content: {

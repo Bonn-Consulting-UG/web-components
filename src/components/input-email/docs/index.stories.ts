@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'InputEmail',
+  title: 'Components/InputEmail',
   component: 'bcg-input-email',
   argTypes: {
     content: {

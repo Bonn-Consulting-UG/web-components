@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'Calendar',
+  title: 'Components/Calendar',
   component: 'bcg-calendar',
   argTypes: {
     content: {

@@ -2,7 +2,7 @@ import { html, TemplateResult } from '@lion/core';
 import '../index.js';
 
 export default {
-  title: 'Collapsible',
+  title: 'Components/Collapsible',
   component: 'bcg-collapsible',
 };
 

@@ -1,7 +1,7 @@
 export const tagPrefix: String = 'bcg';
 
 interface component {
-  [key: string]: string;
+  [key: string]: any;
 }
 
 export const componentNames: component = {
@@ -41,4 +41,7 @@ export const componentNames: component = {
   fieldset: `${tagPrefix}-fieldset`,
   icon: `${tagPrefix}-icon`,
   buttondecorator: `${tagPrefix}-button-decorator`, // Test Only
+  compositions: {
+    comments: `${tagPrefix}-comments`,
+  },
 };

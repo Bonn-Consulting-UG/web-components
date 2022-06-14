@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'InputStepper',
+  title: 'Components/InputStepper',
   component: 'bcg-input-stepper',
   argTypes: {
     content: {

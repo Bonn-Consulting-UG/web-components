@@ -2,10 +2,11 @@ import { html, TemplateResult } from '@lion/core';
 import '../index.js';
 
 export default {
-  title: 'Components/Button',
-  component: 'bcg-button',
+  title: 'Compositions/Comments',
+  component: 'bcg-comments',
   argTypes: {
-    label: {},
+    content: {},
+    buttonLabel: {},
   },
 };
 
@@ -16,16 +17,13 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  label: string;
+  buttonLabel: string;
+  content: string;
 }
-
-const Template: Story<ArgTypes> = args =>
-  html` <bcg-button .label="${args.label}"></bcg-button> `;
+const Template: Story<ArgTypes> = () => html` <bcg-comments></bcg-comments> `;
 
 const Default = Template.bind({});
 
-Default.args = {
-  label: 'Test',
-};
+Default.args = {};
 
 export { Default };

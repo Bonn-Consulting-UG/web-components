@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'ListBox',
+  title: 'Components/ListBox',
   component: 'bcg-lis2tbox',
   argTypes: {
     content: {

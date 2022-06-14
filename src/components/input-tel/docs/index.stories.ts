@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'InputTel',
+  title: 'Components/InputTel',
   component: 'bcg-input-tel',
   argTypes: {
     content: {

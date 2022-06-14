@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'Switch',
+  title: 'Components/Switch',
   component: 'bcg-switch',
   argTypes: {
     content: {

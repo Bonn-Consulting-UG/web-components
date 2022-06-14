@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'InputIban',
+  title: 'Components/InputIban',
   component: 'bcg-input-iban',
   argTypes: {
     content: {

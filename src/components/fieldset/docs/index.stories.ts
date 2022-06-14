@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'Fieldset',
+  title: 'Components/Fieldset',
   component: 'bcg-fieldset',
   argTypes: {
     content: {

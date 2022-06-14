@@ -2,7 +2,7 @@ import { html, TemplateResult } from '@lion/core';
 import '../index.js';
 
 export default {
-  title: 'InputDate',
+  title: 'Components/InputDate',
   component: 'bcg-input-date',
   argTypes: {
     content: {

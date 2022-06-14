@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'Radio Group',
+  title: 'Components/Radio Group',
   component: 'bcg-radio-group',
   argTypes: {
     content: {

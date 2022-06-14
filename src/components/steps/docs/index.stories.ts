@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'Steps',
+  title: 'Components/Steps',
   component: 'bcg-steps',
   argTypes: {
     content: {

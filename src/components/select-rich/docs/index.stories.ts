@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'Select Rich',
+  title: 'Components/Select Rich',
   component: 'bcg-select-rich',
   argTypes: {
     content: {

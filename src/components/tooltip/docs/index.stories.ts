@@ -3,7 +3,7 @@ import '../index.js';
 import '../../textarea/index.js';
 
 export default {
-  title: 'Tooltip',
+  title: 'Components/Tooltip',
   component: 'bcg-tooltip',
   argTypes: {
     content: {

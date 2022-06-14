@@ -3,7 +3,7 @@ import '../index.js';
 import '../../textarea/index.js';
 
 export default {
-  title: 'Textarea',
+  title: 'Components/Textarea',
   component: 'bcg-textarea',
   argTypes: {
     content: {

@@ -2,7 +2,7 @@ import { html, TemplateResult } from '@lion/core';
 import '../index.js';
 
 export default {
-  title: 'Accordion',
+  title: 'Components/Accordion',
   component: 'bcg-accordion',
   argTypes: {
     content: {},

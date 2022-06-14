@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../index.js';
 
 export default {
-  title: 'Progress',
+  title: 'Components/Progress',
   component: 'bcg-progress',
   argTypes: {
     content: {
