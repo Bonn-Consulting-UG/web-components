@@ -11,12 +11,12 @@ export class BcgSelect extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    return html`<lion-select name="favoriteColor" label="Favorite color">
+    return html`<lion-select name="sortBy" label="Sort By ">
       <select slot="input">
         <option selected hidden value>Please select</option>
-        <option value="red">Red</option>
-        <option value="hotpink">Hotpink</option>
-        <option value="teal">Teal</option>
+        <option value="Neuste">Neuste</option>
+        <option value="Beliebteste">Beliebteste</option>
+        <option value="Ältest">Ältest</option>
       </select>
     </lion-select>`;
   }

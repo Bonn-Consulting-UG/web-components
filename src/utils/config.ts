@@ -41,6 +41,7 @@ export const componentNames: component = {
   fieldset: `${tagPrefix}-fieldset`,
   icon: `${tagPrefix}-icon`,
   buttondecorator: `${tagPrefix}-button-decorator`, // Test Only
+  comment: `${tagPrefix}-comment`,
   compositions: {
     comments: `${tagPrefix}-comments`,
   },
