@@ -1,5 +1,4 @@
-
-import { html,css, LitElement, ScopedElementsMixin, property } from '@lion/core';
+import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import BcgTextarea from '../../components/textarea/index.js';
 import { CommentInterface } from './comments.js';
 
@@ -8,12 +7,12 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
 
   constructor() {
     super();
-    this.comments =  {
+    
+    this.comments = {
       name: '',
       date: '',
       icon: '',
-      comment:
-        '',
+      comment: '',
       feedback: {
         likes: 0,
         dislikes: 0,
@@ -25,90 +24,99 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
     return [
       css`
         :host .comment-response {
-          background-color: grey;
-          margin-left:100px;
-          border-bottom:1px  white solid;
+          background-color: white;
+          margin-left: 100px;
+          border-bottom: 1px grey solid;
+          border-top: 1px grey solid;
+          border-right: 1px grey solid;
         }
+        :host .moderator {
+          border-left: 5px solid green;
+        }
+        :host .moderator-name {
+          color: green;
+        }
+
         :host .comment-poster {
-         display:flex;
-         flex-direction:row;
+          display: flex;
+          flex-direction: row;
         }
         :host .comment-wrapper {
-          display:flex;
-          flex-direction:column;
-         }
-         :host .comment-details {
-          display:flex;
-          flex-direction:column;
-         }
+          display: flex;
+          flex-direction: column;
+        }
+        :host .comment-details {
+          display: flex;
+          flex-direction: column;
+        }
         :host .comment-image {
-          display:flex;
-          align-self:center;
-width:42px;
-height:42px;
-border-radius: 50%;
-margin-right:15px;
-
-         }
+          display: flex;
+          align-self: center;
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          margin-right: 15px;
+        }
       `,
     ];
   }
 
+  static get scopedElements() {
+    return { 'bcg-textarea': BcgTextarea };
+  }
 
-
-  static get properties(){
+  static get properties() {
     return {
-      comments: {type: Array<CommentInterface>},
-     }
- }
-
- static get scopedElements() {
-  return { 'bcg-textarea': BcgTextarea };
-}
-
+      comments: { type: Array<CommentInterface> },
+    }
+  }
+  
 
   render() {
+
+
+    const { isModerator, icon, date, name, comment, children } = this.comments;
     return html`
-    <div class="comment-wrapper">
-    
-    <div class="comment-poster">
-      <img src="${this.comments.icon}" class="comment-image" alt="Avatar/Representation of the Poster">
-      <div class="comment-poster-details">
+      <div class="comment-wrapper ${isModerator ? 'moderator' : null}">
+        <div class="comment-poster">
+          <img
+            src="${icon}"
+            class="comment-image"
+            alt="Avatar/Representation of the Poster"
+          />
+          <div class="comment-poster-details">
+            <p class=" ${isModerator ? 'moderator-name' : null}">${name}</p>
+            <p>${date}</p>
+          </div>
+        </div>
+        <div>
+          <p>${comment}</p>
+        </div>
+        ${children?.map(
+          i => html` <div
+            class="comment-wrapper comment-response ${i.isModerator
+              ? 'moderator'
+              : null}"
+          >
+            <div class="comment-poster">
+              <img
+                src="${i.icon}"
+                class="comment-image"
+                alt="Avatar/Representation of the Poster"
+              />
 
-        <p>${this.comments.name}</p>
-        <p>${this.comments.date}</p>
+              <div class="comment-poster-details">
+                <p class=" ${i.isModerator ? 'moderator-name' : null}">
+                  ${i.name}
+                </p>
+                <p>${i.date}</p>
+              </div>
+            </div>
 
+            <p>${i.comment}</p>
+          </div>`
+        )}
       </div>
-
-
-
-    </div>
-    <div>
-    <p>${this.comments.comment}</p>
-</div>
-    
-
-    ${this.comments.children?.map(i => html `
-
-
-    <div class="comment-wrapper comment-response">
-    <div class="comment-poster">
-    <img src="${i.icon}" class="comment-image" alt="Avatar/Representation of the Poster">
-
-    <div class="comment-poster-details">
-      <p>${i.name}</p>
-      <p>${i.date}</p>
-    </div> </div>
-
-    <p>${i.comment}</p>
-
-    </div>`
-    
-    )}
-
-
-    </div>
-    `
-    }
-  
+    `;
+  }
 }

@@ -20,10 +20,15 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
     return { 'bcg-textarea': BcgTextarea, 'bcg-comment': BcgComment };
   }
 
+  maxCharCount: Number = 500;
+
+  currentCharCount: Number = this.getElementsByTagName('textarea').length;
+
   commentChildren: Array<CommentInterface> = [
     {
       name: 'Carlos Caceres (Moderator)',
       date: 'Vor 4 Tagen',
+      isModerator: true,
       icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
       comment:
         'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
@@ -35,6 +40,7 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
     {
       name: 'Carlos Caceres (Moderator)',
       date: 'Vor 4 Tagen',
+      isModerator: true,
       icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
       comment:
         'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
@@ -50,6 +56,7 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
       name: 'Amelie',
       icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
       date: 'vor 1 Woche',
+      isModerator: false,
       comment:
         'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
       children: [...this.commentChildren],
@@ -60,22 +67,36 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
     },
   ];
 
+  testcomment: CommentInterface = {
+    name: 'Stefan Scheifel',
+    date: '',
+    isModerator: true,
+    icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
+    comment: '',
+    feedback: {
+      likes: 0,
+      dislikes: 0,
+    },
+  };
+
   render() {
+    const { maxCharCount, currentCharCount, comments } = this;
+
     return html`
       <div>
-        <h1>Kommentare(count)</h1>
-        <div style="max-width:100px;">
-          <bcg-select></bcg-select>
+        <div style="display:flex;">
+          <h2  style="flex-grow: 1;">Kommentare(count)</h2>
+          <bcg-select style="display: flex;
+          align-self: flex-end;"></bcg-select>
         </div>
-            <bcg-textarea placeholder="Wie finden Sie die Idee"></bcg-textarea>
+            <bcg-textarea id="comment-textarea" rows="4"  placeholder="Wie finden Sie die Idee"></bcg-textarea>
            
-            <div> 
-            <p style="max-width:100px;" >0/5000</p>
-                         <bcg-button label="Abbrechen"></bcg-button>
+            <div style="display:flex; margin-top:10px;"> 
+              <p style="flex-grow: 1;" >${currentCharCount}/${maxCharCount}</p>
               <bcg-button label="Kommentieren"></bcg-button>
-
-
-              ${this.comments.map(
+            </div>
+            <div>
+              ${comments.map(
                 comment =>
                   html`<bcg-comment .comments="${comment}"></bcg-comment>`
               )}

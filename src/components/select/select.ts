@@ -11,9 +11,9 @@ export class BcgSelect extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    return html`<lion-select name="sortBy" label="Sort By ">
+    return html`<lion-select name="sortBy">
       <select slot="input">
-        <option selected hidden value>Please select</option>
+        <option selected hidden value>Sort By</option>
         <option value="Neuste">Neuste</option>
         <option value="Beliebteste">Beliebteste</option>
         <option value="Ältest">Ältest</option>
