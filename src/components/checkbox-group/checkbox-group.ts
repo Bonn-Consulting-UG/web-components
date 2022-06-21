@@ -10,21 +10,11 @@ export class BcgCheckboxGroup extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    return html` <lion-checkbox-group
-      name="scientists[]"
-      label="Favorite scientists"
-    >
+    return html` <lion-checkbox-group name="scientists[]" label="">
       <lion-checkbox
-        label="Archimedes"
-        .choiceValue=${'Archimedes'}
-      ></lion-checkbox>
-      <lion-checkbox
-        label="Francis Bacon1"
-        .choiceValue=${'Francis Bacon1'}
-      ></lion-checkbox>
-      <lion-checkbox
-        label="Marie Curie"
-        .choiceValue=${'Marie Curie'}
+        label="Ich akzeptiere die Netiquette und die 
+        Datenschutzerklärung"
+        .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung'}
       ></lion-checkbox>
     </lion-checkbox-group>`;
   }

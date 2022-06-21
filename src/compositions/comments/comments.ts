@@ -49,9 +49,33 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
         dislikes: 23,
       },
     },
+    {
+      name: 'Carlos Caceres ',
+      date: 'Vor 4 Tagen',
+      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
+      comment:
+        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
+      feedback: {
+        likes: 5,
+        dislikes: 23,
+      },
+    },
   ];
 
   comments: Array<CommentInterface> = [
+    {
+      name: 'Amelie',
+      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
+      date: 'vor 1 Woche',
+      isModerator: false,
+      comment:
+        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
+      children: [...this.commentChildren],
+      feedback: {
+        likes: 25,
+        dislikes: 1,
+      },
+    },
     {
       name: 'Amelie',
       icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
@@ -84,13 +108,11 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
 
     return html`
       <div>
-        <div style="display:flex;">
+        <div style="display:flex; flex-direction:column;">
           <h2  style="flex-grow: 1;">Kommentare(count)</h2>
-          <bcg-select style="display: flex;
-          align-self: flex-end;"></bcg-select>
-        </div>
-            <bcg-textarea id="comment-textarea" rows="4"  placeholder="Wie finden Sie die Idee"></bcg-textarea>
-           
+          <bcg-select style="display: flex;align-self: flex-end;"></bcg-select>
+          <bcg-textarea id="comment-textarea" rows="4"  placeholder="Wie finden Sie die Idee"></bcg-textarea>  
+
             <div style="display:flex; margin-top:10px;"> 
               <p style="flex-grow: 1;" >${currentCharCount}/${maxCharCount}</p>
               <bcg-button label="Kommentieren"></bcg-button>
@@ -101,6 +123,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
                   html`<bcg-comment .comments="${comment}"></bcg-comment>`
               )}
             </div>
+            <bcg-button style="display:flex;align-self:center; margin-top:20px;" label="Mehr Laden"></bcg-button>
+
           </div>
         </div>
       </div>

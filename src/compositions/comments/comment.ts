@@ -1,5 +1,5 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import BcgTextarea from '../../components/textarea/index.js';
+import { BcgReaction } from '../reactions/reaction.js';
 import { CommentInterface } from './comments.js';
 
 export class BcgComment extends ScopedElementsMixin(LitElement) {
@@ -7,7 +7,7 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
 
   constructor() {
     super();
-    
+
     this.comments = {
       name: '',
       date: '',
@@ -26,9 +26,7 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
         :host .comment-response {
           background-color: white;
           margin-left: 100px;
-          border-bottom: 1px grey solid;
-          border-top: 1px grey solid;
-          border-right: 1px grey solid;
+          border: 1px grey solid;
         }
         :host .moderator {
           border-left: 5px solid green;
@@ -62,19 +60,10 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
   }
 
   static get scopedElements() {
-    return { 'bcg-textarea': BcgTextarea };
+    return { 'bcg-reaction': BcgReaction };
   }
-
-  static get properties() {
-    return {
-      comments: { type: Array<CommentInterface> },
-    }
-  }
-  
 
   render() {
-
-
     const { isModerator, icon, date, name, comment, children } = this.comments;
     return html`
       <div class="comment-wrapper ${isModerator ? 'moderator' : null}">
@@ -91,6 +80,7 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
         </div>
         <div>
           <p>${comment}</p>
+          <bcg-reaction></bcg-reaction>
         </div>
         ${children?.map(
           i => html` <div
@@ -104,7 +94,6 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
                 class="comment-image"
                 alt="Avatar/Representation of the Poster"
               />
-
               <div class="comment-poster-details">
                 <p class=" ${i.isModerator ? 'moderator-name' : null}">
                   ${i.name}
@@ -112,8 +101,8 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
                 <p>${i.date}</p>
               </div>
             </div>
-
             <p>${i.comment}</p>
+            <bcg-reaction></bcg-reaction>
           </div>`
         )}
       </div>

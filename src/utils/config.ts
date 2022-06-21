@@ -40,9 +40,11 @@ export const componentNames: component = {
   listbox: `${tagPrefix}-listbox`,
   fieldset: `${tagPrefix}-fieldset`,
   icon: `${tagPrefix}-icon`,
-  buttondecorator: `${tagPrefix}-button-decorator`, // Test Only
   comment: `${tagPrefix}-comment`,
   compositions: {
     comments: `${tagPrefix}-comments`,
+    reaction: `${tagPrefix}-reaction`,
+    login: `${tagPrefix}-login`,
+    register: `${tagPrefix}-register`,
   },
 };
