@@ -1,5 +1,5 @@
 import { css } from '@lion/core';
-import { LionCalendar } from '@lion/Calendar';
+import { LionCalendar } from '@lion/calendar';
 
 export class BcgCalendar extends LionCalendar {
   static get styles() {

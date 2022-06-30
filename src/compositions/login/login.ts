@@ -8,6 +8,8 @@ export class BcgLogin extends ScopedElementsMixin(LitElement) {
   render() {
     return html`
       <div style="display:flex;flex-direction:row-reverse;justify-content: left;">
+
+      
       <div class="left-side" style="flex-direction:row-reverse; width:640px; ">
       <h1>Willkommen!</h1>
           <h2>Anmeldung</h2>

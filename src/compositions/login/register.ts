@@ -80,10 +80,6 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
       <div class="right-side">
         <img src="https://images.unsplash.com/photo-1654729746829-87fc9bc48ad7" style="width:629px;height:864px;" alt="123"></img>
       </div>
-
-
-    
-
       </div>
       
     `;
