@@ -26,6 +26,7 @@ interface ArgTypes {
   content: Array<ContentArgs>;
 }
 
-const Template: Story<ArgTypes> = () => html` <bcg-input></bcg-input> `;
+const Template: Story<ArgTypes> = () =>
+  html` <bcg-input></bcg-input><bcg-input></bcg-input> `;
 
 export const Default = Template.bind({});

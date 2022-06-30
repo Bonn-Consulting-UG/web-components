@@ -84,7 +84,6 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
 
     
 
-
       </div>
       
     `;
