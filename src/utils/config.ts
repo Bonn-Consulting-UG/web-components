@@ -46,5 +46,6 @@ export const componentNames: component = {
     reaction: `${tagPrefix}-reaction`,
     login: `${tagPrefix}-login`,
     register: `${tagPrefix}-register`,
+    inputMask: `${tagPrefix}-input-mask`,
   },
 };
