@@ -103,6 +103,10 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
     },
   };
 
+  updated() {
+    console.log(this.renderRoot.querySelector('textarea')?.value);
+  }
+
   render() {
     const { maxCharCount, currentCharCount, comments } = this;
 
@@ -111,8 +115,9 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
         <div style="display:flex; flex-direction:column;">
           <h2  style="flex-grow: 1;">Kommentare(count)</h2>
           <bcg-select style="display: flex;align-self: flex-end;"></bcg-select>
+          <div>
           <bcg-textarea id="comment-textarea" rows="4"  placeholder="Wie finden Sie die Idee"></bcg-textarea>  
-
+</div>
             <div style="display:flex; margin-top:10px;"> 
               <p style="flex-grow: 1;" >${currentCharCount}/${maxCharCount}</p>
               <bcg-button label="Kommentieren"></bcg-button>

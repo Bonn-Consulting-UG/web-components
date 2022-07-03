@@ -13,7 +13,6 @@ export class BcgLogin extends ScopedElementsMixin(LitElement) {
       <div class="left-side" style="flex-direction:row-reverse; width:640px; ">
       <h1>Willkommen!</h1>
           <h2>Anmeldung</h2>
-          <span>Schritt x von y </span>
           <div>
             <h2>Anmelden über:</h2>
 
@@ -26,7 +25,7 @@ export class BcgLogin extends ScopedElementsMixin(LitElement) {
             <bcg-input label="Password"></bcg-input>
             <bcg-checkbox-group label="Password"></bcg-checkbox-group>
           </div>
-          <bcg-button label="Registrieren"></bcg-button>
+          <bcg-button label="Anmelden"></bcg-button>
         </div>
         <div class="right-side">
         <img src="https://images.unsplash.com/photo-1654580038810-505030159ca0" style="width:629px;height:864px;" alt="123"></img>

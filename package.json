@@ -51,6 +51,7 @@
     "@lion/tabs": "^0.13.0",
     "@lion/textarea": "^0.16.0",
     "@lion/tooltip": "^0.24.0",
+    "@storybook/addons": "^6.5.9",
     "dark-theme-utils": "^0.4.0",
     "lit": "^2.2.5"
   },
