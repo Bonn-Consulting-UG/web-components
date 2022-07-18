@@ -9,6 +9,20 @@ export class BcgCheckboxGroup extends ScopedElementsMixin(LitElement) {
     };
   }
 
+  label: string;
+
+  static get properties() {
+    return {
+      label: { type: String },
+    };
+  }
+
+  constructor() {
+    super();
+    this.label = 'Default Label';
+    console.log(this.label);
+  }
+
   render() {
     return html` <lion-checkbox-group name="scientists[]" label="">
       <lion-checkbox

@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import { BcgButton } from '../../components/button/button';
+import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
 import { BcgInput } from '../../components/input/input';
 
 export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
@@ -25,6 +26,7 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
+      'bcg-checkbox-group': BcgCheckboxGroup,
     };
   }
 
