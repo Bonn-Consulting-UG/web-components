@@ -13,7 +13,7 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
 
   static get properties() {
     return {
-      nextStep: { type: Function },
+      nextStep: { type: Function }
     };
   }
 
@@ -26,7 +26,7 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup,
+      'bcg-checkbox-group': BcgCheckboxGroup
     };
   }
 
@@ -39,9 +39,9 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
         <bcg-button label="Gmail"></bcg-button>
       </div>
       <div>
-        <bcg-input label="Name"></bcg-input>
-        <bcg-input-email label="E-Mail"></bcg-input-email>
-        <bcg-input label="Password"></bcg-input>
+        <bcg-input label="Name" placeholder=""></bcg-input>
+        <bcg-input-email label="E-Mail" placeholder=""></bcg-input-email>
+        <bcg-input label="Password" placeholder=""></bcg-input>
         <bcg-checkbox-group label=""></bcg-checkbox-group>
       </div>
     `;
