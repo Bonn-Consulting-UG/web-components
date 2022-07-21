@@ -1804,47 +1804,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/tab-panel/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgTabPanel",
-            "module": "/src/components/tab-panel/tab-panel"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/tab-panel/tab-panel.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgTabPanel",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgTabPanel",
-          "declaration": {
-            "name": "BcgTabPanel",
-            "module": "src/components/tab-panel/tab-panel.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/tabs/index.ts",
       "declarations": [],
       "exports": [
@@ -1896,6 +1855,47 @@
           "declaration": {
             "name": "BcgTabs",
             "module": "src/components/tabs/tabs.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tab-panel/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgTabPanel",
+            "module": "/src/components/tab-panel/tab-panel"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tab-panel/tab-panel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgTabPanel",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgTabPanel",
+          "declaration": {
+            "name": "BcgTabPanel",
+            "module": "src/components/tab-panel/tab-panel.ts"
           }
         }
       ]
@@ -2146,10 +2146,22 @@
             {
               "kind": "field",
               "name": "isLoggedIn",
+              "privacy": "public",
               "type": {
-                "text": "boolean"
+                "text": "Boolean"
               },
-              "default": "true"
+              "default": "false",
+              "attribute": "isLoggedIn"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "isLoggedIn",
+              "type": {
+                "text": "Boolean"
+              },
+              "default": "false",
+              "fieldName": "isLoggedIn"
             }
           ],
           "mixins": [
@@ -3108,33 +3120,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/combobox/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/components/combobox/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/components/combobox/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/collapsible/docs/index.stories.ts",
       "declarations": [
         {
@@ -3156,6 +3141,33 @@
           "declaration": {
             "name": "Default",
             "module": "src/components/collapsible/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/combobox/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/combobox/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/combobox/docs/index.stories.ts"
           }
         }
       ]
@@ -3633,33 +3645,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/input-tel/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/components/input-tel/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/components/input-tel/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/input-tel-dropdown/docs/index.stories.ts",
       "declarations": [
         {
@@ -3681,6 +3666,33 @@
           "declaration": {
             "name": "Default",
             "module": "src/components/input-tel-dropdown/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-tel/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-tel/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-tel/docs/index.stories.ts"
           }
         }
       ]
@@ -4016,6 +4028,10 @@
         {
           "kind": "variable",
           "name": "Default"
+        },
+        {
+          "kind": "variable",
+          "name": "LoggedIn"
         }
       ],
       "exports": [
@@ -4031,6 +4047,14 @@
           "name": "Default",
           "declaration": {
             "name": "Default",
+            "module": "src/compositions/idea-submission/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LoggedIn",
+          "declaration": {
+            "name": "LoggedIn",
             "module": "src/compositions/idea-submission/docs/index.stories.ts"
           }
         }

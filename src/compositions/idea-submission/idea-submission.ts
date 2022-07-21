@@ -50,6 +50,16 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(LitElement) {
                 <bcg-input label="Ihr Name *" placeholder=""></bcg-input>
                 <bcg-input label="Ihre E-Mail *" placeholder=""></bcg-input>
                 <bcg-checkbox-group label=""></bcg-checkbox-group>`}
+          <div>
+            <bcg-button
+              @click="${() => console.log('ButtonPress Vorschau')}"
+              label="Vorschau"
+            ></bcg-button>
+            <bcg-button
+              @click="${() => console.log('ButtonPress Senden')}"
+              label="Senden"
+            ></bcg-button>
+          </div>
         </div>
       </div>
     `;
