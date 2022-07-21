@@ -45,9 +45,11 @@ export const componentNames: component = {
     comments: `${tagPrefix}-comments`,
     reaction: `${tagPrefix}-reaction`,
     login: `${tagPrefix}-login`,
+    logout: `${tagPrefix}-logout`,
     register: `${tagPrefix}-register`,
     inputMask: `${tagPrefix}-input-mask`,
     ideaSubmission: `${tagPrefix}-idea-submission`,
-    faqSubmission: `${tagPrefix}-faq-submission`
+    faqSubmission: `${tagPrefix}-faq-submission`,
+    faqOverview: `${tagPrefix}-faq-overview`
   }
 };

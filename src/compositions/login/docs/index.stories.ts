@@ -6,8 +6,8 @@ export default {
   component: 'bcg-login',
   argTypes: {
     content: {},
-    buttonLabel: {},
-  },
+    buttonLabel: {}
+  }
 };
 
 interface Story<T> {
@@ -23,11 +23,12 @@ interface ArgTypes {
 const TemplateLogin: Story<ArgTypes> = () => html` <bcg-login></bcg-login> `;
 const TemplateRegister: Story<ArgTypes> = () =>
   html` <bcg-register></bcg-register> `;
-
+const TemplateLogout: Story<ArgTypes> = () => html` <bcg-logout></bcg-logout> `;
 const Login = TemplateLogin.bind({});
 const Register = TemplateRegister.bind({});
+const Logout = TemplateLogout.bind({});
 
 Register.args = {};
 Login.args = {};
 
-export { Login, Register };
+export { Login, Logout, Register };
