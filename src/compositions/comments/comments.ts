@@ -34,8 +34,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
         'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
       feedback: {
         likes: 5,
-        dislikes: 23,
-      },
+        dislikes: 23
+      }
     },
     {
       name: 'Carlos Caceres (Moderator)',
@@ -46,8 +46,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
         'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
       feedback: {
         likes: 5,
-        dislikes: 23,
-      },
+        dislikes: 23
+      }
     },
     {
       name: 'Carlos Caceres ',
@@ -57,9 +57,9 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
         'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
       feedback: {
         likes: 5,
-        dislikes: 23,
-      },
-    },
+        dislikes: 23
+      }
+    }
   ];
 
   comments: Array<CommentInterface> = [
@@ -73,8 +73,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
       children: [...this.commentChildren],
       feedback: {
         likes: 25,
-        dislikes: 1,
-      },
+        dislikes: 1
+      }
     },
     {
       name: 'Amelie',
@@ -86,9 +86,9 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
       children: [...this.commentChildren],
       feedback: {
         likes: 25,
-        dislikes: 1,
-      },
-    },
+        dislikes: 1
+      }
+    }
   ];
 
   testcomment: CommentInterface = {
@@ -99,8 +99,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
     comment: '',
     feedback: {
       likes: 0,
-      dislikes: 0,
-    },
+      dislikes: 0
+    }
   };
 
   updated() {

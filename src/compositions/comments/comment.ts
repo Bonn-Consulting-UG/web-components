@@ -15,8 +15,8 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
       comment: '',
       feedback: {
         likes: 0,
-        dislikes: 0,
-      },
+        dislikes: 0
+      }
     };
   }
 
@@ -55,7 +55,7 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
           border-radius: 50%;
           margin-right: 15px;
         }
-      `,
+      `
     ];
   }
 

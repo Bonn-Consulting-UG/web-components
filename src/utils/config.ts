@@ -47,5 +47,6 @@ export const componentNames: component = {
     login: `${tagPrefix}-login`,
     register: `${tagPrefix}-register`,
     inputMask: `${tagPrefix}-input-mask`,
-  },
+    ideaSubmission: `${tagPrefix}-idea-submission`
+  }
 };

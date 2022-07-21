@@ -1,0 +1,4160 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "demo/backupimports.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/config.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "tagPrefix",
+          "type": {
+            "text": "String"
+          },
+          "default": "'bcg'"
+        },
+        {
+          "kind": "variable",
+          "name": "componentNames",
+          "type": {
+            "text": "component"
+          },
+          "default": "{\n  tabs: `${tagPrefix}-tabs`,\n  tabbutton: `${tagPrefix}-tab-button`,\n  tabpanel: `${tagPrefix}-tab-panel`,\n  calendar: `${tagPrefix}-calendar`,\n  dialog: `${tagPrefix}-dialog`,\n  accordion: `${tagPrefix}-accordion`,\n  pagination: `${tagPrefix}-pagination`,\n  progress: `${tagPrefix}-progress`,\n  switch: `${tagPrefix}-switch`,\n  collapsible: `${tagPrefix}-collapsible`,\n  textarea: `${tagPrefix}-textarea`,\n  tooltip: `${tagPrefix}-tooltip`,\n  steps: `${tagPrefix}-steps`,\n  button: `${tagPrefix}-button`,\n  buttonreset: `${tagPrefix}-button-reset`,\n  buttonsubmit: `${tagPrefix}-button-submit`,\n  input: `${tagPrefix}-input`,\n  radiogroup: `${tagPrefix}-radio-group`,\n  selectrich: `${tagPrefix}-select-rich`,\n  select: `${tagPrefix}-select`,\n  inputdate: `${tagPrefix}-input-date`,\n  inputiban: `${tagPrefix}-input-iban`,\n  inputemail: `${tagPrefix}-input-email`,\n  inputdatepicker: `${tagPrefix}-input-datepicker`,\n  inputrange: `${tagPrefix}-input-range`,\n  inputstepper: `${tagPrefix}-input-stepper`,\n  inputamount: `${tagPrefix}-input-amount`,\n  inputtel: `${tagPrefix}-input-tel`,\n  inputteldropdown: `${tagPrefix}-input-tel-dropdown`,\n  checkboxgroup: `${tagPrefix}-checkbox-group`,\n  form: `${tagPrefix}-form`,\n  combobox: `${tagPrefix}-combobox`,\n  listbox: `${tagPrefix}-listbox`,\n  fieldset: `${tagPrefix}-fieldset`,\n  icon: `${tagPrefix}-icon`,\n  comment: `${tagPrefix}-comment`,\n  compositions: {\n    comments: `${tagPrefix}-comments`,\n    reaction: `${tagPrefix}-reaction`,\n    login: `${tagPrefix}-login`,\n    register: `${tagPrefix}-register`,\n    inputMask: `${tagPrefix}-input-mask`,\n    ideaSubmission: `${tagPrefix}-idea-submission`\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "tagPrefix",
+          "declaration": {
+            "name": "tagPrefix",
+            "module": "src/utils/config.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "componentNames",
+          "declaration": {
+            "name": "componentNames",
+            "module": "src/utils/config.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/accordion/accordion.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgAccordion",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgAccordion",
+          "declaration": {
+            "name": "BcgAccordion",
+            "module": "src/components/accordion/accordion.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/accordion/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgAccordion",
+            "module": "/src/components/accordion/accordion"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/button-reset.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgButtonReset",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgButtonReset",
+          "declaration": {
+            "name": "BcgButtonReset",
+            "module": "src/components/button/button-reset.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/button-submit.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgButtonSubmit",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgButtonSubmit",
+          "declaration": {
+            "name": "BcgButtonSubmit",
+            "module": "src/components/button/button-submit.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Label'",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Label'",
+              "fieldName": "label"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgButton",
+          "declaration": {
+            "name": "BcgButton",
+            "module": "src/components/button/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgButton",
+            "module": "/src/components/button/button"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgButtonReset",
+            "module": "/src/components/button/button-reset"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgButtonSubmit",
+            "module": "/src/components/button/button-submit"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/calendar/calendar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgCalendar",
+          "members": [],
+          "superclass": {
+            "name": "LionCalendar",
+            "package": "@lion/calendar"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgCalendar",
+          "declaration": {
+            "name": "BcgCalendar",
+            "module": "src/components/calendar/calendar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/calendar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgCalendar",
+            "module": "/src/components/calendar/calendar"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/checkbox-group/checkbox-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgCheckboxGroup",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Label'",
+              "attribute": "label"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Label'",
+              "fieldName": "label"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgCheckboxGroup",
+          "declaration": {
+            "name": "BcgCheckboxGroup",
+            "module": "src/components/checkbox-group/checkbox-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/checkbox-group/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgCheckboxGroup",
+            "module": "/src/components/checkbox-group/checkbox-group"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/collapsible/collapsible.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgCollapsible",
+          "members": [
+            {
+              "kind": "field",
+              "name": "buttonLabel",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Label'",
+              "attribute": "buttonLabel"
+            },
+            {
+              "kind": "field",
+              "name": "content",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'123'",
+              "attribute": "content"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "buttonLabel",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Label'",
+              "fieldName": "buttonLabel"
+            },
+            {
+              "name": "content",
+              "type": {
+                "text": "string"
+              },
+              "default": "'123'",
+              "fieldName": "content"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgCollapsible",
+          "declaration": {
+            "name": "BcgCollapsible",
+            "module": "src/components/collapsible/collapsible.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/collapsible/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgCollapsible",
+            "module": "/src/components/collapsible/collapsible"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/combobox/combobox.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BchCombobox",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BchCombobox",
+          "declaration": {
+            "name": "BchCombobox",
+            "module": "src/components/combobox/combobox.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/combobox/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BchCombobox",
+            "module": "/src/components/combobox/combobox"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/dialog/dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgDialog",
+          "members": [],
+          "superclass": {
+            "name": "LionDialog",
+            "package": "@lion/dialog"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgDialog",
+          "declaration": {
+            "name": "BcgDialog",
+            "module": "src/components/dialog/dialog.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/dialog/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgDialog",
+            "module": "/src/components/dialog/dialog"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/fieldset/fieldset.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgFieldSet",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgFieldSet",
+          "declaration": {
+            "name": "BcgFieldSet",
+            "module": "src/components/fieldset/fieldset.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/fieldset/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgFieldSet",
+            "module": "/src/components/fieldset/fieldset"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/form/form.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgForm",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgForm",
+          "declaration": {
+            "name": "BcgForm",
+            "module": "src/components/form/form.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/form/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgForm",
+            "module": "/src/components/form/form"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/export-icons.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "report",
+          "declaration": {
+            "name": "report",
+            "module": "./icons/report"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "message",
+          "declaration": {
+            "name": "message",
+            "module": "./icons/message"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "thumbsdown",
+          "declaration": {
+            "name": "thumbsdown",
+            "module": "./icons/thumbsDown"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "thumbsup",
+          "declaration": {
+            "name": "thumbsup",
+            "module": "./icons/thumbsUp"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgIcon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "String"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgIcon",
+          "declaration": {
+            "name": "BcgIcon",
+            "module": "src/components/icon/icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/iconresolver.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgIcon",
+            "module": "/src/components/icon/icon"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BcgIcon",
+          "declaration": {
+            "name": "BcgIcon",
+            "module": "src/components/icon/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInput",
+            "module": "/src/components/input/input"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input/input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInput",
+          "members": [
+            {
+              "kind": "field",
+              "name": "label",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Label'",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Placeholder'",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Label'",
+              "fieldName": "label"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Default Placeholder'",
+              "fieldName": "placeholder"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInput",
+          "declaration": {
+            "name": "BcgInput",
+            "module": "src/components/input/input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-amount/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputAmount",
+            "module": "/src/components/input-amount/inout-amount"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-amount/inout-amount.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputAmount",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputAmount",
+          "declaration": {
+            "name": "BcgInputAmount",
+            "module": "src/components/input-amount/inout-amount.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-date/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputDate",
+            "module": "/src/components/input-date/input-date"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-date/input-date.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputDate",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputDate",
+          "declaration": {
+            "name": "BcgInputDate",
+            "module": "src/components/input-date/input-date.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-datepicker/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputDatepicker",
+            "module": "/src/components/input-datepicker/input-datepicker"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-datepicker/input-datepicker.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputDatepicker",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputDatepicker",
+          "declaration": {
+            "name": "BcgInputDatepicker",
+            "module": "src/components/input-datepicker/input-datepicker.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-email/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputEmail",
+            "module": "/src/components/input-email/input-email"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-email/input-email.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputEmail",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputEmail",
+          "declaration": {
+            "name": "BcgInputEmail",
+            "module": "src/components/input-email/input-email.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-iban/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputIban",
+            "module": "/src/components/input-iban/input-iban"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-iban/input-iban.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputIban",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputIban",
+          "declaration": {
+            "name": "BcgInputIban",
+            "module": "src/components/input-iban/input-iban.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-range/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputRange",
+            "module": "/src/components/input-range/input-range"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-range/input-range.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputRange",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputRange",
+          "declaration": {
+            "name": "BcgInputRange",
+            "module": "src/components/input-range/input-range.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-stepper/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputStepper",
+            "module": "/src/components/input-stepper/input-stepper"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-stepper/input-stepper.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputStepper",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputStepper",
+          "declaration": {
+            "name": "BcgInputStepper",
+            "module": "src/components/input-stepper/input-stepper.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-tel/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputTel",
+            "module": "/src/components/input-tel/input-tel"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-tel/input-tel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputTel",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputTel",
+          "declaration": {
+            "name": "BcgInputTel",
+            "module": "src/components/input-tel/input-tel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-tel-dropdown/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputTelDropdown",
+            "module": "/src/components/input-tel-dropdown/input-tel-dropdown"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-tel-dropdown/input-tel-dropdown.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputTelDropdown",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputTelDropdown",
+          "declaration": {
+            "name": "BcgInputTelDropdown",
+            "module": "src/components/input-tel-dropdown/input-tel-dropdown.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/listbox/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgListBox",
+            "module": "/src/components/listbox/list-box"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/listbox/list-box.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgListBox",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgListBox",
+          "declaration": {
+            "name": "BcgListBox",
+            "module": "src/components/listbox/list-box.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/pagination/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgPagination",
+            "module": "/src/components/pagination/pagination"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/pagination/pagination.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgPagination",
+          "members": [],
+          "superclass": {
+            "name": "LionPagination",
+            "package": "@lion/pagination"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgPagination",
+          "declaration": {
+            "name": "BcgPagination",
+            "module": "src/components/pagination/pagination.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/progress/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgProgress",
+            "module": "/src/components/progress/progress"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/progress/progress.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgProgress",
+          "members": [],
+          "superclass": {
+            "name": "LionProgressIndicator",
+            "package": "@lion/progress-indicator"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgProgress",
+          "declaration": {
+            "name": "BcgProgress",
+            "module": "src/components/progress/progress.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/radio-group/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgRadio",
+            "module": "/src/components/radio-group/radio-group"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/radio-group/radio-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRadio",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRadio",
+          "declaration": {
+            "name": "BcgRadio",
+            "module": "src/components/radio-group/radio-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/select/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgSelect",
+            "module": "/src/components/select/select"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/select/select.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgSelect",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgSelect",
+          "declaration": {
+            "name": "BcgSelect",
+            "module": "src/components/select/select.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/select-rich/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgSelectRich",
+            "module": "/src/components/select-rich/select-rich"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/select-rich/select-rich.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgSelectRich",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgSelectRich",
+          "declaration": {
+            "name": "BcgSelectRich",
+            "module": "src/components/select-rich/select-rich.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/steps/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgSteps",
+            "module": "/src/components/steps/steps"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/steps/steps.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgSteps",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgSteps",
+          "declaration": {
+            "name": "BcgSteps",
+            "module": "src/components/steps/steps.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/switch/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgSwitch",
+            "module": "/src/components/switch/switch"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/switch/switch.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgSwitch",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgSwitch",
+          "declaration": {
+            "name": "BcgSwitch",
+            "module": "src/components/switch/switch.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tab-button/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgTabButton",
+            "module": "/src/components/tab-button/tab-button"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tab-button/tab-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgTabButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgTabButton",
+          "declaration": {
+            "name": "BcgTabButton",
+            "module": "src/components/tab-button/tab-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tab-panel/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgTabPanel",
+            "module": "/src/components/tab-panel/tab-panel"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tab-panel/tab-panel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgTabPanel",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgTabPanel",
+          "declaration": {
+            "name": "BcgTabPanel",
+            "module": "src/components/tab-panel/tab-panel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tabs/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgTabs",
+            "module": "/src/components/tabs/tabs"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tabs/tabs.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgTabs",
+          "members": [
+            {
+              "kind": "method",
+              "name": "_setupFeature"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgTabs",
+          "declaration": {
+            "name": "BcgTabs",
+            "module": "src/components/tabs/tabs.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/textarea/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgTextarea",
+            "module": "/src/components/textarea/textarea"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "BcgTextarea",
+            "module": "src/components/textarea/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/textarea/textarea.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgTextarea",
+          "members": [],
+          "superclass": {
+            "name": "LionTextarea",
+            "package": "@lion/textarea"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgTextarea",
+          "declaration": {
+            "name": "BcgTextarea",
+            "module": "src/components/textarea/textarea.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tooltip/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgTooltip",
+            "module": "/src/components/tooltip/tooltip"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tooltip/tooltip.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgTooltip",
+          "members": [],
+          "superclass": {
+            "name": "LionTooltip",
+            "package": "@lion/tooltip"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgTooltip",
+          "declaration": {
+            "name": "BcgTooltip",
+            "module": "src/components/tooltip/tooltip.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/comments/comment.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgComment",
+          "members": [
+            {
+              "kind": "field",
+              "name": "comments",
+              "type": {
+                "text": "CommentInterface"
+              },
+              "default": "{\n      name: '',\n      date: '',\n      icon: '',\n      comment: '',\n      feedback: {\n        likes: 0,\n        dislikes: 0\n      }\n    }"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgComment",
+          "declaration": {
+            "name": "BcgComment",
+            "module": "src/compositions/comments/comment.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/comments/comments.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgComments",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "maxCharCount",
+              "type": {
+                "text": "Number"
+              },
+              "default": "500"
+            },
+            {
+              "kind": "field",
+              "name": "currentCharCount",
+              "type": {
+                "text": "Number"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "commentChildren",
+              "type": {
+                "text": "Array<CommentInterface>"
+              },
+              "default": "[\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23\n      }\n    },\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23\n      }\n    },\n    {\n      name: 'Carlos Caceres ',\n      date: 'Vor 4 Tagen',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23\n      }\n    }\n  ]"
+            },
+            {
+              "kind": "field",
+              "name": "comments",
+              "type": {
+                "text": "Array<CommentInterface>"
+              },
+              "default": "[\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1\n      }\n    },\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1\n      }\n    }\n  ]"
+            },
+            {
+              "kind": "field",
+              "name": "testcomment",
+              "type": {
+                "text": "CommentInterface"
+              },
+              "default": "{\n    name: 'Stefan Scheifel',\n    date: '',\n    isModerator: true,\n    icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n    comment: '',\n    feedback: {\n      likes: 0,\n      dislikes: 0\n    }\n  }"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgComments",
+          "declaration": {
+            "name": "BcgComments",
+            "module": "src/compositions/comments/comments.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/comments/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgComments",
+            "module": "/src/compositions/comments/comments"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgComment",
+            "module": "/src/compositions/comments/comment"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/idea-submission/idea-submission.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgIdeaSubmission",
+          "members": [
+            {
+              "kind": "field",
+              "name": "isLoggedIn",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgIdeaSubmission",
+          "declaration": {
+            "name": "BcgIdeaSubmission",
+            "module": "src/compositions/idea-submission/idea-submission.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/idea-submission/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgIdeaSubmission",
+            "module": "/src/compositions/idea-submission/idea-submission"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputMask",
+            "module": "/src/compositions/input-mask/input-mask"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask-step-finished.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMaskStepFinished",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMaskStepFinished",
+          "declaration": {
+            "name": "BcgInputMaskStepFinished",
+            "module": "src/compositions/input-mask/input-mask-step-finished.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask-step-one.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMaskStepOne",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextStep",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nextStep",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "nextStep"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMaskStepOne",
+          "declaration": {
+            "name": "BcgInputMaskStepOne",
+            "module": "src/compositions/input-mask/input-mask-step-one.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask-step-two.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMaskStepTwo",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMaskStepTwo",
+          "declaration": {
+            "name": "BcgInputMaskStepTwo",
+            "module": "src/compositions/input-mask/input-mask-step-two.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMask",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "maxStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "3"
+            },
+            {
+              "kind": "field",
+              "name": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMask",
+          "declaration": {
+            "name": "BcgInputMask",
+            "module": "src/compositions/input-mask/input-mask.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgLogin",
+            "module": "/src/compositions/login/login"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgRegister",
+            "module": "/src/compositions/login/register"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/login.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgLogin",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgLogin",
+          "declaration": {
+            "name": "BcgLogin",
+            "module": "src/compositions/login/login.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/register-step-finished.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRegisterStepFinished",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRegisterStepFinished",
+          "declaration": {
+            "name": "BcgRegisterStepFinished",
+            "module": "src/compositions/login/register-step-finished.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/register-step-one.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRegisterStepOne",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextStep",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nextStep",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "nextStep"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRegisterStepOne",
+          "declaration": {
+            "name": "BcgRegisterStepOne",
+            "module": "src/compositions/login/register-step-one.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/register-step-two.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRegisterStepTwo",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRegisterStepTwo",
+          "declaration": {
+            "name": "BcgRegisterStepTwo",
+            "module": "src/compositions/login/register-step-two.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/register.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRegister",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "maxStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "3"
+            },
+            {
+              "kind": "field",
+              "name": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRegister",
+          "declaration": {
+            "name": "BcgRegister",
+            "module": "src/compositions/login/register.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/reactions/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgReaction",
+            "module": "/src/compositions/reactions/reaction"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/reactions/reaction.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgReaction",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgReaction",
+          "declaration": {
+            "name": "BcgReaction",
+            "module": "src/compositions/reactions/reaction.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/prototypes/kanban/index.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/prototypes/kanban/kanban.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/_mixins/FieldNameLowercaseMixin.ts",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "FieldNameLowercaseMixin",
+          "members": [
+            {
+              "kind": "field",
+              "name": "fieldName",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "name": "superclass",
+              "type": {
+                "text": "HTMLElement"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "dedupeMixin",
+              "package": "@lion/core"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FieldNameLowercaseMixinImplementation",
+          "declaration": {
+            "name": "FieldNameLowercaseMixinImplementation",
+            "module": "src/utils/_mixins/FieldNameLowercaseMixin.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "FieldNameLowercaseMixin",
+          "declaration": {
+            "name": "FieldNameLowercaseMixin",
+            "module": "src/utils/_mixins/FieldNameLowercaseMixin.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/_mixins/InputMixin.ts",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "InputMixin",
+          "members": [
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "inheritedFrom": {
+                "name": "LocalizeLabelMixin",
+                "module": "src/utils/_mixins/LocalizeLabelMixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "onLocaleUpdated",
+              "inheritedFrom": {
+                "name": "LocalizeLabelMixin",
+                "module": "src/utils/_mixins/LocalizeLabelMixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_updateLocalizedLabel",
+              "description": "Subclassers can always override this, e.g. make it do nothing\nif the behavior is undesirable.",
+              "inheritedFrom": {
+                "name": "LocalizeLabelMixin",
+                "module": "src/utils/_mixins/LocalizeLabelMixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validationTypes",
+              "static": true,
+              "inheritedFrom": {
+                "name": "ValidationFeedbackMixin",
+                "module": "src/utils/_mixins/ValidationFeedbackMixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "slots",
+              "inheritedFrom": {
+                "name": "ValidationFeedbackMixin",
+                "module": "src/utils/_mixins/ValidationFeedbackMixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "fieldName",
+              "type": {
+                "text": "string"
+              },
+              "inheritedFrom": {
+                "name": "FieldNameLowercaseMixin",
+                "module": "src/utils/_mixins/FieldNameLowercaseMixin.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ThemeMixin",
+              "package": "dark-theme-utils"
+            },
+            {
+              "name": "LocalizeLabelMixin",
+              "module": "/src/utils/_mixins/LocalizeLabelMixin.js"
+            },
+            {
+              "name": "ValidationFeedbackMixin",
+              "module": "/src/utils/_mixins/ValidationFeedbackMixin.js"
+            },
+            {
+              "name": "FieldNameLowercaseMixin",
+              "module": "/src/utils/_mixins/FieldNameLowercaseMixin.js"
+            },
+            {
+              "name": "dedupeMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "superclass",
+              "type": {
+                "text": "LitElement"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "InputMixinImplementation",
+          "declaration": {
+            "name": "InputMixinImplementation",
+            "module": "src/utils/_mixins/InputMixin.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InputMixin",
+          "declaration": {
+            "name": "InputMixin",
+            "module": "src/utils/_mixins/InputMixin.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/_mixins/LocalizeLabelMixin.ts",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "LocalizeLabelMixin",
+          "members": [
+            {
+              "kind": "field",
+              "name": "label"
+            },
+            {
+              "kind": "method",
+              "name": "onLocaleUpdated"
+            },
+            {
+              "kind": "method",
+              "name": "_updateLocalizedLabel",
+              "description": "Subclassers can always override this, e.g. make it do nothing\nif the behavior is undesirable."
+            }
+          ],
+          "mixins": [
+            {
+              "name": "LocalizeMixin",
+              "package": "@lion/localize"
+            },
+            {
+              "name": "dedupeMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "superclass",
+              "type": {
+                "text": "HTMLElement"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LocalizeLabelMixinImplementation",
+          "declaration": {
+            "name": "LocalizeLabelMixinImplementation",
+            "module": "src/utils/_mixins/LocalizeLabelMixin.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LocalizeLabelMixin",
+          "declaration": {
+            "name": "LocalizeLabelMixin",
+            "module": "src/utils/_mixins/LocalizeLabelMixin.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/_mixins/ValidationFeedbackMixin.ts",
+      "declarations": [
+        {
+          "kind": "mixin",
+          "description": "",
+          "name": "ValidationFeedbackMixin",
+          "members": [
+            {
+              "kind": "field",
+              "name": "validationTypes",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "slots"
+            }
+          ],
+          "parameters": [
+            {
+              "name": "superclass",
+              "type": {
+                "text": "LitElement"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "dedupeMixin",
+              "package": "@lion/core"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ValidationFeedbackMixinImplementation",
+          "declaration": {
+            "name": "ValidationFeedbackMixinImplementation",
+            "module": "src/utils/_mixins/ValidationFeedbackMixin.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ValidationFeedbackMixin",
+          "declaration": {
+            "name": "ValidationFeedbackMixin",
+            "module": "src/utils/_mixins/ValidationFeedbackMixin.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/i18/de.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "components",
+          "type": {
+            "text": "component"
+          },
+          "default": "{\n  tabs: {\n    label: 'Test1',\n  },\n  tabbutton: {\n    label: 'Test1',\n  },\n  tabpanel: {\n    label: 'Test1',\n  },\n  calendar: {\n    label: 'Test1',\n  },\n  dialog: {\n    label: 'Test1',\n  },\n  accordion: {\n    label: 'Test1',\n  },\n  pagination: {\n    label: 'Test1',\n  },\n  progress: {\n    label: 'Test1',\n  },\n  switch: {\n    label: 'Test1',\n  },\n  collapsible: {\n    label: 'Test1',\n  },\n  textarea: {\n    label: 'Test1',\n  },\n  tooltip: {\n    label: 'Test1',\n  },\n  steps: {\n    label: 'Test1',\n  },\n  button: {\n    label: 'Test1',\n  },\n  buttonreset: {\n    label: 'Test1',\n  },\n  buttonsubmit: {\n    label: 'Test1',\n  },\n  input: {\n    label: 'Test1',\n  },\n  radiogroup: {\n    label: 'Test1',\n  },\n  selectrich: {\n    label: 'Test1',\n  },\n  select: {\n    label: 'Test1',\n  },\n  inputdate: {\n    label: 'Test1',\n  },\n  inputiban: {\n    label: 'Test1',\n  },\n  inputemail: {\n    label: 'Test1',\n  },\n  inputdatepicker: {\n    label: 'Test1',\n  },\n  inputrange: {\n    label: 'Test1',\n  },\n  inputstepper: {\n    label: 'Test1',\n  },\n  inputamount: {\n    label: 'Test1',\n  },\n  inputtel: {\n    label: 'Test1',\n  },\n  inputteldropdown: {\n    label: 'Test1',\n  },\n  checkboxgroup: {\n    label: 'Test1',\n  },\n  form: {\n    label: 'Test1',\n  },\n  combobox: {\n    label: 'Test1',\n  },\n  listbox: {\n    label: 'Test1',\n  },\n  fieldset: {\n    label: 'Test1',\n  },\n  icon: {\n    label: 'Test1',\n  },\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "components",
+          "declaration": {
+            "name": "components",
+            "module": "src/utils/i18/de.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/accordion/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/accordion/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/accordion/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/button/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/button/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/calendar/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/calendar/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/calendar/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/checkbox-group/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/checkbox-group/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/checkbox-group/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/combobox/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/combobox/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/combobox/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/collapsible/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/collapsible/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/collapsible/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/dialog/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/dialog/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/dialog/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/fieldset/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/fieldset/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/fieldset/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/form/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/form/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/form/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/icon/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/icon/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icons/facebook.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "message",
+          "default": "html`<svg\n  width=\"20\"\n  height=\"20\"\n  viewBox=\"0 0 20 20\"\n  fill=\"none\"\n  xmlns=\"http://www.w3.org/2000/svg\"\n>\n  <path\n    d=\"M19 9.50003C19.0034 10.8199 18.6951 12.1219 18.1 13.3C17.3944 14.7118 16.3098 15.8992 14.9674 16.7293C13.6251 17.5594 12.0782 17.9994 10.5 18C9.18013 18.0035 7.87812 17.6951 6.7 17.1L1 19L2.9 13.3C2.30493 12.1219 1.99656 10.8199 2 9.50003C2.00061 7.92179 2.44061 6.37488 3.27072 5.03258C4.10083 3.69028 5.28825 2.6056 6.7 1.90003C7.87812 1.30496 9.18013 0.996587 10.5 1.00003H11C13.0843 1.11502 15.053 1.99479 16.5291 3.47089C18.0052 4.94699 18.885 6.91568 19 9.00003V9.50003Z\"\n    stroke=\"#0A106B\"\n    stroke-width=\"2\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n  />\n</svg>`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "message",
+          "declaration": {
+            "name": "message",
+            "module": "src/components/icon/icons/facebook.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icons/google.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "message",
+          "default": "html`<svg\n  width=\"20\"\n  height=\"20\"\n  viewBox=\"0 0 20 20\"\n  fill=\"none\"\n  xmlns=\"http://www.w3.org/2000/svg\"\n>\n  <path\n    d=\"M19 9.50003C19.0034 10.8199 18.6951 12.1219 18.1 13.3C17.3944 14.7118 16.3098 15.8992 14.9674 16.7293C13.6251 17.5594 12.0782 17.9994 10.5 18C9.18013 18.0035 7.87812 17.6951 6.7 17.1L1 19L2.9 13.3C2.30493 12.1219 1.99656 10.8199 2 9.50003C2.00061 7.92179 2.44061 6.37488 3.27072 5.03258C4.10083 3.69028 5.28825 2.6056 6.7 1.90003C7.87812 1.30496 9.18013 0.996587 10.5 1.00003H11C13.0843 1.11502 15.053 1.99479 16.5291 3.47089C18.0052 4.94699 18.885 6.91568 19 9.00003V9.50003Z\"\n    stroke=\"#0A106B\"\n    stroke-width=\"2\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n  />\n</svg>`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "message",
+          "declaration": {
+            "name": "message",
+            "module": "src/components/icon/icons/google.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icons/message.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "message",
+          "default": "html`<svg\n  width=\"20\"\n  height=\"20\"\n  viewBox=\"0 0 20 20\"\n  fill=\"none\"\n  xmlns=\"http://www.w3.org/2000/svg\"\n>\n  <path\n    d=\"M19 9.50003C19.0034 10.8199 18.6951 12.1219 18.1 13.3C17.3944 14.7118 16.3098 15.8992 14.9674 16.7293C13.6251 17.5594 12.0782 17.9994 10.5 18C9.18013 18.0035 7.87812 17.6951 6.7 17.1L1 19L2.9 13.3C2.30493 12.1219 1.99656 10.8199 2 9.50003C2.00061 7.92179 2.44061 6.37488 3.27072 5.03258C4.10083 3.69028 5.28825 2.6056 6.7 1.90003C7.87812 1.30496 9.18013 0.996587 10.5 1.00003H11C13.0843 1.11502 15.053 1.99479 16.5291 3.47089C18.0052 4.94699 18.885 6.91568 19 9.00003V9.50003Z\"\n    stroke=\"#0A106B\"\n    stroke-width=\"2\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n  />\n</svg>`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "message",
+          "declaration": {
+            "name": "message",
+            "module": "src/components/icon/icons/message.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icons/report.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "report",
+          "default": "html`<svg\n  width=\"20\"\n  height=\"18\"\n  viewBox=\"0 0 20 18\"\n  fill=\"none\"\n  xmlns=\"http://www.w3.org/2000/svg\"\n>\n  <path\n    d=\"M8.28995 1.8032L1.2236 13.5999C1.07791 13.8522 1.00082 14.1383 1.00001 14.4296C0.999191 14.721 1.07468 15.0074 1.21895 15.2606C1.36323 15.5137 1.57127 15.7246 1.82237 15.8724C2.07347 16.0201 2.35889 16.0995 2.65022 16.1027H16.7829C17.0742 16.0995 17.3597 16.0201 17.6108 15.8724C17.8619 15.7246 18.0699 15.5137 18.2142 15.2606C18.3585 15.0074 18.4339 14.721 18.4331 14.4296C18.4323 14.1383 18.3552 13.8522 18.2095 13.5999L11.1432 1.8032C10.9945 1.55801 10.785 1.35529 10.5352 1.2146C10.2853 1.07391 10.0033 1 9.71657 1C9.42979 1 9.14786 1.07391 8.89797 1.2146C8.64809 1.35529 8.43868 1.55801 8.28995 1.8032V1.8032Z\"\n    stroke=\"#0A106B\"\n    stroke-width=\"2\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n  />\n  <path\n    d=\"M9.7168 6.09143V9.42855\"\n    stroke=\"#0A106B\"\n    stroke-width=\"2\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n  />\n  <path\n    d=\"M9.7168 12.7657H9.72569\"\n    stroke=\"#0A106B\"\n    stroke-width=\"2\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n  />\n</svg> `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "report",
+          "declaration": {
+            "name": "report",
+            "module": "src/components/icon/icons/report.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icons/thumbsDown.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "thumbsdown",
+          "default": "html`<svg\n  width=\"22\"\n  height=\"22\"\n  viewBox=\"0 0 22 22\"\n  fill=\"none\"\n  xmlns=\"http://www.w3.org/2000/svg\"\n>\n  <path\n    d=\"M15.6826 1.00036H18.3526C18.9186 0.990352 19.4685 1.1885 19.8981 1.55718C20.3276 1.92586 20.6068 2.43942 20.6826 3.00036V10.0004C20.6068 10.5613 20.3276 11.0749 19.8981 11.4435C19.4685 11.8122 18.9186 12.0104 18.3526 12.0004H15.6826M8.68265 14.0004V18.0004C8.68265 18.796 8.99872 19.5591 9.56133 20.1217C10.1239 20.6843 10.887 21.0004 11.6826 21.0004L15.6826 12.0004V1.00036H4.40265C3.92032 0.994909 3.45227 1.16396 3.08474 1.47636C2.71721 1.78875 2.47497 2.22346 2.40265 2.70036L1.02265 11.7004C0.97914 11.987 0.998473 12.2797 1.07931 12.5581C1.16014 12.8365 1.30055 13.0941 1.49079 13.3128C1.68103 13.5316 1.91657 13.7064 2.18108 13.8251C2.44558 13.9439 2.73274 14.0036 3.02265 14.0004H8.68265Z\"\n    stroke=\"#0A106B\"\n    stroke-width=\"2\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n  />\n</svg> `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "thumbsdown",
+          "declaration": {
+            "name": "thumbsdown",
+            "module": "src/components/icon/icons/thumbsDown.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icons/thumbsUp.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "thumbsup",
+          "default": "html`<svg\n  xmlns=\"http://www.w3.org/2000/svg\"\n  width=\"22\"\n  height=\"22\"\n  viewBox=\"0 0 22 22\"\n  fill=\"none\"\n>\n  <path\n    d=\"M6 10L10 1C10.7956 1 11.5587 1.31607 12.1213 1.87868C12.6839 2.44129 13 3.20435 13 4V8H18.66C18.9499 7.99672 19.2371 8.0565 19.5016 8.17522C19.7661 8.29393 20.0016 8.46873 20.1919 8.68751C20.3821 8.90629 20.5225 9.16382 20.6033 9.44225C20.6842 9.72068 20.7035 10.0134 20.66 10.3L19.28 19.3C19.2077 19.7769 18.9654 20.2116 18.5979 20.524C18.2304 20.8364 17.7623 21.0055 17.28 21H6M6 10V21M6 10H3C2.46957 10 1.96086 10.2107 1.58579 10.5858C1.21071 10.9609 1 11.4696 1 12V19C1 19.5304 1.21071 20.0391 1.58579 20.4142C1.96086 20.7893 2.46957 21 3 21H6\"\n    stroke=\"#0A106B\"\n    stroke-width=\"2\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n  />\n</svg> `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "thumbsup",
+          "declaration": {
+            "name": "thumbsup",
+            "module": "src/components/icon/icons/thumbsUp.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/icon/icons/twitter.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "message",
+          "default": "html`<svg\n  width=\"20\"\n  height=\"20\"\n  viewBox=\"0 0 20 20\"\n  fill=\"none\"\n  xmlns=\"http://www.w3.org/2000/svg\"\n>\n  <path\n    d=\"M19 9.50003C19.0034 10.8199 18.6951 12.1219 18.1 13.3C17.3944 14.7118 16.3098 15.8992 14.9674 16.7293C13.6251 17.5594 12.0782 17.9994 10.5 18C9.18013 18.0035 7.87812 17.6951 6.7 17.1L1 19L2.9 13.3C2.30493 12.1219 1.99656 10.8199 2 9.50003C2.00061 7.92179 2.44061 6.37488 3.27072 5.03258C4.10083 3.69028 5.28825 2.6056 6.7 1.90003C7.87812 1.30496 9.18013 0.996587 10.5 1.00003H11C13.0843 1.11502 15.053 1.99479 16.5291 3.47089C18.0052 4.94699 18.885 6.91568 19 9.00003V9.50003Z\"\n    stroke=\"#0A106B\"\n    stroke-width=\"2\"\n    stroke-linecap=\"round\"\n    stroke-linejoin=\"round\"\n  />\n</svg>`"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "message",
+          "declaration": {
+            "name": "message",
+            "module": "src/components/icon/icons/twitter.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-amount/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-amount/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-amount/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-date/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-date/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-date/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-datepicker/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-datepicker/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-datepicker/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-email/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-email/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-email/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-iban/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-iban/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-iban/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-range/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-range/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-range/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-stepper/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-stepper/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-stepper/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-tel/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-tel/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-tel/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/input-tel-dropdown/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/input-tel-dropdown/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/input-tel-dropdown/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/listbox/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/listbox/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/listbox/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/pagination/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/pagination/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/pagination/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/progress/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/progress/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/progress/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/radio-group/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/radio-group/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/radio-group/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/select/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/select/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/select/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/select-rich/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/select-rich/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/select-rich/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/steps/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/steps/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/steps/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/switch/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/switch/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/switch/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tabs/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/tabs/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/tabs/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/textarea/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/textarea/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/textarea/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tooltip/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/tooltip/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/tooltip/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/comments/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/comments/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/comments/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/idea-submission/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/idea-submission/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/idea-submission/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Login"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/input-mask/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Login",
+          "declaration": {
+            "name": "Login",
+            "module": "src/compositions/input-mask/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Login"
+        },
+        {
+          "kind": "variable",
+          "name": "Register"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/login/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Login",
+          "declaration": {
+            "name": "Login",
+            "module": "src/compositions/login/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Register",
+          "declaration": {
+            "name": "Register",
+            "module": "src/compositions/login/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/reactions/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/reactions/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/reactions/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/prototypes/kanban/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/prototypes/kanban/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/prototypes/kanban/docs/index.stories.ts"
+          }
+        }
+      ]
+    }
+  ]
+}
