@@ -1,28 +1,49 @@
+/* eslint-disable import/extensions */
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import { BcgButton } from '../../components/button/button';
+import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
+import { BcgInput } from '../../components/input/input';
 
 export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   static get styles() {
     return [css``];
   }
 
-  render() {
-    return html`<div>
-        <h2>
-          Sie haben einen Bestätigungscode per E-Mail erhalten. Bitte geben Sie
-          den Code ein:
-        </h2>
+  nextStep: any;
 
-        <bcg-input
-          label=""
-          placeholder="Geben Sie den 4-stelligen Code ein"
-        ></bcg-input>
+  static get properties() {
+    return {
+      nextStep: { type: Function }
+    };
+  }
+
+  constructor() {
+    super();
+    this.nextStep = () => 'test';
+  }
+
+  static get scopedElements() {
+    return {
+      'bcg-input': BcgInput,
+      'bcg-button': BcgButton,
+      'bcg-checkbox-group': BcgCheckboxGroup
+    };
+  }
+
+  render() {
+    return html`
+      <div>
+        <h2>Registrieren über:</h2>
+        <bcg-button label="Facebook"> ></bcg-button>
+        <bcg-button label="Twitter"></bcg-button>
+        <bcg-button label="Gmail"></bcg-button>
       </div>
       <div>
-        <h3>Sie haben keine E-Mail erhalten?</h3>
-        <ul>
-        <li>Neuen Code senden</li>
-        <li>E-Mail Adresse überarbeiten</li> 
+        <bcg-input label="Name" placeholder=""></bcg-input>
+        <bcg-input-email label="E-Mail" placeholder=""></bcg-input-email>
+        <bcg-input label="Password" placeholder=""></bcg-input>
+        <bcg-checkbox-group label=""></bcg-checkbox-group>
       </div>
-`;
+    `;
   }
 }

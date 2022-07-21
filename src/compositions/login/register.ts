@@ -3,15 +3,16 @@ import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 
 import { BcgRegisterStepOne } from './register-step-one';
 import { BcgRegisterStepTwo } from './register-step-two';
+import { BcgRegisterStepThree } from './register-step-three';
 import { BcgRegisterStepFinished } from './register-step-finished';
 
 export class BcgRegister extends ScopedElementsMixin(LitElement) {
-  currentStep: number = 0;
+  currentStep: number = 1;
 
-  maxStep: number = 3;
+  maxStep: number = 4;
 
   nextStep = () => {
-    if (this.currentStep < 2) {
+    if (this.currentStep < this.maxStep) {
       this.currentStep += 1;
     } else {
       console.log('close Dialog');
@@ -23,7 +24,9 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-register-step-one': BcgRegisterStepOne,
       'bcg-register-step-two': BcgRegisterStepTwo,
-      'bcg-register-step-finished': BcgRegisterStepFinished,
+      'bcg-register-step-three': BcgRegisterStepThree,
+
+      'bcg-register-step-finished': BcgRegisterStepFinished
     };
   }
 
@@ -40,16 +43,24 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
       <div class="left-side" style="flex-direction:row-reverse; width:640px;"> 
     
       ${
-        currentStep >= 2
+        currentStep >= maxStep - 1
           ? null
           : html`<h1>Willkommen!</h1>
               <h2>Registrierung</h2>
-              <span>Schritt ${currentStep + 1} von ${maxStep - 1} </span>`
+              <span>Schritt ${currentStep} von ${maxStep - 1} </span>`
       }
 
         ${
-          currentStep === 0
-            ? html`<bcg-register-step-one></bcg-register-step-one>
+          currentStep === 1
+            ? html`<bcg-register-step-one
+                .nextStep="${nextStep}"
+              ></bcg-register-step-one>`
+            : null
+        }
+
+        ${
+          currentStep === 2
+            ? html`<bcg-register-step-two></bcg-register-step-two>
                 <bcg-button
                   @click="${() => nextStep()}"
                   label="Registrieren"
@@ -57,8 +68,8 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
             : null
         }
         ${
-          currentStep === 1
-            ? html`<bcg-register-step-two></bcg-register-step-two>
+          currentStep === 3
+            ? html`<bcg-register-step-three></bcg-register-step-three>
                 <bcg-button
                   @click="${() => nextStep()}"
                   label="Code abschicken"
@@ -66,7 +77,7 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
             : null
         }
         ${
-          currentStep === 2
+          currentStep === 4
             ? html`<bcg-register-step-finished></bcg-register-step-finished>
                 <bcg-button
                   @click="${() => nextStep()}"

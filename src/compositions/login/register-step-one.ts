@@ -33,16 +33,20 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
   render() {
     return html`
       <div>
-        <h2>Registrieren über:</h2>
-        <bcg-button label="Facebook"> ></bcg-button>
-        <bcg-button label="Twitter"></bcg-button>
-        <bcg-button label="Gmail"></bcg-button>
-      </div>
-      <div>
-        <bcg-input label="Name" placeholder=""></bcg-input>
-        <bcg-input-email label="E-Mail" placeholder=""></bcg-input-email>
-        <bcg-input label="Password" placeholder=""></bcg-input>
-        <bcg-checkbox-group label=""></bcg-checkbox-group>
+        <h2>Registrieren als:</h2>
+        <div>
+          <bcg-button
+            style="margin-bottom:10px;"
+            label="Als Privat Person"
+            @click="${() => this.nextStep()}"
+          >
+          </bcg-button>
+          <bcg-button
+            label="Als Organisation"
+            @click="${() => this.nextStep()}"
+          >
+          </bcg-button>
+        </div>
       </div>
     `;
   }

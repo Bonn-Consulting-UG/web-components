@@ -22,8 +22,7 @@ export class BcgLogin extends ScopedElementsMixin(LitElement) {
           </div>
           <div>
             <bcg-input-email label="E-Mail"></bcg-input-email>
-            <bcg-input label="Password"></bcg-input>
-            <bcg-checkbox-group label="Password"></bcg-checkbox-group>
+            <bcg-input label="Password" type="password"></bcg-input>
           </div>
           <bcg-button label="Anmelden"></bcg-button>
         </div>
