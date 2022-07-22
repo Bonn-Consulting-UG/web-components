@@ -10,14 +10,13 @@ export class BcgButton extends ScopedElementsMixin(LitElement) {
 
   static get properties() {
     return {
-      label: { type: String },
+      label: { type: String }
     };
   }
 
   constructor() {
     super();
-    this.label = 'Default Label';
-    console.log(this.label);
+    this.label = '';
   }
 
   static get scopedElements() {

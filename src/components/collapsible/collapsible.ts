@@ -8,14 +8,14 @@ export class BcgCollapsible extends ScopedElementsMixin(LitElement) {
 
   constructor() {
     super();
-    this.buttonLabel = 'Default Label';
+    this.buttonLabel = 'Default';
     this.content = '123';
   }
 
   static get properties() {
     return {
       buttonLabel: { type: String },
-      content: { type: String },
+      content: { type: String }
     };
   }
 
