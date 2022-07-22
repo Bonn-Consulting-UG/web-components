@@ -41,7 +41,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
       <div>
         <bcg-input label="Name" placeholder=""></bcg-input>
         <bcg-input-email label="E-Mail" placeholder=""></bcg-input-email>
-        <bcg-input label="Password" placeholder=""></bcg-input>
+        <bcg-input label="Password" type="password" placeholder=""></bcg-input>
         <bcg-checkbox-group label=""></bcg-checkbox-group>
       </div>
     `;

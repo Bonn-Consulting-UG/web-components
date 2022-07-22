@@ -4,6 +4,8 @@ import { html, ScopedElementsMixin, LitElement, css } from '@lion/core';
 export class BcgInput extends ScopedElementsMixin(LitElement) {
   label: string;
 
+  type: string;
+
   placeholder: string;
 
   static get styles() {
@@ -14,13 +16,15 @@ export class BcgInput extends ScopedElementsMixin(LitElement) {
     return {
       label: { type: String },
       placeholder: { type: String },
+      type: { type: String }
     };
   }
 
   constructor() {
     super();
-    this.label = 'Default Label';
-    this.placeholder = 'Default Placeholder';
+    this.label = '';
+    this.placeholder = '';
+    this.type = 'text';
   }
 
   static get scopedElements() {
@@ -31,6 +35,7 @@ export class BcgInput extends ScopedElementsMixin(LitElement) {
     return html`<lion-input
       label="${this.label}"
       placeholder="${this.placeholder}"
+      type="${this.type}"
     ></lion-input>`;
   }
 }
