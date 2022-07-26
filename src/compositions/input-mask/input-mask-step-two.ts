@@ -47,27 +47,25 @@ export class BcgInputMaskStepTwo extends ScopedElementsMixin(LitElement) {
           <bcg-input-datepicker type="text" label="bis"></bcg-input-datepicker>
         </div>
 
-        <fieldset>
-          <legend>
-            3. Wie sollen eingereichte Ideen von anderen User bewertet werden
-            können?* (Mehrfachauswahl möglich)
-          </legend>
+        <legend>
+          3. Wie sollen eingereichte Ideen von anderen User bewertet werden
+          können?* (Mehrfachauswahl möglich)
+        </legend>
 
-          <div>
-            <input type="checkbox" id="scales" name="scales" checked />
-            <label for="scales">gar nicht</label>
-          </div>
+        <div>
+          <input type="checkbox" id="scales" name="scales" checked />
+          <label for="scales">gar nicht</label>
+        </div>
 
-          <div>
-            <input type="checkbox" id="horns" name="horns" />
-            <label for="horns">mit einem Daumen hoch</label>
-          </div>
+        <div>
+          <input type="checkbox" id="horns" name="horns" />
+          <label for="horns">mit einem Daumen hoch</label>
+        </div>
 
-          <div>
-            <input type="checkbox" id="horns" name="horns" />
-            <label for="horns">mit einem Daumen runter</label>
-          </div>
-        </fieldset>
+        <div>
+          <input type="checkbox" id="horns" name="horns" />
+          <label for="horns">mit einem Daumen runter</label>
+        </div>
       </div>
       <div>
         <bcg-button label="Zurück"> ></bcg-button>

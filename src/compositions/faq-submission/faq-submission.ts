@@ -56,7 +56,13 @@ export class BcgFaqSubmission extends ScopedElementsMixin(LitElement) {
                     Sofern Sie von uns mit einer Antwort direkt kontaktiert
                     werden möchten.
                   </p>
-                  <bcg-checkbox-group label=""></bcg-checkbox-group>`}
+                  <div>
+                    <input type="checkbox" id="scales" name="scales" />
+                    <label for="scales"
+                      >Ich akzeptiere die Netiquette und die
+                      Datenschutzerklärung</label
+                    >
+                  </div>`}
             <div>
               <bcg-button
                 @click="${() => console.log('Frage einreichen Senden')}"
