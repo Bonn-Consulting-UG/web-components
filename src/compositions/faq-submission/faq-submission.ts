@@ -59,8 +59,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(LitElement) {
                   <div>
                     <input type="checkbox" id="scales" name="scales" />
                     <label for="scales"
-                      >Ich akzeptiere die Netiquette und die
-                      Datenschutzerklärung</label
+                      >Ich akzeptiere die Datenschutzerklärung</label
                     >
                   </div>`}
             <div>
