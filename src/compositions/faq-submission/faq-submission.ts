@@ -49,13 +49,15 @@ export class BcgFaqSubmission extends ScopedElementsMixin(LitElement) {
 
             ${isLoggedIn
               ? null
-              : html` <bcg-input label="Ihr Name " placeholder=""></bcg-input>
+              : html`
+                  <bcg-input label="Ihr Name " placeholder=""></bcg-input>
                   <p>Sofern Sie von uns kontaktiert werden möchten.</p>
                   <bcg-input label="Ihre E-Mail " placeholder=""></bcg-input>
                   <p>
                     Sofern Sie von uns mit einer Antwort direkt kontaktiert
                     werden möchten.
                   </p>
+                `}
             <div>
               <bcg-button
                 @click="${() => console.log('Frage einreichen Senden')}"
