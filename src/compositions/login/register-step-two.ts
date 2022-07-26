@@ -11,9 +11,12 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   nextStep: any;
 
+  onChange: any;
+
   static get properties() {
     return {
-      nextStep: { type: Function }
+      nextStep: { type: Function },
+      onChange: { type: Function }
     };
   }
 
@@ -40,7 +43,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
       </div>
       <div>
         <bcg-input label="Name" placeholder=""></bcg-input>
-        <bcg-input-email label="E-Mail" placeholder=""></bcg-input-email>
+        <bcg-input-email  label="E-Mail" placeholder=""></bcg-input-email>
         <bcg-input label="Password" type="password" placeholder=""></bcg-input>
         <bcg-checkbox-group label=""></bcg-checkbox-group>
       </div>

@@ -5,7 +5,7 @@ export class BcgCheckboxGroup extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
       'lion-checkbox-group': LionCheckboxGroup,
-      'lion-checkbox': LionCheckbox,
+      'lion-checkbox': LionCheckbox
     };
   }
 
@@ -13,7 +13,7 @@ export class BcgCheckboxGroup extends ScopedElementsMixin(LitElement) {
 
   static get properties() {
     return {
-      label: { type: String },
+      label: { type: String }
     };
   }
 
@@ -25,11 +25,7 @@ export class BcgCheckboxGroup extends ScopedElementsMixin(LitElement) {
 
   render() {
     return html` <lion-checkbox-group name="scientists[]" label="">
-      <lion-checkbox
-        label="Ich akzeptiere die Netiquette und die 
-        Datenschutzerklärung"
-        .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung'}
-      ></lion-checkbox>
+      <slot name="test"></slot>
     </lion-checkbox-group>`;
   }
 }

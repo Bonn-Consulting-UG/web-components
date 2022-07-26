@@ -6,9 +6,9 @@ export default {
   component: 'bcg-select',
   argTypes: {
     content: {
-      options: [],
-    },
-  },
+      options: []
+    }
+  }
 };
 
 interface ContentArgs {
@@ -26,6 +26,18 @@ interface ArgTypes {
   content: Array<ContentArgs>;
 }
 
-const Template: Story<ArgTypes> = () => html` <bcg-select> </bcg-select> `;
+const Template: Story<ArgTypes> = () => html`
+  <bcg-select>
+
+  <select slot="input">
+    <option  selected hidden value>Sort By</option>
+      <option  value="Neuste">Neuste</option>
+      <option value="Beliebteste">Beliebteste</option>
+      <option value="Ältest">Ältest</option>
+    </select>
+
+    </slot></bcg-select
+  >
+`;
 
 export const Default = Template.bind({});

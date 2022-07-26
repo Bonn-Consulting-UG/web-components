@@ -3,7 +3,6 @@ import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 
 import { BcgInputMaskStepOne } from './input-mask-step-one';
 import { BcgInputMaskStepTwo } from './input-mask-step-two';
-import { BcgInputMaskStepFinished } from './input-mask-step-finished';
 
 export class BcgInputMask extends ScopedElementsMixin(LitElement) {
   currentStep: number = 0;
@@ -22,8 +21,7 @@ export class BcgInputMask extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
       'bcg-input-mask-step-one': BcgInputMaskStepOne,
-      'bcg-input-mask-step-two': BcgInputMaskStepTwo,
-      'bcg-input-mask-step-finished': BcgInputMaskStepFinished,
+      'bcg-input-mask-step-two': BcgInputMaskStepTwo
     };
   }
 
@@ -32,56 +30,20 @@ export class BcgInputMask extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    const { maxStep, currentStep, nextStep } = this;
-    return html`
-    <form>
-    <div style="display:flex;">
-
-      <div class="left-side" style="flex-direction:row-reverse; width:640px;"> 
-    
-      ${
-        currentStep >= 2
-          ? null
-          : html`<h1>Willkommen!</h1>
-              <h2>Registrierung</h2>
-              <span>Schritt ${currentStep + 1} von ${maxStep - 1} </span>`
-      }
-
-        ${
-          currentStep === 0
-            ? html`<bcg-input-mask-step-one></bcg-input-mask-step-one>
-                <bcg-button
-                  @click="${() => nextStep()}"
-                  label="Registrieren"
-                ></bcg-button>`
-            : null
-        }
-        ${
-          currentStep === 1
-            ? html`<bcg-input-mask-step-two></bcg-input-mask-step-two>
-                <bcg-button
-                  @click="${() => nextStep()}"
-                  label="Code abschicken"
-                ></bcg-button> `
-            : null
-        }
-        ${
-          currentStep === 2
-            ? html`<bcg-input-mask-step-finished></bcg-input-mask-step-one-finished>
-                <bcg-button
-                  @click="${() => nextStep()}"
-                  label="Jetzt beteiligen"
-                ></bcg-button>`
-            : null
-        }
-
-
+    const { currentStep, nextStep } = this;
+    return html` <form>
+      <div style="display:flex;">
+        <div style="flex-direction:row-reverse; width:640px;">
+          ${currentStep === 0
+            ? html`<bcg-input-mask-step-one
+                .nextStep="${nextStep}"
+              ></bcg-input-mask-step-one>`
+            : null}
+          ${currentStep === 1
+            ? html`<bcg-input-mask-step-two></bcg-input-mask-step-two>`
+            : null}
+        </div>
       </div>
-      <div class="right-side">
-        <img src="https://images.unsplash.com/photo-1654729746829-87fc9bc48ad7" style="width:629px;height:864px;" alt="123"></img>
-      </div>
-      </div>
-      
-    `;
+    </form>`;
   }
 }

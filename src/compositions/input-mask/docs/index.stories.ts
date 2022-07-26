@@ -6,8 +6,8 @@ export default {
   component: 'bcg-input-mask',
   argTypes: {
     content: {},
-    buttonLabel: {},
-  },
+    buttonLabel: {}
+  }
 };
 
 interface Story<T> {
@@ -23,8 +23,8 @@ interface ArgTypes {
 const TemplateLogin: Story<ArgTypes> = () =>
   html` <bcg-input-mask></bcg-input-mask> `;
 
-const Login = TemplateLogin.bind({});
+const Default = TemplateLogin.bind({});
 
-Login.args = {};
+Default.args = {};
 
-export { Login };
+export { Default };

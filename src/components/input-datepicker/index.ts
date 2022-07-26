@@ -4,5 +4,5 @@ import { componentNames } from '../../utils/config';
 
 window.customElements.define(
   componentNames.inputdatepicker,
-  BcgInputDatepicker
+  BcgInputDatepicker as any
 );

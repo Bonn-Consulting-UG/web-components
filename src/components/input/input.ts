@@ -6,6 +6,8 @@ export class BcgInput extends ScopedElementsMixin(LitElement) {
 
   type: string;
 
+  value: string;
+
   placeholder: string;
 
   static get styles() {
@@ -16,8 +18,20 @@ export class BcgInput extends ScopedElementsMixin(LitElement) {
     return {
       label: { type: String },
       placeholder: { type: String },
-      type: { type: String }
+      type: { type: String },
+      value: { type: String },
+      inputChanged: { type: Function }
     };
+  }
+
+  changeValue(e: any, key: any) {
+    this.value = e.target.value;
+    const options = {
+      detail: { key },
+      bubbles: true,
+      composed: true
+    };
+    this.dispatchEvent(new CustomEvent('input-changed', options));
   }
 
   constructor() {
@@ -25,6 +39,7 @@ export class BcgInput extends ScopedElementsMixin(LitElement) {
     this.label = '';
     this.placeholder = '';
     this.type = 'text';
+    this.value = '';
   }
 
   static get scopedElements() {
@@ -36,6 +51,8 @@ export class BcgInput extends ScopedElementsMixin(LitElement) {
       label="${this.label}"
       placeholder="${this.placeholder}"
       type="${this.type}"
+      value="${this.value}"
+      @change="${(e: any) => this.changeValue(e, this.label)}"
     ></lion-input>`;
   }
 }

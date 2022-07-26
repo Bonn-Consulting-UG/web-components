@@ -6,9 +6,9 @@ export default {
   component: 'bcg-checkbox-group',
   argTypes: {
     content: {
-      options: [],
-    },
-  },
+      options: []
+    }
+  }
 };
 
 interface ContentArgs {
@@ -27,6 +27,16 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = () =>
-  html` <bcg-checkbox-group></bcg-checkbox-group> `;
+  html`
+    <bcg-checkbox-group>
+      <slot name="test">
+        <lion-checkbox
+          label="Ich akzeptiere die 
+        Datenschutzerklärung"
+          .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
+        ></lion-checkbox>
+      </slot>
+    </bcg-checkbox-group>
+  `;
 
 export const Default = Template.bind({});

@@ -5,14 +5,52 @@ import { BcgRegisterStepOne } from './register-step-one';
 import { BcgRegisterStepTwo } from './register-step-two';
 import { BcgRegisterStepThree } from './register-step-three';
 import { BcgRegisterStepFinished } from './register-step-finished';
+import {
+  sendRegisterRequest,
+  checkVerifyCode
+} from '../../utils/services/login';
+
+type ObjectKey = 'firstname' | 'lastname' | 'email' | 'password';
 
 export class BcgRegister extends ScopedElementsMixin(LitElement) {
   currentStep: number = 1;
 
   maxStep: number = 4;
 
+  newUserData = {
+    firstname: '',
+    email: '',
+    lastname: '',
+    password: ''
+  };
+
+  verifyCode: number = 0;
+
+  changeInput(e: any) {
+    if (e.key === 'name') {
+      const [firstname, lastname] = e.target.value.split(' ');
+      this.newUserData.firstname = firstname;
+      this.newUserData.lastname = lastname;
+      
+    }
+
+    // this.newUserData[`${e.details.key.toLowerCase()}`] = e.target.value;
+  }
+
   nextStep = () => {
     if (this.currentStep < this.maxStep) {
+      const newUser = {
+        email: 'stefan.scheifel@me.com',
+        firstname: 'Stefan',
+        lastname: 'Scheifel',
+        password: 'test'
+      };
+      const verifyCode = {
+        verifyCode: '1234'
+      };
+      if (this.currentStep === 2) sendRegisterRequest(newUser);
+      if (this.currentStep === 3) checkVerifyCode(verifyCode);
+
       this.currentStep += 1;
     } else {
       console.log('close Dialog');
@@ -25,7 +63,6 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
       'bcg-register-step-one': BcgRegisterStepOne,
       'bcg-register-step-two': BcgRegisterStepTwo,
       'bcg-register-step-three': BcgRegisterStepThree,
-
       'bcg-register-step-finished': BcgRegisterStepFinished
     };
   }
@@ -60,7 +97,9 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
 
         ${
           currentStep === 2
-            ? html`<bcg-register-step-two></bcg-register-step-two>
+            ? html`<bcg-register-step-two
+                  @input-changed="${this.changeInput}"
+                ></bcg-register-step-two>
                 <bcg-button
                   @click="${() => nextStep()}"
                   label="Registrieren"
@@ -69,7 +108,9 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
         }
         ${
           currentStep === 3
-            ? html`<bcg-register-step-three></bcg-register-step-three>
+            ? html`<bcg-register-step-three
+                  @input-changed="${this.changeInput}"
+                ></bcg-register-step-three>
                 <bcg-button
                   @click="${() => nextStep()}"
                   label="Code abschicken"
