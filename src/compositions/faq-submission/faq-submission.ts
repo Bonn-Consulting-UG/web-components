@@ -28,7 +28,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(LitElement) {
               Wir kontaktieren Sie mit einer Antwort, sofern uns Ihre
               E-Mail-Daten vorliegen.
             </p>
-            <bcg-input label="Titel Ihrer Idee *" placeholder=""></bcg-input>
 
             <bcg-textarea
               rows="6"
@@ -57,7 +56,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(LitElement) {
                     Sofern Sie von uns mit einer Antwort direkt kontaktiert
                     werden möchten.
                   </p>
-                  <bcg-checkbox-group label=""></bcg-checkbox-group>`}
             <div>
               <bcg-button
                 @click="${() => console.log('Frage einreichen Senden')}"
