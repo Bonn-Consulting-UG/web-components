@@ -2,4 +2,4 @@
 import { BcgTabPanel } from './tab-panel';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.tabpanel, BcgTabPanel);
+customElements.define(componentNames.tabpanel, BcgTabPanel);

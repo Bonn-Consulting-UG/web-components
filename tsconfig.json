@@ -17,6 +17,7 @@
     "declaration": true,
     "incremental": true,
     "skipLibCheck": true,
+    "resolveJsonModule":true,
     "useDefineForClassFields": false
   },
   "include": ["**/*.ts", "src/component/*.js", "src/component/docs/*.js", "src/compositions/docs/*.js"],

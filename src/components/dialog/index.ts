@@ -2,4 +2,4 @@
 import { BcgDialog } from './dialog';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.dialog, BcgDialog);
+customElements.define(componentNames.dialog, BcgDialog);

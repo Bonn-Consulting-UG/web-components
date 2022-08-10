@@ -3,7 +3,7 @@ import { BcgFaqSubmission } from './faq-submission';
 
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(
+customElements.define(
   componentNames.compositions.faqSubmission,
   BcgFaqSubmission
 );

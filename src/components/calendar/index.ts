@@ -2,4 +2,4 @@
 import { BcgCalendar } from './calendar';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.calendar, BcgCalendar);
+customElements.define(componentNames.calendar, BcgCalendar);

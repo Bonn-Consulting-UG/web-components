@@ -2,4 +2,4 @@
 import { BcgInputIban } from './input-iban';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.inputiban, BcgInputIban);
+customElements.define(componentNames.inputiban, BcgInputIban);

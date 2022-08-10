@@ -1,9 +1,10 @@
 /* eslint-disable import/extensions */
 const APIVersion = 'v1';
-const baseURLwithApiVersion = `http://localhost:3001/api/${APIVersion}`;
+const baseURLwithApiVersion = `https://ifokservice-epart.bonnconsulting.group/api/${APIVersion}`;
 const registerEndpoint = `${baseURLwithApiVersion}/register`;
 const loginEndpoint = `${baseURLwithApiVersion}/login`;
-const checkVerifyCodeEndpoint = `${baseURLwithApiVersion}/verify`;
+const checkVerifyCodeEndpoint = (userID: string) =>
+  `${baseURLwithApiVersion}/${userID}/verify`;
 
 export const sendRegisterRequest = async (newUser: any) => {
   try {
@@ -16,7 +17,7 @@ export const sendRegisterRequest = async (newUser: any) => {
     };
 
     const resp = await fetch(registerEndpoint, fetchOptions);
-    console.log(resp.json());
+
     return resp;
   } catch (err) {
     // Handle Error Here
@@ -25,7 +26,7 @@ export const sendRegisterRequest = async (newUser: any) => {
   }
 };
 
-export const checkVerifyCode = async (code: any) => {
+export const checkVerifyCode = async (userID: any, code: any) => {
   try {
     const fetchOptions = {
       method: 'POST',
@@ -35,7 +36,7 @@ export const checkVerifyCode = async (code: any) => {
       body: JSON.stringify(code)
     };
 
-    const resp = await fetch(checkVerifyCodeEndpoint, fetchOptions);
+    const resp = await fetch(checkVerifyCodeEndpoint(userID), fetchOptions);
     console.log(resp.json());
     return resp;
   } catch (err) {

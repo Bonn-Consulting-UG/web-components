@@ -2,4 +2,4 @@
 import { BcgInputStepper } from './input-stepper';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.inputstepper, BcgInputStepper);
+customElements.define(componentNames.inputstepper, BcgInputStepper);

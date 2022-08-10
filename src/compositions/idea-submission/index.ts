@@ -3,7 +3,7 @@ import { BcgIdeaSubmission } from './idea-submission';
 
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(
+customElements.define(
   componentNames.compositions.ideaSubmission,
   BcgIdeaSubmission
 );

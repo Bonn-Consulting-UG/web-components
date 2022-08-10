@@ -6,9 +6,9 @@ export default {
   component: 'bcg-input',
   argTypes: {
     content: {
-      options: [],
-    },
-  },
+      options: []
+    }
+  }
 };
 
 interface ContentArgs {
@@ -27,6 +27,12 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = () =>
-  html` <bcg-input></bcg-input><bcg-input></bcg-input> `;
+  html`
+    <bcg-input
+      name="Firstname"
+      help-text="Your first name"
+      placeholder="Joe"
+    ></bcg-input>
+  `;
 
 export const Default = Template.bind({});

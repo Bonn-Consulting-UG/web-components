@@ -2,4 +2,4 @@
 import { BcgInput } from './input';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.input, BcgInput);
+customElements.define(componentNames.input, BcgInput);

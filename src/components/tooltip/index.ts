@@ -2,4 +2,4 @@
 import { BcgTooltip } from './tooltip';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.tooltip, BcgTooltip);
+customElements.define(componentNames.tooltip, BcgTooltip);

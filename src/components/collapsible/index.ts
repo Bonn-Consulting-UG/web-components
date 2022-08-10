@@ -2,4 +2,4 @@
 import { BcgCollapsible } from './collapsible';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.collapsible, BcgCollapsible);
+customElements.define(componentNames.collapsible, BcgCollapsible);

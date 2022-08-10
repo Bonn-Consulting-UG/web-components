@@ -6,6 +6,6 @@ import { BcgRegister } from './register';
 
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.compositions.login, BcgLogin);
-window.customElements.define(componentNames.compositions.logout, BcgLogout);
-window.customElements.define(componentNames.compositions.register, BcgRegister);
+customElements.define(componentNames.compositions.login, BcgLogin);
+customElements.define(componentNames.compositions.logout, BcgLogout);
+customElements.define(componentNames.compositions.register, BcgRegister);

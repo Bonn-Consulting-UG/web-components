@@ -1,0 +1,25 @@
+{
+    "headline":"Willkommen!",
+    "headlineTwo":"Registrierung",
+    "steps": ["Schritt", "von"],
+    "stepOne":{
+        "headline":"Registrieren als:",
+        "buttonOne":"Als Privat Person",
+        "buttonTwo":"Als Organisation"
+    },
+    "stepTwo":{
+        "headline":"",
+        "button":""
+    },
+    "stepThree":{
+        "headline":"Sie haben einen Bestätigungscode per E-Mail erhalten. Bitte geben Sie den Code ein:",
+        "optionHeadline":"Sie haben keine E-Mail erhalten?",
+        "options":["Neuen Code sende", "E-Mail Adresse überarbeiten"],
+        "button":"Code Abschicken"
+    },
+    "stepFinished":{
+        "headline":""
+    }
+
+
+}

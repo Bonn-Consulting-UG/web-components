@@ -10,46 +10,24 @@ import {
   checkVerifyCode
 } from '../../utils/services/login';
 
-type ObjectKey = 'firstname' | 'lastname' | 'email' | 'password';
+import registerData from '../../utils/data/composition/register.json' assert { type: 'json' };
 
 export class BcgRegister extends ScopedElementsMixin(LitElement) {
   currentStep: number = 1;
 
   maxStep: number = 4;
 
-  newUserData = {
-    firstname: '',
-    email: '',
-    lastname: '',
-    password: ''
-  };
-
   verifyCode: number = 0;
 
-  changeInput(e: any) {
-    if (e.key === 'name') {
-      const [firstname, lastname] = e.target.value.split(' ');
-      this.newUserData.firstname = firstname;
-      this.newUserData.lastname = lastname;
-      
-    }
-
-    // this.newUserData[`${e.details.key.toLowerCase()}`] = e.target.value;
-  }
-
-  nextStep = () => {
+  nextStep = async (payload: any) => {
+    console.log(payload);
+    let user = null;
     if (this.currentStep < this.maxStep) {
-      const newUser = {
-        email: 'stefan.scheifel@me.com',
-        firstname: 'Stefan',
-        lastname: 'Scheifel',
-        password: 'test'
-      };
-      const verifyCode = {
-        verifyCode: '1234'
-      };
-      if (this.currentStep === 2) sendRegisterRequest(newUser);
-      if (this.currentStep === 3) checkVerifyCode(verifyCode);
+      if (this.currentStep === 2) {
+        user = await sendRegisterRequest(payload);
+        console.log(user);
+      }
+      if (this.currentStep === 3) await checkVerifyCode(user, payload);
 
       this.currentStep += 1;
     } else {
@@ -71,67 +49,59 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
     return [css``];
   }
 
+  // break span down '<span>Schritt ${currentStep} von ${maxStep - 1} </span>' to be able to export string to data
+
   render() {
     const { maxStep, currentStep, nextStep } = this;
+
     return html`
     <form>
     <div style="display:flex;">
+      <div class="left-side" style="flex-direction:row-reverse;flex-basis:50%;"> 
+          ${
+            currentStep >= maxStep - 1
+              ? null
+              : html`<h1>${registerData.headline}</h1>
+                  <h2>${registerData.headlineTwo}</h2>
+                  <span>Schritt ${currentStep} von ${maxStep - 1} </span>`
+          }
+          
+          ${
+            currentStep === 1
+              ? html`<bcg-register-step-one
+                  .nextStep="${nextStep}"
+                ></bcg-register-step-one>`
+              : null
+          }
 
-      <div class="left-side" style="flex-direction:row-reverse; width:640px;"> 
-    
-      ${
-        currentStep >= maxStep - 1
-          ? null
-          : html`<h1>Willkommen!</h1>
-              <h2>Registrierung</h2>
-              <span>Schritt ${currentStep} von ${maxStep - 1} </span>`
-      }
-
-        ${
-          currentStep === 1
-            ? html`<bcg-register-step-one
-                .nextStep="${nextStep}"
-              ></bcg-register-step-one>`
-            : null
-        }
-
-        ${
-          currentStep === 2
-            ? html`<bcg-register-step-two
-                  @input-changed="${this.changeInput}"
-                ></bcg-register-step-two>
-                <bcg-button
-                  @click="${() => nextStep()}"
-                  label="Registrieren"
-                ></bcg-button>`
-            : null
-        }
-        ${
-          currentStep === 3
-            ? html`<bcg-register-step-three
-                  @input-changed="${this.changeInput}"
-                ></bcg-register-step-three>
-                <bcg-button
-                  @click="${() => nextStep()}"
-                  label="Code abschicken"
-                ></bcg-button> `
-            : null
-        }
-        ${
-          currentStep === 4
-            ? html`<bcg-register-step-finished></bcg-register-step-finished>
-                <bcg-button
-                  @click="${() => nextStep()}"
-                  label="Jetzt beteiligen"
-                ></bcg-button>`
-            : null
-        }
+          ${
+            currentStep === 2
+              ? html`<bcg-register-step-two
+                  .nextStep="${nextStep}"
+                ></bcg-register-step-two> `
+              : null
+          }
+          ${
+            currentStep === 3
+              ? html`<bcg-register-step-three
+                  .nextStep="${nextStep}"
+                ></bcg-register-step-three> `
+              : null
+          }
+          ${
+            currentStep === 4
+              ? html`<bcg-register-step-finished
+                  .nextStep="${nextStep}"
+                ></bcg-register-step-finished> `
+              : null
+          }
 
 
-      </div>
-      <div class="right-side">
-        <img src="https://images.unsplash.com/photo-1654729746829-87fc9bc48ad7" style="width:629px;height:864px;" alt="123"></img>
-      </div>
+        </div>
+        <div class="right-side" style="display:flex; flex-basis:50%;">
+          <img src="https://images.unsplash.com/photo-1654729746829-87fc9bc48ad7" style="height: 100%;width: 100%;" alt="123"/>
+        </div>
+        </div>
       </div>
       
     `;

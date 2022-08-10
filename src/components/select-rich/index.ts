@@ -3,4 +3,4 @@ import { BcgSelectRich } from './select-rich';
 
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.selectrich, BcgSelectRich);
+customElements.define(componentNames.selectrich, BcgSelectRich);

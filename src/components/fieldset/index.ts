@@ -2,4 +2,4 @@
 import { BcgFieldSet } from './fieldset';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.fieldset, BcgFieldSet);
+customElements.define(componentNames.fieldset, BcgFieldSet);

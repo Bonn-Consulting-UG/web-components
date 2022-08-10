@@ -3,4 +3,4 @@ import { BcgSelect } from './select';
 
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.select, BcgSelect);
+customElements.define(componentNames.select, BcgSelect);

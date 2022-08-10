@@ -2,4 +2,4 @@
 import { BcgSteps } from './steps';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.steps, BcgSteps);
+customElements.define(componentNames.steps, BcgSteps);

@@ -1,29 +1,20 @@
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import { css, html } from '@lion/core';
 import { LionButton } from '@lion/button';
 
-export class BcgButton extends ScopedElementsMixin(LitElement) {
-  label: string;
+import '@lion/button/define';
 
+export class BcgButton extends LionButton {
   static get styles() {
-    return [css``];
+    return [...super.styles, css``];
   }
 
-  static get properties() {
-    return {
-      label: { type: String }
-    };
-  }
-
-  constructor() {
-    super();
-    this.label = '';
-  }
-
-  static get scopedElements() {
-    return { 'lion-button': LionButton };
-  }
-
-  render() {
-    return html` <lion-button> ${this.label} </lion-button>`;
-  }
+  // render() {
+  //   return html`
+  //     <div class="button-content" id="${this._buttonId}">
+  //       <slot name="prefix"></slot>
+  //       <slot></slot>
+  //       <slot name="suffix"></slot>
+  //     </div>
+  //   `;
+  // }
 }

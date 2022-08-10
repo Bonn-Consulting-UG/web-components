@@ -5,8 +5,8 @@ export default {
   title: 'Components/Button',
   component: 'bcg-button',
   argTypes: {
-    label: {},
-  },
+    label: {}
+  }
 };
 
 interface Story<T> {
@@ -20,12 +20,16 @@ interface ArgTypes {
 }
 
 const Template: Story<ArgTypes> = args =>
-  html` <bcg-button .label="${args.label}"></bcg-button> `;
+  html`
+    <bcg-button @click="${() => console.log('click')}"
+      >${args.label}</bcg-button
+    >
+  `;
 
 const Default = Template.bind({});
 
 Default.args = {
-  label: 'Test',
+  label: 'Test'
 };
 
 export { Default };

@@ -2,4 +2,4 @@
 import { BcgInputTel } from './input-tel';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.inputtel, BcgInputTel);
+customElements.define(componentNames.inputtel, BcgInputTel);

@@ -35,6 +35,7 @@ export const componentNames: component = {
   inputtel: `${tagPrefix}-input-tel`,
   inputteldropdown: `${tagPrefix}-input-tel-dropdown`,
   checkboxgroup: `${tagPrefix}-checkbox-group`,
+  checkbox: `${tagPrefix}-checkbox`,
   form: `${tagPrefix}-form`,
   combobox: `${tagPrefix}-combobox`,
   listbox: `${tagPrefix}-listbox`,

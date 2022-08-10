@@ -2,4 +2,4 @@
 import { BcgInputAmount } from './inout-amount';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.inputamount, BcgInputAmount);
+customElements.define(componentNames.inputamount, BcgInputAmount);

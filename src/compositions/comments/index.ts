@@ -4,5 +4,5 @@ import { BcgComment } from './comment';
 
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.compositions.comments, BcgComments);
-window.customElements.define(componentNames.comment, BcgComment);
+customElements.define(componentNames.compositions.comments, BcgComments);
+customElements.define(componentNames.comment, BcgComment);

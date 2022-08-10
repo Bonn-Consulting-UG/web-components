@@ -5,6 +5,6 @@ import { BcgButtonSubmit } from './button-submit';
 
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.button, BcgButton);
-window.customElements.define(componentNames.buttonreset, BcgButtonReset);
-window.customElements.define(componentNames.buttonsubmit, BcgButtonSubmit);
+customElements.define(componentNames.button, BcgButton);
+customElements.define(componentNames.buttonreset, BcgButtonReset);
+customElements.define(componentNames.buttonsubmit, BcgButtonSubmit);

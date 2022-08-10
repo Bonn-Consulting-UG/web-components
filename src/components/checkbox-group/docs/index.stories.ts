@@ -29,13 +29,11 @@ interface ArgTypes {
 const Template: Story<ArgTypes> = () =>
   html`
     <bcg-checkbox-group>
-      <slot name="test">
-        <lion-checkbox
-          label="Ich akzeptiere die 
+      <bcg-checkbox
+        label="Ich akzeptiere die 
         Datenschutzerklärung"
-          .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
-        ></lion-checkbox>
-      </slot>
+        .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
+      ></bcg-checkbox>
     </bcg-checkbox-group>
   `;
 

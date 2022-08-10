@@ -2,7 +2,7 @@
 import { BcgInputDatepicker } from './input-datepicker';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(
+customElements.define(
   componentNames.inputdatepicker,
   BcgInputDatepicker as any
 );

@@ -2,4 +2,4 @@
 import { BcgAccordion } from './accordion';
 import { componentNames } from '../../utils/config';
 
-window.customElements.define(componentNames.accordion, BcgAccordion);
+customElements.define(componentNames.accordion, BcgAccordion);
