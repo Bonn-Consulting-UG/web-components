@@ -3,8 +3,8 @@ const APIVersion = 'v1';
 const baseURLwithApiVersion = `https://ifokservice-epart.bonnconsulting.group/api/${APIVersion}`;
 const registerEndpoint = `${baseURLwithApiVersion}/register`;
 const loginEndpoint = `${baseURLwithApiVersion}/login`;
-const checkVerifyCodeEndpoint = (userID: string) =>
-  `${baseURLwithApiVersion}/${userID}/verify`;
+const checkVerifyCodeEndpoint = (userID: string, verfiyCode: string) =>
+  `${baseURLwithApiVersion}/users/${userID}/verify?code=${verfiyCode}`;
 
 export const sendRegisterRequest = async (newUser: any) => {
   try {
@@ -32,11 +32,13 @@ export const checkVerifyCode = async (userID: any, code: any) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(code)
+      }
     };
 
-    const resp = await fetch(checkVerifyCodeEndpoint(userID), fetchOptions);
+    const resp = await fetch(
+      checkVerifyCodeEndpoint(userID, code),
+      fetchOptions
+    );
     console.log(resp.json());
     return resp;
   } catch (err) {

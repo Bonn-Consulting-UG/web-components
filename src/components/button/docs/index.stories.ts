@@ -26,10 +26,23 @@ const Template: Story<ArgTypes> = args =>
     >
   `;
 
+const SubmitTemplate: Story<ArgTypes> = args =>
+  html`
+    <bcg-button @click="${() => console.log('click')}"
+      >${args.label}</bcg-button
+    >
+  `;
+
 const Default = Template.bind({});
 
 Default.args = {
   label: 'Test'
 };
 
-export { Default };
+const Submit = SubmitTemplate.bind({});
+
+Submit.args = {
+  label: 'Submit'
+};
+
+export { Default, Submit };

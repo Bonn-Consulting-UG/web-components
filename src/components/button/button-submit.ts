@@ -1,18 +1,8 @@
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import { css } from '@lion/core';
 import { LionButtonSubmit } from '@lion/button';
 
-export class BcgButtonSubmit extends ScopedElementsMixin(LitElement) {
+export class BcgButtonSubmit extends LionButtonSubmit {
   static get styles() {
-    return [css``];
-  }
-
-  static get scopedElements() {
-    return { 'lion-button-submit': LionButtonSubmit };
-  }
-
-  render() {
-    return html` <lion-button-submit>
-      <slot></slot>
-    </lion-button-submit>`;
+    return [...super.styles, css``];
   }
 }

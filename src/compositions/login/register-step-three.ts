@@ -1,4 +1,6 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import { MinLength, Required } from '@lion/form-core';
+import registerData from '../../utils/data/composition/register.json' assert { type: 'json' };
 
 export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
   nextStep: any;
@@ -18,16 +20,43 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
     return [css``];
   }
 
+  code: any = null;
+
   render() {
-    return html`<div>
+    let { code } = this;
+    Required.getMessage = async () => 'Is Required';
+    MinLength.getMessage = async () => `Mindestens 4 Zeichen`;
+
+    const submitHandler = (ev: any) => {
+      if (ev.target.hasFeedbackFor.includes('error')) {
+        const firstFormElWithError = ev.target.formElements.find((el: any) =>
+          el.hasFeedbackFor.includes('error')
+        );
+        firstFormElWithError.focus();
+        return;
+      }
+      this.nextStep(code);
+    };
+
+    return html`
+     <bcg-form @submit=${submitHandler}>
+        <form @submit=${(e: any) => e.preventDefault()}>
+    <div>
         <h2>
           Sie haben einen Bestätigungscode per E-Mail erhalten. Bitte geben Sie
           den Code ein:
         </h2>
 
         <bcg-input
-          label=""
-          placeholder="Geben Sie den 4-stelligen Code ein"
+        name="verifycode"
+              label=""
+              placeholder="Geben Sie den 4-stelligen Code ein""
+              .modelValue="${code}"
+              .validators=${[new Required(), new MinLength(4)]}
+              @model-value-changed=${({ target }: any) => {
+                code = target.value;
+              }}
+        
         ></bcg-input>
       </div>
       <div>
@@ -37,8 +66,9 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
         <li>E-Mail Adresse überarbeiten</li> 
       </div>
 
-      <bcg-button @click="${() =>
-        this.nextStep()}" >Code abschicken</bcg-button> 
+      <bcg-button-submit>Code abschicken</bcg-button> 
+                </form>
+      </bcg-form>
 `;
   }
 }

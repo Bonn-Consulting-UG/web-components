@@ -19,16 +19,23 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
 
   verifyCode: number = 0;
 
+  user: any = 0;
+
   nextStep = async (payload: any) => {
     console.log(payload);
-    let user = null;
+    let response: any = null;
+
     if (this.currentStep < this.maxStep) {
       if (this.currentStep === 2) {
-        user = await sendRegisterRequest(payload);
-        console.log(user);
-      }
-      if (this.currentStep === 3) await checkVerifyCode(user, payload);
+        response = await sendRegisterRequest(payload);
+        this.user = await response.json();
 
+        console.log(this.user);
+        if (response.status !== 201) return;
+      }
+      if (this.currentStep === 3) {
+        await checkVerifyCode(this.user.id, payload);
+      }
       this.currentStep += 1;
     } else {
       console.log('close Dialog');
@@ -91,6 +98,7 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
           ${
             currentStep === 4
               ? html`<bcg-register-step-finished
+                  .name=${this.user}
                   .nextStep="${nextStep}"
                 ></bcg-register-step-finished> `
               : null
