@@ -5,6 +5,7 @@ import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
 import { BcgInput } from '../../components/input/input';
 import registerData from '../../utils/data/composition/register.json' assert { type: 'json' };
+import { PasswordMatch } from '../../utils/validators/password-match';
 
 export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   static get styles() {
@@ -35,9 +36,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   email: string = 'testingepart@trash-mail.com';
 
-  password: string = 'test';
+  password: string = '';
 
-  passwordrepeat: string = 'test';
+  passwordrepeat: string = '';
 
   static get scopedElements() {
     return {
@@ -108,28 +109,32 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 email = target.value;
               }}
             ></bcg-input-email>
-            <bcg-input
-              label="Password"
-              type="password"
-              placeholder=""
-              .modelValue="${password}"
-              .validators=${[new Required()]}
-              name="password"
-              @model-value-changed=${({ target }: any) => {
-                password = target.value;
-              }}
-            ></bcg-input>
-            <bcg-input
-              .validators=${[new Required()]}
-              name="passwordrepeat"
-              .modelValue="${passwordrepeat}"
-              @model-value-changed=${({ target }: any) => {
-                passwordrepeat = target.value;
-              }}
-              label="Password wiederholen"
-              type="password"
-              placeholder=""
-            ></bcg-input>
+            <bcg-fieldset
+              name="password-fieldset"
+              .validators=${[new PasswordMatch()]}
+            >
+              <bcg-input
+                label="Password"
+                type="password"
+                placeholder=""
+                name="password"
+                @model-value-changed=${({ target }: any) => {
+                  password = target.value;
+                }}
+                .modelValue="${password}"
+              ></bcg-input>
+
+              <bcg-input
+                name="passwordrepeat"
+                label="Password wiederholen"
+                type="password"
+                placeholder=""
+                .modelValue="${passwordrepeat}"
+                @model-value-changed=${({ target }: any) => {
+                  passwordrepeat = target.value;
+                }}
+              ></bcg-input>
+            </bcg-fieldset>
             <bcg-checkbox-group name="dsgvo" .validators=${[new Required()]}>
               <bcg-checkbox
                 label="Ich akzeptiere die Netiquette und die Datenschutzerklärung.*"

@@ -4,15 +4,19 @@ import registerData from '../../utils/data/composition/register.json' assert { t
 export class BcgRegisterStepFinished extends ScopedElementsMixin(LitElement) {
   nextStep: any;
 
+  user: any;
+
   static get properties() {
     return {
-      nextStep: { type: Function }
+      nextStep: { type: Function },
+      user: { type: Object }
     };
   }
 
   constructor() {
     super();
     this.nextStep = () => 'test';
+    this.user = {};
   }
 
   static get styles() {
@@ -20,9 +24,10 @@ export class BcgRegisterStepFinished extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
+    console.log(this.user);
     return html`
       <div>
-        <h2>Willkommen, [Name]!</h2>
+        <h2>Willkommen, ${this.user.firstname} ${this.user.lastname}!</h2>
         <h2>Ihre Registrierung war erfolgreich.</h2>
       </div>
       <bcg-button @click="${() => this.nextStep()}"

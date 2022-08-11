@@ -35,6 +35,7 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
       }
       if (this.currentStep === 3) {
         await checkVerifyCode(this.user.id, payload);
+        if (response.status !== 204) return;
       }
       this.currentStep += 1;
     } else {
@@ -98,7 +99,7 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
           ${
             currentStep === 4
               ? html`<bcg-register-step-finished
-                  .name=${this.user}
+                  .user=${this.user}
                   .nextStep="${nextStep}"
                 ></bcg-register-step-finished> `
               : null
