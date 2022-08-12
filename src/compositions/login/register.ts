@@ -7,10 +7,8 @@ import { BcgRegisterStepThree } from './register-step-three';
 import { BcgRegisterStepFinished } from './register-step-finished';
 import {
   sendRegisterRequest,
-  checkVerifyCode
+  checkVerifyCode,
 } from '../../utils/services/login';
-
-import registerData from '../../utils/data/composition/register.json' assert { type: 'json' };
 
 export class BcgRegister extends ScopedElementsMixin(LitElement) {
   currentStep: number = 1;
@@ -49,7 +47,7 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
       'bcg-register-step-one': BcgRegisterStepOne,
       'bcg-register-step-two': BcgRegisterStepTwo,
       'bcg-register-step-three': BcgRegisterStepThree,
-      'bcg-register-step-finished': BcgRegisterStepFinished
+      'bcg-register-step-finished': BcgRegisterStepFinished,
     };
   }
 
@@ -69,8 +67,8 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
           ${
             currentStep >= maxStep - 1
               ? null
-              : html`<h1>${registerData.headline}</h1>
-                  <h2>${registerData.headlineTwo}</h2>
+              : html`<h1>Willkommen!}</h1>
+                  <h2>Registrierung</h2>
                   <span>Schritt ${currentStep} von ${maxStep - 1} </span>`
           }
           

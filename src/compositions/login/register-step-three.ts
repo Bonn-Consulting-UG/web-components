@@ -1,13 +1,12 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import { MinLength, Required } from '@lion/form-core';
-import registerData from '../../utils/data/composition/register.json' assert { type: 'json' };
 
 export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
   nextStep: any;
 
   static get properties() {
     return {
-      nextStep: { type: Function }
+      nextStep: { type: Function },
     };
   }
 

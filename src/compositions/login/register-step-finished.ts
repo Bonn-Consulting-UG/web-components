@@ -1,5 +1,4 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import registerData from '../../utils/data/composition/register.json' assert { type: 'json' };
 
 export class BcgRegisterStepFinished extends ScopedElementsMixin(LitElement) {
   nextStep: any;
@@ -9,7 +8,7 @@ export class BcgRegisterStepFinished extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       nextStep: { type: Function },
-      user: { type: Object }
+      user: { type: Object },
     };
   }
 

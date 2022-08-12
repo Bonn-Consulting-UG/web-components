@@ -4,7 +4,6 @@ import { IsEmail, Required } from '@lion/form-core';
 import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
 import { BcgInput } from '../../components/input/input';
-import registerData from '../../utils/data/composition/register.json' assert { type: 'json' };
 import { PasswordMatch } from '../../utils/validators/password-match';
 
 export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
@@ -19,7 +18,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       nextStep: { type: Function },
-      onChange: { type: Function }
+      onChange: { type: Function },
     };
   }
 
@@ -44,7 +43,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup
+      'bcg-checkbox-group': BcgCheckboxGroup,
     };
   }
 
@@ -72,7 +71,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           <div>
-            <h2>${registerData.stepTwo.headline}</h2>
+            <h2>Registrieren über:</h2>
             <bcg-button disabled>Facebook</bcg-button>
             <bcg-button disabled>Twitter</bcg-button>
             <bcg-button disabled>Gmail</bcg-button>
