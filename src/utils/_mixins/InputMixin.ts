@@ -1,5 +1,5 @@
 import { dedupeMixin } from '@lion/core';
-import { LitElement } from 'lit';
+import { LitElement } from '@lion/core';
 
 import { ThemeMixin } from 'dark-theme-utils';
 import { LocalizeLabelMixin } from './LocalizeLabelMixin.js';

@@ -1,4 +1,4 @@
-import { html, TemplateResult } from 'lit';
+import { html, TemplateResult } from '@lion/core';
 import '../index.js';
 
 export default {
@@ -6,9 +6,9 @@ export default {
   component: 'bcg-select',
   argTypes: {
     content: {
-      options: []
-    }
-  }
+      options: [],
+    },
+  },
 };
 
 interface ContentArgs {

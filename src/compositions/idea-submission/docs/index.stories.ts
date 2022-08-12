@@ -3,11 +3,11 @@ import '../index.js';
 
 export default {
   title: 'Compositions/IdeaSubmission',
-  component: 'bcg-comments',
+  component: 'bcg-idea-submission',
   argTypes: {
     content: {},
-    buttonLabel: {}
-  }
+    buttonLabel: {},
+  },
 };
 
 interface Story<T> {

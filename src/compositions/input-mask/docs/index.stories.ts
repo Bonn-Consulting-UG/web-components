@@ -4,10 +4,6 @@ import '../index.js';
 export default {
   title: 'Compositions/InputMask',
   component: 'bcg-input-mask',
-  argTypes: {
-    content: {},
-    buttonLabel: {}
-  }
 };
 
 interface Story<T> {
