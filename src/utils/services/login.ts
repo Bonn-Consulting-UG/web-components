@@ -56,8 +56,7 @@ export const sendLoginRequest = async (user: any) => {
     };
 
     const resp = await fetch(loginEndpoint, fetchOptions);
-    console.log(resp.json());
-    return resp;
+    return resp.json();
   } catch (err) {
     // Handle Error Here
     console.error(err);

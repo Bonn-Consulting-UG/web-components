@@ -63,7 +63,6 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
     const { maxStep, currentStep, nextStep } = this;
 
     return html`
-    <form>
     <div style="display:flex;">
       <div class="left-side" style="flex-direction:row-reverse;flex-basis:50%;"> 
           ${
