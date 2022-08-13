@@ -21,7 +21,7 @@ export class BcgInputMask extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
       'bcg-input-mask-step-one': BcgInputMaskStepOne,
-      'bcg-input-mask-step-two': BcgInputMaskStepTwo
+      'bcg-input-mask-step-two': BcgInputMaskStepTwo,
     };
   }
 
@@ -33,7 +33,7 @@ export class BcgInputMask extends ScopedElementsMixin(LitElement) {
     const { currentStep, nextStep } = this;
     return html` <form>
       <div style="display:flex;">
-        <div style="flex-direction:row-reverse; width:640px;">
+        <div style="flex-direction:row-reverse;">
           ${currentStep === 0
             ? html`<bcg-input-mask-step-one
                 .nextStep="${nextStep}"

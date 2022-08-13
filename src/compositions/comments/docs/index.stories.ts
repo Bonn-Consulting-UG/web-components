@@ -16,9 +16,10 @@ interface ArgTypes {
   buttonLabel: string;
   content: string;
 }
-const Template: Story<ArgTypes> = () => html` <bcg-comments></bcg-comments> `;
+const TemplateComments: Story<ArgTypes> = () =>
+  html` <bcg-comments></bcg-comments> `;
 
-const Default = Template.bind({});
+const Default = TemplateComments.bind({});
 
 Default.args = {};
 

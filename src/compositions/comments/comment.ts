@@ -1,5 +1,4 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { BcgReaction } from '../reactions/reaction.js';
 import { CommentInterface } from './comments.js';
 
 export class BcgComment extends ScopedElementsMixin(LitElement) {
@@ -15,8 +14,8 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
       comment: '',
       feedback: {
         likes: 0,
-        dislikes: 0
-      }
+        dislikes: 0,
+      },
     };
   }
 
@@ -55,12 +54,8 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
           border-radius: 50%;
           margin-right: 15px;
         }
-      `
+      `,
     ];
-  }
-
-  static get scopedElements() {
-    return { 'bcg-reaction': BcgReaction };
   }
 
   render() {
@@ -81,6 +76,13 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
         <div>
           <p>${comment}</p>
           <bcg-reaction></bcg-reaction>
+
+          <bcg-textarea
+            name="comment"
+            id="comment-textarea"
+            rows="4"
+            placeholder="Wie finden Sie die Idee"
+          ></bcg-textarea>
         </div>
         ${children?.map(
           i => html` <div

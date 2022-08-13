@@ -1,9 +1,4 @@
 import { html, LitElement, ScopedElementsMixin } from '@lion/core';
-import { BcgButton } from '../../components/button/button.js';
-import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group.js';
-import { BcgInput } from '../../components/input/input.js';
-import { BcgSelect } from '../../components/select/select.js';
-import BcgTextarea from '../../components/textarea/index.js';
 import { BcgComment } from './comment.js';
 
 export interface CommentInterface {
@@ -20,17 +15,6 @@ export interface CommentInterface {
 }
 
 export class BcgComments extends ScopedElementsMixin(LitElement) {
-  static get scopedElements() {
-    return {
-      'bcg-textarea': BcgTextarea,
-      'bcg-comment': BcgComment,
-      'bcg-input': BcgInput,
-      'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup,
-      'bcg-select': BcgSelect,
-    };
-  }
-
   maxCharCount: Number = 500;
 
   currentCharCount: Number = this.getElementsByTagName('textarea').length;
@@ -114,43 +98,29 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
     },
   };
 
-  updated() {
-    console.log(this.renderRoot.querySelector('textarea')?.value);
+  static get scopedElements() {
+    return { 'bcg-comment': BcgComment };
   }
 
   render() {
     const { maxCharCount, currentCharCount, comments } = this;
 
-    return html`
+    return html`<form>
       <div style="display:flex; flex-direction:column;">
         <h2 style="flex-grow: 1;">Kommentare(count)</h2>
         <bcg-select style="display: flex;align-self: flex-end;"></bcg-select>
-        <lion-form>
-          <form>
-            <bcg-textarea
-              @model-value-changed=${(e: any) => e}
-              name="comment"
-              id="comment-textarea"
-              rows="4"
-              placeholder="Wie finden Sie die Idee"
-            ></bcg-textarea>
-          </form>
-        </lion-form>
 
         <div style="display:flex; margin-top:10px;">
           <p style="flex-grow: 1;">${currentCharCount}/${maxCharCount}</p>
-          <bcg-button label="Kommentieren"></bcg-button>
+          <bcg-button>Kommentieren</bcg-button>
         </div>
         <div>
           ${comments.map(
             comment => html`<bcg-comment .comments="${comment}"></bcg-comment>`
           )}
         </div>
-        <bcg-button
-          style="display:flex;align-self:center; margin-top:20px;"
-          label="Mehr Laden"
-        ></bcg-button>
+        <bcg-button>Mehr Laden</bcg-button>
       </div>
-    `;
+    </form> `;
   }
 }

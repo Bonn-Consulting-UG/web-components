@@ -1,9 +1,5 @@
 /* eslint-disable import/extensions */
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { BcgButton } from '../../components/button/button';
-import { BcgInput } from '../../components/input/input';
-import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
-import { BcgSelect } from '../../components/select/select';
 
 export class BcgInputMaskStepOne extends ScopedElementsMixin(LitElement) {
   static get styles() {
@@ -20,15 +16,6 @@ export class BcgInputMaskStepOne extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       nextStep: { type: Function },
-    };
-  }
-
-  static get scopedElements() {
-    return {
-      'bcg-input': BcgInput,
-      'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup,
-      'bcg-select': BcgSelect,
     };
   }
 
@@ -70,10 +57,7 @@ export class BcgInputMaskStepOne extends ScopedElementsMixin(LitElement) {
       </div>
       <div>
         <bcg-button label="Abbrechen"> ></bcg-button>
-        <bcg-button
-          @click="${() => this.nextStep()}"
-          label="Weiter"
-        ></bcg-button>
+        <bcg-button @click="${() => this.nextStep()}">Weiter</bcg-button>
       </div>
     `;
   }

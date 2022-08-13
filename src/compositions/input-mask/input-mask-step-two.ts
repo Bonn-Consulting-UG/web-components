@@ -68,8 +68,8 @@ export class BcgInputMaskStepTwo extends ScopedElementsMixin(LitElement) {
         </div>
       </div>
       <div>
-        <bcg-button label="Zurück"> ></bcg-button>
-        <bcg-button label="Abschicken"></bcg-button>
+        <bcg-button>Zurück</bcg-button>
+        <bcg-button>Abschicken</bcg-button>
       </div>
     `;
   }
