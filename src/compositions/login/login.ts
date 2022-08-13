@@ -9,7 +9,7 @@ export class BcgLogin extends ScopedElementsMixin(LitElement) {
     return [css``];
   }
 
-  email: string = 'testingepart@trash-mail.com';
+  email: string = 'testi2ngepart@trash-mail.com';
 
   password: string = 'test';
 
@@ -21,10 +21,23 @@ export class BcgLogin extends ScopedElementsMixin(LitElement) {
     IsEmail.getMessage = async () => 'Must be a E mail';
     Required.getMessage = async () => 'Is Required';
 
-    return html`
-      <div style="display:flex;flex-direction:row-reverse;justify-content: left;">
+    const submitHandler = async (ev: any) => {
+      if (ev.target.hasFeedbackFor.includes('error')) {
+        const firstFormElWithError = ev.target.formElements.find((el: any) =>
+          el.hasFeedbackFor.includes('error')
+        );
+        firstFormElWithError.focus();
+        return;
+      }
+      const response: any = await sendLoginRequest({ email, password });
+      localStorage.setItem('auth-token', response.auth_token);
+    };
 
-      
+    return html`
+     <bcg-form name="login" @submit=${submitHandler}>
+        <form @submit=${(e: any) => e.preventDefault()}>
+
+      <div style="display:flex;flex-direction:row-reverse;justify-content: left;">
       <div class="left-side" style="flex-direction:row-reverse; width:640px; ">
       <h1>Willkommen!</h1>
           <h2>Anmeldung</h2>
@@ -58,12 +71,14 @@ export class BcgLogin extends ScopedElementsMixin(LitElement) {
               }}
             ></bcg-input>
           </div>
-          <bcg-button label="Anmelden"></bcg-button>
+          <bcg-button-submit >Anmelden</bcg-button-submit>
         </div>
         <div class="right-side">
         <img src="https://images.unsplash.com/photo-1654580038810-505030159ca0" style="width:629px;height:864px;" alt="123"></img>
         </div>
       </div>
+            </form >
+            </bcg-form >
     `;
   }
 }

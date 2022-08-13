@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { IsEmail, Required } from '@lion/form-core';
+import { IsEmail, Pattern, Required } from '@lion/form-core';
 import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
 import { BcgInput } from '../../components/input/input';
