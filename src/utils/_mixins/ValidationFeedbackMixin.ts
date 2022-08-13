@@ -1,5 +1,5 @@
 import { dedupeMixin } from '@lion/core';
-import { LitElement } from 'lit';
+import { LitElement } from '@lion/core';
 
 import { DefaultSuccess } from '@lion/form-core';
 import '@lion/validation-feedback/define';

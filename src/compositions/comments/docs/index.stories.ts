@@ -4,10 +4,6 @@ import '../index.js';
 export default {
   title: 'Compositions/Comments',
   component: 'bcg-comments',
-  argTypes: {
-    content: {},
-    buttonLabel: {},
-  },
 };
 
 interface Story<T> {

@@ -19,7 +19,7 @@ export class BcgInputMaskStepOne extends ScopedElementsMixin(LitElement) {
 
   static get properties() {
     return {
-      nextStep: { type: Function }
+      nextStep: { type: Function },
     };
   }
 
@@ -28,7 +28,7 @@ export class BcgInputMaskStepOne extends ScopedElementsMixin(LitElement) {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
       'bcg-checkbox-group': BcgCheckboxGroup,
-      'bcg-select': BcgSelect
+      'bcg-select': BcgSelect,
     };
   }
 

@@ -3,7 +3,6 @@ import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
 import { BcgInput } from '../../components/input/input';
-import registerData from '../../utils/data/composition/register.json' assert { type: 'json' };
 
 export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
   static get styles() {
@@ -14,7 +13,7 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
 
   static get properties() {
     return {
-      nextStep: { type: Function }
+      nextStep: { type: Function },
     };
   }
 
@@ -27,20 +26,20 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup
+      'bcg-checkbox-group': BcgCheckboxGroup,
     };
   }
 
   render() {
     return html`
       <div>
-        <h2>${registerData.stepOne.headline}</h2>
+        <h2>Registrieren als:</h2>
         <div>
           <bcg-button @click="${() => this.nextStep()}">
-            ${registerData.stepOne.buttonOne}
+            Als Privat Person
           </bcg-button>
           <bcg-button disabled @click="${() => this.nextStep()}">
-            ${registerData.stepOne.buttonTwo}
+            Als Organisation
           </bcg-button>
         </div>
       </div>
