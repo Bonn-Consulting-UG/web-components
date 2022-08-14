@@ -1,6 +1,5 @@
 import { html, TemplateResult } from '@lion/core';
 import '../index.js';
-import '../../textarea/index.js';
 
 export default {
   title: 'Components/Textarea',

@@ -1,9 +1,4 @@
 import { html, LitElement, ScopedElementsMixin } from '@lion/core';
-import { BcgButton } from '../../components/button/button.js';
-import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group.js';
-import { BcgInput } from '../../components/input/input.js';
-import { BcgSelect } from '../../components/select/select.js';
-import BcgTextarea from '../../components/textarea/index.js';
 import { BcgComment } from './comment.js';
 
 export interface CommentInterface {
@@ -22,11 +17,7 @@ export interface CommentInterface {
 export class BcgComments extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
-      'bcg-comment': BcgComment,
-      'bcg-input': BcgInput,
-      'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup,
-      'bcg-select': BcgSelect
+      'bcg-comment': BcgComment
     };
   }
 
@@ -113,14 +104,10 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
     }
   };
 
-  updated() {
-    console.log(this.renderRoot.querySelector('textarea')?.value);
-  }
-
   render() {
     const { maxCharCount, currentCharCount, comments } = this;
 
-    return html`
+    return html`<form>
       <div style="display:flex; flex-direction:column;">
         <h2 style="flex-grow: 1;">Kommentare(count)</h2>
         <bcg-select>
@@ -152,11 +139,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
             comment => html`<bcg-comment .comments="${comment}"></bcg-comment>`
           )}
         </div>
-        <bcg-button
-          style="display:flex;align-self:center; margin-top:20px;"
-          label="Mehr Laden"
-        ></bcg-button>
+        <bcg-button>Mehr Laden</bcg-button>
       </div>
-    `;
+    </form> `;
   }
 }

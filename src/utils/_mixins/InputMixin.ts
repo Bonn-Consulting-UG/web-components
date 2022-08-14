@@ -1,12 +1,11 @@
 import { dedupeMixin } from '@lion/core';
-import { LitElement } from '@lion/core';
 
 import { ThemeMixin } from 'dark-theme-utils';
 import { LocalizeLabelMixin } from './LocalizeLabelMixin.js';
 import { ValidationFeedbackMixin } from './ValidationFeedbackMixin.js';
 import { FieldNameLowercaseMixin } from './FieldNameLowercaseMixin.js';
 
-export const InputMixinImplementation = (superclass: LitElement) =>
+export const InputMixinImplementation = (superclass: HTMLAllCollection) =>
   class extends ThemeMixin(
     LocalizeLabelMixin(
       ValidationFeedbackMixin(FieldNameLowercaseMixin(superclass))

@@ -1,9 +1,9 @@
-import { dedupeMixin } from '@lion/core';
+import { dedupeMixin, LitElement } from '@lion/core';
 import { localize, LocalizeMixin } from '@lion/localize';
 import '@lion/validation-feedback/define';
 
-export const LocalizeLabelMixinImplementation = (superclass: HTMLElement) =>
-  class extends LocalizeMixin(superclass) {
+export const LocalizeLabelMixinImplementation = (superclass: LitElement) =>
+  class extends LocalizeMixin(superclass:LitElement1) {
     get label() {
       return (
         this.__label || (this._labelNode && this._labelNode.textContent) || ''

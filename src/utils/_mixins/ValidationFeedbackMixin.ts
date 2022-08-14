@@ -1,10 +1,9 @@
 import { dedupeMixin } from '@lion/core';
-import { LitElement } from '@lion/core';
 
 import { DefaultSuccess } from '@lion/form-core';
 import '@lion/validation-feedback/define';
 
-export const ValidationFeedbackMixinImplementation = (superclass: LitElement) =>
+export const ValidationFeedbackMixinImplementation = (superclass: any) =>
   class extends superclass {
     static get validationTypes() {
       return ['error', 'warning', 'success', 'info'];

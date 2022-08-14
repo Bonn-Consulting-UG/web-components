@@ -41,3 +41,4 @@ dist/**/*
 yarn.lock
 
 custom-elements.json
+storybook-static
