@@ -59,6 +59,7 @@
     "lit-element-state": "^1.7.0"
   },
   "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@open-wc/dev-server-hmr": "^0.1.2",
     "@open-wc/eslint-config": "^7.0.0",

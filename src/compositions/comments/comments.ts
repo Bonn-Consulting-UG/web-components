@@ -22,12 +22,11 @@ export interface CommentInterface {
 export class BcgComments extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
-      'bcg-textarea': BcgTextarea,
       'bcg-comment': BcgComment,
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
       'bcg-checkbox-group': BcgCheckboxGroup,
-      'bcg-select': BcgSelect,
+      'bcg-select': BcgSelect
     };
   }
 
@@ -45,8 +44,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
         'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
       feedback: {
         likes: 5,
-        dislikes: 23,
-      },
+        dislikes: 23
+      }
     },
     {
       name: 'Carlos Caceres (Moderator)',
@@ -57,8 +56,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
         'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
       feedback: {
         likes: 5,
-        dislikes: 23,
-      },
+        dislikes: 23
+      }
     },
     {
       name: 'Carlos Caceres ',
@@ -68,9 +67,9 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
         'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
       feedback: {
         likes: 5,
-        dislikes: 23,
-      },
-    },
+        dislikes: 23
+      }
+    }
   ];
 
   comments: Array<CommentInterface> = [
@@ -84,8 +83,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
       children: [...this.commentChildren],
       feedback: {
         likes: 25,
-        dislikes: 1,
-      },
+        dislikes: 1
+      }
     },
     {
       name: 'Amelie',
@@ -97,9 +96,9 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
       children: [...this.commentChildren],
       feedback: {
         likes: 25,
-        dislikes: 1,
-      },
-    },
+        dislikes: 1
+      }
+    }
   ];
 
   testcomment: CommentInterface = {
@@ -110,8 +109,8 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
     comment: '',
     feedback: {
       likes: 0,
-      dislikes: 0,
-    },
+      dislikes: 0
+    }
   };
 
   updated() {
@@ -124,9 +123,15 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
     return html`
       <div style="display:flex; flex-direction:column;">
         <h2 style="flex-grow: 1;">Kommentare(count)</h2>
-        <bcg-select style="display: flex;align-self: flex-end;"></bcg-select>
-        <lion-form>
-          <form>
+        <bcg-select>
+          <select slot="input">
+            <option selected hidden value>placeholder</option>
+            <option value="Registrierung nötig ">Newest</option>
+            <option value="keine Registrierung nötig (anonym)">Oldest</option>
+          </select>
+        </bcg-select>
+        <bcg-form @submit>
+          <form @submit=${(e: any) => console.log(e)}>
             <bcg-textarea
               @model-value-changed=${(e: any) => e}
               name="comment"
@@ -134,13 +139,14 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
               rows="4"
               placeholder="Wie finden Sie die Idee"
             ></bcg-textarea>
-          </form>
-        </lion-form>
 
-        <div style="display:flex; margin-top:10px;">
-          <p style="flex-grow: 1;">${currentCharCount}/${maxCharCount}</p>
-          <bcg-button label="Kommentieren"></bcg-button>
-        </div>
+            <div style="display:flex; margin-top:10px;">
+              <p style="flex-grow: 1;">${currentCharCount}/${maxCharCount}</p>
+              <bcg-button label="Kommentieren"></bcg-button>
+            </div>
+          </form>
+        </bcg-form>
+
         <div>
           ${comments.map(
             comment => html`<bcg-comment .comments="${comment}"></bcg-comment>`

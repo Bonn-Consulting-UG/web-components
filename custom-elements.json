@@ -50,1045 +50,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/compositions/comments/comment.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgComment",
-          "members": [
-            {
-              "kind": "field",
-              "name": "comments",
-              "type": {
-                "text": "CommentInterface"
-              },
-              "default": "{\n      name: '',\n      date: '',\n      icon: '',\n      comment: '',\n      feedback: {\n        likes: 0,\n        dislikes: 0\n      }\n    }"
-            },
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgComment",
-          "declaration": {
-            "name": "BcgComment",
-            "module": "src/compositions/comments/comment.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/comments/comments.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgComments",
-          "members": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "maxCharCount",
-              "type": {
-                "text": "Number"
-              },
-              "default": "500"
-            },
-            {
-              "kind": "field",
-              "name": "currentCharCount",
-              "type": {
-                "text": "Number"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "commentChildren",
-              "type": {
-                "text": "Array<CommentInterface>"
-              },
-              "default": "[\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23\n      }\n    },\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23\n      }\n    },\n    {\n      name: 'Carlos Caceres ',\n      date: 'Vor 4 Tagen',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23\n      }\n    }\n  ]"
-            },
-            {
-              "kind": "field",
-              "name": "comments",
-              "type": {
-                "text": "Array<CommentInterface>"
-              },
-              "default": "[\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1\n      }\n    },\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1\n      }\n    }\n  ]"
-            },
-            {
-              "kind": "field",
-              "name": "testcomment",
-              "type": {
-                "text": "CommentInterface"
-              },
-              "default": "{\n    name: 'Stefan Scheifel',\n    date: '',\n    isModerator: true,\n    icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n    comment: '',\n    feedback: {\n      likes: 0,\n      dislikes: 0\n    }\n  }"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgComments",
-          "declaration": {
-            "name": "BcgComments",
-            "module": "src/compositions/comments/comments.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/comments/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgComments",
-            "module": "/src/compositions/comments/comments"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgComment",
-            "module": "/src/compositions/comments/comment"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/faq-overview/faq-overview.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgFaqOverview",
-          "members": [],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgFaqOverview",
-          "declaration": {
-            "name": "BcgFaqOverview",
-            "module": "src/compositions/faq-overview/faq-overview.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/faq-overview/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgFaqOverview",
-            "module": "/src/compositions/faq-overview/faq-overview"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/faq-submission/faq-submission.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgFaqSubmission",
-          "members": [
-            {
-              "kind": "field",
-              "name": "isLoggedIn",
-              "privacy": "public",
-              "type": {
-                "text": "Boolean"
-              },
-              "default": "false",
-              "attribute": "isLoggedIn"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "isLoggedIn",
-              "type": {
-                "text": "Boolean"
-              },
-              "default": "false",
-              "fieldName": "isLoggedIn"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgFaqSubmission",
-          "declaration": {
-            "name": "BcgFaqSubmission",
-            "module": "src/compositions/faq-submission/faq-submission.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/faq-submission/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgFaqSubmission",
-            "module": "/src/compositions/faq-submission/faq-submission"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/idea-submission/idea-submission.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgIdeaSubmission",
-          "members": [
-            {
-              "kind": "field",
-              "name": "isLoggedIn",
-              "privacy": "public",
-              "type": {
-                "text": "Boolean"
-              },
-              "default": "false",
-              "attribute": "isLoggedIn"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "isLoggedIn",
-              "type": {
-                "text": "Boolean"
-              },
-              "default": "false",
-              "fieldName": "isLoggedIn"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgIdeaSubmission",
-          "declaration": {
-            "name": "BcgIdeaSubmission",
-            "module": "src/compositions/idea-submission/idea-submission.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/idea-submission/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgIdeaSubmission",
-            "module": "/src/compositions/idea-submission/idea-submission"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgInputMask",
-            "module": "/src/compositions/input-mask/input-mask"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/input-mask-step-one.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgInputMaskStepOne",
-          "members": [
-            {
-              "kind": "field",
-              "name": "nextStep",
-              "privacy": "public",
-              "type": {
-                "text": "any"
-              },
-              "attribute": "nextStep"
-            },
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "nextStep",
-              "type": {
-                "text": "any"
-              },
-              "fieldName": "nextStep"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgInputMaskStepOne",
-          "declaration": {
-            "name": "BcgInputMaskStepOne",
-            "module": "src/compositions/input-mask/input-mask-step-one.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/input-mask-step-two.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgInputMaskStepTwo",
-          "members": [],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgInputMaskStepTwo",
-          "declaration": {
-            "name": "BcgInputMaskStepTwo",
-            "module": "src/compositions/input-mask/input-mask-step-two.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/input-mask.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgInputMask",
-          "members": [
-            {
-              "kind": "field",
-              "name": "currentStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "maxStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "3"
-            },
-            {
-              "kind": "field",
-              "name": "nextStep"
-            },
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgInputMask",
-          "declaration": {
-            "name": "BcgInputMask",
-            "module": "src/compositions/input-mask/input-mask.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/login/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgLogin",
-            "module": "/src/compositions/login/login"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgLogout",
-            "module": "/src/compositions/login/logout"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgRegister",
-            "module": "/src/compositions/login/register"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/login/login.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgLogin",
-          "members": [
-            {
-              "kind": "field",
-              "name": "email",
-              "type": {
-                "text": "string"
-              },
-              "default": "'testingepart@trash-mail.com'"
-            },
-            {
-              "kind": "field",
-              "name": "password",
-              "type": {
-                "text": "string"
-              },
-              "default": "'test'"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgLogin",
-          "declaration": {
-            "name": "BcgLogin",
-            "module": "src/compositions/login/login.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/login/logout.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgLogout",
-          "members": [],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgLogout",
-          "declaration": {
-            "name": "BcgLogout",
-            "module": "src/compositions/login/logout.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/login/register-step-finished.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgRegisterStepFinished",
-          "members": [
-            {
-              "kind": "field",
-              "name": "nextStep",
-              "privacy": "public",
-              "type": {
-                "text": "any"
-              },
-              "attribute": "nextStep"
-            },
-            {
-              "kind": "field",
-              "name": "user",
-              "privacy": "public",
-              "type": {
-                "text": "any"
-              },
-              "default": "{}",
-              "attribute": "user"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "nextStep",
-              "type": {
-                "text": "any"
-              },
-              "fieldName": "nextStep"
-            },
-            {
-              "name": "user",
-              "type": {
-                "text": "any"
-              },
-              "default": "{}",
-              "fieldName": "user"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgRegisterStepFinished",
-          "declaration": {
-            "name": "BcgRegisterStepFinished",
-            "module": "src/compositions/login/register-step-finished.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/login/register-step-one.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgRegisterStepOne",
-          "members": [
-            {
-              "kind": "field",
-              "name": "nextStep",
-              "privacy": "public",
-              "type": {
-                "text": "any"
-              },
-              "attribute": "nextStep"
-            },
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "nextStep",
-              "type": {
-                "text": "any"
-              },
-              "fieldName": "nextStep"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgRegisterStepOne",
-          "declaration": {
-            "name": "BcgRegisterStepOne",
-            "module": "src/compositions/login/register-step-one.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/login/register-step-three.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgRegisterStepThree",
-          "members": [
-            {
-              "kind": "field",
-              "name": "nextStep",
-              "privacy": "public",
-              "type": {
-                "text": "any"
-              },
-              "attribute": "nextStep"
-            },
-            {
-              "kind": "field",
-              "name": "code",
-              "type": {
-                "text": "any"
-              },
-              "default": "null"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "nextStep",
-              "type": {
-                "text": "any"
-              },
-              "fieldName": "nextStep"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgRegisterStepThree",
-          "declaration": {
-            "name": "BcgRegisterStepThree",
-            "module": "src/compositions/login/register-step-three.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/login/register-step-two.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgRegisterStepTwo",
-          "members": [
-            {
-              "kind": "field",
-              "name": "nextStep",
-              "privacy": "public",
-              "type": {
-                "text": "any"
-              },
-              "attribute": "nextStep"
-            },
-            {
-              "kind": "field",
-              "name": "onChange",
-              "privacy": "public",
-              "type": {
-                "text": "any"
-              },
-              "attribute": "onChange"
-            },
-            {
-              "kind": "field",
-              "name": "dsgvo",
-              "type": {
-                "text": "object"
-              },
-              "default": "{ value: 'foo', checked: false }"
-            },
-            {
-              "kind": "field",
-              "name": "firstname",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Stefan'"
-            },
-            {
-              "kind": "field",
-              "name": "lastname",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Scheifel'"
-            },
-            {
-              "kind": "field",
-              "name": "email",
-              "type": {
-                "text": "string"
-              },
-              "default": "'testingepart@trash-mail.com'"
-            },
-            {
-              "kind": "field",
-              "name": "password",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
-            },
-            {
-              "kind": "field",
-              "name": "passwordrepeat",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
-            },
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "nextStep",
-              "type": {
-                "text": "any"
-              },
-              "fieldName": "nextStep"
-            },
-            {
-              "name": "onChange",
-              "type": {
-                "text": "any"
-              },
-              "fieldName": "onChange"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgRegisterStepTwo",
-          "declaration": {
-            "name": "BcgRegisterStepTwo",
-            "module": "src/compositions/login/register-step-two.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/login/register.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgRegister",
-          "members": [
-            {
-              "kind": "field",
-              "name": "currentStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "1"
-            },
-            {
-              "kind": "field",
-              "name": "maxStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "4"
-            },
-            {
-              "kind": "field",
-              "name": "verifyCode",
-              "type": {
-                "text": "number"
-              },
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "user",
-              "type": {
-                "text": "any"
-              },
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "nextStep"
-            },
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgRegister",
-          "declaration": {
-            "name": "BcgRegister",
-            "module": "src/compositions/login/register.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/reactions/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgReaction",
-            "module": "/src/compositions/reactions/reaction"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/reactions/reaction.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgReaction",
-          "members": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgReaction",
-          "declaration": {
-            "name": "BcgReaction",
-            "module": "src/compositions/reactions/reaction.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/accordion/accordion.ts",
       "declarations": [
         {
@@ -3001,6 +1962,1038 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/compositions/comments/comment.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgComment",
+          "members": [
+            {
+              "kind": "field",
+              "name": "comments",
+              "type": {
+                "text": "CommentInterface"
+              },
+              "default": "{\n      name: '',\n      date: '',\n      icon: '',\n      comment: '',\n      feedback: {\n        likes: 0,\n        dislikes: 0\n      }\n    }"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgComment",
+          "declaration": {
+            "name": "BcgComment",
+            "module": "src/compositions/comments/comment.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/comments/comments.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgComments",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "maxCharCount",
+              "type": {
+                "text": "Number"
+              },
+              "default": "500"
+            },
+            {
+              "kind": "field",
+              "name": "currentCharCount",
+              "type": {
+                "text": "Number"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "commentChildren",
+              "type": {
+                "text": "Array<CommentInterface>"
+              },
+              "default": "[\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23,\n      },\n    },\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23,\n      },\n    },\n    {\n      name: 'Carlos Caceres ',\n      date: 'Vor 4 Tagen',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23,\n      },\n    },\n  ]"
+            },
+            {
+              "kind": "field",
+              "name": "comments",
+              "type": {
+                "text": "Array<CommentInterface>"
+              },
+              "default": "[\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1,\n      },\n    },\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1,\n      },\n    },\n  ]"
+            },
+            {
+              "kind": "field",
+              "name": "testcomment",
+              "type": {
+                "text": "CommentInterface"
+              },
+              "default": "{\n    name: 'Stefan Scheifel',\n    date: '',\n    isModerator: true,\n    icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n    comment: '',\n    feedback: {\n      likes: 0,\n      dislikes: 0,\n    },\n  }"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgComments",
+          "declaration": {
+            "name": "BcgComments",
+            "module": "src/compositions/comments/comments.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/comments/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgComments",
+            "module": "/src/compositions/comments/comments"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/faq-overview/faq-overview.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgFaqOverview",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgFaqOverview",
+          "declaration": {
+            "name": "BcgFaqOverview",
+            "module": "src/compositions/faq-overview/faq-overview.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/faq-overview/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgFaqOverview",
+            "module": "/src/compositions/faq-overview/faq-overview"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/faq-submission/faq-submission.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgFaqSubmission",
+          "members": [
+            {
+              "kind": "field",
+              "name": "isLoggedIn",
+              "privacy": "public",
+              "type": {
+                "text": "Boolean"
+              },
+              "default": "false",
+              "attribute": "isLoggedIn"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "isLoggedIn",
+              "type": {
+                "text": "Boolean"
+              },
+              "default": "false",
+              "fieldName": "isLoggedIn"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgFaqSubmission",
+          "declaration": {
+            "name": "BcgFaqSubmission",
+            "module": "src/compositions/faq-submission/faq-submission.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/faq-submission/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgFaqSubmission",
+            "module": "/src/compositions/faq-submission/faq-submission"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/idea-submission/idea-submission.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgIdeaSubmission",
+          "members": [
+            {
+              "kind": "field",
+              "name": "isLoggedIn",
+              "privacy": "public",
+              "type": {
+                "text": "Boolean"
+              },
+              "default": "false",
+              "attribute": "isLoggedIn"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "isLoggedIn",
+              "type": {
+                "text": "Boolean"
+              },
+              "default": "false",
+              "fieldName": "isLoggedIn"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgIdeaSubmission",
+          "declaration": {
+            "name": "BcgIdeaSubmission",
+            "module": "src/compositions/idea-submission/idea-submission.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/idea-submission/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgIdeaSubmission",
+            "module": "/src/compositions/idea-submission/idea-submission"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputMask",
+            "module": "/src/compositions/input-mask/input-mask"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask-step-one.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMaskStepOne",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextStep",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nextStep",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "nextStep"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMaskStepOne",
+          "declaration": {
+            "name": "BcgInputMaskStepOne",
+            "module": "src/compositions/input-mask/input-mask-step-one.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask-step-two.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMaskStepTwo",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMaskStepTwo",
+          "declaration": {
+            "name": "BcgInputMaskStepTwo",
+            "module": "src/compositions/input-mask/input-mask-step-two.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMask",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "maxStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "3"
+            },
+            {
+              "kind": "field",
+              "name": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMask",
+          "declaration": {
+            "name": "BcgInputMask",
+            "module": "src/compositions/input-mask/input-mask.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgLogin",
+            "module": "/src/compositions/login/login"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgLogout",
+            "module": "/src/compositions/login/logout"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgRegister",
+            "module": "/src/compositions/login/register"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/login.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgLogin",
+          "members": [
+            {
+              "kind": "field",
+              "name": "email",
+              "type": {
+                "text": "string"
+              },
+              "default": "'testi2ngepart@trash-mail.com'"
+            },
+            {
+              "kind": "field",
+              "name": "password",
+              "type": {
+                "text": "string"
+              },
+              "default": "'test'"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgLogin",
+          "declaration": {
+            "name": "BcgLogin",
+            "module": "src/compositions/login/login.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/logout.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgLogout",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgLogout",
+          "declaration": {
+            "name": "BcgLogout",
+            "module": "src/compositions/login/logout.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/register-step-finished.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRegisterStepFinished",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextStep",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "user",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "default": "{}",
+              "attribute": "user"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nextStep",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "nextStep"
+            },
+            {
+              "name": "user",
+              "type": {
+                "text": "any"
+              },
+              "default": "{}",
+              "fieldName": "user"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRegisterStepFinished",
+          "declaration": {
+            "name": "BcgRegisterStepFinished",
+            "module": "src/compositions/login/register-step-finished.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/register-step-one.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRegisterStepOne",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextStep",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nextStep",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "nextStep"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRegisterStepOne",
+          "declaration": {
+            "name": "BcgRegisterStepOne",
+            "module": "src/compositions/login/register-step-one.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/register-step-three.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRegisterStepThree",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextStep",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "code",
+              "type": {
+                "text": "any"
+              },
+              "default": "null"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nextStep",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "nextStep"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRegisterStepThree",
+          "declaration": {
+            "name": "BcgRegisterStepThree",
+            "module": "src/compositions/login/register-step-three.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/register-step-two.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRegisterStepTwo",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextStep",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "onChange",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "onChange"
+            },
+            {
+              "kind": "field",
+              "name": "dsgvo",
+              "type": {
+                "text": "object"
+              },
+              "default": "{ value: 'foo', checked: false }"
+            },
+            {
+              "kind": "field",
+              "name": "firstname",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Stefan'"
+            },
+            {
+              "kind": "field",
+              "name": "lastname",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Scheifel'"
+            },
+            {
+              "kind": "field",
+              "name": "email",
+              "type": {
+                "text": "string"
+              },
+              "default": "'testingepart@trash-mail.com'"
+            },
+            {
+              "kind": "field",
+              "name": "password",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "passwordrepeat",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nextStep",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "nextStep"
+            },
+            {
+              "name": "onChange",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "onChange"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRegisterStepTwo",
+          "declaration": {
+            "name": "BcgRegisterStepTwo",
+            "module": "src/compositions/login/register-step-two.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/register.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgRegister",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "1"
+            },
+            {
+              "kind": "field",
+              "name": "maxStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "4"
+            },
+            {
+              "kind": "field",
+              "name": "verifyCode",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "any"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgRegister",
+          "declaration": {
+            "name": "BcgRegister",
+            "module": "src/compositions/login/register.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/reactions/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgReaction",
+            "module": "/src/compositions/reactions/reaction"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/reactions/reaction.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgReaction",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgReaction",
+          "declaration": {
+            "name": "BcgReaction",
+            "module": "src/compositions/reactions/reaction.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/prototypes/kanban/index.ts",
       "declarations": [],
       "exports": []
@@ -3447,7 +3440,7 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/compositions/comments/docs/index.stories.ts",
+      "path": "src/components/accordion/docs/index.stories.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -3459,7 +3452,7 @@
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "src/compositions/comments/docs/index.stories.ts"
+            "module": "src/components/accordion/docs/index.stories.ts"
           }
         },
         {
@@ -3467,217 +3460,7 @@
           "name": "Default",
           "declaration": {
             "name": "Default",
-            "module": "src/compositions/comments/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/faq-overview/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/compositions/faq-overview/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/compositions/faq-overview/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/faq-submission/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        },
-        {
-          "kind": "variable",
-          "name": "LoggedIn"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/compositions/faq-submission/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/compositions/faq-submission/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "LoggedIn",
-          "declaration": {
-            "name": "LoggedIn",
-            "module": "src/compositions/faq-submission/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/idea-submission/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        },
-        {
-          "kind": "variable",
-          "name": "LoggedIn"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/compositions/idea-submission/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/compositions/idea-submission/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "LoggedIn",
-          "declaration": {
-            "name": "LoggedIn",
-            "module": "src/compositions/idea-submission/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/compositions/input-mask/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/compositions/input-mask/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/login/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Login"
-        },
-        {
-          "kind": "variable",
-          "name": "Register"
-        },
-        {
-          "kind": "variable",
-          "name": "Logout"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/compositions/login/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Login",
-          "declaration": {
-            "name": "Login",
-            "module": "src/compositions/login/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Logout",
-          "declaration": {
-            "name": "Logout",
-            "module": "src/compositions/login/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Register",
-          "declaration": {
-            "name": "Register",
-            "module": "src/compositions/login/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/reactions/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/compositions/reactions/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/compositions/reactions/docs/index.stories.ts"
+            "module": "src/components/accordion/docs/index.stories.ts"
           }
         }
       ]
@@ -3717,33 +3500,6 @@
           "declaration": {
             "name": "Submit",
             "module": "src/components/button/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/accordion/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/components/accordion/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/components/accordion/docs/index.stories.ts"
           }
         }
       ]
@@ -4410,33 +4166,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/progress/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/components/progress/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/components/progress/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/pagination/docs/index.stories.ts",
       "declarations": [
         {
@@ -4458,6 +4187,33 @@
           "declaration": {
             "name": "Default",
             "module": "src/components/pagination/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/progress/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/progress/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/progress/docs/index.stories.ts"
           }
         }
       ]
@@ -4653,33 +4409,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/prototypes/kanban/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/prototypes/kanban/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/prototypes/kanban/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/tooltip/docs/index.stories.ts",
       "declarations": [
         {
@@ -4701,6 +4430,270 @@
           "declaration": {
             "name": "Default",
             "module": "src/components/tooltip/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/comments/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/comments/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/comments/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/faq-overview/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/faq-overview/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/faq-overview/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/faq-submission/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        },
+        {
+          "kind": "variable",
+          "name": "LoggedIn"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/faq-submission/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/faq-submission/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LoggedIn",
+          "declaration": {
+            "name": "LoggedIn",
+            "module": "src/compositions/faq-submission/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/idea-submission/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        },
+        {
+          "kind": "variable",
+          "name": "LoggedIn"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/idea-submission/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/idea-submission/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LoggedIn",
+          "declaration": {
+            "name": "LoggedIn",
+            "module": "src/compositions/idea-submission/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/input-mask/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/input-mask/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Login"
+        },
+        {
+          "kind": "variable",
+          "name": "Register"
+        },
+        {
+          "kind": "variable",
+          "name": "Logout"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/login/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Login",
+          "declaration": {
+            "name": "Login",
+            "module": "src/compositions/login/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Logout",
+          "declaration": {
+            "name": "Logout",
+            "module": "src/compositions/login/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Register",
+          "declaration": {
+            "name": "Register",
+            "module": "src/compositions/login/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/reactions/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/reactions/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/reactions/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/prototypes/kanban/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/prototypes/kanban/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/prototypes/kanban/docs/index.stories.ts"
           }
         }
       ]
