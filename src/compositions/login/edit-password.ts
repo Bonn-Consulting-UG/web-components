@@ -10,15 +10,16 @@ export class BcgEditPassword extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    const submitHandler = (ev: any) => {
-      sendPasswordChangeRequest('');
+    const submitHandler = async (ev: any) => {
+      const res = await sendPasswordChangeRequest('');
+      console.log(res);
     };
     Required.getMessage = async () => 'Is Required';
     return html`<div>
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           <bcg-input
-            label="Password"
+            label="Aktuelles Password*"
             type="password"
             placeholder=""
             name="currentpassword"

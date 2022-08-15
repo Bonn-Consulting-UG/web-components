@@ -10,7 +10,7 @@ export class BcgEditDelete extends ScopedElementsMixin(LitElement) {
   // break span down '<span>Schritt ${currentStep} von ${maxStep - 1} </span>' to be able to export string to data
 
   render() {
-    const submitHandler = (ev: any) => {
+    const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
           el.hasFeedbackFor.includes('error')
@@ -18,7 +18,9 @@ export class BcgEditDelete extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      sendUserDeleteRequest('');
+
+      const res = await sendUserDeleteRequest('');
+      console.log(res);
     };
     return html`
       <h2>Profil löschen</h2>

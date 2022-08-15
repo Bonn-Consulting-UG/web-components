@@ -107,7 +107,7 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
   render() {
     const { maxCharCount, currentCharCount, comments } = this;
 
-    return html`<form>
+    return html`
       <div style="display:flex; flex-direction:column;">
         <h2 style="flex-grow: 1;">Kommentare(count)</h2>
         <bcg-select>
@@ -117,7 +117,7 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
             <option value="keine Registrierung nötig (anonym)">Oldest</option>
           </select>
         </bcg-select>
-        <bcg-form @submit>
+        <bcg-form @submit=${console.log('test')}>
           <form @submit=${(e: any) => console.log(e)}>
             <bcg-textarea
               @model-value-changed=${(e: any) => e}
@@ -141,6 +141,6 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
         </div>
         <bcg-button>Mehr Laden</bcg-button>
       </div>
-    </form> `;
+    `;
   }
 }

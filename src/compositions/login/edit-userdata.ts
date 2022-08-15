@@ -9,7 +9,7 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    const submitHandler = (ev: any) => {
+    const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
           el.hasFeedbackFor.includes('error')
@@ -17,7 +17,8 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      sendUserDataChangeRequest('');
+      const res = await sendUserDataChangeRequest('');
+      console.log(res);
     };
     IsEmail.getMessage = async () => 'Must be a E mail';
     Required.getMessage = async () => 'Is Required';
@@ -29,16 +30,19 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
               label="Ihr Vorname *"
               .validators=${[new Required()]}
               placeholder=""
+              name="firstname"
             ></bcg-input>
             <bcg-input
-              label="Ihr Nachame *"
+              label="Ihr Nachname *"
               .validators=${[new Required()]}
               placeholder=""
+              name="lastname"
             ></bcg-input>
             <bcg-input
               label="Ihre Email *"
               .validators=${[new Required(), new IsEmail()]}
               placeholder=""
+              name="email"
             ></bcg-input>
             <bcg-button-submit @click="${() => console.log('ButtonPress Save')}"
               >Speichern</bcg-button-submit

@@ -209,6 +209,46 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/calendar/calendar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgCalendar",
+          "members": [],
+          "superclass": {
+            "name": "LionCalendar",
+            "package": "@lion/calendar"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgCalendar",
+          "declaration": {
+            "name": "BcgCalendar",
+            "module": "src/components/calendar/calendar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/calendar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgCalendar",
+            "module": "/src/components/calendar/calendar"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/checkbox-group/checkbox-group.ts",
       "declarations": [
         {
@@ -276,46 +316,6 @@
           "declaration": {
             "name": "BcgCheckbox",
             "module": "/src/components/checkbox-group/checkbox"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/calendar/calendar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgCalendar",
-          "members": [],
-          "superclass": {
-            "name": "LionCalendar",
-            "package": "@lion/calendar"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgCalendar",
-          "declaration": {
-            "name": "BcgCalendar",
-            "module": "src/components/calendar/calendar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/calendar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgCalendar",
-            "module": "/src/components/calendar/calendar"
           }
         }
       ]
@@ -2271,6 +2271,164 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/compositions/input-mask/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputMask",
+            "module": "/src/compositions/input-mask/input-mask"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask-step-one.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMaskStepOne",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextStep",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "nextStep"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nextStep",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "nextStep"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMaskStepOne",
+          "declaration": {
+            "name": "BcgInputMaskStepOne",
+            "module": "src/compositions/input-mask/input-mask-step-one.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask-step-two.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMaskStepTwo",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMaskStepTwo",
+          "declaration": {
+            "name": "BcgInputMaskStepTwo",
+            "module": "src/compositions/input-mask/input-mask-step-two.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMask",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "maxStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "3"
+            },
+            {
+              "kind": "field",
+              "name": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMask",
+          "declaration": {
+            "name": "BcgInputMask",
+            "module": "src/compositions/input-mask/input-mask.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/compositions/login/edit-delete.ts",
       "declarations": [
         {
@@ -2904,164 +3062,6 @@
           "declaration": {
             "name": "BcgRegister",
             "module": "src/compositions/login/register.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgInputMask",
-            "module": "/src/compositions/input-mask/input-mask"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/input-mask-step-one.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgInputMaskStepOne",
-          "members": [
-            {
-              "kind": "field",
-              "name": "nextStep",
-              "privacy": "public",
-              "type": {
-                "text": "any"
-              },
-              "attribute": "nextStep"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "nextStep",
-              "type": {
-                "text": "any"
-              },
-              "fieldName": "nextStep"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgInputMaskStepOne",
-          "declaration": {
-            "name": "BcgInputMaskStepOne",
-            "module": "src/compositions/input-mask/input-mask-step-one.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/input-mask-step-two.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgInputMaskStepTwo",
-          "members": [],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgInputMaskStepTwo",
-          "declaration": {
-            "name": "BcgInputMaskStepTwo",
-            "module": "src/compositions/input-mask/input-mask-step-two.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/input-mask.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgInputMask",
-          "members": [
-            {
-              "kind": "field",
-              "name": "currentStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "maxStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "3"
-            },
-            {
-              "kind": "field",
-              "name": "nextStep"
-            },
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgInputMask",
-          "declaration": {
-            "name": "BcgInputMask",
-            "module": "src/compositions/input-mask/input-mask.ts"
           }
         }
       ]
@@ -3721,33 +3721,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/checkbox-group/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/components/checkbox-group/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/components/checkbox-group/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/calendar/docs/index.stories.ts",
       "declarations": [
         {
@@ -3769,6 +3742,33 @@
           "declaration": {
             "name": "Default",
             "module": "src/components/calendar/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/checkbox-group/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/checkbox-group/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/checkbox-group/docs/index.stories.ts"
           }
         }
       ]
@@ -4489,33 +4489,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/select-rich/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/components/select-rich/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/components/select-rich/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/steps/docs/index.stories.ts",
       "declarations": [
         {
@@ -4537,6 +4510,33 @@
           "declaration": {
             "name": "Default",
             "module": "src/components/steps/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/select-rich/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/select-rich/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/select-rich/docs/index.stories.ts"
           }
         }
       ]
@@ -4783,6 +4783,60 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/compositions/input-mask/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/input-mask/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/input-mask/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/reactions/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/reactions/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/reactions/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/compositions/login/docs/index.stories.ts",
       "declarations": [
         {
@@ -4840,60 +4894,6 @@
           "declaration": {
             "name": "Profile",
             "module": "src/compositions/login/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/compositions/input-mask/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/compositions/input-mask/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/reactions/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/compositions/reactions/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/compositions/reactions/docs/index.stories.ts"
           }
         }
       ]

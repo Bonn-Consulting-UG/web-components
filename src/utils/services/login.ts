@@ -3,6 +3,15 @@ const APIVersion = 'v1';
 const baseURLwithApiVersion = `https://ifokservice-epart-dev.bonnconsulting.group/api/${APIVersion}`;
 const registerEndpoint = `${baseURLwithApiVersion}/register`;
 const loginEndpoint = `${baseURLwithApiVersion}/login`;
+const depleteUser = (userID: string) =>
+  `${baseURLwithApiVersion}/users/${userID}/delete`;
+
+const changePassword = (userID: string) =>
+  `${baseURLwithApiVersion}/users/${userID}/patch`;
+
+const changeUserData = (userID: string) =>
+  `${baseURLwithApiVersion}/users/${userID}/delete`;
+
 const checkVerifyCodeEndpoint = (userID: string) =>
   `${baseURLwithApiVersion}/users/${userID}/verify`;
 
@@ -74,7 +83,8 @@ export const sendUserDataChangeRequest = async (user: any) => {
       body: JSON.stringify(user)
     };
 
-    const resp = await fetch(loginEndpoint, fetchOptions);
+    const resp = await fetch(changeUserData('1'), fetchOptions);
+    console.log('sent');
     return resp.json();
   } catch (err) {
     // Handle Error Here
@@ -93,7 +103,8 @@ export const sendPasswordChangeRequest = async (user: any) => {
       body: JSON.stringify(user)
     };
 
-    const resp = await fetch(loginEndpoint, fetchOptions);
+    const resp = await fetch(changePassword('1'), fetchOptions);
+    console.log('sent');
     return resp.json();
   } catch (err) {
     // Handle Error Here
@@ -112,7 +123,8 @@ export const sendUserDeleteRequest = async (user: any) => {
       body: JSON.stringify(user)
     };
 
-    const resp = await fetch(loginEndpoint, fetchOptions);
+    const resp = await fetch(depleteUser('1'), fetchOptions);
+    console.log('sent');
     return resp.json();
   } catch (err) {
     // Handle Error Here
