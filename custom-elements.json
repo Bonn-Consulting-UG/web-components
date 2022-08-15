@@ -26,7 +26,7 @@
           "type": {
             "text": "component"
           },
-          "default": "{\n  tabs: `${tagPrefix}-tabs`,\n  tabbutton: `${tagPrefix}-tab-button`,\n  tabpanel: `${tagPrefix}-tab-panel`,\n  calendar: `${tagPrefix}-calendar`,\n  dialog: `${tagPrefix}-dialog`,\n  accordion: `${tagPrefix}-accordion`,\n  pagination: `${tagPrefix}-pagination`,\n  progress: `${tagPrefix}-progress`,\n  switch: `${tagPrefix}-switch`,\n  collapsible: `${tagPrefix}-collapsible`,\n  textarea: `${tagPrefix}-textarea`,\n  tooltip: `${tagPrefix}-tooltip`,\n  steps: `${tagPrefix}-steps`,\n  button: `${tagPrefix}-button`,\n  buttonreset: `${tagPrefix}-button-reset`,\n  buttonsubmit: `${tagPrefix}-button-submit`,\n  input: `${tagPrefix}-input`,\n  radiogroup: `${tagPrefix}-radio-group`,\n  selectrich: `${tagPrefix}-select-rich`,\n  select: `${tagPrefix}-select`,\n  inputdate: `${tagPrefix}-input-date`,\n  inputiban: `${tagPrefix}-input-iban`,\n  inputemail: `${tagPrefix}-input-email`,\n  inputdatepicker: `${tagPrefix}-input-datepicker`,\n  inputrange: `${tagPrefix}-input-range`,\n  inputstepper: `${tagPrefix}-input-stepper`,\n  inputamount: `${tagPrefix}-input-amount`,\n  inputtel: `${tagPrefix}-input-tel`,\n  inputteldropdown: `${tagPrefix}-input-tel-dropdown`,\n  checkboxgroup: `${tagPrefix}-checkbox-group`,\n  checkbox: `${tagPrefix}-checkbox`,\n  form: `${tagPrefix}-form`,\n  combobox: `${tagPrefix}-combobox`,\n  listbox: `${tagPrefix}-listbox`,\n  fieldset: `${tagPrefix}-fieldset`,\n  icon: `${tagPrefix}-icon`,\n  comment: `${tagPrefix}-comment`,\n  compositions: {\n    comments: `${tagPrefix}-comments`,\n    reaction: `${tagPrefix}-reaction`,\n    login: `${tagPrefix}-login`,\n    logout: `${tagPrefix}-logout`,\n    register: `${tagPrefix}-register`,\n    inputMask: `${tagPrefix}-input-mask`,\n    ideaSubmission: `${tagPrefix}-idea-submission`,\n    faqSubmission: `${tagPrefix}-faq-submission`,\n    faqOverview: `${tagPrefix}-faq-overview`\n  }\n}"
+          "default": "{\n  tabs: `${tagPrefix}-tabs`,\n  tabbutton: `${tagPrefix}-tab-button`,\n  tabpanel: `${tagPrefix}-tab-panel`,\n  calendar: `${tagPrefix}-calendar`,\n  dialog: `${tagPrefix}-dialog`,\n  accordion: `${tagPrefix}-accordion`,\n  pagination: `${tagPrefix}-pagination`,\n  progress: `${tagPrefix}-progress`,\n  switch: `${tagPrefix}-switch`,\n  collapsible: `${tagPrefix}-collapsible`,\n  textarea: `${tagPrefix}-textarea`,\n  tooltip: `${tagPrefix}-tooltip`,\n  steps: `${tagPrefix}-steps`,\n  button: `${tagPrefix}-button`,\n  buttonreset: `${tagPrefix}-button-reset`,\n  buttonsubmit: `${tagPrefix}-button-submit`,\n  input: `${tagPrefix}-input`,\n  radiogroup: `${tagPrefix}-radio-group`,\n  selectrich: `${tagPrefix}-select-rich`,\n  select: `${tagPrefix}-select`,\n  inputdate: `${tagPrefix}-input-date`,\n  inputiban: `${tagPrefix}-input-iban`,\n  inputemail: `${tagPrefix}-input-email`,\n  inputdatepicker: `${tagPrefix}-input-datepicker`,\n  inputrange: `${tagPrefix}-input-range`,\n  inputstepper: `${tagPrefix}-input-stepper`,\n  inputamount: `${tagPrefix}-input-amount`,\n  inputtel: `${tagPrefix}-input-tel`,\n  inputteldropdown: `${tagPrefix}-input-tel-dropdown`,\n  checkboxgroup: `${tagPrefix}-checkbox-group`,\n  checkbox: `${tagPrefix}-checkbox`,\n  form: `${tagPrefix}-form`,\n  combobox: `${tagPrefix}-combobox`,\n  listbox: `${tagPrefix}-listbox`,\n  fieldset: `${tagPrefix}-fieldset`,\n  icon: `${tagPrefix}-icon`,\n  comment: `${tagPrefix}-comment`,\n  compositions: {\n    comments: `${tagPrefix}-comments`,\n    reaction: `${tagPrefix}-reaction`,\n    login: `${tagPrefix}-login`,\n    logout: `${tagPrefix}-logout`,\n    register: `${tagPrefix}-register`,\n    inputMask: `${tagPrefix}-input-mask`,\n    ideaSubmission: `${tagPrefix}-idea-submission`,\n    faqSubmission: `${tagPrefix}-faq-submission`,\n    faqOverview: `${tagPrefix}-faq-overview`,\n    editUser: `${tagPrefix}-edit-user`\n  }\n}"
         }
       ],
       "exports": [
@@ -209,46 +209,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/calendar/calendar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgCalendar",
-          "members": [],
-          "superclass": {
-            "name": "LionCalendar",
-            "package": "@lion/calendar"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgCalendar",
-          "declaration": {
-            "name": "BcgCalendar",
-            "module": "src/components/calendar/calendar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/calendar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgCalendar",
-            "module": "/src/components/calendar/calendar"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/checkbox-group/checkbox-group.ts",
       "declarations": [
         {
@@ -316,6 +276,46 @@
           "declaration": {
             "name": "BcgCheckbox",
             "module": "/src/components/checkbox-group/checkbox"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/calendar/calendar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgCalendar",
+          "members": [],
+          "superclass": {
+            "name": "LionCalendar",
+            "package": "@lion/calendar"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgCalendar",
+          "declaration": {
+            "name": "BcgCalendar",
+            "module": "src/components/calendar/calendar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/calendar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgCalendar",
+            "module": "/src/components/calendar/calendar"
           }
         }
       ]
@@ -1883,14 +1883,6 @@
             "name": "BcgTextarea",
             "module": "/src/components/textarea/textarea"
           }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "BcgTextarea",
-            "module": "src/components/textarea/index.ts"
-          }
         }
       ]
     },
@@ -1975,12 +1967,7 @@
               "type": {
                 "text": "CommentInterface"
               },
-              "default": "{\n      name: '',\n      date: '',\n      icon: '',\n      comment: '',\n      feedback: {\n        likes: 0,\n        dislikes: 0\n      }\n    }"
-            },
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
+              "default": "{\n      name: '',\n      date: '',\n      icon: '',\n      comment: '',\n      feedback: {\n        likes: 0,\n        dislikes: 0,\n      },\n    }"
             }
           ],
           "mixins": [
@@ -2042,7 +2029,7 @@
               "type": {
                 "text": "Array<CommentInterface>"
               },
-              "default": "[\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23,\n      },\n    },\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23,\n      },\n    },\n    {\n      name: 'Carlos Caceres ',\n      date: 'Vor 4 Tagen',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23,\n      },\n    },\n  ]"
+              "default": "[\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23\n      }\n    },\n    {\n      name: 'Carlos Caceres (Moderator)',\n      date: 'Vor 4 Tagen',\n      isModerator: true,\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23\n      }\n    },\n    {\n      name: 'Carlos Caceres ',\n      date: 'Vor 4 Tagen',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      comment:\n        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      feedback: {\n        likes: 5,\n        dislikes: 23\n      }\n    }\n  ]"
             },
             {
               "kind": "field",
@@ -2050,7 +2037,7 @@
               "type": {
                 "text": "Array<CommentInterface>"
               },
-              "default": "[\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1,\n      },\n    },\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1,\n      },\n    },\n  ]"
+              "default": "[\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1\n      }\n    },\n    {\n      name: 'Amelie',\n      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n      date: 'vor 1 Woche',\n      isModerator: false,\n      comment:\n        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',\n      children: [...this.commentChildren],\n      feedback: {\n        likes: 25,\n        dislikes: 1\n      }\n    }\n  ]"
             },
             {
               "kind": "field",
@@ -2058,7 +2045,7 @@
               "type": {
                 "text": "CommentInterface"
               },
-              "default": "{\n    name: 'Stefan Scheifel',\n    date: '',\n    isModerator: true,\n    icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n    comment: '',\n    feedback: {\n      likes: 0,\n      dislikes: 0,\n    },\n  }"
+              "default": "{\n    name: 'Stefan Scheifel',\n    date: '',\n    isModerator: true,\n    icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',\n    comment: '',\n    feedback: {\n      likes: 0,\n      dislikes: 0\n    }\n  }"
             }
           ],
           "mixins": [
@@ -2284,83 +2271,12 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/compositions/input-mask/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "BcgInputMask",
-            "module": "/src/compositions/input-mask/input-mask"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/input-mask-step-one.ts",
+      "path": "src/compositions/login/edit-delete.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "BcgInputMaskStepOne",
-          "members": [
-            {
-              "kind": "field",
-              "name": "nextStep",
-              "privacy": "public",
-              "type": {
-                "text": "any"
-              },
-              "attribute": "nextStep"
-            },
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "static": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "nextStep",
-              "type": {
-                "text": "any"
-              },
-              "fieldName": "nextStep"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@lion/core"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "@lion/core"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BcgInputMaskStepOne",
-          "declaration": {
-            "name": "BcgInputMaskStepOne",
-            "module": "src/compositions/input-mask/input-mask-step-one.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/compositions/input-mask/input-mask-step-two.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "BcgInputMaskStepTwo",
+          "name": "BcgEditDelete",
           "members": [],
           "mixins": [
             {
@@ -2378,43 +2294,56 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BcgInputMaskStepTwo",
+          "name": "BcgEditDelete",
           "declaration": {
-            "name": "BcgInputMaskStepTwo",
-            "module": "src/compositions/input-mask/input-mask-step-two.ts"
+            "name": "BcgEditDelete",
+            "module": "src/compositions/login/edit-delete.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/compositions/input-mask/input-mask.ts",
+      "path": "src/compositions/login/edit-password.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "BcgInputMask",
+          "name": "BcgEditPassword",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgEditPassword",
+          "declaration": {
+            "name": "BcgEditPassword",
+            "module": "src/compositions/login/edit-password.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/edit-profile.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgEditProfile",
           "members": [
-            {
-              "kind": "field",
-              "name": "currentStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "maxStep",
-              "type": {
-                "text": "number"
-              },
-              "default": "3"
-            },
-            {
-              "kind": "field",
-              "name": "nextStep"
-            },
             {
               "kind": "field",
               "name": "scopedElements",
@@ -2437,10 +2366,43 @@
       "exports": [
         {
           "kind": "js",
-          "name": "BcgInputMask",
+          "name": "BcgEditProfile",
           "declaration": {
-            "name": "BcgInputMask",
-            "module": "src/compositions/input-mask/input-mask.ts"
+            "name": "BcgEditProfile",
+            "module": "src/compositions/login/edit-profile.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/login/edit-userdata.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgEditUserData",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgEditUserData",
+          "declaration": {
+            "name": "BcgEditUserData",
+            "module": "src/compositions/login/edit-userdata.ts"
           }
         }
       ]
@@ -2469,6 +2431,13 @@
           "declaration": {
             "name": "BcgRegister",
             "module": "/src/compositions/login/register"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgEditProfile",
+            "module": "/src/compositions/login/edit-profile"
           }
         }
       ]
@@ -2941,6 +2910,164 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/compositions/input-mask/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "BcgInputMask",
+            "module": "/src/compositions/input-mask/input-mask"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask-step-one.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMaskStepOne",
+          "members": [
+            {
+              "kind": "field",
+              "name": "nextStep",
+              "privacy": "public",
+              "type": {
+                "text": "any"
+              },
+              "attribute": "nextStep"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nextStep",
+              "type": {
+                "text": "any"
+              },
+              "fieldName": "nextStep"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMaskStepOne",
+          "declaration": {
+            "name": "BcgInputMaskStepOne",
+            "module": "src/compositions/input-mask/input-mask-step-one.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask-step-two.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMaskStepTwo",
+          "members": [],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMaskStepTwo",
+          "declaration": {
+            "name": "BcgInputMaskStepTwo",
+            "module": "src/compositions/input-mask/input-mask-step-two.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/input-mask.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "BcgInputMask",
+          "members": [
+            {
+              "kind": "field",
+              "name": "currentStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "maxStep",
+              "type": {
+                "text": "number"
+              },
+              "default": "3"
+            },
+            {
+              "kind": "field",
+              "name": "nextStep"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@lion/core"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BcgInputMask",
+          "declaration": {
+            "name": "BcgInputMask",
+            "module": "src/compositions/input-mask/input-mask.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/compositions/reactions/index.ts",
       "declarations": [],
       "exports": [
@@ -3150,7 +3277,7 @@
             {
               "name": "superclass",
               "type": {
-                "text": "LitElement"
+                "text": "HTMLAllCollection"
               }
             }
           ]
@@ -3212,7 +3339,7 @@
             {
               "name": "superclass",
               "type": {
-                "text": "HTMLElement"
+                "text": "LitElement"
               }
             }
           ]
@@ -3260,7 +3387,7 @@
             {
               "name": "superclass",
               "type": {
-                "text": "LitElement"
+                "text": "any"
               }
             }
           ],
@@ -3317,6 +3444,34 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/utils/services/contact.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "sendContactRequest",
+          "parameters": [
+            {
+              "name": "payload",
+              "type": {
+                "text": "any"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "sendContactRequest",
+          "declaration": {
+            "name": "sendContactRequest",
+            "module": "src/utils/services/contact.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/utils/services/login.ts",
       "declarations": [
         {
@@ -3360,6 +3515,42 @@
               }
             }
           ]
+        },
+        {
+          "kind": "function",
+          "name": "sendUserDataChangeRequest",
+          "parameters": [
+            {
+              "name": "user",
+              "type": {
+                "text": "any"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "sendPasswordChangeRequest",
+          "parameters": [
+            {
+              "name": "user",
+              "type": {
+                "text": "any"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "sendUserDeleteRequest",
+          "parameters": [
+            {
+              "name": "user",
+              "type": {
+                "text": "any"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -3384,6 +3575,30 @@
           "name": "sendLoginRequest",
           "declaration": {
             "name": "sendLoginRequest",
+            "module": "src/utils/services/login.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "sendUserDataChangeRequest",
+          "declaration": {
+            "name": "sendUserDataChangeRequest",
+            "module": "src/utils/services/login.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "sendPasswordChangeRequest",
+          "declaration": {
+            "name": "sendPasswordChangeRequest",
+            "module": "src/utils/services/login.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "sendUserDeleteRequest",
+          "declaration": {
+            "name": "sendUserDeleteRequest",
             "module": "src/utils/services/login.ts"
           }
         }
@@ -3506,33 +3721,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/calendar/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/components/calendar/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/components/calendar/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/checkbox-group/docs/index.stories.ts",
       "declarations": [
         {
@@ -3554,6 +3742,33 @@
           "declaration": {
             "name": "Default",
             "module": "src/components/checkbox-group/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/calendar/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/components/calendar/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/components/calendar/docs/index.stories.ts"
           }
         }
       ]
@@ -4568,38 +4783,15 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/compositions/input-mask/docs/index.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Default"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/compositions/input-mask/docs/index.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Default",
-          "declaration": {
-            "name": "Default",
-            "module": "src/compositions/input-mask/docs/index.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/compositions/login/docs/index.stories.ts",
       "declarations": [
         {
           "kind": "variable",
           "name": "Login"
+        },
+        {
+          "kind": "variable",
+          "name": "Profile"
         },
         {
           "kind": "variable",
@@ -4640,6 +4832,41 @@
           "declaration": {
             "name": "Register",
             "module": "src/compositions/login/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Profile",
+          "declaration": {
+            "name": "Profile",
+            "module": "src/compositions/login/docs/index.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/compositions/input-mask/docs/index.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Default"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/compositions/input-mask/docs/index.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Default",
+          "declaration": {
+            "name": "Default",
+            "module": "src/compositions/input-mask/docs/index.stories.ts"
           }
         }
       ]

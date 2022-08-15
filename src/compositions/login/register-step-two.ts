@@ -18,7 +18,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       nextStep: { type: Function },
-      onChange: { type: Function },
+      onChange: { type: Function }
     };
   }
 
@@ -43,7 +43,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup,
+      'bcg-checkbox-group': BcgCheckboxGroup
     };
   }
 
@@ -120,6 +120,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 @model-value-changed=${({ target }: any) => {
                   password = target.value;
                 }}
+                .validators=${[new Required()]}
                 .modelValue="${password}"
               ></bcg-input>
 
@@ -128,6 +129,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 label="Password wiederholen"
                 type="password"
                 placeholder=""
+                .validators=${[new Required()]}
                 .modelValue="${passwordrepeat}"
                 @model-value-changed=${({ target }: any) => {
                   passwordrepeat = target.value;
