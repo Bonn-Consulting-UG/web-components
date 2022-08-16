@@ -32,7 +32,7 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
         if (response.status !== 201) return;
       }
       if (this.currentStep === 3) {
-        await checkVerifyCode(this.user.id, payload);
+        response = await checkVerifyCode(this.user.id, payload);
         if (response.status !== 204) return;
       }
       this.currentStep += 1;
