@@ -4,6 +4,20 @@ import { IsEmail, Required } from '@lion/form-core';
 import { sendUserDataChangeRequest } from '../../utils/services/login';
 
 export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
+  user: any;
+
+  static get properties() {
+    return {
+      nextStep: { type: Function },
+      onChange: { type: Function }
+    };
+  }
+
+  constructor() {
+    super();
+    this.user = {};
+  }
+
   static get styles() {
     return [css``];
   }
@@ -30,12 +44,14 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
               label="Ihr Vorname *"
               .validators=${[new Required()]}
               placeholder=""
+              .modelValue="${this.user.firstname}"
               name="firstname"
             ></bcg-input>
             <bcg-input
               label="Ihr Nachname *"
               .validators=${[new Required()]}
               placeholder=""
+              .modelValue="${this.user.lastname}"
               name="lastname"
             ></bcg-input>
             <bcg-input

@@ -52,6 +52,7 @@ export const componentNames: component = {
     ideaSubmission: `${tagPrefix}-idea-submission`,
     faqSubmission: `${tagPrefix}-faq-submission`,
     faqOverview: `${tagPrefix}-faq-overview`,
-    editUser: `${tagPrefix}-edit-user`
+    editUser: `${tagPrefix}-edit-user`,
+    userMenu: `${tagPrefix}-user-menu`
   }
 };

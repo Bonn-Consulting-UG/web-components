@@ -55,15 +55,16 @@
     "@storybook/addons": "^6.5.9",
     "axios": "^0.27.2",
     "dark-theme-utils": "^0.4.0",
+    "jwt-decode": "^3.1.2",
     "lit": "^2.2.5",
     "lit-element-state": "^1.7.0"
   },
   "devDependencies": {
-    "@rollup/plugin-json": "^4.1.0",
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@open-wc/dev-server-hmr": "^0.1.2",
     "@open-wc/eslint-config": "^7.0.0",
     "@open-wc/testing": "next",
+    "@rollup/plugin-json": "^4.1.0",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.30.7",
     "@web/dev-server": "^0.1.31",

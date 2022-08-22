@@ -26,14 +26,17 @@ const TemplateRegister: Story<ArgTypes> = () =>
 const TemplateLogout: Story<ArgTypes> = () => html` <bcg-logout></bcg-logout> `;
 const TemplateProfile: Story<ArgTypes> = () =>
   html` <bcg-edit-user></bcg-edit-user> `;
+const TemplateUserMenu: Story<ArgTypes> = () =>
+  html` <bcg-user-menu></bcg-user-menu> `;
 
 const Login = TemplateLogin.bind({});
 const Profile = TemplateProfile.bind({});
 const Register = TemplateRegister.bind({});
 const Logout = TemplateLogout.bind({});
+const UserMenu = TemplateUserMenu.bind({});
 
 Login.args = {};
 Register.args = {};
 Profile.args = {};
 
-export { Login, Logout, Register, Profile };
+export { Login, Logout, Register, Profile, UserMenu };
