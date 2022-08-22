@@ -3,8 +3,8 @@ const APIVersion = 'v1';
 
 const baseURLwithApiVersion =
   process.env.NODE_ENV === 'development'
-    ? `https://ifokservice-epart-dev.bonnconsulting.group/api/${APIVersion}`
-    : `https://ifokservice-epart-dev.bonnconsulting.group/api/${APIVersion}`;
+    ? `https://ifok-epart-api-dev.bonnconsulting.group/api/${APIVersion}`
+    : `https://ifok-epart-api-dev.bonnconsulting.group/api/${APIVersion}`;
 
 const contactEndpoint = `${baseURLwithApiVersion}/contact`;
 

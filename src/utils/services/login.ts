@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 const APIVersion = 'v1';
-const baseURLwithApiVersion = `https://ifokservice-epart-dev.bonnconsulting.group/api/${APIVersion}`;
+const baseURLwithApiVersion = `https://ifok-epart-api-dev.bonnconsulting.group/api/${APIVersion}`;
 const registerEndpoint = `${baseURLwithApiVersion}/register`;
 const loginEndpoint = `${baseURLwithApiVersion}/login`;
 const depleteUser = (userID: string) =>
