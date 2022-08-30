@@ -51,6 +51,7 @@ export const componentNames: component = {
     inputMask: `${tagPrefix}-input-mask`,
     ideaSubmission: `${tagPrefix}-idea-submission`,
     faqSubmission: `${tagPrefix}-faq-submission`,
+    contactSubmission: `${tagPrefix}-contact-submission`,
     faqOverview: `${tagPrefix}-faq-overview`,
     editUser: `${tagPrefix}-edit-user`,
     userMenu: `${tagPrefix}-user-menu`
