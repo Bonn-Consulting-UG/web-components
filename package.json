@@ -7,15 +7,15 @@
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && npm run analyze -- --exclude dist",
-    "prepublish": "tsc && npm run analyze -- --exclude dist",
+    "build": "tsc && npm run analyze",
+    "prepublish": "tsc && npm run analyze",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr --coverage",
     "cleanup": "rm -rf ./dist/",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "npm run cleanup && tsc && npm run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds --node-resolve -c .storybook/server.mjs  \"",
-    "storybook:build": "tsc && npm run analyze -- --exclude dist && build-storybook"
+    "storybook": "npm run cleanup && tsc && npm run analyze  && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds --node-resolve -c .storybook/server.mjs  \"",
+    "storybook:build": "tsc && npm run analyze && build-storybook"
   },
   "dependencies": {
     "@lion/accordion": "^0.10.0",
@@ -78,7 +78,7 @@
     "lint-staged": "^13.0.0",
     "prettier": "^2.6.2",
     "tslib": "^2.4.0",
-    "typescript": "^4.7.3"
+    "typescript": "4.8.2"
   },
   "customElements": "custom-elements.json",
   "eslintConfig": {
