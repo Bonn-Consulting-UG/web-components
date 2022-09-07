@@ -5,6 +5,7 @@ import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
 import { BcgInput } from '../../components/input/input';
 import { PasswordMatch } from '../../utils/validators/password-match';
+import { PasswordSecurity } from '../../utils/validators/password-security';
 
 export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   static get styles() {
@@ -33,11 +34,22 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   lastname: string = 'Scheifel';
 
-  email: string = 'testingepart@trash-mail.com';
+  email: string = '';
 
   password: string = '';
 
   passwordrepeat: string = '';
+
+  passwordInputType: string = 'password';
+
+  flipPasswordInput() {
+    if (this.passwordInputType === 'password') {
+      this.passwordInputType = 'text';
+    } else {
+      this.passwordInputType = 'password';
+    }
+    this.requestUpdate();
+  }
 
   static get scopedElements() {
     return {
@@ -64,8 +76,8 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
       this.nextStep({ firstname, lastname, email, password });
     };
 
-    IsEmail.getMessage = async () => 'Must be a E mail';
-    Required.getMessage = async () => 'Is Required';
+    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
+    Required.getMessage = async () => 'Angabe benötigt';
 
     return html`
       <bcg-form @submit=${submitHandler}>
@@ -100,7 +112,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             ></bcg-input>
             <bcg-input-email
               name="email"
-              label="E-Mail"
+              label="Ihre E-Mail"
               placeholder=""
               .modelValue="${email}"
               .validators=${[new Required(), new IsEmail()]}
@@ -113,8 +125,8 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               .validators=${[new PasswordMatch()]}
             >
               <bcg-input
-                label="Password"
-                type="password"
+                label="Passwort"
+                type=${this.passwordInputType}
                 placeholder=""
                 name="password"
                 @model-value-changed=${({ target }: any) => {
@@ -123,11 +135,12 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 .validators=${[new Required()]}
                 .modelValue="${password}"
               ></bcg-input>
+              <bcg-button @click=${this.flipPasswordInput}>P</bcg-button>
 
               <bcg-input
                 name="passwordrepeat"
-                label="Password wiederholen"
-                type="password"
+                label="Passwort wiederholen"
+                type=${this.passwordInputType}
                 placeholder=""
                 .validators=${[new Required()]}
                 .modelValue="${passwordrepeat}"
@@ -138,7 +151,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             </bcg-fieldset>
             <bcg-checkbox-group name="dsgvo" .validators=${[new Required()]}>
               <bcg-checkbox
-                label="Ich akzeptiere die Netiquette und die Datenschutzerklärung.*"
+                label="Ich akzeptiere die Netiquette und die Datenschutzerklärung."
                 .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung.'}
               ></bcg-checkbox>
             </bcg-checkbox-group>

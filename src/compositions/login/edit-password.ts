@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { Required } from '@lion/form-core';
+import { Pattern, Required } from '@lion/form-core';
 import { sendPasswordChangeRequest } from '../../utils/services/login';
 import { PasswordMatch } from '../../utils/validators/password-match';
 
@@ -14,12 +14,14 @@ export class BcgEditPassword extends ScopedElementsMixin(LitElement) {
       const res = await sendPasswordChangeRequest('');
       console.log(res);
     };
-    Required.getMessage = async () => 'Is Required';
+    Required.getMessage = async () => 'Angabe benötigt';
     return html`<div>
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
+          <h2>Passwort ändern</h2>
+
           <bcg-input
-            label="Aktuelles Password*"
+            label="Aktuelles Passwort*"
             type="password"
             placeholder=""
             name="currentpassword"
@@ -31,7 +33,7 @@ export class BcgEditPassword extends ScopedElementsMixin(LitElement) {
             .validators=${[new PasswordMatch()]}
           >
             <bcg-input
-              label="Neues Password"
+              label="Neues Passwort"
               type="password"
               placeholder=""
               name="password"
@@ -40,7 +42,7 @@ export class BcgEditPassword extends ScopedElementsMixin(LitElement) {
 
             <bcg-input
               name="passwordrepeat"
-              label="Neues  Password wiederholen"
+              label="Neues Passwort wiederholen"
               type="password"
               placeholder=""
               .validators=${[new Required()]}

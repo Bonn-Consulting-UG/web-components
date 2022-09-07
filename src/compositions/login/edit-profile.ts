@@ -28,8 +28,8 @@ export class BcgEditProfile extends ScopedElementsMixin(LitElement) {
     }
     return html`<div>
       <bcg-edit-userdata .user=${this.user}></bcg-edit-userdata>
-      <bcg-edit-password></bcg-edit-password>
-      <bcg-edit-delete></bcg-edit-delete>
+      <bcg-edit-password .user=${this.user}></bcg-edit-password>
+      <bcg-edit-delete .user=${this.user}></bcg-edit-delete>
     </div>`;
   }
 }

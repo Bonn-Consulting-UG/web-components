@@ -1,18 +1,23 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import { MinLength, Required } from '@lion/form-core';
+import { sendNewVerifyCodeRequest } from '../../utils/services/login';
 
 export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
   nextStep: any;
 
+  user: any;
+
   static get properties() {
     return {
-      nextStep: { type: Function }
+      nextStep: { type: Function },
+      user: { type: Object }
     };
   }
 
   constructor() {
     super();
     this.nextStep = () => 'test';
+    this.user = 'test';
   }
 
   static get styles() {
@@ -22,8 +27,9 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
   code: any = null;
 
   render() {
+    console.log(this.user);
     let { code } = this;
-    Required.getMessage = async () => 'Is Required';
+    Required.getMessage = async () => 'Angabe benötigt';
     MinLength.getMessage = async () => `Mindestens 4 Zeichen`;
 
     const submitHandler = (ev: any) => {
@@ -41,8 +47,8 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
       <form @submit=${(e: any) => e.preventDefault()}>
         <div>
           <h2>
-            Sie haben einen Bestätigungscode per E-Mail erhalten. Bitte geben
-            Sie den Code ein:
+            Sie haben einen Bestätigungscode per E-Mail (${this.user.email})
+            erhalten. Bitte geben Sie den Code ein:
           </h2>
 
           <bcg-input
@@ -59,8 +65,21 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
         <div>
           <h3>Sie haben keine E-Mail erhalten?</h3>
           <ul>
-            <li>Neuen Code senden</li>
-            <li>E-Mail Adresse überarbeiten</li>
+            <li
+              @click=${() => {
+                sendNewVerifyCodeRequest(this.user.id);
+              }}
+            >
+              Neuen Code senden
+            </li>
+
+            <li
+              @click=${() => {
+                this.nextStep('back');
+              }}
+            >
+              E-Mail Adresse überarbeiten
+            </li>
           </ul>
         </div>
 
