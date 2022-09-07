@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgTabs } from './component'
+import { BcgTabs } from './tabs';
+import { componentNames } from '../../utils/config';
 
-window.customElements.define('bcg-tabs', BcgTabs);
-
+customElements.define(componentNames.tabs, BcgTabs);

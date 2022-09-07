@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { BcgTabPanel } from './component'
+import { BcgTabPanel } from './tab-panel';
+import { componentNames } from '../../utils/config';
 
-window.customElements.define('bcg-tab-panel', BcgTabPanel);
-
+customElements.define(componentNames.tabpanel, BcgTabPanel);
