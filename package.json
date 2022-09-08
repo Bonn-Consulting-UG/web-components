@@ -3,7 +3,7 @@
   "description": "Bcg-components following open-wc recommendations",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "0.0.0",
+  "version": "0.0.1-0",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
@@ -15,7 +15,8 @@
     "cleanup": "rm -rf ./dist/",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "npm run cleanup && tsc && npm run analyze  && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds --node-resolve -c .storybook/server.mjs  \"",
-    "storybook:build": "tsc && npm run analyze && build-storybook"
+    "storybook:build": "tsc && npm run analyze && build-storybook",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@lion/accordion": "^0.10.0",
@@ -74,7 +75,7 @@
     "concurrently": "^7.2.1",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
-    "husky": "^8.0.1",
+    "husky": "^7.0.0",
     "lint-staged": "^13.0.0",
     "prettier": "^2.6.2",
     "tslib": "^2.4.0",
