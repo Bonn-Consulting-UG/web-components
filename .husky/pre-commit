@@ -2,3 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npm --no-git-tag-version version prerelease 
+git add package.json
+git add package-lock.json
