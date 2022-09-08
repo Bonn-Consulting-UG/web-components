@@ -1,13 +1,11 @@
 /* eslint-disable import/extensions */
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import jwt_decode from 'jwt-decode';
+import { html, css, ScopedElementsMixin } from '@lion/core';
+import { BcgModule } from '../../components/module';
 
-export class BcgUserMenu extends ScopedElementsMixin(LitElement) {
+export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
   static get styles() {
     return [css``];
   }
-
-  isLoggedIn: any = localStorage.getItem('auth-token');
 
   user: any = null;
 
@@ -27,12 +25,11 @@ export class BcgUserMenu extends ScopedElementsMixin(LitElement) {
   }
 
   logInHandler() {
-    window.location.href =
-      'iframe.html?id=compositions-userlogin--user-menu&viewMode=story';
+    console.log('login', this.isOpen);
   }
 
   render() {
-    let {
+    const {
       isLoggedIn,
       user,
       isOpen,
@@ -40,9 +37,7 @@ export class BcgUserMenu extends ScopedElementsMixin(LitElement) {
       logOutHandler,
       logInHandler
     } = this;
-    if (isLoggedIn != null) {
-      user = jwt_decode(isLoggedIn);
-    }
+
     return html`
       <div style="display:flex;flex-direction:column; width:200px; ">
         ${!isLoggedIn && user == null

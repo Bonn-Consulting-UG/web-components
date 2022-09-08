@@ -8,7 +8,7 @@ export class PasswordMatch extends Validator {
   }
 
   static async getMessage() {
-    return `Please match the password`;
+    return `Passwörter stimmen nicht überein`;
   }
 
   // eslint-disable-next-line class-methods-use-this

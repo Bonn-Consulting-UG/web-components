@@ -1,19 +1,7 @@
-import { html, LitElement, ScopedElementsMixin } from '@lion/core';
+import { html, ScopedElementsMixin } from '@lion/core';
+import { BcgModule } from '../../components/module';
 
-export class BcgFaqSubmission extends ScopedElementsMixin(LitElement) {
-  isLoggedIn: Boolean;
-
-  static get properties() {
-    return {
-      isLoggedIn: { type: Boolean }
-    };
-  }
-
-  constructor() {
-    super();
-    this.isLoggedIn = false;
-  }
-
+export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   render() {
     const { isLoggedIn } = this;
 
