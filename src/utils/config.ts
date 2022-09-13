@@ -9,6 +9,7 @@ export const componentNames: component = {
   tabbutton: `${tagPrefix}-tab-button`,
   tabpanel: `${tagPrefix}-tab-panel`,
   calendar: `${tagPrefix}-calendar`,
+  card: `${tagPrefix}-card`,
   dialog: `${tagPrefix}-dialog`,
   accordion: `${tagPrefix}-accordion`,
   pagination: `${tagPrefix}-pagination`,

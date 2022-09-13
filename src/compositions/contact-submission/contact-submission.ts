@@ -94,9 +94,11 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                   }}
                   placeholder=""
                 ></bcg-textarea>
-                <bcg-checkbox-group name="datasec">
+                <bcg-checkbox-group
+                  name="datasec"
+                  .validators=${[new Required()]}
+                >
                   <bcg-checkbox
-                    .validators=${[new Required()]}
                     label="Ich akzeptiere die 
         Datenschutzerklärung"
                     .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
