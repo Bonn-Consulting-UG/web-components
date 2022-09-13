@@ -2,15 +2,17 @@
 
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
+import { BcgModule } from '../../components/module';
 import { sendLoginRequest } from '../../utils/services/login';
 
-export class BcgUserLogin extends ScopedElementsMixin(LitElement) {
+export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
   static get styles() {
     return [css``];
   }
 
   static get properties() {
     return {
+      modulesId: { type: Boolean },
       onPasswordReset: { type: Function }
     };
   }

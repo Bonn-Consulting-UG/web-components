@@ -31,7 +31,8 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      const res = await sendUserDataChangeRequest(this.user.userId);
+      console.log(this.user.userId);
+      const res = await sendUserDataChangeRequest(this.user);
       console.log(res);
     };
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
@@ -43,22 +44,30 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
             <h2>Persönliche Angaben</h2>
 
             <bcg-input
-              label="Ihr Vorname *"
+              label="Ihr Vorname"
               .validators=${[new Required()]}
               placeholder=""
               .modelValue="${this.user.firstname}"
+              @model-value-changed=${({ target }: any) => {
+                this.user.firstname = target.value;
+              }}
               name="firstname"
             ></bcg-input>
             <bcg-input
-              label="Ihr Nachname *"
+              label="Ihr Nachname"
               .validators=${[new Required()]}
               placeholder=""
+              @model-value-changed=${({ target }: any) => {
+                this.user.lastname = target.value;
+              }}
               .modelValue="${this.user.lastname}"
               name="lastname"
             ></bcg-input>
             <bcg-input
-              label="Ihre E-Mail *"
+              label="Ihre E-Mail"
               .validators=${[new Required(), new IsEmail()]}
+              .modelValue="${this.user.email}"
+              disabled
               placeholder=""
               name="email"
             ></bcg-input>

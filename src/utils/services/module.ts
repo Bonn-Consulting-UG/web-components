@@ -4,7 +4,10 @@ import {
   ideaSubmissionEndpoint
 } from './config';
 
-export const sendContactSubmissionRequest = async (payload: any) => {
+export const sendContactSubmissionRequest = async (
+  payload: any,
+  moduleID: any
+) => {
   try {
     const fetchOptions = {
       method: 'POST',
@@ -15,7 +18,7 @@ export const sendContactSubmissionRequest = async (payload: any) => {
       body: JSON.stringify(payload)
     };
 
-    const resp = await fetch(contactSubmissionEndpoint, fetchOptions);
+    const resp = await fetch(contactSubmissionEndpoint(moduleID), fetchOptions);
     return resp;
   } catch (err) {
     console.error(err);
@@ -23,7 +26,10 @@ export const sendContactSubmissionRequest = async (payload: any) => {
   }
 };
 
-export const sendIdeaSubmissionRequest = async (payload: any) => {
+export const sendIdeaSubmissionRequest = async (
+  payload: any,
+  moduleID: any
+) => {
   try {
     const fetchOptions = {
       method: 'POST',
@@ -34,7 +40,7 @@ export const sendIdeaSubmissionRequest = async (payload: any) => {
       body: JSON.stringify(payload)
     };
 
-    const resp = await fetch(ideaSubmissionEndpoint, fetchOptions);
+    const resp = await fetch(ideaSubmissionEndpoint(moduleID), fetchOptions);
     return resp;
   } catch (err) {
     console.error(err);
@@ -42,7 +48,7 @@ export const sendIdeaSubmissionRequest = async (payload: any) => {
   }
 };
 
-export const sendFaqSubmissionRequest = async (payload: any) => {
+export const sendFaqSubmissionRequest = async (payload: any, moduleID: any) => {
   try {
     const fetchOptions = {
       method: 'POST',
@@ -53,7 +59,7 @@ export const sendFaqSubmissionRequest = async (payload: any) => {
       body: JSON.stringify(payload)
     };
 
-    const resp = await fetch(faqSubmissionEndpoint, fetchOptions);
+    const resp = await fetch(faqSubmissionEndpoint(moduleID), fetchOptions);
     return resp;
   } catch (err) {
     console.error(err);

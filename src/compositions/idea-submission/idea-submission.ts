@@ -40,13 +40,13 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                 <bcg-checkbox-group label=""></bcg-checkbox-group>`}
           <div>
             <bcg-button
+              disabled
               @click="${() => console.log('ButtonPress Vorschau')}"
-              label="Vorschau"
-            ></bcg-button>
-            <bcg-button
-              @click="${() => console.log('ButtonPress Senden')}"
-              label="Senden"
-            ></bcg-button>
+              >Vorschau</bcg-button
+            >
+            <bcg-button @click="${() => console.log('ButtonPress Senden')}"
+              >Senden</bcg-button
+            >
           </div>
         </div>
       </div>

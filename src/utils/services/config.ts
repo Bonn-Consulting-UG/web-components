@@ -9,18 +9,21 @@ export const depleteUserEndpoint = (userID: string) =>
   `${baseURLwithApiVersion}/users/${userID}`;
 
 export const changePasswordEndpoint = (userID: string) =>
-  `${baseURLwithApiVersion}/users/${userID}/patch`;
+  `${baseURLwithApiVersion}/users/${userID}/change-password`;
 
 export const changeUserDataEndpoint = (userID: string) =>
-  `${baseURLwithApiVersion}/users/${userID}/delete`;
+  `${baseURLwithApiVersion}/users/${userID}`;
 
 export const checkVerifyCodeEndpoint = (userID: string) =>
   `${baseURLwithApiVersion}/users/${userID}/verify`;
 
 // Forms
-export const contactSubmissionEndpoint = `${baseURLwithApiVersion}/contact-submisson`;
-export const faqSubmissionEndpoint = `${baseURLwithApiVersion}/faq-submisson`;
-export const ideaSubmissionEndpoint = `${baseURLwithApiVersion}/idea-submisson`;
+export const contactSubmissionEndpoint = (moduleID: any) =>
+  `${baseURLwithApiVersion}/modules/${moduleID}/contact-submisson`;
+export const faqSubmissionEndpoint = (moduleID: any) =>
+  `${baseURLwithApiVersion}/modules/${moduleID}/faq-submisson`;
+export const ideaSubmissionEndpoint = (moduleID: any) =>
+  `${baseURLwithApiVersion}/modules/${moduleID}/idea-submisson`;
 
 // Modules
 export const getAllModulesEndpoint = `${baseURLwithApiVersion}/modules`;

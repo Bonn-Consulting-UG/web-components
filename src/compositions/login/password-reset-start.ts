@@ -47,6 +47,7 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
           el.hasFeedbackFor.includes('error')
         );
         firstFormElWithError.focus();
+        return;
       }
       this.nextStep();
     };

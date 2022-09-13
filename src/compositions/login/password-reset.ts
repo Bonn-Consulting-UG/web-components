@@ -12,7 +12,7 @@ import { BcgPasswordResetFinished } from './password-reset-finished';
 import { BcgPasswordResetStart } from './password-reset-start';
 
 export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
-  currentStep: number = 2;
+  currentStep: number = 1;
 
   maxStep: number = 4;
 

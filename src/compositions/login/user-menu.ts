@@ -7,8 +7,6 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     return [css``];
   }
 
-  user: any = null;
-
   isOpen: boolean = false;
 
   clickHandler() {
@@ -16,16 +14,6 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     this.requestUpdate();
 
     console.log(this.isOpen);
-  }
-
-  logOutHandler() {
-    localStorage.removeItem('auth-token');
-    this.isOpen = !this.isOpen;
-    this.requestUpdate();
-  }
-
-  logInHandler() {
-    console.log('login', this.isOpen);
   }
 
   render() {

@@ -10,7 +10,7 @@ export const sendContactRequest = async (payload: any) => {
       body: JSON.stringify(payload)
     };
 
-    const resp = await fetch(contactSubmissionEndpoint, fetchOptions);
+    const resp = await fetch(contactSubmissionEndpoint('123'), fetchOptions);
     return resp;
   } catch (err) {
     console.error(err);

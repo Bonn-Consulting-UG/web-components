@@ -1,6 +1,7 @@
 import { html, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
+import { sendContactSubmissionRequest } from '../../utils/services/module';
 
 export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
   render() {
@@ -16,7 +17,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         );
         firstFormElWithError.focus();
       }
-      // this.nextStep();
+      sendContactSubmissionRequest(123, '123');
     };
 
     return html`

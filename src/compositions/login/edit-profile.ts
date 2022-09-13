@@ -1,11 +1,11 @@
 /* eslint-disable import/extensions */
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import jwt_decode from 'jwt-decode';
+import { html, css, ScopedElementsMixin } from '@lion/core';
+import { BcgModule } from '../../components/module';
 import { BcgEditDelete } from './edit-delete';
 import { BcgEditPassword } from './edit-password';
 import { BcgEditUserData } from './edit-userdata';
 
-export class BcgEditProfile extends ScopedElementsMixin(LitElement) {
+export class BcgEditProfile extends ScopedElementsMixin(BcgModule) {
   static get styles() {
     return [css``];
   }
@@ -18,18 +18,14 @@ export class BcgEditProfile extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  isLoggedIn: any = localStorage.getItem('auth-token');
-
-  user: any = null;
-
   render() {
-    if (this.isLoggedIn != null) {
-      this.user = jwt_decode(this.isLoggedIn);
-    }
     return html`<div>
-      <bcg-edit-userdata .user=${this.user}></bcg-edit-userdata>
+      ${localStorage.getItem('auth-token') !== null
+        ? html`     <bcg-edit-userdata .user=${this.user}></bcg-edit-userdata>
       <bcg-edit-password .user=${this.user}></bcg-edit-password>
       <bcg-edit-delete .user=${this.user}></bcg-edit-delete>
-    </div>`;
+    </div>`
+        : 'Bitte Anmelden'}
+    </div> `;
   }
 }

@@ -1,4 +1,5 @@
 import { LitElement } from '@lion/core';
+import jwtDecode from 'jwt-decode';
 
 export class BcgModule extends LitElement {
   constructor() {
@@ -13,13 +14,14 @@ export class BcgModule extends LitElement {
 
   authToken: any = localStorage.getItem('auth-token');
 
+  user: any = this.authToken !== null ? jwtDecode(this.authToken) : null;
+
   isOpen: any = false;
 
   config: any = {};
 
   static get properties() {
     return {
-      isLoggedIn: { type: Boolean },
       modulesId: { type: Boolean }
     };
   }
@@ -38,12 +40,11 @@ export class BcgModule extends LitElement {
   }
 
   logInHandler() {
+    this.isLoggedIn = true;
     console.log('login', this.isOpen);
   }
 
   updated() {
-    this.config = 'updated';
-    this.authToken = localStorage.getItem('auth-token');
-    console.log(this.isLoggedIn, this.config);
+    console.log(this.isLoggedIn, this.user);
   }
 }

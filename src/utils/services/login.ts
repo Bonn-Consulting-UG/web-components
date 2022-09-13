@@ -65,18 +65,22 @@ export const sendLoginRequest = async (user: any) => {
   }
 };
 
-export const sendUserDataChangeRequest = async (user: any) => {
+export const sendUserDataChangeRequest = async ({
+  firstname,
+  lastname,
+  userId
+}: any) => {
   try {
     const fetchOptions = {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify({ firstname, lastname })
     };
-
-    const resp = await fetch(changeUserDataEndpoint('1'), fetchOptions);
-    console.log('sent');
+    console.log(userId);
+    const resp = await fetch(changeUserDataEndpoint(userId), fetchOptions);
     return resp.json();
   } catch (err) {
     // Handle Error Here
@@ -85,17 +89,21 @@ export const sendUserDataChangeRequest = async (user: any) => {
   }
 };
 
-export const sendPasswordChangeRequest = async (user: any) => {
+export const sendPasswordChangeRequest = async ({
+  newPassword,
+  password,
+  userId
+}: any) => {
   try {
     const fetchOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify({ new: newPassword, current: password })
     };
 
-    const resp = await fetch(changePasswordEndpoint('1'), fetchOptions);
+    const resp = await fetch(changePasswordEndpoint(userId), fetchOptions);
     console.log('sent');
     return resp.json();
   } catch (err) {
