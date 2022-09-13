@@ -26,6 +26,7 @@ export const componentNames: component = {
   radiogroup: `${tagPrefix}-radio-group`,
   selectrich: `${tagPrefix}-select-rich`,
   select: `${tagPrefix}-select`,
+  spamfilter: `${tagPrefix}-spamfilter`,
   inputdate: `${tagPrefix}-input-date`,
   inputiban: `${tagPrefix}-input-iban`,
   inputemail: `${tagPrefix}-input-email`,
