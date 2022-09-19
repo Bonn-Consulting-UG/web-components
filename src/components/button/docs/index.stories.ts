@@ -5,7 +5,8 @@ export default {
   title: 'Components/Button',
   component: 'bcg-button',
   argTypes: {
-    label: {}
+    label: {},
+    variant: { control: 'radio', options: ['primary', 'secondary', 'tertiary'] }
   }
 };
 
@@ -17,18 +18,12 @@ interface Story<T> {
 
 interface ArgTypes {
   label: string;
+  variant: string;
 }
 
 const Template: Story<ArgTypes> = args =>
   html`
-    <bcg-button @click="${() => console.log('click')}"
-      >${args.label}</bcg-button
-    >
-  `;
-
-const SubmitTemplate: Story<ArgTypes> = args =>
-  html`
-    <bcg-button @click="${() => console.log('click')}"
+    <bcg-button variant="${args.variant}" @click="${() => console.log('click')}"
       >${args.label}</bcg-button
     >
   `;
@@ -36,13 +31,21 @@ const SubmitTemplate: Story<ArgTypes> = args =>
 const Default = Template.bind({});
 
 Default.args = {
-  label: 'Test'
+  label: 'Mehr Laden',
+  variant: 'primary'
 };
 
-const Submit = SubmitTemplate.bind({});
+export { Default };
 
-Submit.args = {
-  label: 'Submit'
-};
+// const SubmitTemplate: Story<ArgTypes> = args =>
+//   html`
+//     <bcg-button @click="${() => console.log('click')}"
+//       >${args.label}</bcg-button
+//     >
+//   `;
 
-export { Default, Submit };
+// const Submit = SubmitTemplate.bind({});
+
+// Submit.args = {
+//   label: 'Submit'
+// };

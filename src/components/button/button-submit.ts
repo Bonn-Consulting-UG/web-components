@@ -1,4 +1,4 @@
-import { css } from '@lion/core';
+import { css, customElement } from '@lion/core';
 import { LionButtonSubmit } from '@lion/button';
 
 export class BcgButtonSubmit extends LionButtonSubmit {

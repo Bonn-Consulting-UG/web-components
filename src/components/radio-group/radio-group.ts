@@ -6,7 +6,7 @@ export class BcgRadio extends ScopedElementsMixin(LitElement) {
     return [
       css`
 
-      }`,
+      }`
     ];
   }
 

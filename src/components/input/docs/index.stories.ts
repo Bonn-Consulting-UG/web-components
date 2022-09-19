@@ -4,16 +4,13 @@ import '../index.js';
 export default {
   title: 'Components/Input',
   component: 'bcg-input',
-  argTypes: {
-    content: {
-      options: [],
-    },
-  },
+  argTypes: {}
 };
 
 interface ContentArgs {
-  button: string;
-  panel: string;
+  label: string;
+  helpText: string;
+  placeholder: string;
 }
 
 interface Story<T> {
@@ -22,17 +19,22 @@ interface Story<T> {
   argTypes?: Record<string, unknown>;
 }
 
-interface ArgTypes {
-  content: Array<ContentArgs>;
-}
-
-const Template: Story<ArgTypes> = () =>
+const Template: Story<ContentArgs> = args =>
   html`
     <bcg-input
-      name="Firstname"
-      help-text="Your first name"
-      placeholder="Joe"
+      name=${args.label}
+      label=${args.label}
+      help-text=${args.helpText}
+      placeholder=${args.placeholder}
     ></bcg-input>
   `;
 
-export const Default = Template.bind({});
+const Default = Template.bind({});
+
+Default.args = {
+  label: 'Firstname',
+  helpText: 'Please tell us your Firstname',
+  placeholder: 'Joe'
+};
+
+export { Default };

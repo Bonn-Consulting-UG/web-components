@@ -4,6 +4,7 @@ import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
 import { sendLoginRequest } from '../../utils/services/login';
+import { BcgButtonSubmit } from '../../components/button/button-submit';
 
 export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
   static get styles() {

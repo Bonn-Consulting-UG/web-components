@@ -19,7 +19,7 @@
     "skipLibCheck": true,
     "useDefineForClassFields": false
   },
-  "include": ["**/*.ts", "src/component/*.js", "src/component/docs/*.js", "src/compositions/docs/*.js"],
+  "include": ["**/*.ts", "**/*.css", "src/component/*.js", "src/component/docs/*.js", "src/compositions/docs/*.js"],
   "exclude": ["src/utils/_mixins", "dist"]
 
 }
