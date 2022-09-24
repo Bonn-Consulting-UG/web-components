@@ -5,7 +5,6 @@ export default {
   title: 'Components/Button',
   component: 'bcg-button',
   argTypes: {
-    label: {},
     variant: { control: 'radio', options: ['primary', 'secondary', 'tertiary'] }
   }
 };
@@ -21,21 +20,50 @@ interface ArgTypes {
   variant: string;
 }
 
-const Template: Story<ArgTypes> = args =>
+const BasicTemplate: Story<ArgTypes> = args =>
   html`
     <bcg-button variant="${args.variant}" @click="${() => console.log('click')}"
       >${args.label}</bcg-button
     >
   `;
 
-const Default = Template.bind({});
+const DisabledTemplate: Story<ArgTypes> = args =>
+  html`
+    <bcg-button
+      disabled
+      variant="${args.variant}"
+      @click="${() => console.log('click')}"
+      >${args.label}</bcg-button
+    >
+  `;
 
-Default.args = {
+const TeritaryTemplate: Story<ArgTypes> = args =>
+  html`
+    <bcg-button variant="${args.variant}" @click="${() => console.log('click')}"
+      >${args.label}</bcg-button
+    >
+  `;
+
+const Basic = BasicTemplate.bind({});
+const Disabled = DisabledTemplate.bind({});
+const Teritary = TeritaryTemplate.bind({});
+
+Disabled.args = {
   label: 'Mehr Laden',
   variant: 'primary'
 };
 
-export { Default };
+Teritary.args = {
+  label: 'x',
+  variant: 'tertiary'
+};
+
+Basic.args = {
+  label: 'Mehr Laden',
+  variant: 'primary'
+};
+
+export { Basic, Disabled, Teritary };
 
 // const SubmitTemplate: Story<ArgTypes> = args =>
 //   html`

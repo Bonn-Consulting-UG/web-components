@@ -10,16 +10,16 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "outDir": "dist",
+    "outDir": "dist/components",
     "sourceMap": true,
     "inlineSources": true,
-    "rootDir": "./",
+    "rootDir": ".",
     "declaration": true,
     "incremental": true,
     "skipLibCheck": true,
     "useDefineForClassFields": false
   },
-  "include": ["**/*.ts", "**/*.css", "src/component/*.js", "src/component/docs/*.js", "src/compositions/docs/*.js"],
+  "include": ["**/*.ts", "src/component/*.js", "src/component/docs/*.js", "src/compositions/docs/*.js"],
   "exclude": ["src/utils/_mixins", "dist"]
 
 }

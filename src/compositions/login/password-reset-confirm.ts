@@ -103,7 +103,12 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
               .validators=${[new Required()]}
               .modelValue="${password}"
             ></bcg-input>
-            <bcg-button @click=${this.flipPasswordInput}>P</bcg-button>
+            <bcg-button
+              style="margin-top:25px ;margin-left:5px"
+              variant="tertiary"
+              @click=${this.flipPasswordInput}
+              >P</bcg-button
+            >
 
             <bcg-input
               name="passwordrepeat"

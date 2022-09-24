@@ -135,7 +135,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 .validators=${[new Required()]}
                 .modelValue="${password}"
               ></bcg-input>
-              <bcg-button @click=${this.flipPasswordInput}>P</bcg-button>
+              <bcg-button variant="tertiary" @click=${this.flipPasswordInput}
+                >P</bcg-button
+              >
 
               <bcg-input
                 name="passwordrepeat"

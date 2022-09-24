@@ -79,7 +79,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                 email = target.value;
               }}
             ></bcg-input-email>
-            <div style="display:flex;flex-direction:row ; flex-basis:100%;">
+            <div style="display:flex;flex-direction:row ; flex-basis:100%; justify-content:center; align-items:center;">
             <bcg-input
             style="flex-basis:100%;"
               label="Password"
@@ -92,7 +92,9 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                 password = target.value;
               }}
             ></bcg-input>
-            <bcg-button @click=${this.flipPasswordInput}>P</bcg-button>
+            <bcg-button style="margin-top:25px ;margin-left:5px" variant="tertiary" @click=${
+              this.flipPasswordInput
+            }>P</bcg-button>
 
             </div>
           </div>
