@@ -17,7 +17,8 @@ export default {
     }),
     summary(),
     copy({
-      patterns: ['images/**/*']
+      patterns: ['.storybook/global.css'],
+      output: { dir: './src' }
     })
   ],
   input: 'src/components/index.ts',
