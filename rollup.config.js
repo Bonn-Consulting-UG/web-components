@@ -21,8 +21,8 @@ export default {
       output: { dir: './src' }
     })
   ],
-  input: 'src/components/index.ts',
+  input: ['src/components/index.ts', 'src/compositions/index.ts'],
   output: {
-    dir: 'dist/components'
+    dir: 'dist'
   }
 };
