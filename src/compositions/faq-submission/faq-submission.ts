@@ -6,9 +6,9 @@ import { sendFaqSubmissionRequest } from '../../utils/services/module';
 export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   faqRequest: any = {
     name: '',
-    subject: '',
+    question: '',
     email: '',
-    text: ''
+    explanation: ''
   };
 
   render() {
@@ -73,9 +73,9 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   label="Ihre Frage *"
                   .validators=${[new Required()]}
                   placeholder=""
-                  .modelValue="${faqRequest.subject}"
+                  .modelValue="${faqRequest.question}"
                   @model-value-changed=${({ target }: any) => {
-                    faqRequest.subject = target.value;
+                    faqRequest.question = target.value;
                   }}
                 ></bcg-textarea>
 
@@ -85,9 +85,9 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   name="content"
                   placeholder=""
                   .validators=${[new Required()]}
-                  .modelValue="${faqRequest.content}"
+                  .modelValue="${faqRequest.explanation}"
                   @model-value-changed=${({ target }: any) => {
-                    faqRequest.content = target.value;
+                    faqRequest.explanation = target.value;
                   }}
                 ></bcg-textarea>
                 <p style="width:650px;">

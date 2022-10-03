@@ -35,9 +35,16 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
           display: none;
         }
         .wrapper {
+          position: absolute;
+          position: absolute;
+          width: 90%;
+          left: 5%;
+          top: 50px;
+          background-color: white;
           display: flex;
           align-item: center;
           padding: 8px;
+          box-sizing: border-box;
           border: var(--border-m) solid var(--primary-color);
         }
         .wrapper lion-icon {
@@ -78,7 +85,6 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
     return html`
       <div class="wrapper">
         <lion-icon icon-id="bcg:comments:message"></lion-icon>
-
         <span>${this.message}</span>
       </div>
     `;

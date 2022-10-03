@@ -6,7 +6,7 @@ import { sendIdeaSubmissionRequest } from '../../utils/services/module';
 export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
   ideaRequest: any = {
     name: '',
-    subject: '',
+    title: '',
     email: '',
     text: ''
   };
@@ -76,8 +76,8 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
               <bcg-input
                 label="Titel Ihrer Idee *"
                 .validators=${[new Required()]}
-                name="subject"
-                .modelValue="${ideaRequest.subject}"
+                name="title"
+                .modelValue="${ideaRequest.title}"
                 @model-value-changed=${({ target }: any) => {
                   ideaRequest.subject = target.value;
                 }}
