@@ -8,11 +8,13 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     name: '',
     subject: '',
     email: '',
-    content: '',
+    text: '',
     templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda'
   };
 
-  contactRequest: any = { name: '', subject: '', text: '', email: '' };
+  showNotification: Boolean = false;
+
+  contactRequest: any = { name: '', title: '', text: '', email: '' };
 
   connectedCallback() {
     super.connectedCallback();
@@ -26,6 +28,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     Required.getMessage = async () => 'Angabe benötigt';
 
     const submitHandler = async (ev: any) => {
+      console.log(ev.parentElement);
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
           el.hasFeedbackFor.includes('error')
@@ -51,6 +54,9 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           'https://ifok-epart-api-dev.bonnconsulting.group/v1/comments/',
           fetchOptions
         );
+
+        ev.path[0].resetGroup();
+
         console.log(resp);
       } catch (err) {
         // Handle Error Here
@@ -61,6 +67,11 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
+          <bcg-notification
+            variant="success"
+            message=""
+            ${this.showNotification ? null : `disabled`}
+          ></bcg-notification>
           <div>
             <h1 style="margin-right:50px;">So erreichen Sie uns</h1>
 
@@ -103,13 +114,13 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                 ></bcg-input-email>
 
                 <bcg-input
-                  name="subject"
+                  name="title"
                   label="Betreff"
                   .validators=${[new Required()]}
                   placeholder=""
-                  .modelValue="${contactRequest.subject}"
+                  .modelValue="${contactRequest.title}"
                   @model-value-changed=${({ target }: any) => {
-                    contactRequest.subject = target.value;
+                    contactRequest.title = target.value;
                   }}
                 ></bcg-input>
 
