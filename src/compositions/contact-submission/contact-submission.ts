@@ -4,13 +4,15 @@ import { BcgModule } from '../../components/module';
 import { sendContactSubmissionRequest } from '../../utils/services/module';
 
 export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
-  contactRequest: any = {
+  backup: any = {
     name: '',
     subject: '',
     email: '',
     content: '',
     templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda'
   };
+
+  contactRequest: any = { name: '', subject: '', text: '', email: '' };
 
   connectedCallback() {
     super.connectedCallback();
@@ -23,7 +25,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
     Required.getMessage = async () => 'Angabe benötigt';
 
-    const submitHandler = (ev: any) => {
+    const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
           el.hasFeedbackFor.includes('error')
@@ -31,7 +33,29 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
-      sendContactSubmissionRequest(this.contactRequest, this.moduleId);
+      // sendContactSubmissionRequest(this.contactRequest, this.moduleId);
+
+      try {
+        const fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            text: JSON.stringify(contactRequest),
+            moduleId: this.moduleId
+          })
+        };
+
+        const resp = await fetch(
+          'https://ifok-epart-api-dev.bonnconsulting.group/v1/comments/',
+          fetchOptions
+        );
+        console.log(resp);
+      } catch (err) {
+        // Handle Error Here
+        console.error(err);
+      }
     };
 
     return html`
@@ -94,9 +118,9 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                   rows="6"
                   .validators=${[new Required()]}
                   label="Nachricht"
-                  .modelValue="${contactRequest.content}"
+                  .modelValue="${contactRequest.text}"
                   @model-value-changed=${({ target }: any) => {
-                    contactRequest.content = target.value;
+                    contactRequest.text = target.value;
                   }}
                   placeholder=""
                 ></bcg-textarea>
