@@ -6,8 +6,8 @@ export default {
   component: 'bcg-reaction',
   argTypes: {
     content: {},
-    buttonLabel: {},
-  },
+    buttonLabel: {}
+  }
 };
 
 interface Story<T> {
@@ -20,7 +20,8 @@ interface ArgTypes {
   buttonLabel: string;
   content: string;
 }
-const Template: Story<ArgTypes> = () => html` <bcg-reaction></bcg-reaction> `;
+const Template: Story<ArgTypes> = () =>
+  html` <bcg-reaction modulesId="123"></bcg-reaction> `;
 
 const Default = Template.bind({});
 

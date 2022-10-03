@@ -16,11 +16,6 @@ export class BcgIcon extends ScopedElementsMixin(LitElement) {
   render() {
     const { icon } = this;
 
-    return html`
-      <lion-icon
-        icon-id="${icon}"
-        style="width: 50px; height: 50px;"
-      ></lion-icon>
-    `;
+    return html` <lion-icon icon-id="${icon}"></lion-icon> `;
   }
 }

@@ -22,14 +22,12 @@ interface ArgTypes {
 }
 
 const DefaultTemplate: Story<ArgTypes> = () =>
-  html`<bcg-contact-submission></bcg-contact-submission> `;
-
-const LoggedInTemplate: Story<ArgTypes> = () =>
-  html` <bcg-contact-submission isLoggedIn></bcg-contact-submission> `;
+  html`<bcg-contact-submission
+    moduleId="335eb649-8919-4d20-9797-d55b4c3e9f6d"
+  ></bcg-contact-submission> `;
 
 const Default = DefaultTemplate.bind({});
-const LoggedIn = LoggedInTemplate.bind({});
 
 Default.args = {};
 
-export { Default, LoggedIn };
+export { Default };

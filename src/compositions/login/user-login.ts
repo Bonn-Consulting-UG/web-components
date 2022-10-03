@@ -13,10 +13,12 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
 
   static get properties() {
     return {
-      modulesId: { type: Boolean },
-      onPasswordReset: { type: Function }
+      onPasswordReset: { type: Function },
+      moduleId: { type: String }
     };
   }
+
+  moduleId: number = 0;
 
   onPasswordReset: any = () => console.log(this);
 

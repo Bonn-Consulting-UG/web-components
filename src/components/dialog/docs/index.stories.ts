@@ -6,9 +6,9 @@ export default {
   component: 'bcg-dialog',
   argTypes: {
     content: {
-      options: [],
-    },
-  },
+      options: []
+    }
+  }
 };
 
 interface ContentArgs {
@@ -27,18 +27,9 @@ interface ArgTypes {
 
 const Template: Story<ArgTypes> = () => html`
   <bcg-dialog>
-    <button slot="invoker">Click me to open dialog</button>
-    <div slot="content" class="dialog">
-      Hello! You can close this dialog here:
-      <button
-        class="close-button"
-        @click=${(e: { target: { dispatchEvent: (arg0: Event) => any } }) =>
-          e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }))}
-      >
-        ⨯
-      </button>
-    </div></bcg-dialog
-  >
+    <bcg-button slot="invoker">Login</bcg-button>
+    <bcg-login slot="content" class="dialog"> </bcg-login>
+  </div></bcg-dialog>
 `;
 
 export const Default = Template.bind({});

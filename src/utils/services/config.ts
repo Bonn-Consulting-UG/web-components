@@ -1,6 +1,6 @@
 // Base
 const APIVersion = 'v1';
-const baseURLwithApiVersion = `https://ifok-epart-api-dev.bonnconsulting.group/api/${APIVersion}`;
+const baseURLwithApiVersion = `http://ifok-epart-api-dev.bonnconsulting.group/api/${APIVersion}`;
 
 // Login/User
 export const registerEndpoint = `${baseURLwithApiVersion}/register`;

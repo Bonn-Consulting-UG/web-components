@@ -8,8 +8,14 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     name: '',
     subject: '',
     email: '',
-    content: ''
+    content: '',
+    templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda'
   };
+
+  connectedCallback() {
+    super.connectedCallback();
+    console.log(this.moduleId);
+  }
 
   render() {
     const { contactRequest } = this;
@@ -25,7 +31,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
-      sendContactSubmissionRequest(123, '123');
+      sendContactSubmissionRequest(this.contactRequest, this.moduleId);
     };
 
     return html`

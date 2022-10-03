@@ -2,15 +2,9 @@ import { LitElement } from '@lion/core';
 import jwtDecode from 'jwt-decode';
 
 export class BcgModule extends LitElement {
-  constructor() {
-    super();
-    this.isLoggedIn = false;
-    this.modulesId = 12354;
-  }
+  isLoggedIn: Boolean = false;
 
-  isLoggedIn: Boolean;
-
-  modulesId: number;
+  moduleId: number = 0;
 
   authToken: any = localStorage.getItem('auth-token');
 
@@ -22,7 +16,7 @@ export class BcgModule extends LitElement {
 
   static get properties() {
     return {
-      modulesId: { type: Boolean }
+      moduleId: { type: String }
     };
   }
 
@@ -42,9 +36,5 @@ export class BcgModule extends LitElement {
   logInHandler() {
     this.isLoggedIn = true;
     console.log('login', this.isOpen);
-  }
-
-  updated() {
-    console.log(this.isLoggedIn, this.user);
   }
 }

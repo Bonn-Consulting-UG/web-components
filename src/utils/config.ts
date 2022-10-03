@@ -44,6 +44,7 @@ export const componentNames: component = {
   fieldset: `${tagPrefix}-fieldset`,
   icon: `${tagPrefix}-icon`,
   comment: `${tagPrefix}-comment`,
+  notification: `${tagPrefix}-notification`,
   compositions: {
     comments: `${tagPrefix}-comments`,
     reaction: `${tagPrefix}-reaction`,

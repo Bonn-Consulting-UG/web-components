@@ -1,11 +1,12 @@
 import { html, LitElement, ScopedElementsMixin } from '@lion/core';
 import { LionIcon } from '@lion/icon';
+import { BcgModule } from '../../components/module';
 
 export interface ReactionInterface {
   icons: Array<String>;
 }
 
-export class BcgReaction extends ScopedElementsMixin(LitElement) {
+export class BcgReaction extends ScopedElementsMixin(BcgModule) {
   static get scopedElements() {
     return { 'lion-icon': LionIcon };
   }
@@ -28,9 +29,6 @@ export class BcgReaction extends ScopedElementsMixin(LitElement) {
           <lion-icon icon-id="bcg:comments:report"></lion-icon>
           <span style="margin-left:10px;">Melden </span>
         </div>
-
-
-
         </div>
       </div>
     </div>`;
