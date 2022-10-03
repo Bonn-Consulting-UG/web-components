@@ -8,7 +8,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
     name: '',
     subject: '',
     email: '',
-    content: ''
+    text: ''
   };
 
   render() {
@@ -17,7 +17,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
     Required.getMessage = async () => 'Angabe benötigt';
 
-    const submitHandler = (ev: any) => {
+    const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
           el.hasFeedbackFor.includes('error')
@@ -25,7 +25,32 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
-      sendFaqSubmissionRequest(123, '123');
+      // sendContactSubmissionRequest(this.contactRequest, this.moduleId);
+
+      try {
+        const fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            text: JSON.stringify(faqRequest),
+            moduleId: this.moduleId
+          })
+        };
+
+        const resp = await fetch(
+          'https://ifok-epart-api-dev.bonnconsulting.group/v1/comments/',
+          fetchOptions
+        );
+
+        ev.path[0].resetGroup();
+
+        console.log(resp);
+      } catch (err) {
+        // Handle Error Here
+        console.error(err);
+      }
     };
 
     return html`
