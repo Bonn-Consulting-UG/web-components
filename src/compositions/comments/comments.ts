@@ -25,72 +25,9 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
 
   currentCharCount: Number = this.getElementsByTagName('textarea').length;
 
-  commentChildren: Array<CommentInterface> = [
-    {
-      name: 'Carlos Caceres (Moderator)',
-      date: 'Vor 4 Tagen',
-      isModerator: true,
-      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
-      comment:
-        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
-      feedback: {
-        likes: 5,
-        dislikes: 23
-      }
-    },
-    {
-      name: 'Carlos Caceres (Moderator)',
-      date: 'Vor 4 Tagen',
-      isModerator: true,
-      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
-      comment:
-        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
-      feedback: {
-        likes: 5,
-        dislikes: 23
-      }
-    },
-    {
-      name: 'Carlos Caceres ',
-      date: 'Vor 4 Tagen',
-      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
-      comment:
-        'I think this n realen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
-      feedback: {
-        likes: 5,
-        dislikes: 23
-      }
-    }
-  ];
+  commentChildren: Array<CommentInterface> = [];
 
-  comments: Array<CommentInterface> = [
-    {
-      name: 'Amelie',
-      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
-      date: 'vor 1 Woche',
-      isModerator: false,
-      comment:
-        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
-      children: [...this.commentChildren],
-      feedback: {
-        likes: 25,
-        dislikes: 1
-      }
-    },
-    {
-      name: 'Amelie',
-      icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
-      date: 'vor 1 Woche',
-      isModerator: false,
-      comment:
-        'ealen Projekten in einer realen Stadt und in einem realen Umfeld. Und auf dieser Basis ist das Reallabor Hamburg entstanden, mit über 30 Partnern, ganz vielen Projekten und einer Simulationsebene, um eben auch praktische Erkenntnisse zu erlangen.',
-      children: [...this.commentChildren],
-      feedback: {
-        likes: 25,
-        dislikes: 1
-      }
-    }
-  ];
+  comments: Array<CommentInterface> = [];
 
   testcomment: CommentInterface = {
     name: 'Stefan Scheifel',

@@ -14,6 +14,10 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
 
   showNotification: Boolean = false;
 
+  notificationMessage: string = 'Ihre Nachricht wurde Erfolgreich übersendet';
+
+  notificationType: string = 'success';
+
   contactRequest: any = { name: '', title: '', text: '', email: '' };
 
   connectedCallback() {
@@ -57,9 +61,26 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
 
         ev.path[0].resetGroup();
 
-        console.log(resp);
+        this.showNotification = true;
+        this.notificationMessage =
+          'Ihre Nachricht wurde Erfolgreich übersendet';
+        this.requestUpdate();
+
+        setTimeout(() => {
+          this.showNotification = false;
+          this.requestUpdate();
+        }, 2000);
       } catch (err) {
-        // Handle Error Here
+        this.showNotification = true;
+        this.notificationType = 'error';
+        this.notificationMessage = 'Fehler ist aufgetreten';
+
+        this.requestUpdate();
+
+        setTimeout(() => {
+          this.showNotification = false;
+          this.requestUpdate();
+        }, 2000);
         console.error(err);
       }
     };
@@ -67,11 +88,13 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
-          <bcg-notification
-            variant="success"
-            message=""
-            ${this.showNotification ? null : `disabled`}
-          ></bcg-notification>
+          ${this.showNotification
+            ? html` <bcg-notification
+                variant=${this.notificationType}
+                message=${this.notificationMessage}
+              ></bcg-notification>`
+            : null}
+
           <div>
             <h1 style="margin-right:50px;">So erreichen Sie uns</h1>
 

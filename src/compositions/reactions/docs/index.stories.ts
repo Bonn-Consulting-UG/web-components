@@ -21,7 +21,7 @@ interface ArgTypes {
   content: string;
 }
 const Template: Story<ArgTypes> = () =>
-  html` <bcg-reaction modulesId="123"></bcg-reaction> `;
+  html` <bcg-reaction variant="small"></bcg-reaction> `;
 
 const Default = Template.bind({});
 
