@@ -1,4 +1,4 @@
-import { LitElement } from '@lion/core';
+import { html, LitElement } from '@lion/core';
 import jwtDecode from 'jwt-decode';
 
 export class BcgModule extends LitElement {
@@ -6,18 +6,37 @@ export class BcgModule extends LitElement {
 
   moduleId: number = 0;
 
-  authToken: any = localStorage.getItem('auth-token');
+  authToken: any = '';
 
-  user: any = this.authToken !== null ? jwtDecode(this.authToken) : null;
+  user: any = '';
 
   isOpen: any = false;
 
   config: any = {};
 
+  showNotification: Boolean = false;
+
+  notificationMessage: string = 'Ihre Nachricht wurde Erfolgreich übersendet';
+
+  notificationType: string = 'success';
+
+  notificationHtml: any = this.showNotification
+    ? html` <bcg-notification
+        variant=${this.notificationType}
+        message=${this.notificationMessage}
+      ></bcg-notification>`
+    : null;
+
   static get properties() {
     return {
       moduleId: { type: String }
     };
+  }
+
+  checkAuthToken(){
+    if(this.authToken === undefined || this.authToken === 'undefined' ) {
+      localStorage.removeItem('auth-token')
+    } 
   }
 
   clickHandler() {
@@ -36,5 +55,14 @@ export class BcgModule extends LitElement {
   logInHandler() {
     this.isLoggedIn = true;
     console.log('login', this.isOpen);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.authToken = localStorage.getItem('auth-token') !== 'undefined' ? localStorage.getItem('auth-token') : null
+    this.user = this.authToken ? jwtDecode(this.authToken) : null
+    this.checkAuthToken()
+
+    console.log(this.authToken,this.user)
   }
 }

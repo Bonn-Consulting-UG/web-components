@@ -12,12 +12,6 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda'
   };
 
-  showNotification: Boolean = false;
-
-  notificationMessage: string = 'Ihre Nachricht wurde Erfolgreich übersendet';
-
-  notificationType: string = 'success';
-
   contactRequest: any = { name: '', title: '', text: '', email: '' };
 
   connectedCallback() {

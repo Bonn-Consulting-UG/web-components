@@ -43,10 +43,26 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         );
 
         ev.path[0].resetGroup();
+        this.showNotification = true;
+        this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
+        this.requestUpdate();
 
+        setTimeout(() => {
+          this.showNotification = false;
+          this.requestUpdate();
+        }, 2000);
         console.log(resp);
       } catch (err) {
-        // Handle Error Here
+        this.showNotification = true;
+        this.notificationType = 'error';
+        this.notificationMessage = 'Fehler ist aufgetreten';
+
+        this.requestUpdate();
+
+        setTimeout(() => {
+          this.showNotification = false;
+          this.requestUpdate();
+        }, 2000);
         console.error(err);
       }
     };
@@ -57,6 +73,12 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
     return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
+          ${this.showNotification
+            ? html` <bcg-notification
+                variant=${this.notificationType}
+                message=${this.notificationMessage}
+              ></bcg-notification>`
+            : null}
           <div>
             <div style="display:flex; flex-direction:column;">
               <h1 style="flex-grow: 1;">Idee einreichen</h1>

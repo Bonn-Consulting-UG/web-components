@@ -47,9 +47,9 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
               label="Ihr Vorname"
               .validators=${[new Required()]}
               placeholder=""
-              .modelValue="${this.user.firstname}"
+              .modelValue="${this.user.given_name}"
               @model-value-changed=${({ target }: any) => {
-                this.user.firstname = target.value;
+                this.user.given_name = target.value;
               }}
               name="firstname"
             ></bcg-input>
@@ -58,9 +58,9 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
               .validators=${[new Required()]}
               placeholder=""
               @model-value-changed=${({ target }: any) => {
-                this.user.lastname = target.value;
+                this.user.family_name = target.value;
               }}
-              .modelValue="${this.user.lastname}"
+              .modelValue="${this.user.family_name}"
               name="lastname"
             ></bcg-input>
             <bcg-input

@@ -11,8 +11,17 @@
     <link rel="stylesheet" href="http://ifok-epart-components-dev.bonnconsulting.group/components/global.css">
   </head>
   <body>
-    <bcg-button variant="primary">123</bcg-button>
-    <bcg-login></bcg-login>
+    <bcg-dialog>
+      <bcg-button slot="invoker">Open</bcg-button>
+      <bcg-dialog-frame slot="content">
+        <div slot="content">
+          <bcg-button
+     
+            >123</bcg-button
+          >
+        </div>
+      </bcg-dialog-frame>
+    </bcg-dialog>
 
   </body>
 </html>

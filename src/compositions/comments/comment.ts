@@ -1,21 +1,49 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { CommentInterface } from './comments.js';
+import { de } from 'date-fns/locale';
+import {  format, } from 'date-fns'
+
+import { BcgCommentReaction } from './comment-reaction.js';
+import { addReaction } from '../../utils/services/comments.js';
+
 
 export class BcgComment extends ScopedElementsMixin(LitElement) {
-  comments: CommentInterface;
+  comments: any;
 
   constructor() {
     super();
+    this.comments = {};
+  }
 
-    this.comments = {
-      name: '',
-      date: '',
-      icon: '',
-      comment: '',
-      feedback: {
-        likes: 0,
-        dislikes: 0
-      }
+  reactionConfig = [{
+    value:0,
+    icon: 'bcg:comments:thumbsup',
+    clickHandler:() => console.log('click thumbps up')
+  },{
+    value:5,
+    icon: 'bcg:comments:thumbsdown',
+    clickHandler:() => console.log('click thumps down')
+  },{
+    value: 'Antworten',
+    icon:"bcg:comments:message",
+    clickHandler:() => console.log('click message')
+  },{
+    value:'Melden',
+    icon:"bcg:comments:report",
+    clickHandler:() => console.log('click report')
+  }]
+
+
+
+
+  static get scopedElements() {
+    return {
+      'bcg-comment-reaction': BcgCommentReaction,
+    };
+  }
+
+  static get properties() {
+    return {
+      comments: { type: Object },
     };
   }
 
@@ -59,44 +87,63 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    const { isModerator, icon, date, name, comment, children } = this.comments;
+    const { isModerator, createdAt, author,content, comments, _count,id } = this.comments;
     return html`
+    <hr>
       <div class="comment-wrapper ${isModerator ? 'moderator' : null}">
         <div class="comment-poster">
           <img
-            src="${icon}"
+            src="https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png"
             class="comment-image"
             alt="Avatar/Representation of the Poster"
           />
           <div class="comment-poster-details">
-            <p class=" ${isModerator ? 'moderator-name' : null}">${name}</p>
-            <p>${date}</p>
+            <p class=" ${author.roles.includes('MODERATOR') ? 'moderator-name' : null}">${author.firstName}${author.lastName}</p>            
+            <p>${format(Date.parse(createdAt),'MM/dd/yyyy',{locale:de})}</p>    
           </div>
         </div>
         <div>
-          <p>${comment}</p>
-          <bcg-reaction></bcg-reaction>
+          <p>${content}</p>
+          <bcg-reaction .reactions=${[{
+    value:_count.likes,
+    icon: 'bcg:comments:thumbsup',
+    clickHandler:() => addReaction({type:"LIKE"},id)
+  },{
+    value:_count.dislikes,
+    icon: 'bcg:comments:thumbsdown',
+    clickHandler:() => console.log('click thumps down')
+  },{
+    value: 'Antworten',
+    icon:"bcg:comments:message",
+    clickHandler:() => console.log('click message')
+  },{
+    value:'Melden',
+    icon:"bcg:comments:report",
+    clickHandler:() => console.log('click report')
+  }]}></bcg-reaction>
         </div>
-        ${children?.map(
-          i => html` <div
-            class="comment-wrapper comment-response ${i.isModerator
+        ${    console.log(this.comments)
+}
+        ${comments && comments.map(
+          (i:any)=> html` <div
+            class="comment-wrapper comment-response ${i.author.roles.includes('MODERATOR')
               ? 'moderator'
               : null}"
           >
             <div class="comment-poster">
               <img
-                src="${i.icon}"
+                src="https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png"
                 class="comment-image"
                 alt="Avatar/Representation of the Poster"
               />
               <div class="comment-poster-details">
                 <p class=" ${i.isModerator ? 'moderator-name' : null}">
-                  ${i.name}
+                  ${i.author.firstName} ${i.author.lastName}
                 </p>
-                <p>${i.date}</p>
+                <p>${format(Date.parse(i.createdAt),'MM/dd/yyyy',{locale:de})}</p>
               </div>
             </div>
-            <p>${i.comment}</p>
+            <p>${i.content}</p>
             <bcg-reaction></bcg-reaction>
           </div>`
         )}

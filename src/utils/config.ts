@@ -11,6 +11,7 @@ export const componentNames: component = {
   calendar: `${tagPrefix}-calendar`,
   card: `${tagPrefix}-card`,
   dialog: `${tagPrefix}-dialog`,
+  dialogFrame: `${tagPrefix}-dialog-frame`,
   accordion: `${tagPrefix}-accordion`,
   pagination: `${tagPrefix}-pagination`,
   progress: `${tagPrefix}-progress`,
@@ -57,6 +58,7 @@ export const componentNames: component = {
     contactSubmission: `${tagPrefix}-contact-submission`,
     faqOverview: `${tagPrefix}-faq-overview`,
     editUser: `${tagPrefix}-edit-user`,
-    userMenu: `${tagPrefix}-user-menu`
+    userMenu: `${tagPrefix}-user-menu`,
+    dialogs: {login:`${tagPrefix}-dialogs-login`}
   }
 };

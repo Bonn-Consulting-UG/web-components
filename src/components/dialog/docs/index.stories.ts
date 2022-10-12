@@ -24,12 +24,17 @@ interface Story<T> {
 interface ArgTypes {
   content: Array<ContentArgs>;
 }
+const placementModeLocalConfig = {
+  placementMode: 'local',
+  elementToFocusAfterHide: document.body,
+  hidesOnEsc: true
+};
 
 const Template: Story<ArgTypes> = () => html`
-  <bcg-dialog>
-    <bcg-button slot="invoker">Login</bcg-button>
-    <bcg-login slot="content" class="dialog"> </bcg-login>
-  </div></bcg-dialog>
+  <bcg-dialog .config=${placementModeLocalConfig}>
+    <button slot="invoker">Open</button>
+    <bcg-dialog-frame has-close-button slot="content"></bcg-dialog-frame>
+  </bcg-dialog>
 `;
 
 export const Default = Template.bind({});

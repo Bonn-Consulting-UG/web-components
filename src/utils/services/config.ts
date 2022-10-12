@@ -1,6 +1,6 @@
 // Base
 const APIVersion = 'v1';
-const baseURLwithApiVersion = `http://ifok-epart-api-dev.bonnconsulting.group/api/${APIVersion}`;
+const baseURLwithApiVersion = `https://ifok-epart-api-dev.bonnconsulting.group/${APIVersion}`;
 
 // Login/User
 export const registerEndpoint = `${baseURLwithApiVersion}/register`;
@@ -31,11 +31,11 @@ export const getModuleEndpoint = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}`;
 
 // Comments
-export const getCommentsEndpoint = (moduleId: number) =>
+export const getCommentsEndpointforModule = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments`;
 
-export const setCommentsEndpoont = (moduleId: number) =>
-  getCommentsEndpoint(moduleId);
+export const setCommentsEndpoint =
+`${baseURLwithApiVersion}/comments`;
 
 export const getCommentEndpoint = (moduleId: number, commentID: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments/${commentID}`;
@@ -55,3 +55,7 @@ export const getCommentReactionWithIdEndpoint = (
   reactionId: number
 ) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments/${commentId}/reaction/${reactionId}`;
+
+
+  // Reactions
+  export const reactionEndPoint = `${baseURLwithApiVersion}/reactions`;

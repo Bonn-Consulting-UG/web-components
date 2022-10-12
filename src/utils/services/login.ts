@@ -47,6 +47,7 @@ export const checkVerifyCode = async (userID: any, code: any) => {
 };
 
 export const sendLoginRequest = async (user: any) => {
+  console.log(user)
   try {
     const fetchOptions = {
       method: 'POST',
@@ -89,20 +90,17 @@ export const sendUserDataChangeRequest = async ({
   }
 };
 
-export const sendPasswordChangeRequest = async ({
-  newPassword,
-  password,
-  userId
-}: any) => {
+export const sendPasswordChangeRequest = async ({newPassword,currentPassword,userId}:any) => {
   try {
     const fetchOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
       },
-      body: JSON.stringify({ new: newPassword, current: password })
+      body: JSON.stringify({newPassword,currentPassword})
     };
-
+    console.log(userId)
     const resp = await fetch(changePasswordEndpoint(userId), fetchOptions);
     console.log('sent');
     return resp.json();

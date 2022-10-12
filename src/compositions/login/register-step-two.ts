@@ -30,9 +30,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   dsgvo: object = { value: 'foo', checked: false };
 
-  firstname: string = 'Stefan';
+  firstName: string = 'Stefan';
 
-  lastname: string = 'Scheifel';
+  lastName: string = 'Scheifel';
 
   email: string = '';
 
@@ -63,7 +63,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   // "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$"
 
   render() {
-    let { firstname, lastname, email, password, passwordrepeat, dsgvo } = this;
+    let { firstName, lastName, email, password, passwordrepeat, dsgvo } = this;
 
     const submitHandler = (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -73,7 +73,14 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      this.nextStep({ firstname, lastname, email, password });
+      this.nextStep({
+        firstName,
+        lastName,
+        email,
+        password,
+        language: 'de_DE',
+        isOrganization: false
+      });
     };
 
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
@@ -92,22 +99,22 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
           <div>
             <bcg-input
               label="Vorname"
-              name="firstname"
+              name="firstName"
               placeholder=""
               .validators=${[new Required()]}
-              .modelValue="${firstname}"
+              .modelValue="${firstName}"
               @model-value-changed=${({ target }: any) => {
-                firstname = target.value;
+                firstName = target.value;
               }}
             ></bcg-input>
             <bcg-input
-              name="lastname"
+              name="lastName"
               label="Nachname"
               placeholder=""
-              .modelValue="${lastname}"
+              .modelValue="${lastName}"
               .validators=${[new Required()]}
               @model-value-changed=${({ target }: any) => {
-                lastname = target.value;
+                lastName = target.value;
               }}
             ></bcg-input>
             <bcg-input-email

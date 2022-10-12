@@ -11,18 +11,19 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
     return [css``];
   }
 
+
   static get properties() {
     return {
       onPasswordReset: { type: Function },
-      moduleId: { type: String }
+      moduleId: { type: String },
     };
   }
 
   moduleId: number = 0;
 
   onPasswordReset: any = () => console.log(this);
-
-  email: string = '';
+  
+  email:string ='';
 
   password: string = '';
 
@@ -51,14 +52,22 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
+      console.log(this.email,this.password)
       const response: any = await sendLoginRequest({ email, password });
-      localStorage.setItem('auth-token', response.auth_token);
+      localStorage.setItem('auth-token', response.accessToken);
     };
 
     return html`
      <bcg-form name="login" @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
-
+        ${
+          this.showNotification
+            ? html` <bcg-notification
+                variant=${this.notificationType}
+                message=${this.notificationMessage}
+              ></bcg-notification>`
+            : null
+        }
       <div style="display:flex;flex-direction:row-reverse;justify-content: left;width:640px;">
       <div class="left-side" style="flex-direction:row-reverse;  ">
       <h1>Willkommen!</h1>
@@ -107,6 +116,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
               ></bcg-checkbox>
             </bcg-checkbox-group>
             <p @click=${onPasswordReset} @keydown=${onPasswordReset}>reset pw</p>
+
           <bcg-button-submit >Anmelden</bcg-button-submit>
         </div>
         <div class="right-side">
@@ -114,6 +124,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         </div>
       </div>
             </form >
+            
             </bcg-form >
     `;
   }

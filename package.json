@@ -3,7 +3,7 @@
   "description": "Bcg-components following open-wc recommendations",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "0.0.1-7",
+  "version": "0.0.1-8",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
@@ -26,7 +26,7 @@
     "@lion/collapsible": "^0.9.0",
     "@lion/combobox": "^0.11.0",
     "@lion/core": "^0.23.0",
-    "@lion/dialog": "^0.16.0",
+    "@lion/dialog": "^0.15.0",
     "@lion/fieldset": "^0.22.0",
     "@lion/form": "^0.15.0",
     "@lion/form-core": "^0.18.0",
@@ -43,6 +43,7 @@
     "@lion/input-tel-dropdown": "^0.2.0",
     "@lion/listbox": "^0.14.0",
     "@lion/localize": "^0.25.0",
+    "@lion/overlays": "^0.33.2",
     "@lion/pagination": "^0.9.0",
     "@lion/progress-indicator": "^0.9.0",
     "@lion/radio-group": "^0.21.0",
@@ -56,9 +57,11 @@
     "@storybook/addons": "^6.5.9",
     "axios": "^0.27.2",
     "dark-theme-utils": "^0.4.0",
+    "date-fns": "^2.29.3",
     "jwt-decode": "^3.1.2",
     "lit": "^2.2.5",
-    "lit-element-state": "^1.7.0"
+    "lit-element-state": "^1.7.0",
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.3",

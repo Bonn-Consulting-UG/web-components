@@ -1,23 +1,11 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { CommentInterface } from './comments.js';
 
-export class BcgComment extends ScopedElementsMixin(LitElement) {
-  comments: CommentInterface;
 
-  constructor() {
-    super();
+export class BcgCommentReaction extends ScopedElementsMixin(LitElement) {
+ 
 
-    this.comments = {
-      name: '',
-      date: '',
-      icon: '',
-      comment: '',
-      feedback: {
-        likes: 0,
-        dislikes: 0
-      }
-    };
-  }
+  reactions:any=[]
+
 
   static get styles() {
     return [
@@ -58,8 +46,8 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
     ];
   }
 
-  // render() {
-  //   const { isModerator, icon, date, name, comment, children } = this.comments;
-  //   return html` <bcg-reaction .config=${config}></bcg-reaction> `;
-  // }
+  render() {
+    return html` <bcg-reaction .reactions=${this.reactions}></bcg-reaction> `;
+  }
 }
+

@@ -25,9 +25,9 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
       }
 
       const res = await sendPasswordChangeRequest({
-        password: this.password,
+        currentPassword: this.password,
         newPassword: this.newPassword,
-        userId: this.user.userId
+        userId: this.user.sub
       });
       console.log(res);
     };

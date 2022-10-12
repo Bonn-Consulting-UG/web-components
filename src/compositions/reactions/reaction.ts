@@ -13,43 +13,26 @@ export class BcgReaction extends ScopedElementsMixin(BcgModule) {
 
   variant: string = 'large';
 
+
+
+reactions:any = []
+
   static get properties() {
     return {
       ...super.properties,
-      variant: { type: String }
+      variant: { type: Object },
+      reactions:{type:Object}
     };
   }
 
   render() {
-    return html`<div style="display:flex;">
-        <div style="display:flex; flex-diretion:row;margin-right:10px;padding:10px;">
-          <lion-icon icon-id="bcg:comments:thumbsup"></lion-icon>
-          <span style="margin-left:10px;">0 </span>
-        </div>
-        <div style="display:flex; flex-diretion:row;margin-right:10px;padding:10px;">
-          <lion-icon icon-id="bcg:comments:thumbsdown"></lion-icon>
-          <span style="margin-left:10px;">0 </span>
-        </div>
+    return html`
+    <div style="display:flex;">
+    ${this.reactions.map((item:any)=> html`<div @click=${()=> item.clickHandler()} style="display:flex;flex-diretion:row;margin-right:10px;padding:10px;">   
+          <lion-icon icon-id="${item.icon}"></lion-icon>
+          <span style="margin-left:10px;">${item.value} </span>
+        </div>`)}
 
-        ${
-          this.variant !== 'small'
-            ? html` <div
-                  style="display:flex; flex-diretion:row;margin-right:10px;padding:10px;"
-                >
-                  <lion-icon icon-id="bcg:comments:message"></lion-icon>
-                  <span style="margin-left:10px;">Antworten </span>
-                </div>
-                <div
-                  style="display:flex; flex-diretion:row;margin-right:10px;padding:10px;"
-                >
-                  <lion-icon icon-id="bcg:comments:report"></lion-icon>
-                  <span style="margin-left:10px;">Melden </span>
-                </div>`
-            : null
-        }
-
-        </div>
-      </div>
     </div>`;
   }
 }

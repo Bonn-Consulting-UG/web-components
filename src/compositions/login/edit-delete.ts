@@ -16,10 +16,6 @@ export class BcgEditDelete extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  constructor() {
-    super();
-    this.user = {};
-  }
 
   // break span down '<span>Schritt ${currentStep} von ${maxStep - 1} </span>' to be able to export string to data
 
@@ -33,7 +29,7 @@ export class BcgEditDelete extends ScopedElementsMixin(LitElement) {
         return;
       }
 
-      const res = await sendUserDeleteRequest(this.user.userId);
+      const res = await sendUserDeleteRequest(this.user.sub);
       console.log(res);
     };
     return html`

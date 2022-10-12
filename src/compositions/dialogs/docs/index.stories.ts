@@ -2,7 +2,7 @@ import { html, TemplateResult } from '@lion/core';
 import '../index.js';
 
 export default {
-  title: 'Compositions/Comments',
+  title: 'Compositions/Dialogs',
   component: 'bcg-comments',
 };
 
@@ -17,7 +17,7 @@ interface ArgTypes {
   content: string;
 }
 const TemplateComments: Story<ArgTypes> = () =>
-  html` <bcg-comments moduleId="2b3006fd-8e18-41ad-a763-6b63482cbcdf"></bcg-comments> `;
+  html` <bcg-dialogs-login></bcg-dialogs-login> `;
 
 const Default = TemplateComments.bind({});
 

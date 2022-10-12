@@ -83,7 +83,7 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
           </ul>
         </div>
 
-        <bcg-button-submit>Code abschicken</bcg-button-submit>
+        <bcg-button-submit variant='primary' >Code abschicken</bcg-button-submit>
       </form>
     </bcg-form> `;
   }

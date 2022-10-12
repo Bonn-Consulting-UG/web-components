@@ -2,11 +2,12 @@
 
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
+import { BcgModule } from '../../components/module';
 
 import { BcgPasswordReset } from './password-reset';
 import { BcgUserLogin } from './user-login';
 
-export class BcgLogin extends ScopedElementsMixin(LitElement) {
+export class BcgLogin extends ScopedElementsMixin(BcgModule) {
   static get styles() {
     return [css``];
   }
@@ -39,7 +40,7 @@ export class BcgLogin extends ScopedElementsMixin(LitElement) {
 
     return html`
       ${context === 'login'
-        ? html`<bcg-user-login
+        ? html` <bcg-user-login
             .onPasswordReset=${changeContext}
           ></bcg-user-login>`
         : html`<bcg-password-reset></bcg-password-reset>`}

@@ -26,6 +26,10 @@ export class BcgButton extends LionButton {
     return [
       ...super.styles,
       css`
+        :host() {
+          display: block;
+          visibility: visible;
+        }
         :host([variant='primary']) {
           background-color: var(--secondary-color);
           border-radius: var(--border-radius-l);

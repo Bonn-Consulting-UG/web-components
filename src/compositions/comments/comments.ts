@@ -1,52 +1,79 @@
 import { html, LitElement, ScopedElementsMixin } from '@lion/core';
+import { BcgModule } from '../../components/module/module.js';
+import { getAllCommentsForModule,addCommentToModule } from '../../utils/services/comments.js';
+import { BcgCommentReaction } from './comment-reaction.js';
 import { BcgComment } from './comment.js';
 
+
 export interface CommentInterface {
-  name: String;
-  date: String | Date;
-  icon: String;
-  isModerator?: Boolean;
-  children?: Array<CommentInterface>;
-  comment: String;
-  feedback: {
+  id: string,
+  status: string,
+  isModerator: boolean 
+  authorId: string,
+  content: string,
+  moduleId: string,
+  children: Array<CommentInterface>,
+  createdAt: string,
+  updatedAt: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  isSubmission: boolean,
+  templateId: string,
+  title: string,
+  _count: {
     likes: Number;
     dislikes: Number;
   };
 }
 
-export class BcgComments extends ScopedElementsMixin(LitElement) {
+export class BcgComments extends ScopedElementsMixin(BcgModule) {
+
   static get scopedElements() {
     return {
-      'bcg-comment': BcgComment
+      'bcg-comment': BcgComment,
     };
   }
 
+  connectedCallback () {
+    super.connectedCallback();
+    console.log(this.moduleId)
+    this.test()
+    console.log(this.comments)
+  }
+
+
+
   maxCharCount: Number = 500;
+
+  test: any = async()=> {
+    this.comments =  await getAllCommentsForModule(this.moduleId)
+    this.requestUpdate();
+  }
+
+  details: any = {  
+  "take": 100,
+  "skip": 0,
+  "resultCount": 2,
+  "pageCount": 1,
+  "totalCount": 4
+}
 
   currentCharCount: Number = this.getElementsByTagName('textarea').length;
 
-  commentChildren: Array<CommentInterface> = [];
+  newComment:any=""
 
-  comments: Array<CommentInterface> = [];
+  comments: any = [];
 
-  testcomment: CommentInterface = {
-    name: 'Stefan Scheifel',
-    date: '',
-    isModerator: true,
-    icon: 'https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png',
-    comment: '',
-    feedback: {
-      likes: 0,
-      dislikes: 0
-    }
-  };
+
+  
 
   render() {
     const { maxCharCount, currentCharCount, comments } = this;
 
     return html`
       <div style="display:flex; flex-direction:column;">
-        <h2 style="flex-grow: 1;">Kommentare(count)</h2>
+        <h2 style="flex-grow: 1;">Kommentare(${this.details.resultCount})</h2>
         <bcg-select>
           <select slot="input">
             <option selected hidden value>placeholder</option>
@@ -54,29 +81,41 @@ export class BcgComments extends ScopedElementsMixin(LitElement) {
             <option value="keine Registrierung nötig (anonym)">Oldest</option>
           </select>
         </bcg-select>
-        <bcg-form @submit=${console.log('test')}>
+        <bcg-form @submit=${async()=> {
+          await addCommentToModule(this.moduleId,this.newComment),
+          this.test();
+          this.requestUpdate();
+          }}>
           <form @submit=${(e: any) => console.log(e)}>
             <bcg-textarea
-              @model-value-changed=${(e: any) => e}
+              @model-value-changed=${({ target }: any) => {
+                this.newComment = target.value
+                }}
               name="comment"
               id="comment-textarea"
               rows="4"
               placeholder="Wie finden Sie die Idee"
             ></bcg-textarea>
 
-            <div style="display:flex; margin-top:10px;">
+            <div style="display:flex;margin-top:20px;">
               <p style="flex-grow: 1;">${currentCharCount}/${maxCharCount}</p>
-              <bcg-button label="Kommentieren"></bcg-button>
+              <div>
+              <bcg-button-submit >Kommentieren</bcg-button-submit>
+              </div>
             </div>
           </form>
         </bcg-form>
 
         <div>
-          ${comments.map(
-            comment => html`<bcg-comment .comments="${comment}"></bcg-comment>`
+          ${comments.results && comments.results.map(
+            (comment:any) => html`<bcg-comment .comments="${comment}"></bcg-comment>`
           )}
         </div>
-        <bcg-button>Mehr Laden</bcg-button>
+        <div style="display:flex;align-items: center;
+    align-content: center;
+    justify-content: center; margin-top:20px;">
+        <bcg-button variant="secondary">Mehr Laden</bcg-button>
+        </div>
       </div>
     `;
   }

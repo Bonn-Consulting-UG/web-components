@@ -66,3 +66,5 @@ export const sendFaqSubmissionRequest = async (payload: any, moduleID: any) => {
     return err;
   }
 };
+
+

@@ -35,10 +35,10 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
       <div>
         <h2>Registrieren als:</h2>
         <div>
-          <bcg-button @click="${() => this.nextStep()}">
+          <bcg-button variant='primary' @click="${() => this.nextStep()}">
             Als Privat Person
           </bcg-button>
-          <bcg-button disabled @click="${() => this.nextStep()}">
+          <bcg-button  variant='primary' disabled @click="${() => this.nextStep()}">
             Als Organisation
           </bcg-button>
         </div>
