@@ -111,7 +111,7 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
   },{
     value:_count.dislikes,
     icon: 'bcg:comments:thumbsdown',
-    clickHandler:() => console.log('click thumps down')
+    clickHandler:() => {addReaction({type:"DISLIKE"},id,null)}
   },{
     value: 'Antworten',
     icon:"bcg:comments:message",
