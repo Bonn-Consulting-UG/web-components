@@ -1,8 +1,9 @@
-import { css, html, LitElement, ScopedElementsMixin } from '@lion/core';
+import { css, html, LitElement, property, ScopedElementsMixin } from '@lion/core';
 import { LionIcon } from '@lion/icon';
 import { BcgIcon } from '../icon';
 
 export class BcgNotification extends ScopedElementsMixin(LitElement) {
+  @property()
   message: string;
 
   static get scopedElements() {
@@ -22,6 +23,8 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
       }
     };
   }
+
+
 
   constructor() {
     super();

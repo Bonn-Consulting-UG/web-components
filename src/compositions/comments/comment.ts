@@ -107,7 +107,7 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
           <bcg-reaction .reactions=${[{
     value:_count.likes,
     icon: 'bcg:comments:thumbsup',
-    clickHandler:() => addReaction({type:"LIKE"},id)
+    clickHandler:() => {addReaction({type:"LIKE"},id,null)}
   },{
     value:_count.dislikes,
     icon: 'bcg:comments:thumbsdown',

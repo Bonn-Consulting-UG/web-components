@@ -58,7 +58,14 @@ export const sendLoginRequest = async (user: any) => {
     };
 
     const resp = await fetch(loginEndpoint, fetchOptions);
-    return resp.json();
+    const respData = await resp.json();
+    if(respData.accessToken && resp.status === 201){
+        await localStorage.setItem('auth-token', respData.accessToken);
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+    }
+
+    return resp.status;
   } catch (err) {
     // Handle Error Here
     console.error(err);

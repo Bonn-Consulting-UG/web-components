@@ -40,6 +40,7 @@ export const componentNames: component = {
   checkboxgroup: `${tagPrefix}-checkbox-group`,
   checkbox: `${tagPrefix}-checkbox`,
   form: `${tagPrefix}-form`,
+  reaction: `${tagPrefix}-reaction`,
   combobox: `${tagPrefix}-combobox`,
   listbox: `${tagPrefix}-listbox`,
   fieldset: `${tagPrefix}-fieldset`,
@@ -48,7 +49,6 @@ export const componentNames: component = {
   notification: `${tagPrefix}-notification`,
   compositions: {
     comments: `${tagPrefix}-comments`,
-    reaction: `${tagPrefix}-reaction`,
     login: `${tagPrefix}-login`,
     logout: `${tagPrefix}-logout`,
     register: `${tagPrefix}-register`,
@@ -59,6 +59,9 @@ export const componentNames: component = {
     faqOverview: `${tagPrefix}-faq-overview`,
     editUser: `${tagPrefix}-edit-user`,
     userMenu: `${tagPrefix}-user-menu`,
+    reaction:{
+      idea: `${tagPrefix}-idea-reaction`
+    },
     dialogs: {login:`${tagPrefix}-dialogs-login`}
   }
 };

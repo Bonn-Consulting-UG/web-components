@@ -6,7 +6,11 @@ export class BcgProgress extends LionProgressIndicator {
     return [
       css`
         :host {
-          display: block;
+          display: flex;
+          width: 100%;
+          height: 100%;
+          justify-content: center;
+          align-items: center;
         }
 
         .progress--icon {
@@ -20,7 +24,7 @@ export class BcgProgress extends LionProgressIndicator {
           animation: spinner-dash 1.35s ease-in-out infinite;
           fill: none;
           stroke-width: 6px;
-          stroke: red;
+          stroke: var(--primary-color);
           stroke-dasharray: 100, 28; /* This is a fallback for IE11 */
         }
 

@@ -22,7 +22,7 @@ interface ArgTypes {
 }
 
 const DefaultTemplate: Story<ArgTypes> = () =>
-  html`<bcg-faq-submission></bcg-faq-submission> `;
+  html`<bcg-faq-submission moduleId="2b3006fd-8e18-41ad-a763-6b63482cbcdf"></bcg-faq-submission> `;
 
 const LoggedInTemplate: Story<ArgTypes> = () =>
   html` <bcg-faq-submission isLoggedIn></bcg-faq-submission> `;

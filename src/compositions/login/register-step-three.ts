@@ -54,9 +54,9 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
           <bcg-input
             name="verifycode"
             label=""
-            placeholder="Geben Sie den 4-stelligen Code ein"
+            placeholder="Geben Sie den 6-stelligen Code ein"
             .modelValue="${code}"
-            .validators=${[new Required(), new MinLength(4)]}
+            .validators=${[new Required(), new MinLength(6)]}
             @model-value-changed=${({ target }: any) => {
               code = target.value;
             }}

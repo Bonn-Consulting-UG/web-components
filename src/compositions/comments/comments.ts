@@ -51,13 +51,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     this.requestUpdate();
   }
 
-  details: any = {  
-  "take": 100,
-  "skip": 0,
-  "resultCount": 2,
-  "pageCount": 1,
-  "totalCount": 4
-}
+
 
   currentCharCount: Number = this.getElementsByTagName('textarea').length;
 
@@ -73,7 +67,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
     return html`
       <div style="display:flex; flex-direction:column;">
-        <h2 style="flex-grow: 1;">Kommentare(${this.details.resultCount})</h2>
+        <h2 style="flex-grow: 1;">Kommentare(${this.comments.resultCount || 0})</h2>
         <bcg-select>
           <select slot="input">
             <option selected hidden value>placeholder</option>

@@ -1,7 +1,8 @@
 import {
   contactSubmissionEndpoint,
   faqSubmissionEndpoint,
-  ideaSubmissionEndpoint
+  ideaSubmissionEndpoint,
+  getModuleEndpoint
 } from './config';
 
 export const sendContactSubmissionRequest = async (
@@ -67,4 +68,24 @@ export const sendFaqSubmissionRequest = async (payload: any, moduleID: any) => {
   }
 };
 
+
+
+
+export const getModule = async ( moduleID: any) => {
+  try {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+      },
+    };
+
+    const resp = await fetch(getModuleEndpoint(moduleID), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
 

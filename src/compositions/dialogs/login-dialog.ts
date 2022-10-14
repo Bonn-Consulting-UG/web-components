@@ -4,10 +4,14 @@ export class BcgLoginDialog extends ScopedElementsMixin(LitElement) {
   render() {
     return html`
 
-  <bcg-dialog >
-    <bcg-button variant="primary" slot="invoker">Login</bcg-button>
-    <bcg-dialog-frame has-close-button slot="content"><bcg-login slot="content"></bcg-login></bcg-dialog-frame>
-  </bcg-dialog>
+  <dialog id="dialog">
+    <form method="dialog">
+      <bcg-login></bcg-login>
+    </form>
+  </dialog>
+
+<button @click="dialog.showModal()">Open Dialog</button>
     `;
   }
 }
+

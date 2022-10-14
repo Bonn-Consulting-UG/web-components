@@ -42,6 +42,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   passwordInputType: string = 'password';
 
+
   flipPasswordInput() {
     if (this.passwordInputType === 'password') {
       this.passwordInputType = 'text';
@@ -65,7 +66,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   render() {
     let { firstName, lastName, email, password, passwordrepeat, dsgvo } = this;
 
-    const submitHandler = (ev: any) => {
+    const submitHandler = async(ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
           el.hasFeedbackFor.includes('error')
@@ -73,7 +74,8 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      this.nextStep({
+      
+       this.nextStep({
         firstName,
         lastName,
         email,
@@ -81,6 +83,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
         language: 'de_DE',
         isOrganization: false
       });
+
     };
 
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
@@ -89,13 +92,6 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
-          <div>
-            <h2>Registrieren über:</h2>
-            <bcg-button disabled>Facebook</bcg-button>
-            <bcg-button disabled>Twitter</bcg-button>
-            <bcg-button disabled>Gmail</bcg-button>
-          </div>
-
           <div>
             <bcg-input
               label="Vorname"

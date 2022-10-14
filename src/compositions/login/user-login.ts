@@ -52,33 +52,19 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
-      console.log(this.email,this.password)
-      const response: any = await sendLoginRequest({ email, password });
-      localStorage.setItem('auth-token', response.accessToken);
+      
+      sendLoginRequest({ email, password });
     };
 
     return html`
      <bcg-form name="login" @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
-        ${
-          this.showNotification
-            ? html` <bcg-notification
-                variant=${this.notificationType}
-                message=${this.notificationMessage}
-              ></bcg-notification>`
-            : null
-        }
+
       <div style="display:flex;flex-direction:row-reverse;justify-content: left;width:640px;">
-      <div class="left-side" style="flex-direction:row-reverse;  ">
+      <div class="left-side" style="display:flex;flex-direction: column;">
       <h1>Willkommen!</h1>
           <h2>Anmeldung</h2>
-          <div>
-            <h2>Anmelden über:</h2>
-
-            <bcg-button disabled>Facebook</bcg-button>
-            <bcg-button disabled>Twitter</bcg-button>
-            <bcg-button disabled>Gmail</bcg-button>
-          </div>
+          
           <div>
           <bcg-input-email
               name="email"
@@ -109,15 +95,17 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
 
             </div>
           </div>
-          <bcg-checkbox-group name="save-login-data" .validators=${[]}>
+          <!-- <bcg-checkbox-group name="save-login-data" .validators=${[]}>
               <bcg-checkbox
                 label="Anmeldedaten merken"
                 .choiceValue=${'Anmeldedaten merken'}
               ></bcg-checkbox>
-            </bcg-checkbox-group>
-            <p @click=${onPasswordReset} @keydown=${onPasswordReset}>reset pw</p>
+            </bcg-checkbox-group> -->
+          
+          <bcg-button-submit style="margin-bottom:10px;" >Anmelden</bcg-button-submit>
 
-          <bcg-button-submit >Anmelden</bcg-button-submit>
+
+          <div> <bcg-button-submit @click=${onPasswordReset} @keydown=${onPasswordReset}>Password zurücksetzten</bcg-button-submit></div>
         </div>
         <div class="right-side">
         <img src="https://images.unsplash.com/photo-1654580038810-505030159ca0" style="width: 100%;" alt="123"></img>

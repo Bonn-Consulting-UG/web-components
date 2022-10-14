@@ -17,7 +17,14 @@ interface ArgTypes {
   content: string;
 }
 const TemplateComments: Story<ArgTypes> = () =>
-  html` <bcg-dialogs-login></bcg-dialogs-login> `;
+  html`   <dialog id="dialog">
+  <form method="dialog">
+    <bcg-login></bcg-login>
+  </form>
+</dialog>
+
+<button @click="dialog.showModal()">Open Dialog</button>
+  `;
 
 const Default = TemplateComments.bind({});
 

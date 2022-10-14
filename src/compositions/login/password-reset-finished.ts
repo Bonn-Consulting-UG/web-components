@@ -22,7 +22,7 @@ export class BcgPasswordResetFinished extends ScopedElementsMixin(LitElement) {
           Sie können Sich jetzt mit Ihrem neuen Passwort anmelden.
         </h2>
       </div>
-      <bcg-button @click="${() => this.nextStep()}">Anmelden</bcg-button>
+      <bcg-button-submit @click="${() => this.nextStep()}">Anmelden</bcg-button-submit>
     `;
   }
 }

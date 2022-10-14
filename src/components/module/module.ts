@@ -1,4 +1,4 @@
-import { html, LitElement } from '@lion/core';
+import { html, LitElement, property } from '@lion/core';
 import jwtDecode from 'jwt-decode';
 
 export class BcgModule extends LitElement {
@@ -14,12 +14,17 @@ export class BcgModule extends LitElement {
 
   config: any = {};
 
+
+  @property()
   showNotification: Boolean = false;
 
+  @property()
   notificationMessage: string = 'Ihre Nachricht wurde Erfolgreich übersendet';
-
+  
+  @property()
   notificationType: string = 'success';
 
+  @property()
   notificationHtml: any = this.showNotification
     ? html` <bcg-notification
         variant=${this.notificationType}
@@ -48,8 +53,8 @@ export class BcgModule extends LitElement {
 
   logOutHandler() {
     localStorage.removeItem('auth-token');
-    this.isOpen = !this.isOpen;
-    this.requestUpdate();
+    // eslint-disable-next-line no-restricted-globals
+    location.reload()
   }
 
   logInHandler() {

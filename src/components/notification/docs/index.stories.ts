@@ -25,9 +25,8 @@ interface ArgTypes {
 const Template: Story<ArgTypes> = args =>
   html`
     <bcg-notification
-      disabled
       variant="${args.type}"
-      message="${args.type}"
+      message="${args.message}"
     ></bcg-notification>
   `;
 

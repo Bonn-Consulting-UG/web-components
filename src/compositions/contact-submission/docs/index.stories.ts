@@ -23,7 +23,7 @@ interface ArgTypes {
 
 const DefaultTemplate: Story<ArgTypes> = () =>
   html`<bcg-contact-submission
-    moduleId="402647a9-ee85-4dfc-aa2d-f3a76fc09dad"
+    moduleId="2b3006fd-8e18-41ad-a763-6b63482cbcdf"
   ></bcg-contact-submission> `;
 
 const Default = DefaultTemplate.bind({});

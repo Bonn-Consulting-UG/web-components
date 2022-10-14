@@ -28,7 +28,7 @@ export const ideaSubmissionEndpoint = (moduleID: any) =>
 // Modules
 export const getAllModulesEndpoint = `${baseURLwithApiVersion}/modules`;
 export const getModuleEndpoint = (moduleId: number) =>
-  `${baseURLwithApiVersion}/modules/${moduleId}`;
+  `${baseURLwithApiVersion}/modules/${moduleId}?include=LIKE%2CDISLIKES'  `;
 
 // Comments
 export const getCommentsEndpointforModule = (moduleId: number) =>

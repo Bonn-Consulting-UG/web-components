@@ -19,7 +19,7 @@ export class BcgEditProfile extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
-    return html`<div>
+    return html`<div style="max-width:70%;max-height:20%;">
       ${localStorage.getItem('auth-token') !== null
         ? html`     <bcg-edit-userdata .user=${this.user}></bcg-edit-userdata>
       <bcg-edit-password .user=${this.user}></bcg-edit-password>

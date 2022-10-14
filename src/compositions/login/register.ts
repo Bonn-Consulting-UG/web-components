@@ -9,8 +9,9 @@ import {
   sendRegisterRequest,
   checkVerifyCode
 } from '../../utils/services/login';
+import { BcgModule } from '../../components/module';
 
-export class BcgRegister extends ScopedElementsMixin(LitElement) {
+export class BcgRegister extends ScopedElementsMixin(BcgModule) {
   currentStep: number = 1;
 
   maxStep: number = 4;
@@ -19,28 +20,58 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
 
   user: any = 0;
 
+  isLoading:boolean = false;
+
+
   nextStep = async (payload: any) => {
     let response: any = null;
 
     if (this.currentStep < this.maxStep) {
       if (this.currentStep === 2) {
+        this.isLoading = true;
+        this.requestUpdate();
         response = await sendRegisterRequest(payload);
         this.user = await response.json();
+        if (response.status === 409 || response.status === 500 ) {
+          console.log('HELLO ITS ME')
+          this.showNotification = true;
+          this.notificationMessage = `Statuscode: ${response.status} ${this.user.message}`;
+          this.notificationType = "error";
+          this.isLoading= false;
 
-        console.log(this.user);
+          setTimeout(() => {
+            this.showNotification = false;
+            this.requestUpdate();
+          },3000),
+
+
+          this.requestUpdate();
+        };
+
+
+        this.isLoading = false;
         if (response.status !== 201) return;
       }
       if (this.currentStep === 3) {
+
         if (payload === 'back') {
           this.currentStep -= 1;
           this.requestUpdate();
         }
+
+        this.isLoading = true;
+        this.requestUpdate();
+
         response = await checkVerifyCode(this.user.id, payload);
+
+        this.isLoading = false
+        this.requestUpdate();
+
         if (response.status !== 201) return;
       }
       this.currentStep += 1;
     } else {
-      console.log('close Dialog');
+      location.reload();
     }
     this.requestUpdate();
   };
@@ -61,11 +92,18 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
   // break span down '<span>Schritt ${currentStep} von ${maxStep - 1} </span>' to be able to export string to data
 
   render() {
-    const { maxStep, currentStep, nextStep } = this;
+    const { maxStep, notificationHtml,currentStep, nextStep } = this;
 
     return html`
     <div style="display:flex;">
-      <div class="left-side" style="flex-direction:row-reverse;flex-basis:50%;"> 
+    <div class="left-side" style="flex-direction:row-reverse;flex-basis:50%;"> 
+
+    ${this.isLoading ? html`<bcg-progress></bcg-progress>`:  html`
+    ${this.showNotification ? html`<bcg-notification
+        variant=${this.notificationType}
+        message=${this.notificationMessage}
+
+      ></bcg-notification> `: null}
           ${
             currentStep >= maxStep - 1
               ? null
@@ -106,7 +144,7 @@ export class BcgRegister extends ScopedElementsMixin(LitElement) {
               : null
           }
 
-
+`}
         </div>
         <div class="right-side" style="display:flex; flex-basis:50%;">
           <img src="https://images.unsplash.com/photo-1654729746829-87fc9bc48ad7" style="height: 100%;width: 100%;" alt="123"/>

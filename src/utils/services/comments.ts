@@ -10,7 +10,6 @@ export const getAllCommentsForModule = async (moduleID: any) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
       },
     };
 
@@ -48,7 +47,7 @@ export const addCommentToModule = async (moduleID: any,commentConent:any) => {
 
 
 
-export const addReaction = async (type: any,commentId:any) => {
+export const addReaction = async (type: any,commentId:any,moduleId?:any) => {
   try {
     const fetchOptions = {
       method: 'POST',
@@ -59,7 +58,8 @@ export const addReaction = async (type: any,commentId:any) => {
       },
       body:JSON.stringify({
        ...type,
-        "commentId": commentId,
+        "commentId": moduleId ? '' : commentId,
+        moduleId,
       })
     };
 
