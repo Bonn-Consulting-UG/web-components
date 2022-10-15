@@ -1,5 +1,11 @@
 /* eslint-disable import/extensions */
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import {
+  html,
+  css,
+  LitElement,
+  ScopedElementsMixin,
+  property,
+} from '@lion/core';
 import { IsEmail, Pattern, Required } from '@lion/form-core';
 import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
@@ -14,12 +20,15 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
 
   nextStep: any;
 
+  @property({ type: Function }) back: any;
+
   onChange: any;
 
   static get properties() {
     return {
       nextStep: { type: Function },
-      onChange: { type: Function }
+      onChange: { type: Function },
+      back: { type: Function },
     };
   }
 
@@ -34,7 +43,7 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup
+      'bcg-checkbox-group': BcgCheckboxGroup,
     };
   }
 
@@ -54,6 +63,7 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
 
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
     Required.getMessage = async () => 'Angabe benötigt';
+    console.log(this.back);
 
     return html`
       <bcg-form @submit=${submitHandler}>
@@ -66,6 +76,7 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
             </p>
 
             <bcg-input-email
+              style="margin-bottom:10px"
               name="email"
               label="Ihre E-Mail"
               placeholder=""
@@ -75,7 +86,9 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
                 email = target.value;
               }}
             ></bcg-input-email>
-
+            <bcg-button @click=${this.back} variant="secondary"
+              >Zurück</bcg-button
+            >
             <bcg-button-submit>Password zurücksetzen</bcg-button-submit>
           </div>
         </form>

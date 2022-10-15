@@ -47,7 +47,9 @@ export class BcgLogin extends ScopedElementsMixin(BcgModule) {
         ? html` <bcg-user-login
             .onPasswordReset=${changeContext}
           ></bcg-user-login>`
-        : html`<bcg-password-reset></bcg-password-reset>`}
+        : html`<bcg-password-reset
+            .back=${changeContext}
+          ></bcg-password-reset>`}
     `;
   }
 }

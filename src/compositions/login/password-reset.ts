@@ -14,6 +14,8 @@ import { BcgPasswordResetStart } from './password-reset-start';
 export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
   @property({ type: Number }) currentStep: number = 1;
 
+  @property({ type: Function }) back: any = () => console.log('back default');
+
   maxStep: number = 4;
 
   verifyCode: number = 0;
@@ -58,13 +60,11 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
     Required.getMessage = async () => 'Angabe benötigt';
 
     return html`
-      ${currentStep >= maxStep - 1
-        ? null
-        : html`<h1>Willkommen zurück!!</h1>
-            <h2>zurück zur Anmeldung</h2> `}
+      ${currentStep >= maxStep - 1 ? null : html`<h1>Willkommen zurück!</h1>`}
       ${currentStep === 1
         ? html`<bcg-password-reset-start
             .nextStep=${this.nextStep}
+            .back=${this.back}
           ></bcg-password-reset-start>`
         : null}
       ${currentStep === 2
