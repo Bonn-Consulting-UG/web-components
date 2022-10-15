@@ -29,6 +29,7 @@ export const componentNames: component = {
   select: `${tagPrefix}-select`,
   spamfilter: `${tagPrefix}-spamfilter`,
   inputdate: `${tagPrefix}-input-date`,
+  inputpassword: `${tagPrefix}-input-password`,
   inputiban: `${tagPrefix}-input-iban`,
   inputemail: `${tagPrefix}-input-email`,
   inputdatepicker: `${tagPrefix}-input-datepicker`,
@@ -59,9 +60,9 @@ export const componentNames: component = {
     faqOverview: `${tagPrefix}-faq-overview`,
     editUser: `${tagPrefix}-edit-user`,
     userMenu: `${tagPrefix}-user-menu`,
-    reaction:{
-      idea: `${tagPrefix}-idea-reaction`
+    reaction: {
+      idea: `${tagPrefix}-idea-reaction`,
     },
-    dialogs: {login:`${tagPrefix}-dialogs-login`}
-  }
+    dialogs: { login: `${tagPrefix}-dialogs-login` },
+  },
 };
