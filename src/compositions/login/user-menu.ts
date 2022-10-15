@@ -97,7 +97,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
                     id="login-button"
                     style="margin-right:10px;"
                     @click="${logInHandler}"
-                    variant="primary"
+                    variant="secondary"
                     >Anmelden</bcg-button
                   ><bcg-button
                     id="register-button"
