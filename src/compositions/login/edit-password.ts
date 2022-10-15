@@ -14,6 +14,8 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
 
   newPassword: any;
 
+  passwordRepeat: any;
+
   render() {
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -24,56 +26,70 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
         return;
       }
 
+      ev.path[0].resetGroup();
+
+      this.isLoading = true;
+
       const res = await sendPasswordChangeRequest({
         currentPassword: this.password,
         newPassword: this.newPassword,
-        userId: this.user.sub
+        userId: this.user.sub,
       });
-      console.log(res);
+      this.isLoading = false;
     };
     Required.getMessage = async () => 'Angabe benötigt';
     return html`<div>
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           <h2>Passwort ändern</h2>
+          ${
+            this.isLoading
+              ? html`<bcg-progress></bcg-progress>`
+              : html`
+                  <bcg-input
+                    label="Aktuelles Passwort*"
+                    type="password"
+                    placeholder=""
+                    name="password"
+                    .modelValue="${this.password}"
+                    @model-value-changed=${({ target }: any) => {
+                      this.password = target.value;
+                    }}
+                    .validators=${[new Required()]}
+                  ></bcg-input>
 
-          <bcg-input
-            label="Aktuelles Passwort*"
-            type="password"
-            placeholder=""
-            name="password"
-            .modelValue="${this.password}"
-            @model-value-changed=${({ target }: any) => {
-              this.password = target.value;
-            }}
-            .validators=${[new Required()]}
-          ></bcg-input>
+                  <bcg-fieldset
+                    name="password-fieldset"
+                    .validators=${[new PasswordMatch()]}
+                  >
+                    <bcg-input
+                      label="Neues Passwort"
+                      type="password"
+                      .modelValue="${this.newPassword}"
+                      @model-value-changed=${({ target }: any) => {
+                        this.newPassword = target.value;
+                      }}
+                      placeholder=""
+                      name="password"
+                      .validators=${[new Required()]}
+                    ></bcg-input>
 
-          <bcg-fieldset
-            name="password-fieldset"
-            .validators=${[new PasswordMatch()]}
-          >
-            <bcg-input
-              label="Neues Passwort"
-              type="password"
-              .modelValue="${this.newPassword}"
-              @model-value-changed=${({ target }: any) => {
-                this.newPassword = target.value;
-              }}
-              placeholder=""
-              name="password"
-              .validators=${[new Required()]}
-            ></bcg-input>
-
-            <bcg-input
-              name="passwordrepeat"
-              label="Neues Passwort wiederholen"
-              type="password"
-              placeholder=""
-              .validators=${[new Required()]}
-            ></bcg-input>
+                    <bcg-input
+                      name="passwordrepeat"
+                      label="Neues Passwort wiederholen"
+                      type="password"
+                      .modelValue="${this.passwordRepeat}"
+                      @model-value-changed=${({ target }: any) => {
+                        this.passwordRepeat = target.value;
+                      }}
+                      placeholder=""
+                      .validators=${[new Required()]}
+                    ></bcg-input>
+                  </bcg-fieldset>
+                `
+          }
           </bcg-fieldset>
-          <bcg-button-submit>Password ändern</bcg-button-submit>
+          <bcg-button-submit style="margin-top:10px">Password ändern</bcg-button-submit>
         </form>
       </bcg-form>
     </div> `;

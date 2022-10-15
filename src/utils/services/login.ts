@@ -73,21 +73,21 @@ export const sendLoginRequest = async (user: any) => {
 };
 
 export const sendUserDataChangeRequest = async ({
-  firstname,
-  lastname,
-  userId,
+  given_name,
+  family_name,
+  sub,
 }: any) => {
   try {
     const fetchOptions = {
-      method: 'PATCH',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify({ firstname, lastname }),
+      body: JSON.stringify({ firstName: given_name, lastName: family_name }),
     };
-    console.log(userId);
-    const resp = await fetch(changeUserDataEndpoint(userId), fetchOptions);
+    console.log(sub);
+    const resp = await fetch(changeUserDataEndpoint(sub), fetchOptions);
     return resp.json();
   } catch (err) {
     // Handle Error Here

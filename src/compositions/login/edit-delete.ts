@@ -12,10 +12,9 @@ export class BcgEditDelete extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       nextStep: { type: Function },
-      onChange: { type: Function }
+      onChange: { type: Function },
     };
   }
-
 
   // break span down '<span>Schritt ${currentStep} von ${maxStep - 1} </span>' to be able to export string to data
 
@@ -40,7 +39,7 @@ export class BcgEditDelete extends ScopedElementsMixin(LitElement) {
         Daten gelöscht. Sofern Sie im Rahmen der Beteiligung Beiträge verfasst
         haben, bleiben diese unter der Angabe „Profil gelöscht“ erhalten.
       </p>
-      <bcg-form @submit=${submitHandler}>
+      <bcg-form style="margin-top:10px" @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           <bcg-button-submit>Profil löschen</bcg-button-submit>
         </form>

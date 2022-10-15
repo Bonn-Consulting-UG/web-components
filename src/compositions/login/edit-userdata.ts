@@ -1,15 +1,16 @@
 /* eslint-disable import/extensions */
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
+import { BcgModule } from '../../components/module';
 import { sendUserDataChangeRequest } from '../../utils/services/login';
 
-export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
+export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
   user: any;
 
   static get properties() {
     return {
       nextStep: { type: Function },
-      onChange: { type: Function }
+      onChange: { type: Function },
     };
   }
 
@@ -31,9 +32,10 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      console.log(this.user.userId);
+
+      this.isLoading = true;
       const res = await sendUserDataChangeRequest(this.user);
-      console.log(res);
+      this.isLoading = false;
     };
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
     Required.getMessage = async () => 'Angabe benötigt';
@@ -42,38 +44,43 @@ export class BcgEditUserData extends ScopedElementsMixin(LitElement) {
         <bcg-form @submit=${submitHandler}>
           <form @submit=${(e: any) => e.preventDefault()}>
             <h2>Persönliche Angaben</h2>
-
-            <bcg-input
-              label="Ihr Vorname"
-              .validators=${[new Required()]}
-              placeholder=""
-              .modelValue="${this.user.given_name}"
-              @model-value-changed=${({ target }: any) => {
-                this.user.given_name = target.value;
-              }}
-              name="firstname"
-            ></bcg-input>
-            <bcg-input
-              label="Ihr Nachname"
-              .validators=${[new Required()]}
-              placeholder=""
-              @model-value-changed=${({ target }: any) => {
-                this.user.family_name = target.value;
-              }}
-              .modelValue="${this.user.family_name}"
-              name="lastname"
-            ></bcg-input>
-            <bcg-input
-              label="Ihre E-Mail"
-              .validators=${[new Required(), new IsEmail()]}
-              .modelValue="${this.user.email}"
-              disabled
-              placeholder=""
-              name="email"
-            ></bcg-input>
-            <bcg-button-submit @click="${() => console.log('ButtonPress Save')}"
-              >Speichern</bcg-button-submit
-            >
+            ${this.isLoading
+              ? html`<bcg-progress></bcg-progress>`
+              : html`
+                  <bcg-input
+                    label="Ihr Vorname"
+                    .validators=${[new Required()]}
+                    placeholder=""
+                    .modelValue="${this.user.given_name}"
+                    @model-value-changed=${({ target }: any) => {
+                      this.user.given_name = target.value;
+                    }}
+                    name="firstname"
+                  ></bcg-input>
+                  <bcg-input
+                    label="Ihr Nachname"
+                    .validators=${[new Required()]}
+                    placeholder=""
+                    @model-value-changed=${({ target }: any) => {
+                      this.user.family_name = target.value;
+                    }}
+                    .modelValue="${this.user.family_name}"
+                    name="lastname"
+                  ></bcg-input>
+                  <bcg-input
+                    label="Ihre E-Mail"
+                    .validators=${[new Required(), new IsEmail()]}
+                    .modelValue="${this.user.email}"
+                    disabled
+                    placeholder=""
+                    name="email"
+                  ></bcg-input>
+                  <bcg-button-submit
+                    style="margin-top:10px"
+                    @click="${() => console.log('ButtonPress Save')}"
+                    >Speichern</bcg-button-submit
+                  >
+                `}
           </form>
         </bcg-form>
       </div>
