@@ -9,16 +9,16 @@ export class BcgButton extends LionButton {
       ...super.properties,
       variant: {
         type: String,
-        reflect: true
+        reflect: true,
       },
       style: {
         type: String,
-        reflect: true
+        reflect: true,
       },
       size: {
         type: String,
-        reflect: true
-      }
+        reflect: true,
+      },
     };
   }
 
@@ -27,8 +27,7 @@ export class BcgButton extends LionButton {
       ...super.styles,
       css`
         :host() {
-          display: block;
-          visibility: visible;
+          box-sizing: border-box;
         }
         :host([variant='primary']) {
           background-color: var(--secondary-color);
@@ -104,7 +103,7 @@ export class BcgButton extends LionButton {
           color: var(--neutral-color-500);
           border: var(--border-xs) solid var(--neutral-color-500);
         }
-      `
+      `,
     ];
   }
 }

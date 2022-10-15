@@ -4,7 +4,7 @@ import {
   checkVerifyCodeEndpoint,
   depleteUserEndpoint,
   loginEndpoint,
-  registerEndpoint
+  registerEndpoint,
 } from './config';
 
 export const sendRegisterRequest = async (newUser: any) => {
@@ -12,13 +12,12 @@ export const sendRegisterRequest = async (newUser: any) => {
     const fetchOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newUser)
+      body: JSON.stringify(newUser),
     };
 
     const resp = await fetch(registerEndpoint, fetchOptions);
-
     return resp;
   } catch (err) {
     // Handle Error Here
@@ -32,9 +31,9 @@ export const checkVerifyCode = async (userID: any, code: any) => {
     const fetchOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code })
+      body: JSON.stringify({ code }),
     };
 
     const resp = await fetch(checkVerifyCodeEndpoint(userID), fetchOptions);
@@ -47,22 +46,22 @@ export const checkVerifyCode = async (userID: any, code: any) => {
 };
 
 export const sendLoginRequest = async (user: any) => {
-  console.log(user)
+  console.log(user);
   try {
     const fetchOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
     };
 
     const resp = await fetch(loginEndpoint, fetchOptions);
     const respData = await resp.json();
-    if(respData.accessToken && resp.status === 201){
-        await localStorage.setItem('auth-token', respData.accessToken);
-        // eslint-disable-next-line no-restricted-globals
-        location.reload();
+    if (respData.accessToken && resp.status === 201) {
+      await localStorage.setItem('accessToken', respData.accessToken);
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
     }
 
     return resp.status;
@@ -76,16 +75,16 @@ export const sendLoginRequest = async (user: any) => {
 export const sendUserDataChangeRequest = async ({
   firstname,
   lastname,
-  userId
+  userId,
 }: any) => {
   try {
     const fetchOptions = {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify({ firstname, lastname })
+      body: JSON.stringify({ firstname, lastname }),
     };
     console.log(userId);
     const resp = await fetch(changeUserDataEndpoint(userId), fetchOptions);
@@ -97,17 +96,21 @@ export const sendUserDataChangeRequest = async ({
   }
 };
 
-export const sendPasswordChangeRequest = async ({newPassword,currentPassword,userId}:any) => {
+export const sendPasswordChangeRequest = async ({
+  newPassword,
+  currentPassword,
+  userId,
+}: any) => {
   try {
     const fetchOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify({newPassword,currentPassword})
+      body: JSON.stringify({ newPassword, currentPassword }),
     };
-    console.log(userId)
+    console.log(userId);
     const resp = await fetch(changePasswordEndpoint(userId), fetchOptions);
     console.log('sent');
     return resp.json();
@@ -124,13 +127,13 @@ export const sendUserDeleteRequest = async (user: any) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify({ user })
+      body: JSON.stringify({ user }),
     };
 
     const resp = await fetch(depleteUserEndpoint(user), fetchOptions);
-    localStorage.removeItem('auth-token');
+    localStorage.removeItem('accessToken');
     return resp.json();
   } catch (err) {
     // Handle Error Here
@@ -144,8 +147,8 @@ export const sendNewVerifyCodeRequest = async (userId: any) => {
     const fetchOptions = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     };
 
     const resp = await fetch(checkVerifyCodeEndpoint(userId), fetchOptions);
@@ -163,9 +166,9 @@ export const sendPasswordResetRequest = async (data: any) => {
     const fetchOptions = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ data })
+      body: JSON.stringify({ data }),
     };
 
     const resp = await fetch(changePasswordEndpoint(data), fetchOptions);

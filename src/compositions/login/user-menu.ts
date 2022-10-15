@@ -6,7 +6,14 @@ import { BcgModule } from '../../components/module';
 
 export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
   static get styles() {
-    return [css``];
+    return [
+      css`
+        dialog {
+          color: var(--primary-color);
+          border-radius: var(--border-radius-l);
+        }
+      `,
+    ];
   }
 
   @property({ type: Boolean }) isOpen: boolean = false;
@@ -142,12 +149,12 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
           ${isOpen
             ? html`<bcg-button
                   style="margin-bottom:3px; "
-                  variant="primary"
+                  variant="secondary"
                   id="edit-button"
                   >Mein Profil</bcg-button
                 >
                 <bcg-button
-                  variant="primary"
+                  variant="secondary"
                   @click="${() => {
                     logOutHandler();
                   }}"

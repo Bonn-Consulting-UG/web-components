@@ -34,17 +34,17 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     this.nextStep = () => 'test';
   }
 
-  dsgvo: object = { value: 'foo', checked: false };
+  dsgvo: object = { value: 'foo', checked: true };
 
   firstName: string = 'Stefan';
 
   lastName: string = 'Scheifel';
 
-  email: string = '';
+  email: string = 'wefw@me.com';
 
-  password: string = '';
+  password: string = '1234';
 
-  passwordrepeat: string = '';
+  passwordrepeat: string = '1234';
 
   @property({ type: String }) passwordInputType: string = 'password';
 

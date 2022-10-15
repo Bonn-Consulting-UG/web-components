@@ -16,6 +16,7 @@ import {
   checkVerifyCode,
 } from '../../utils/services/login';
 import { BcgModule } from '../../components/module';
+import jwtDecode from 'jwt-decode';
 
 export class BcgRegister extends ScopedElementsMixin(BcgModule) {
   @property({ type: Number }) currentStep: number = 1;
@@ -23,8 +24,6 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
   maxStep: number = 4;
 
   verifyCode: number = 0;
-
-  user: any = 0;
 
   nextStep = async (payload: any) => {
     let response: any = null;
@@ -34,7 +33,15 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
         this.isLoading = true;
 
         response = await sendRegisterRequest(payload);
-        this.user = await response.json();
+        const responseBody = await response.json();
+
+        console.log(responseBody);
+
+        if (responseBody.accessToken) {
+          localStorage.setItem('accessToken', responseBody.accessToken);
+          this.user = jwtDecode(responseBody.accessToken);
+        }
+
         if (response.status === 409 || response.status === 500) {
           console.log('HELLO ITS ME');
           this.showNotification = true;
@@ -57,7 +64,7 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
 
         this.isLoading = true;
 
-        response = await checkVerifyCode(this.user.id, payload);
+        response = await checkVerifyCode(this.user.sub, payload);
 
         this.isLoading = false;
 
@@ -89,7 +96,7 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
 
     return html`
     <div style="display:flex;">
-    <div class="left-side" style="flex-direction:row-reverse;flex-basis:50%;"> 
+    <div class="left-side" style="flex-direction:row-reverse;width:640px;min-height:300px;"> 
 
     ${
       this.isLoading
@@ -130,9 +137,6 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
               : null}
           `
     }
-        </div>
-        <div class="right-side" style="display:flex; flex-basis:50%;">
-          <img src="https://images.unsplash.com/photo-1654729746829-87fc9bc48ad7" style="height: 100%;width: 100%;" alt="123"/>
         </div>
         </div>
       </div>

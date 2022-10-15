@@ -14,13 +14,13 @@ export class BcgEditProfile extends ScopedElementsMixin(BcgModule) {
     return {
       'bcg-edit-userdata': BcgEditUserData,
       'bcg-edit-password': BcgEditPassword,
-      'bcg-edit-delete': BcgEditDelete
+      'bcg-edit-delete': BcgEditDelete,
     };
   }
 
   render() {
     return html`<div style="max-width:70%;max-height:20%;">
-      ${localStorage.getItem('auth-token') !== null
+      ${localStorage.getItem('accessToken') !== null
         ? html`     <bcg-edit-userdata .user=${this.user}></bcg-edit-userdata>
       <bcg-edit-password .user=${this.user}></bcg-edit-password>
       <bcg-edit-delete .user=${this.user}></bcg-edit-delete>

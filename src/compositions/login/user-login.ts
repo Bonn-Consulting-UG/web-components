@@ -56,63 +56,88 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
-
-      sendLoginRequest({ email, password });
+      this.isLoading = true;
+      await sendLoginRequest({ email, password });
     };
 
     return html`
      <bcg-form name="login" @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
 
-      <div style="display:flex;flex-direction:row-reverse;justify-content: left;width:640px;">
+      <div style="width:640px;">
       <div class="left-side" style="display:flex;flex-direction: column;">
-      <h1>Willkommen!</h1>
-          <h2>Anmeldung</h2>
-          
-          <div>
-          <bcg-input-email
-              name="email"
-              label="E-Mail"
-              placeholder=""
-              .modelValue="${email}"
-              .validators=${[new Required(), new IsEmail()]}
-              @model-value-changed=${({ target }: any) => {
-                email = target.value;
-              }}
-            ></bcg-input-email>
-            <div style="display:flex;flex-direction:row ; flex-basis:100%; justify-content:center; align-items:center;">
-            <bcg-input
-            style="flex-basis:100%;"
-              label="Password"
-              type=${passwordInputType}
-              placeholder=""
-              .modelValue="${password}"
-              .validators=${[new Required()]}
-              name="password"
-              @model-value-changed=${({ target }: any) => {
-                password = target.value;
-              }}
-            ></bcg-input>
-            <bcg-button style="margin-top:25px ;margin-left:5px" variant="tertiary" @click=${
-              this.flipPasswordInput
-            }>P</bcg-button>
+      
 
-            </div>
-          </div>
-          <!-- <bcg-checkbox-group name="save-login-data" .validators=${[]}>
+      ${
+        this.showNotification
+          ? html`<bcg-notification
+              variant=${this.notificationType}
+              message=${this.notificationMessage}
+            ></bcg-notification> `
+          : null
+      }
+
+      ${
+        this.isLoading
+          ? html`<bcg-progress></bcg-progress>`
+          : html`<h1>Willkommen!</h1>
+              <h2>Anmeldung</h2>
+
+              <div>
+                <bcg-input-email
+                  name="email"
+                  label="E-Mail"
+                  placeholder=""
+                  .modelValue="${email}"
+                  .validators=${[new Required(), new IsEmail()]}
+                  @model-value-changed=${({ target }: any) => {
+                    email = target.value;
+                  }}
+                ></bcg-input-email>
+                <div
+                  style="display:flex;flex-direction:row ; flex-basis:100%; justify-content:center; align-items:center;"
+                >
+                  <bcg-input
+                    style="flex-basis:100%;"
+                    label="Password"
+                    type=${passwordInputType}
+                    placeholder=""
+                    .modelValue="${password}"
+                    .validators=${[new Required()]}
+                    name="password"
+                    @model-value-changed=${({ target }: any) => {
+                      password = target.value;
+                    }}
+                  ></bcg-input>
+
+                  <bcg-button
+                    style="margin-top:25px ;margin-left:5px"
+                    variant="tertiary"
+                    @click=${this.flipPasswordInput}
+                    >P</bcg-button
+                  >
+                </div>
+              </div>
+              <!-- <bcg-checkbox-group name="save-login-data" .validators=${[]}>
               <bcg-checkbox
                 label="Anmeldedaten merken"
                 .choiceValue=${'Anmeldedaten merken'}
               ></bcg-checkbox>
             </bcg-checkbox-group> -->
-          
-          <bcg-button-submit style="margin-bottom:10px;" >Anmelden</bcg-button-submit>
-
-
-          <div> <bcg-button-submit @click=${onPasswordReset} @keydown=${onPasswordReset}>Password zurücksetzten</bcg-button-submit></div>
+              <div
+                style="display:flex;margin-top:20px;justify-content: space-between;"
+              >
+                <bcg-button
+                  variant="secondary"
+                  @click=${onPasswordReset}
+                  @keydown=${onPasswordReset}
+                  >Password zurücksetzten</bcg-button
+                >
+                <bcg-button-submit>Anmelden</bcg-button-submit>
+              </div>`
+      }
+     
         </div>
-        <div class="right-side">
-        <img src="https://images.unsplash.com/photo-1654580038810-505030159ca0" style="width: 100%;" alt="123"></img>
         </div>
       </div>
             </form >

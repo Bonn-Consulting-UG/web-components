@@ -10,7 +10,7 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       nextStep: { type: Function },
-      user: { type: Object }
+      user: { type: Object },
     };
   }
 
@@ -30,7 +30,7 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
     console.log(this.user);
     let { code } = this;
     Required.getMessage = async () => 'Angabe benötigt';
-    MinLength.getMessage = async () => `Mindestens 4 Zeichen`;
+    MinLength.getMessage = async () => `Mindestens 6 Zeichen`;
 
     const submitHandler = (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -83,7 +83,7 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
           </ul>
         </div>
 
-        <bcg-button-submit variant='primary' >Code abschicken</bcg-button-submit>
+        <bcg-button-submit variant="primary">Code abschicken</bcg-button-submit>
       </form>
     </bcg-form> `;
   }

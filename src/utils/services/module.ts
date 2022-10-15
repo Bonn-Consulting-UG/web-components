@@ -2,7 +2,7 @@ import {
   contactSubmissionEndpoint,
   faqSubmissionEndpoint,
   ideaSubmissionEndpoint,
-  getModuleEndpoint
+  getModuleEndpoint,
 } from './config';
 
 export const sendContactSubmissionRequest = async (
@@ -14,9 +14,9 @@ export const sendContactSubmissionRequest = async (
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     };
 
     const resp = await fetch(contactSubmissionEndpoint(moduleID), fetchOptions);
@@ -36,9 +36,9 @@ export const sendIdeaSubmissionRequest = async (
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     };
 
     const resp = await fetch(ideaSubmissionEndpoint(moduleID), fetchOptions);
@@ -55,9 +55,9 @@ export const sendFaqSubmissionRequest = async (payload: any, moduleID: any) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     };
 
     const resp = await fetch(faqSubmissionEndpoint(moduleID), fetchOptions);
@@ -68,16 +68,13 @@ export const sendFaqSubmissionRequest = async (payload: any, moduleID: any) => {
   }
 };
 
-
-
-
-export const getModule = async ( moduleID: any) => {
+export const getModule = async (moduleID: any) => {
   try {
     const fetchOptions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('auth-token')}`
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     };
 
@@ -88,4 +85,3 @@ export const getModule = async ( moduleID: any) => {
     return err;
   }
 };
-

@@ -6,9 +6,9 @@ export class BcgModule extends LitElement {
 
   @property({ type: String }) moduleId: number = 0;
 
-  authToken: any = '';
+  @property({ type: String }) authToken: any = '';
 
-  user: any = '';
+  @property({ type: Object }) user: any = '';
 
   isOpen: any = false;
 
@@ -37,12 +37,12 @@ export class BcgModule extends LitElement {
 
   checkAuthToken() {
     if (this.authToken === undefined || this.authToken === 'undefined') {
-      localStorage.removeItem('auth-token');
+      localStorage.removeItem('accessToken');
     }
   }
 
   logOutHandler() {
-    localStorage.removeItem('auth-token');
+    localStorage.removeItem('accessToken');
     // eslint-disable-next-line no-restricted-globals
     location.reload();
   }
@@ -55,8 +55,8 @@ export class BcgModule extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.authToken =
-      localStorage.getItem('auth-token') !== 'undefined'
-        ? localStorage.getItem('auth-token')
+      localStorage.getItem('accessToken') !== 'undefined'
+        ? localStorage.getItem('accessToken')
         : null;
     this.user = this.authToken ? jwtDecode(this.authToken) : null;
     this.checkAuthToken();
