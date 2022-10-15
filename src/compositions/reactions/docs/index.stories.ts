@@ -6,8 +6,8 @@ export default {
   component: 'bcg-reaction',
   argTypes: {
     content: {},
-    buttonLabel: {}
-  }
+    buttonLabel: {},
+  },
 };
 
 interface Story<T> {
@@ -21,7 +21,11 @@ interface ArgTypes {
   content: string;
 }
 const Template: Story<ArgTypes> = () =>
-  html` <bcg-idea-reaction moduleId="2b3006fd-8e18-41ad-a763-6b63482cbcdf"></bcg-idea-reaction> `;
+  html`
+    <bcg-idea-reaction
+      moduleId="3275cc46-38da-4033-a281-acedadc93db6"
+    ></bcg-idea-reaction>
+  `;
 
 const Default = Template.bind({});
 

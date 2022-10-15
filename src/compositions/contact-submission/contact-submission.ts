@@ -9,15 +9,10 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     subject: '',
     email: '',
     text: '',
-    templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda'
+    templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
   };
 
   contactRequest: any = { name: '', title: '', text: '', email: '' };
-
-  connectedCallback() {
-    super.connectedCallback();
-    console.log(this.moduleId);
-  }
 
   render() {
     const { contactRequest } = this;
@@ -40,12 +35,12 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         const fetchOptions = {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             text: JSON.stringify(contactRequest),
-            moduleId: this.moduleId
-          })
+            moduleId: this.moduleId,
+          }),
         };
 
         const resp = await fetch(
@@ -58,22 +53,17 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         this.showNotification = true;
         this.notificationMessage =
           'Ihre Nachricht wurde Erfolgreich übersendet';
-        this.requestUpdate();
 
         setTimeout(() => {
           this.showNotification = false;
-          this.requestUpdate();
         }, 2000);
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';
         this.notificationMessage = 'Fehler ist aufgetreten';
 
-        this.requestUpdate();
-
         setTimeout(() => {
           this.showNotification = false;
-          this.requestUpdate();
         }, 2000);
         console.error(err);
       }

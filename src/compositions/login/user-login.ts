@@ -1,6 +1,12 @@
 /* eslint-disable import/extensions */
 
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import {
+  html,
+  css,
+  LitElement,
+  ScopedElementsMixin,
+  property,
+} from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
 import { sendLoginRequest } from '../../utils/services/login';
@@ -10,7 +16,6 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
   static get styles() {
     return [css``];
   }
-
 
   static get properties() {
     return {
@@ -22,12 +27,12 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
   moduleId: number = 0;
 
   onPasswordReset: any = () => console.log(this);
-  
-  email:string ='';
+
+  email: string = '';
 
   password: string = '';
 
-  passwordInputType: string = 'password';
+  @property({ type: String }) passwordInputType: string = 'password';
 
   flipPasswordInput() {
     if (this.passwordInputType === 'password') {
@@ -35,7 +40,6 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
     } else {
       this.passwordInputType = 'password';
     }
-    this.requestUpdate();
   }
 
   render() {
@@ -52,7 +56,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
-      
+
       sendLoginRequest({ email, password });
     };
 

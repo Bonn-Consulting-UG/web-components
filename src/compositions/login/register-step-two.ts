@@ -1,5 +1,11 @@
 /* eslint-disable import/extensions */
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import {
+  html,
+  css,
+  LitElement,
+  ScopedElementsMixin,
+  property,
+} from '@lion/core';
 import { IsEmail, Pattern, Required } from '@lion/form-core';
 import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
@@ -19,7 +25,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       nextStep: { type: Function },
-      onChange: { type: Function }
+      onChange: { type: Function },
     };
   }
 
@@ -40,8 +46,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   passwordrepeat: string = '';
 
-  passwordInputType: string = 'password';
-
+  @property({ type: String }) passwordInputType: string = 'password';
 
   flipPasswordInput() {
     if (this.passwordInputType === 'password') {
@@ -49,14 +54,13 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     } else {
       this.passwordInputType = 'password';
     }
-    this.requestUpdate();
   }
 
   static get scopedElements() {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup
+      'bcg-checkbox-group': BcgCheckboxGroup,
     };
   }
 
@@ -66,7 +70,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   render() {
     let { firstName, lastName, email, password, passwordrepeat, dsgvo } = this;
 
-    const submitHandler = async(ev: any) => {
+    const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
           el.hasFeedbackFor.includes('error')
@@ -74,16 +78,15 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      
-       this.nextStep({
+
+      this.nextStep({
         firstName,
         lastName,
         email,
         password,
         language: 'de_DE',
-        isOrganization: false
+        isOrganization: false,
       });
-
     };
 
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';

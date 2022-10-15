@@ -1,18 +1,18 @@
 /* eslint-disable import/extensions */
 
-import { html, LitElement, ScopedElementsMixin } from '@lion/core';
+import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
 import {
   checkVerifyCode,
   sendPasswordResetRequest,
-  sendRegisterRequest
+  sendRegisterRequest,
 } from '../../utils/services/login';
 import { BcgPasswordResetConfirm } from './password-reset-confirm';
 import { BcgPasswordResetFinished } from './password-reset-finished';
 import { BcgPasswordResetStart } from './password-reset-start';
 
 export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
-  currentStep: number = 1;
+  @property({ type: Number }) currentStep: number = 1;
 
   maxStep: number = 4;
 
@@ -24,7 +24,7 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-password-reset-start': BcgPasswordResetStart,
       'bcg-password-reset-confirm': BcgPasswordResetConfirm,
-      'bcg-password-reset-finished': BcgPasswordResetFinished
+      'bcg-password-reset-finished': BcgPasswordResetFinished,
     };
   }
 
@@ -33,8 +33,6 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
 
     if (this.currentStep < this.maxStep) {
       if (this.currentStep === 2) {
-        this.requestUpdate();
-
         this.currentStep += 1;
 
         return;
@@ -43,7 +41,7 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
         response = await sendPasswordResetRequest({
           email: this.user,
           oldPassword: payload.password,
-          newPassword: payload.newpassword
+          newPassword: payload.newpassword,
         });
         if (response.status !== 204) return;
       }
@@ -51,7 +49,6 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
     } else {
       console.log('close Dialog');
     }
-    this.requestUpdate();
   };
 
   render() {

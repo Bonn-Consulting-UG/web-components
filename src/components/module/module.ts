@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode';
 export class BcgModule extends LitElement {
   isLoggedIn: Boolean = false;
 
-  moduleId: number = 0;
+  @property({ type: String }) moduleId: number = 0;
 
   authToken: any = '';
 
@@ -14,47 +14,37 @@ export class BcgModule extends LitElement {
 
   config: any = {};
 
+  @property({ type: Boolean }) showNotification: Boolean = false;
 
-  @property()
-  showNotification: Boolean = false;
+  @property({ type: String }) notificationMessage: string =
+    'Ihre Nachricht wurde Erfolgreich übersendet';
 
-  @property()
-  notificationMessage: string = 'Ihre Nachricht wurde Erfolgreich übersendet';
-  
-  @property()
-  notificationType: string = 'success';
+  @property({ type: String }) notificationType: string = 'success';
 
-  @property()
-  notificationHtml: any = this.showNotification
+  @property({ type: LitElement || null }) notificationHtml: any = this
+    .showNotification
     ? html` <bcg-notification
         variant=${this.notificationType}
         message=${this.notificationMessage}
       ></bcg-notification>`
     : null;
 
-  static get properties() {
-    return {
-      moduleId: { type: String }
-    };
-  }
+  @property({ type: Boolean }) isLoading: Boolean = false;
 
-  checkAuthToken(){
-    if(this.authToken === undefined || this.authToken === 'undefined' ) {
-      localStorage.removeItem('auth-token')
-    } 
-  }
+  @property() loadingHtml: any = this.isLoading
+    ? html` <bcg-progress></bcg-progress>`
+    : null;
 
-  clickHandler() {
-    this.isOpen = !this.isOpen;
-    this.requestUpdate();
-
-    console.log(this.isOpen);
+  checkAuthToken() {
+    if (this.authToken === undefined || this.authToken === 'undefined') {
+      localStorage.removeItem('auth-token');
+    }
   }
 
   logOutHandler() {
     localStorage.removeItem('auth-token');
     // eslint-disable-next-line no-restricted-globals
-    location.reload()
+    location.reload();
   }
 
   logInHandler() {
@@ -64,10 +54,13 @@ export class BcgModule extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.authToken = localStorage.getItem('auth-token') !== 'undefined' ? localStorage.getItem('auth-token') : null
-    this.user = this.authToken ? jwtDecode(this.authToken) : null
-    this.checkAuthToken()
+    this.authToken =
+      localStorage.getItem('auth-token') !== 'undefined'
+        ? localStorage.getItem('auth-token')
+        : null;
+    this.user = this.authToken ? jwtDecode(this.authToken) : null;
+    this.checkAuthToken();
 
-    console.log(this.authToken,this.user)
+    console.log(this.authToken, this.user);
   }
 }

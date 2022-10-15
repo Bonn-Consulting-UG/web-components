@@ -26,6 +26,8 @@ import './radio-group/index.js';
 import './select/index.js';
 import './select-rich/index.js';
 import './spamfilter/index.js';
+import './notification/index.js';
+import './progress/index.js';
 import './steps/index.js';
 import './switch/index.js';
 import './tab-button/index.js';

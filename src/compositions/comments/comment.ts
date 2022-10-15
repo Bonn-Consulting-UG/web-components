@@ -1,51 +1,20 @@
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import {
+  html,
+  css,
+  LitElement,
+  ScopedElementsMixin,
+  property,
+} from '@lion/core';
 import { de } from 'date-fns/locale';
-import {  format, } from 'date-fns'
+import { format } from 'date-fns';
 
-import { BcgCommentReaction } from './comment-reaction.js';
-import { addReaction } from '../../utils/services/comments.js';
-
+import { addReaction, reportComment } from '../../utils/services/comments.js';
 
 export class BcgComment extends ScopedElementsMixin(LitElement) {
-  comments: any;
+  @property({ type: Object }) comments: any;
 
-  constructor() {
-    super();
-    this.comments = {};
-  }
-
-  reactionConfig = [{
-    value:0,
-    icon: 'bcg:comments:thumbsup',
-    clickHandler:() => console.log('click thumbps up')
-  },{
-    value:5,
-    icon: 'bcg:comments:thumbsdown',
-    clickHandler:() => console.log('click thumps down')
-  },{
-    value: 'Antworten',
-    icon:"bcg:comments:message",
-    clickHandler:() => console.log('click message')
-  },{
-    value:'Melden',
-    icon:"bcg:comments:report",
-    clickHandler:() => console.log('click report')
-  }]
-
-
-
-
-  static get scopedElements() {
-    return {
-      'bcg-comment-reaction': BcgCommentReaction,
-    };
-  }
-
-  static get properties() {
-    return {
-      comments: { type: Object },
-    };
-  }
+  @property({ type: Function }) refresh: Function = () =>
+    console.log('default');
 
   static get styles() {
     return [
@@ -82,14 +51,15 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
           border-radius: 50%;
           margin-right: 15px;
         }
-      `
+      `,
     ];
   }
 
   render() {
-    const { isModerator, createdAt, author,content, comments, _count,id } = this.comments;
+    const { isModerator, createdAt, author, content, comments, _count, id } =
+      this.comments;
     return html`
-    <hr>
+      <hr />
       <div class="comment-wrapper ${isModerator ? 'moderator' : null}">
         <div class="comment-poster">
           <img
@@ -98,35 +68,61 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
             alt="Avatar/Representation of the Poster"
           />
           <div class="comment-poster-details">
-            <p class=" ${author.roles.includes('MODERATOR') ? 'moderator-name' : null}">${author.firstName}${author.lastName}</p>            
-            <p>${format(Date.parse(createdAt),'MM/dd/yyyy',{locale:de})}</p>    
+            <p
+              class=" ${author.roles.includes('MODERATOR')
+                ? 'moderator-name'
+                : null}"
+            >
+              ${author.firstName}${author.lastName}
+            </p>
+            <p>
+              ${format(Date.parse(createdAt), 'MM/dd/yyyy', { locale: de })}
+            </p>
           </div>
         </div>
         <div>
           <p>${content}</p>
-          <bcg-reaction .reactions=${[{
-    value:_count.likes,
-    icon: 'bcg:comments:thumbsup',
-    clickHandler:() => {addReaction({type:"LIKE"},id,null)}
-  },{
-    value:_count.dislikes,
-    icon: 'bcg:comments:thumbsdown',
-    clickHandler:() => console.log('click thumps down')
-  },{
-    value: 'Antworten',
-    icon:"bcg:comments:message",
-    clickHandler:() => console.log('click message')
-  },{
-    value:'Melden',
-    icon:"bcg:comments:report",
-    clickHandler:() => console.log('click report')
-  }]}></bcg-reaction>
+          <div style="display:flex;">
+            <bcg-reaction
+              .value=${_count.likes}
+              .icon=${'bcg:comments:thumbsup'}
+              .clickHandler=${async () => {
+                await addReaction({ type: 'LIKE' }, id, null);
+                this.refresh();
+              }}
+            ></bcg-reaction>
+            <bcg-reaction
+              .value=${_count.dislikes}
+              .icon=${'bcg:comments:thumbsdown'}
+              .clickHandler=${async () => {
+                await addReaction({ type: 'DISLIKE' }, id, null);
+                this.refresh();
+              }}
+            ></bcg-reaction>
+            <bcg-reaction
+              .value=${'Antworten'}
+              .icon=${'bcg:comments:message'}
+              .clickHandler=${async () => {
+                // this.respondTo();
+                this.refresh();
+              }}
+            ></bcg-reaction>
+            <bcg-reaction
+              .value=${'Melden'}
+              .icon=${'bcg:comments:report'}
+              .clickHandler=${async () => {
+                await reportComment();
+                this.refresh();
+              }}
+            ></bcg-reaction>
+          </div>
         </div>
-        ${    console.log(this.comments)
-}
-        ${comments && comments.map(
-          (i:any)=> html` <div
-            class="comment-wrapper comment-response ${i.author.roles.includes('MODERATOR')
+        ${comments &&
+        comments.map(
+          (i: any) => html` <div
+            class="comment-wrapper comment-response ${i.author.roles.includes(
+              'MODERATOR'
+            )
               ? 'moderator'
               : null}"
           >
@@ -140,7 +136,11 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
                 <p class=" ${i.isModerator ? 'moderator-name' : null}">
                   ${i.author.firstName} ${i.author.lastName}
                 </p>
-                <p>${format(Date.parse(i.createdAt),'MM/dd/yyyy',{locale:de})}</p>
+                <p>
+                  ${format(Date.parse(i.createdAt), 'MM/dd/yyyy', {
+                    locale: de,
+                  })}
+                </p>
               </div>
             </div>
             <p>${i.content}</p>

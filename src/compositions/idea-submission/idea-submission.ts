@@ -8,7 +8,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
     name: '',
     title: '',
     email: '',
-    text: ''
+    text: '',
   };
 
   render() {
@@ -29,12 +29,12 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         const fetchOptions = {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             text: JSON.stringify(ideaRequest),
-            moduleId: this.moduleId
-          })
+            moduleId: this.moduleId,
+          }),
         };
 
         const resp = await fetch(
@@ -45,11 +45,9 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         ev.path[0].resetGroup();
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
-        this.requestUpdate();
 
         setTimeout(() => {
           this.showNotification = false;
-          this.requestUpdate();
         }, 2000);
         console.log(resp);
       } catch (err) {
@@ -57,11 +55,8 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         this.notificationType = 'error';
         this.notificationMessage = 'Fehler ist aufgetreten';
 
-        this.requestUpdate();
-
         setTimeout(() => {
           this.showNotification = false;
-          this.requestUpdate();
         }, 2000);
         console.error(err);
       }

@@ -1,4 +1,10 @@
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import {
+  html,
+  css,
+  LitElement,
+  ScopedElementsMixin,
+  property,
+} from '@lion/core';
 import { MinLength, Required } from '@lion/form-core';
 import { sendNewVerifyCodeRequest } from '../../utils/services/login';
 import { PasswordMatch } from '../../utils/validators/password-match';
@@ -20,7 +26,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
 
   passwordrepeat: string = '';
 
-  passwordInputType: string = 'password';
+  @property({ type: String }) passwordInputType: string = 'password';
 
   flipPasswordInput() {
     if (this.passwordInputType === 'password') {
@@ -28,13 +34,12 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
     } else {
       this.passwordInputType = 'password';
     }
-    this.requestUpdate();
   }
 
   static get properties() {
     return {
       nextStep: { type: Function },
-      user: { type: Object }
+      user: { type: Object },
     };
   }
 

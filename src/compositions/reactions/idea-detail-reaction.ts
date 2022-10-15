@@ -1,26 +1,20 @@
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import { html, css, ScopedElementsMixin, property } from '@lion/core';
 import { BcgModule } from '../../components/module';
 import { addReaction } from '../../utils/services/comments';
-import {  getAllModulesEndpoint, getModuleEndpoint } from '../../utils/services/config';
+
 import { getModule } from '../../utils/services/module';
 
-
 export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
- 
-   async connectedCallback(): Promise<void> {
+  async connectedCallback(): Promise<void> {
     super.connectedCallback();
     await this.fetchData();
   }
 
-  async fetchData () :  Promise<void> {
-    this.count = await getModule(this.moduleId)
-    this.requestUpdate();
+  async fetchData(): Promise<void> {
+    this.count = await getModule(this.moduleId);
   }
 
-  count:any='';
-
-  reactionConfig = []
-
+  @property({ type: Object }) count: any = {};
 
   static get styles() {
     return [
@@ -57,20 +51,32 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
           border-radius: 50%;
           margin-right: 15px;
         }
-      `
+      `,
     ];
   }
 
   render() {
-    return  html`<bcg-reaction .reactions=${[{
-      value: this.count._count.likes,
-      icon: 'bcg:comments:thumbsup',
-      clickHandler:async () => {await addReaction({type:"LIKE"},'',this.moduleId),  this.fetchData()}
-    },{
-      value:this.count._count.dislikes,
-      icon: 'bcg:comments:thumbsdown',
-      clickHandler:async() => {await addReaction({type:"DISLIKE"},'',this.moduleId),this.fetchData()}
-    }]}></bcg-reaction> `;
+    return html`<div style="display:flex;">
+      ${this.loadingHtml}
+      <bcg-reaction
+        .value=${this.count?._count?.likes}
+        .icon=${'bcg:comments:thumbsup'}
+        .clickHandler=${async () => {
+          this.isLoading = true;
+          await addReaction({ type: 'LIKE' }, '', this.moduleId),
+            setTimeout(() => (this.isLoading = false), 3000);
+
+          this.fetchData();
+        }}
+      ></bcg-reaction>
+      <bcg-reaction
+        .value=${this.count?._count?.dislikes}
+        .icon=${'bcg:comments:thumbsdown'}
+        .clickHandler=${async () => {
+          await addReaction({ type: 'DISLIKE' }, '', this.moduleId),
+            this.fetchData();
+        }}
+      ></bcg-reaction>
+    </div>`;
   }
 }
-

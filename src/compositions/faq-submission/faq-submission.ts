@@ -8,7 +8,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
     name: '',
     title: '',
     email: '',
-    text: ''
+    text: '',
   };
 
   render() {
@@ -31,12 +31,12 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         const fetchOptions = {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             text: JSON.stringify(faqRequest),
-            moduleId: this.moduleId
-          })
+            moduleId: this.moduleId,
+          }),
         };
 
         const resp = await fetch(
@@ -47,11 +47,9 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         ev.path[0].resetGroup();
         this.showNotification = true;
         this.notificationMessage = 'Ihre Frage wurde Erfolgreich übersendet';
-        this.requestUpdate();
 
         setTimeout(() => {
           this.showNotification = false;
-          this.requestUpdate();
         }, 2000);
         console.log(resp);
       } catch (err) {
@@ -59,11 +57,8 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         this.notificationType = 'error';
         this.notificationMessage = 'Fehler ist aufgetreten';
 
-        this.requestUpdate();
-
         setTimeout(() => {
           this.showNotification = false;
-          this.requestUpdate();
         }, 2000);
         console.error(err);
       }
@@ -146,7 +141,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   möchten.
                 </p>
                 <bcg-checkbox-group .validators=${[
-                  new Required()
+                  new Required(),
                 ]}                   name="datasec"
 >
                   <bcg-checkbox

@@ -34,8 +34,9 @@ export const getModuleEndpoint = (moduleId: number) =>
 export const getCommentsEndpointforModule = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments`;
 
-export const setCommentsEndpoint =
-`${baseURLwithApiVersion}/comments`;
+export const reportCommentEndpoint = `${baseURLwithApiVersion}/modules/comments`;
+
+export const setCommentsEndpoint = `${baseURLwithApiVersion}/comments`;
 
 export const getCommentEndpoint = (moduleId: number, commentID: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments/${commentID}`;
@@ -56,6 +57,5 @@ export const getCommentReactionWithIdEndpoint = (
 ) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments/${commentId}/reaction/${reactionId}`;
 
-
-  // Reactions
-  export const reactionEndPoint = `${baseURLwithApiVersion}/reactions`;
+// Reactions
+export const reactionEndPoint = `${baseURLwithApiVersion}/reactions`;

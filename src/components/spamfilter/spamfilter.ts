@@ -9,8 +9,6 @@ export class BcgSpamFilter extends LitElement {
     { name: 'Finger Hoch', icon: 'bcg:comments:thumbsup' },
     { name: 'Finger Runter', icon: 'bcg:comments:thumbsdown' },
     { name: 'Nachrichten', icon: 'bcg:comments:message' },
-    { name: 'Test', icon: 'bcg:comments:message' }
-
   ];
 
 

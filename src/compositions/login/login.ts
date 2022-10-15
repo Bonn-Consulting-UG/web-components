@@ -1,6 +1,12 @@
 /* eslint-disable import/extensions */
 
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import {
+  html,
+  css,
+  LitElement,
+  ScopedElementsMixin,
+  property,
+} from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
 
@@ -15,20 +21,18 @@ export class BcgLogin extends ScopedElementsMixin(BcgModule) {
   static get scopedElements() {
     return {
       'bcg-user-login': BcgUserLogin,
-      'bcg-password-reset': BcgPasswordReset
+      'bcg-password-reset': BcgPasswordReset,
     };
   }
 
-  context: any = 'login';
+  @property({ type: String }) context: String = 'login';
 
   changeContext: any = () => {
     console.log(this.context);
     if (this.context === 'login') {
       this.context = 'passwordreset';
-      this.requestUpdate();
     } else {
       this.context = 'login';
-      this.requestUpdate();
     }
   };
 
