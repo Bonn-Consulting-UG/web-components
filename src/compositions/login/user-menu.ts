@@ -1,9 +1,6 @@
-/* eslint-disable import/extensions */
 import { html, css, ScopedElementsMixin, property } from '@lion/core';
-import { PropertyValueMap } from 'lit';
-import { thumbsdown } from '../../components/icon/export-icons';
 import { BcgModule } from '../../components/module';
-
+import { LionIcon } from '@lion/icon';
 export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
   static get styles() {
     return [
@@ -14,6 +11,10 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
         }
       `,
     ];
+  }
+
+  static get scopedElements() {
+    return { 'lion-icon': LionIcon };
   }
 
   @property({ type: Boolean }) isOpen: boolean = false;
@@ -89,47 +90,48 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
         <div
           style="display:flex;flex-direction:column; flex-grow:0; max-width: 250px;"
         >
-          ${!isLoggedIn && user == null
-            ? html`<div style="display:flex; flex-direction:row;">
-                <bcg-button
-                  id="login-button"
-                  style="margin-right:10px;"
-                  @click="${logInHandler}"
+          ${
+            !isLoggedIn && user == null
+              ? html`<div style="display:flex; flex-direction:row;">
+                  <bcg-button
+                    id="login-button"
+                    style="margin-right:10px;"
+                    @click="${logInHandler}"
+                    variant="primary"
+                    >Anmelden</bcg-button
+                  ><bcg-button
+                    id="register-button"
+                    variant="primary"
+                    @click="${registerHandler}"
+                    >Registrieren
+                  </bcg-button>
+                </div>`
+              : html`<bcg-button
+                  @click="${clickHandler}"
+                  style="margin-bottom:3px;"
                   variant="primary"
-                  >Anmelden</bcg-button
-                ><bcg-button
-                  id="register-button"
-                  variant="primary"
-                  @click="${registerHandler}"
-                  >Registrieren
-                </bcg-button>
-              </div>`
-            : html`<bcg-button
-                @click="${clickHandler}"
-                style="margin-bottom:3px;"
-                variant="primary"
-                >Hallo, ${user.given_name} ${user.family_name}</bcg-button
-              >`}
+                  >Hallo, ${user.given_name} ${user.family_name}</bcg-button
+                >`
+          }
 
           <dialog id="login-dialog">
             <header
-              style=" display:flex;justify-content: flex-end;
-    align-content: flex-end;
-"
+              style=" display:flex;justify-content: flex-end;align-content: flex-end;"
             >
-              <bcg-button id="close-button" variant="tertiary">x</bcg-button>
+              <bcg-button id="close-button" variant="tertiary"
+                ><lion-icon icon-id="bcg:general:cross"></bcg-icon
+              ></bcg-button>
             </header>
             <bcg-login></bcg-login>
           </dialog>
 
-          <dialog style="    max-width: 670px;" id="edit-dialog">
+          <dialog style="max-width: 670px;" id="edit-dialog">
             <header
-              style=" display:flex;justify-content: flex-end;
-    align-content: flex-end;
-"
+              style=" display:flex;justify-content: flex-end;align-content: flex-end;"
             >
               <bcg-button id="close-button-edit" variant="tertiary"
-                >x</bcg-button
+                ><lion-icon icon-id="bcg:general:cross"></bcg-icon
+              ></bcg-button
               >
             </header>
             <bcg-edit-user></bcg-edit-user>
@@ -139,28 +141,29 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
             <header
               style=" display:flex;justify-content: flex-end;align-content: flex-end;"
             >
-              <bcg-button id="close-button-reg" variant="tertiary"
-                >x</bcg-button
-              >
+              <bcg-button id="close-button-reg" variant="tertiary"><lion-icon icon-id="bcg:general:cross"></bcg-icon
+              ></bcg-button>
             </header>
             <bcg-register></bcg-register>
           </dialog>
 
-          ${isOpen
-            ? html`<bcg-button
-                  style="margin-bottom:3px; "
-                  variant="secondary"
-                  id="edit-button"
-                  >Mein Profil</bcg-button
-                >
-                <bcg-button
-                  variant="secondary"
-                  @click="${() => {
-                    logOutHandler();
-                  }}"
-                  >Abmelden</bcg-button
-                > `
-            : null}
+          ${
+            isOpen
+              ? html`<bcg-button
+                    style="margin-bottom:3px; "
+                    variant="secondary"
+                    id="edit-button"
+                    >Mein Profil</bcg-button
+                  >
+                  <bcg-button
+                    variant="secondary"
+                    @click="${() => {
+                      logOutHandler();
+                    }}"
+                    >Abmelden</bcg-button
+                  > `
+              : null
+          }
         </div>
       </div>
     `;

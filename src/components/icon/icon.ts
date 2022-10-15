@@ -1,21 +1,16 @@
-import { html, LitElement, ScopedElementsMixin } from '@lion/core';
+import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
 import { LionIcon } from '@lion/icon';
 
 export class BcgIcon extends ScopedElementsMixin(LitElement) {
-  icon: String;
-
-  constructor() {
-    super();
-    this.icon = '';
-  }
+  @property({ type: String }) iconId: String = '';
 
   static get scopedElements() {
     return { 'lion-icon': LionIcon };
   }
 
   render() {
-    const { icon } = this;
+    const { iconId } = this;
 
-    return html` <lion-icon icon-id="${icon}"></lion-icon> `;
+    return html` <lion-icon icon-id="${iconId}"></lion-icon> `;
   }
 }

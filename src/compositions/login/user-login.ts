@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-
 import {
   html,
   css,
@@ -11,6 +9,7 @@ import { IsEmail, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
 import { sendLoginRequest } from '../../utils/services/login';
 import { BcgButtonSubmit } from '../../components/button/button-submit';
+import { LionIcon } from '@lion/icon';
 
 export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
   static get styles() {
@@ -40,6 +39,10 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
     } else {
       this.passwordInputType = 'password';
     }
+  }
+
+  static get scopedElements() {
+    return { 'lion-icon': LionIcon };
   }
 
   render() {
@@ -95,7 +98,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                   }}
                 ></bcg-input-email>
                 <div
-                  style="display:flex;flex-direction:row ; flex-basis:100%; justify-content:center; align-items:center;"
+                  style="display:block;flex-direction:row ; flex-basis:100%; justify-content:center; align-items:center;"
                 >
                   <bcg-input
                     style="flex-basis:100%;"
@@ -110,12 +113,15 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                     }}
                   ></bcg-input>
 
-                  <bcg-button
-                    style="margin-top:25px ;margin-left:5px"
-                    variant="tertiary"
+                  <lion-icon
+                    style="    position: relative;
+    right: -94%;
+    top: -30px;
+    width: 24px;
+    height: 24px;"
                     @click=${this.flipPasswordInput}
-                    >P</bcg-button
-                  >
+                    icon-id="bcg:general:eye"
+                  ></lion-icon>
                 </div>
               </div>
               <!-- <bcg-checkbox-group name="save-login-data" .validators=${[]}>
