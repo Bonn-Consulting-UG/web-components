@@ -88,7 +88,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     return html`
       <div>
         <div
-          style="display:flex;flex-direction:column; flex-grow:0; max-width: 250px;"
+          style="display:flex;flex-direction:column; flex-grow:0;"
         >
           ${
             !isLoggedIn && user == null
