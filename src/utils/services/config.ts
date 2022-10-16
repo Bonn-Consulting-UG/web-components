@@ -19,11 +19,13 @@ export const checkVerifyCodeEndpoint = (userID: string) =>
 
 // Forms
 export const contactSubmissionEndpoint = (moduleID: any) =>
-  `${baseURLwithApiVersion}/modules/${moduleID}/contact-submisson`;
+  `${baseURLwithApiVersion}/submissions/contact`;
+
 export const faqSubmissionEndpoint = (moduleID: any) =>
-  `${baseURLwithApiVersion}/modules/${moduleID}/faq-submisson`;
+  `${baseURLwithApiVersion}/submissions/faq`;
+
 export const ideaSubmissionEndpoint = (moduleID: any) =>
-  `${baseURLwithApiVersion}/modules/${moduleID}/idea-submisson`;
+  `${baseURLwithApiVersion}/submissions/idea`;
 
 // Modules
 export const getAllModulesEndpoint = `${baseURLwithApiVersion}/modules`;

@@ -1,18 +1,18 @@
 import { html, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
+import { contactSubmissionEndpoint } from '../../utils/services/config';
 import { sendContactSubmissionRequest } from '../../utils/services/module';
 
 export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
-  backup: any = {
-    name: '',
-    subject: '',
+  contactRequest: any = {
+    firstName: '',
+    lastName: '',
+    title: '',
     email: '',
-    text: '',
+    description: '',
     templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
   };
-
-  contactRequest: any = { name: '', title: '', text: '', email: '' };
 
   render() {
     const { contactRequest } = this;
@@ -36,19 +36,23 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
           body: JSON.stringify({
-            text: JSON.stringify(contactRequest),
+            ...contactRequest,
             moduleId: this.moduleId,
           }),
         };
 
-        const resp = await fetch(
-          'https://ifok-epart-api-dev.bonnconsulting.group/v1/comments/',
-          fetchOptions
-        );
+        this.isLoading = true;
 
-        ev.path[0].resetGroup();
+        const resp = await fetch(contactSubmissionEndpoint('1'), fetchOptions);
+
+        if (resp.status === 201) {
+          ev.path[0].resetGroup();
+        }
+
+        this.isLoading = false;
 
         this.showNotification = true;
         this.notificationMessage =
@@ -72,12 +76,14 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
-          ${this.showNotification
-            ? html` <bcg-notification
-                variant=${this.notificationType}
-                message=${this.notificationMessage}
-              ></bcg-notification>`
-            : null}
+          ${
+            this.showNotification
+              ? html` <bcg-notification
+                  variant=${this.notificationType}
+                  message=${this.notificationMessage}
+                ></bcg-notification>`
+              : null
+          }
 
           <div>
             <h1 style="margin-right:50px;">So erreichen Sie uns</h1>
@@ -98,62 +104,78 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
               <div style="display:flex; flex-direction:column;flex-basis:70%;">
                 <h2>Per Konatkformular</h2>
 
-                <bcg-input
-                  label="Ihr Name"
-                  name="name"
-                  .validators=${[new Required()]}
-                  placeholder=""
-                  .modelValue="${contactRequest.name}"
-                  @model-value-changed=${({ target }: any) => {
-                    contactRequest.name = target.value;
-                  }}
-                ></bcg-input>
+                ${
+                  this.isLoading
+                    ? html` <bcg-progress></bcg-progress>`
+                    : html`<bcg-input
+                          label="Ihr Vorname "
+                          placeholder=""
+                          name="firstname"
+                          .validators=${[new Required()]}
+                          .modelValue="${contactRequest.firstName}"
+                          @model-value-changed=${({ target }: any) => {
+                            contactRequest.firstName = target.value;
+                          }}
+                        ></bcg-input>
+                        <bcg-input
+                          label="Ihr Nachname"
+                          placeholder=""
+                          name="lastname"
+                          .validators=${[new Required()]}
+                          .modelValue="${contactRequest.lastName}"
+                          @model-value-changed=${({ target }: any) => {
+                            contactRequest.lastName = target.value;
+                          }}
+                        ></bcg-input>
 
-                <bcg-input-email
-                  name="email"
-                  .validators=${[new Required()]}
-                  .modelValue="${contactRequest.email}"
-                  @model-value-changed=${({ target }: any) => {
-                    contactRequest.email = target.value;
-                  }}
-                  label="Ihre E-Mail "
-                  placeholder=""
-                ></bcg-input-email>
+                        <bcg-input-email
+                          name="email"
+                          .validators=${[new Required()]}
+                          .modelValue="${contactRequest.email}"
+                          @model-value-changed=${({ target }: any) => {
+                            contactRequest.email = target.value;
+                          }}
+                          label="Ihre E-Mail "
+                          placeholder=""
+                        ></bcg-input-email>
 
-                <bcg-input
-                  name="title"
-                  label="Betreff"
-                  .validators=${[new Required()]}
-                  placeholder=""
-                  .modelValue="${contactRequest.title}"
-                  @model-value-changed=${({ target }: any) => {
-                    contactRequest.title = target.value;
-                  }}
-                ></bcg-input>
+                        <bcg-input
+                          name="title"
+                          label="Betreff"
+                          .validators=${[new Required()]}
+                          placeholder=""
+                          .modelValue="${contactRequest.title}"
+                          @model-value-changed=${({ target }: any) => {
+                            contactRequest.title = target.value;
+                          }}
+                        ></bcg-input>
 
-                <bcg-textarea
-                  name="content"
-                  rows="6"
-                  .validators=${[new Required()]}
-                  label="Nachricht"
-                  .modelValue="${contactRequest.text}"
-                  @model-value-changed=${({ target }: any) => {
-                    contactRequest.text = target.value;
-                  }}
-                  placeholder=""
-                ></bcg-textarea>
-                <bcg-checkbox-group
-                  name="datasec"
-                  .validators=${[new Required()]}
-                >
-                  <bcg-checkbox
-                    label="Ich akzeptiere die 
-        Datenschutzerklärung"
-                    .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
-                  ></bcg-checkbox>
-                </bcg-checkbox-group>
-                <div>
-                  <bcg-button-submit>Senden</bcg-button-submit>
+                        <bcg-textarea
+                          name="content"
+                          rows="6"
+                          .validators=${[new Required()]}
+                          label="Nachricht"
+                          .modelValue="${contactRequest.text}"
+                          @model-value-changed=${({ target }: any) => {
+                            contactRequest.description = target.value;
+                          }}
+                          placeholder=""
+                        ></bcg-textarea>
+                        <bcg-checkbox-group
+                          name="datasec"
+                          .validators=${[new Required()]}
+                        >
+                          <bcg-checkbox
+                            label="Ich akzeptiere die 
+Datenschutzerklärung"
+                            .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
+                          ></bcg-checkbox>
+                        </bcg-checkbox-group>
+                        <div>
+                          <bcg-button-submit>Senden</bcg-button-submit>
+                        </div> `
+                }
+                
                 </div>
               </div>
             </div>

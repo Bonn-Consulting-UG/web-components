@@ -1,18 +1,23 @@
 import { html, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
+import { ideaSubmissionEndpoint } from '../../utils/services/config';
 import { sendIdeaSubmissionRequest } from '../../utils/services/module';
 
 export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
   ideaRequest: any = {
-    name: '',
     title: '',
+    descirption: '',
+  };
+
+  externalUser: any = {
+    firstName: '',
+    lastName: '',
     email: '',
-    text: '',
   };
 
   render() {
-    const { ideaRequest } = this;
+    const { ideaRequest, moduleId, externalUser } = this;
 
     // sendIdeaSubmissionRequest(123, '123');
     const submitHandler = async (ev: any) => {
@@ -30,15 +35,19 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
           body: JSON.stringify({
-            text: JSON.stringify(ideaRequest),
-            moduleId: this.moduleId,
+            moduleId,
+            title: `${ideaRequest.title}`,
+            description: `${ideaRequest.descirption}`,
+            firstName: `${externalUser.firstName}`,
+            lastName: `${externalUser.lastName}`,
           }),
         };
 
         const resp = await fetch(
-          'https://ifok-epart-api-dev.bonnconsulting.group/v1/comments/',
+          ideaSubmissionEndpoint(this.moduleId),
           fetchOptions
         );
 
@@ -96,58 +105,73 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                 name="title"
                 .modelValue="${ideaRequest.title}"
                 @model-value-changed=${({ target }: any) => {
-                  ideaRequest.subject = target.value;
+                  ideaRequest.title = target.value;
                 }}
                 placeholder=""
               ></bcg-input>
               <bcg-textarea
                 name="content"
                 .validators=${[new Required()]}
-                .modelValue="${ideaRequest.content}"
+                .modelValue="${ideaRequest.descirption}"
                 @model-value-changed=${({ target }: any) => {
-                  ideaRequest.content = target.value;
+                  ideaRequest.descirption = target.value;
                 }}
                 rows="5"
                 label="Erzählen Sie uns mehr von Ihrer Idee *"
                 placeholder=""
               ></bcg-textarea>
 
-              <h1 style="flex-grow: 1;">Über Sie</h1>
-              <p style="width:650px;">
-                Bitte geben Sie Ihren Namen ein. Dieser wird öffentlich sichtbar
-                in Verbindung mit Ihrer Idee erscheinen.
-              </p>
-              <bcg-input
-                label="Ihr Name "
-                placeholder=""
-                name="name"
-                .validators=${[new Required()]}
-                .modelValue="${ideaRequest.name}"
-                @model-value-changed=${({ target }: any) => {
-                  ideaRequest.name = target.value;
-                }}
-              ></bcg-input>
-              <p>Sofern Sie von uns kontaktiert werden möchten.</p>
-              <bcg-input-email
-                label="Ihre E-Mail "
-                name="email"
-                placeholder=""
-                .validators=${[new Required()]}
-                .modelValue="${ideaRequest.email}"
-                @model-value-changed=${({ target }: any) => {
-                  ideaRequest.email = target.value;
-                }}
-              ></bcg-input-email>
-              <bcg-checkbox-group
-                name="checkbox"
-                .validators=${[new Required()]}
-              >
-                <bcg-checkbox
-                  label="Ich akzeptiere die 
+              ${!this.isLoggedIn
+                ? html`
+                    <h1 style="flex-grow: 1;">Über Sie</h1>
+                    <p style="width:650px;">
+                      Bitte geben Sie Ihren Namen ein. Dieser wird öffentlich
+                      sichtbar in Verbindung mit Ihrer Idee erscheinen.
+                    </p>
+                    <bcg-input
+                      label="Ihr Vorname "
+                      placeholder=""
+                      name="firstname"
+                      .validators=${[new Required()]}
+                      .modelValue="${externalUser.firstName}"
+                      @model-value-changed=${({ target }: any) => {
+                        externalUser.firstName = target.value;
+                      }}
+                    ></bcg-input>
+                    <bcg-input
+                      label="Ihr Nachname"
+                      placeholder=""
+                      name="lastname"
+                      .validators=${[new Required()]}
+                      .modelValue="${externalUser.lastName}"
+                      @model-value-changed=${({ target }: any) => {
+                        externalUser.lastName = target.value;
+                      }}
+                    ></bcg-input>
+                    <p>Sofern Sie von uns kontaktiert werden möchten.</p>
+                    <bcg-input-email
+                      label="Ihre E-Mail "
+                      name="email"
+                      placeholder=""
+                      .validators=${[new Required()]}
+                      .modelValue="${externalUser.email}"
+                      @model-value-changed=${({ target }: any) => {
+                        externalUser.email = target.value;
+                      }}
+                    ></bcg-input-email>
+                    <bcg-checkbox-group
+                      name="checkbox"
+                      .validators=${[new Required()]}
+                    >
+                      <bcg-checkbox
+                        label="Ich akzeptiere die 
         Datenschutzerklärung"
-                  .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
-                ></bcg-checkbox>
-              </bcg-checkbox-group>
+                        .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
+                      ></bcg-checkbox>
+                    </bcg-checkbox-group>
+                  `
+                : null}
+
               <div>
                 <bcg-button-submit
                   @click="${() => console.log('ButtonPress Senden')}"

@@ -1,6 +1,7 @@
 import { html, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
+import { faqSubmissionEndpoint } from '../../utils/services/config';
 import { sendFaqSubmissionRequest } from '../../utils/services/module';
 
 export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
@@ -8,12 +9,12 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
     name: '',
     title: '',
     email: '',
-    text: '',
+    description: '',
   };
 
   render() {
     const { faqRequest } = this;
-
+    console.log(this.isLoggedIn);
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
     Required.getMessage = async () => 'Angabe benötigt';
 
@@ -32,15 +33,18 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
           body: JSON.stringify({
-            text: JSON.stringify(faqRequest),
+            ...faqRequest,
             moduleId: this.moduleId,
+            firstName: this.user.given_name,
+            lastName: this.user.family_name,
           }),
         };
 
         const resp = await fetch(
-          'https://ifok-epart-api-dev.bonnconsulting.group/v1/comments/',
+          faqSubmissionEndpoint(this.moduleId),
           fetchOptions
         );
 
@@ -104,9 +108,9 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   name="content"
                   placeholder=""
                   .validators=${[new Required()]}
-                  .modelValue="${faqRequest.text}"
+                  .modelValue="${faqRequest.description}"
                   @model-value-changed=${({ target }: any) => {
-                    faqRequest.text = target.value;
+                    faqRequest.description = target.value;
                   }}
                 ></bcg-textarea>
                 <p style="width:650px;">
@@ -115,41 +119,48 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   zufriedenstellende Antwort zu formulieren. Ihre Erläuterungen
                   werden nicht veröffentlicht.
                 </p>
-                <bcg-input
-                  label="Ihr Name "
-                  placeholder=""
-                  name="name"
-                  .validators=${[new Required()]}
-                  .modelValue="${faqRequest.name}"
-                  @model-value-changed=${({ target }: any) => {
-                    faqRequest.name = target.value;
-                  }}
-                ></bcg-input>
-                <p>Sofern Sie von uns kontaktiert werden möchten.</p>
-                <bcg-input-email
-                  label="Ihre E-Mail "
-                  name="email"
-                  placeholder=""
-                  .validators=${[new Required()]}
-                  .modelValue="${faqRequest.email}"
-                  @model-value-changed=${({ target }: any) => {
-                    faqRequest.email = target.value;
-                  }}
-                ></bcg-input-email>
-                <p>
-                  Sofern Sie von uns mit einer Antwort direkt kontaktiert werden
-                  möchten.
-                </p>
-                <bcg-checkbox-group .validators=${[
-                  new Required(),
-                ]}                   name="datasec"
->
-                  <bcg-checkbox
-                    label="Ich akzeptiere die 
+ 
+
+                ${
+                  !this.isLoggedIn
+                    ? html` <bcg-input
+                          label="Ihr Name "
+                          placeholder=""
+                          name="name"
+                          .validators=${[new Required()]}
+                          .modelValue="${faqRequest.name}"
+                          @model-value-changed=${({ target }: any) => {
+                            faqRequest.name = target.value;
+                          }}
+                        ></bcg-input>
+                        <p>Sofern Sie von uns kontaktiert werden möchten.</p>
+                        <bcg-input-email
+                          label="Ihre E-Mail "
+                          name="email"
+                          placeholder=""
+                          .validators=${[new Required()]}
+                          .modelValue="${faqRequest.email}"
+                          @model-value-changed=${({ target }: any) => {
+                            faqRequest.email = target.value;
+                          }}
+                        ></bcg-input-email>
+                        <p>
+                          Sofern Sie von uns mit einer Antwort direkt
+                          kontaktiert werden möchten.
+                        </p>
+                        <bcg-checkbox-group
+                          .validators=${[new Required()]}
+                          name="datasec"
+                        >
+                          <bcg-checkbox
+                            label="Ich akzeptiere die 
         Datenschutzerklärung"
-                    .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
-                  ></bcg-checkbox>
-                </bcg-checkbox-group>
+                            .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
+                          ></bcg-checkbox>
+                        </bcg-checkbox-group>`
+                    : null
+                }
+              
                 <div>
                   
                   <bcg-button-submit>Frage einreichen</bcg-button-submit>

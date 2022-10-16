@@ -1,16 +1,16 @@
 import { contactSubmissionEndpoint } from './config';
 
-export const sendContactRequest = async (payload: any) => {
+export const sendContactRequest = async (payload: any, moduleId: any) => {
   try {
     const fetchOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     };
 
-    const resp = await fetch(contactSubmissionEndpoint('123'), fetchOptions);
+    const resp = await fetch(contactSubmissionEndpoint(moduleId), fetchOptions);
     return resp;
   } catch (err) {
     console.error(err);

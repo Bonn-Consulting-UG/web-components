@@ -22,14 +22,12 @@ interface ArgTypes {
 }
 
 const DefaultTemplate: Story<ArgTypes> = () =>
-  html`<bcg-idea-submission moduleId="3275cc46-38da-4033-a281-acedadc93db6"></bcg-idea-submission> `;
-
-const LoggedInTemplate: Story<ArgTypes> = () =>
-  html` <bcg-idea-submission isLoggedIn></bcg-idea-submission> `;
+  html`<bcg-idea-submission
+    moduleId="2b3004fd-8e18-41ad-a763-6b63482cbcdf"
+  ></bcg-idea-submission> `;
 
 const Default = DefaultTemplate.bind({});
-const LoggedIn = LoggedInTemplate.bind({});
 
 Default.args = {};
 
-export { Default, LoggedIn };
+export { Default };
