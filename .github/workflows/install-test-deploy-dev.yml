@@ -1,0 +1,33 @@
+name: Install, Test, Deploy
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy_to_dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      # - run: npm run test
+      - run: npm run storybook:build
+      - run: date > storybook-static/info.html
+      - run: echo "<p>" >> storybook-static/info.html
+      - run: node --eval="process.stdout.write(require('./package.json').version)" >> storybook-static/info.html
+      - run: echo "</p>" >> storybook-static/info.html
+      - run: git rev-parse HEAD >> storybook-static/info.html
+      
+      - run: docker build -t ifok-epart-components:latest .
+      - run: docker tag ifok-epart-components:latest bonnconsulting.jfrog.io/bcg-docker-dev/ifok-epart-components:latest
+      - run: docker login https://bonnconsulting.jfrog.io -u bcg-ci-dev -p ${{ secrets.ARTIFACTORY_PASSWORD_DEV }}
+      - run: docker push bonnconsulting.jfrog.io/bcg-docker-dev/ifok-epart-components:latest
+
+      - run: wget https://github.com/rancher/cli/releases/download/v2.6.7-rc1/rancher-linux-amd64-v2.6.7-rc1.tar.gz
+      - run: sudo tar xzvf rancher-linux-amd64-v2.6.7-rc1.tar.gz
+      - run: ./rancher-v2.6.7-rc1/rancher login https://rancher.bonnconsulting.group --token ${{ secrets.RANCHER_TOKEN_DEV }} --context c-kdm7k:p-bxddj
+      - run: ./rancher-v2.6.7-rc1/rancher kubectl --namespace=ifok-digital  patch deployment epart-components-dev  -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"$(date +'%s')\"}}}}}"
