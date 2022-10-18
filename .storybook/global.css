@@ -99,6 +99,11 @@ p {
   line-height: var(--primary-body-regular-L-line-height);
 }
 
+dialog {
+  color: var(--primary-color);
+  border-radius: var(--border-radius-l);
+}
+
 button {
   font-family: var(--primary-body-medium-L-font-family);
   font-size: var(--primary-body-medium-L-size);

@@ -1,10 +1,13 @@
-const json = require('@rollup/plugin-json');
+
+
 
 module.exports = {
-  stories: ['../dist/**/**/docs/*.stories.{js,md,mdx}'],
+  stories: ['../dist/components/**/**/docs/*.stories.{js,md,mdx}'],
   rollupConfig(config) {
-    // add a new plugin to the build
-    config.plugins.push(json());
     return config;
-  }
+  },
 };
+
+    // config.plugins.push( replace({
+    //   'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL)
+    // }))
