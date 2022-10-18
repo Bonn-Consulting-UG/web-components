@@ -1,4 +1,4 @@
-name: Install, Test, Deploy
+name: Install, Test, Deploy to Nonprod
 
 on:
   push:
