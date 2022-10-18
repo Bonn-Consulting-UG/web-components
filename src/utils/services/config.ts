@@ -12,8 +12,6 @@ const getApiUrl = () => {
 const baseURLwithApiVersion = `${getApiUrl()}/${APIVersion}`;
 console.log(baseURLwithApiVersion);
 
-console.log(process.env.API_BASE_URL);
-
 // Login/User
 export const registerEndpoint = `${baseURLwithApiVersion}/register`;
 export const loginEndpoint = `${baseURLwithApiVersion}/login`;
