@@ -5,12 +5,12 @@ const getApiUrl = () => {
   if (location.href.includes(`-dev`))
     return 'https://epart-api-dev.ifok.digital';
   if (location.href.includes(`-nonprod`))
-    return 'https://epart/api-nonprod.ifok.digital';
+    return 'https://epart-api-nonprod.ifok.digital';
   return 'https://epart-api-dev.ifok.digital';
 };
 
 const baseURLwithApiVersion = `${getApiUrl()}/${APIVersion}`;
-console.log(baseURLwithApiVersion);
+console.log(process.env.API_BASE_URL);
 
 // Login/User
 export const registerEndpoint = `${baseURLwithApiVersion}/register`;
