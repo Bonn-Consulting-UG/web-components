@@ -58,12 +58,11 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      this.nextStep();
+      this.nextStep(this.email);
     };
 
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
     Required.getMessage = async () => 'Angabe benötigt';
-    console.log(this.back);
 
     return html`
       <bcg-form @submit=${submitHandler}>
