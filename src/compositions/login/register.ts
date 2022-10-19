@@ -35,8 +35,6 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
         response = await sendRegisterRequest(payload);
         const responseBody = await response.json();
 
-        console.log(responseBody);
-
         if (responseBody.accessToken) {
           localStorage.setItem('accessToken', responseBody.accessToken);
           this.user = jwtDecode(responseBody.accessToken);
@@ -45,7 +43,7 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
         if (response.status === 409 || response.status === 500) {
           console.log('HELLO ITS ME');
           this.showNotification = true;
-          this.notificationMessage = `Statuscode: ${response.status} ${this.user.message}`;
+          this.notificationMessage = `Statuscode: ${response.status} ${responseBody.message}`;
           this.notificationType = 'error';
           this.isLoading = false;
 

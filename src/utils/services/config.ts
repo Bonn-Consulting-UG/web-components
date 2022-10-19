@@ -4,7 +4,10 @@ const APIVersion = 'v1';
 const getApiUrl = () => {
   if (location.href.includes(`-dev`))
     return 'https://epart-api-dev.ifok.digital';
-  if (location.href.includes(`-nonprod`))
+  if (
+    location.href.includes(`-nonprod`) ||
+    location.href.includes('https://iwbk.bonnconsulting.group')
+  )
     return 'https://epart-api-nonprod.ifok.digital';
   return 'https://epart-api-dev.ifok.digital';
 };
@@ -17,8 +20,9 @@ export const loginEndpoint = `${baseURLwithApiVersion}/login`;
 export const depleteUserEndpoint = (userID: string) =>
   `${baseURLwithApiVersion}/users/${userID}`;
 
-export const changePasswordEndpoint = (userID: string) =>
-  `${baseURLwithApiVersion}/users/${userID}/change-password`;
+export const changePasswordEndpoint = `${baseURLwithApiVersion}/auth/redeem-reset-password-token`;
+
+export const resetPasswordEndpoint = `${baseURLwithApiVersion}/auth/send-reset-password-token`;
 
 export const changeUserDataEndpoint = (userID: string) =>
   `${baseURLwithApiVersion}/users/${userID}`;

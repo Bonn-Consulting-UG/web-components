@@ -5,6 +5,7 @@ import {
   depleteUserEndpoint,
   loginEndpoint,
   registerEndpoint,
+  resetPasswordEndpoint,
 } from './config';
 
 export const sendRegisterRequest = async (newUser: any) => {
@@ -111,7 +112,7 @@ export const sendPasswordChangeRequest = async ({
       body: JSON.stringify({ newPassword, currentPassword }),
     };
     console.log(userId);
-    const resp = await fetch(changePasswordEndpoint(userId), fetchOptions);
+    const resp = await fetch(changePasswordEndpoint, fetchOptions);
     console.log('sent');
     return resp.json();
   } catch (err) {
@@ -171,7 +172,26 @@ export const sendPasswordResetRequest = async (data: any) => {
       body: JSON.stringify({ data }),
     };
 
-    const resp = await fetch(changePasswordEndpoint(data), fetchOptions);
+    const resp = await fetch(changePasswordEndpoint, fetchOptions);
+
+    return resp;
+  } catch (err) {
+    // Handle Error Here
+    console.error(err);
+    return err;
+  }
+};
+
+export const sendPasswordChangeInitRequest = async (data: any) => {
+  try {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const resp = await fetch(resetPasswordEndpoint, fetchOptions);
 
     return resp;
   } catch (err) {

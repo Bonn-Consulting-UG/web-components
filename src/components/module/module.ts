@@ -48,7 +48,7 @@ export class BcgModule extends LitElement {
   }
 
   logInHandler() {
-    this.isLoggedIn = true;
+    console.log('heck ?');
   }
 
   connectedCallback() {

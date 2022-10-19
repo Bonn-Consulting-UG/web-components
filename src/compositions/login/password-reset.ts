@@ -4,6 +4,7 @@ import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
 import {
   checkVerifyCode,
+  sendPasswordChangeInitRequest,
   sendPasswordResetRequest,
   sendRegisterRequest,
 } from '../../utils/services/login';
@@ -34,6 +35,11 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
     let response: any = null;
 
     if (this.currentStep < this.maxStep) {
+      if (this.currentStep === 1) {
+        const response = await sendPasswordChangeInitRequest({
+          email: payload,
+        });
+      }
       if (this.currentStep === 2) {
         this.currentStep += 1;
 
