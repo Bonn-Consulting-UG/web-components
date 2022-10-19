@@ -185,7 +185,7 @@ export const sendPasswordResetRequest = async (data: any) => {
 export const sendPasswordChangeInitRequest = async (data: any) => {
   try {
     const fetchOptions = {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
