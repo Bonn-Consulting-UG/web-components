@@ -8,7 +8,7 @@ import typescript from '@rollup/plugin-typescript';
 export default {
   plugins: [
     typescript(),
-    resolve(),
+    resolve(),  
     minifyHTML(),
     terser({
       ecma: 2020,

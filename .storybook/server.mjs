@@ -7,3 +7,4 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   nodeResolve: true,
   plugins: [storybookPlugin({ type: 'web-components' }), ...baseConfig.plugins]
 });
+

@@ -3,7 +3,7 @@
   "description": "Bcg-components following open-wc recommendations",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "0.0.1-29",
+  "version": "0.0.1-33",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
@@ -15,7 +15,7 @@
     "cleanup": "rm -rf ./dist/",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "npm run cleanup && tsc && npm run analyze  && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds --node-resolve -c .storybook/server.mjs  \"",
-    "storybook:build": " tsc && concurrently -k -r  \"npm run analyze && build-storybook && rollup -c rollup.config.js\"",
+    "storybook:build": " tsc && npm run analyze && build-storybook && rollup -c rollup.config.js",
     "prepare": "husky install"
   },
   "dependencies": {
