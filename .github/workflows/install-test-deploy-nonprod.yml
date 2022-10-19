@@ -1,4 +1,4 @@
-name: Install, Test, Deploy
+name: Install, Test, Deploy to Nonprod
 
 on:
   push:
@@ -20,6 +20,7 @@ jobs:
       - run: echo "<p>" >> storybook-static/info.html
       - run: node --eval="process.stdout.write(require('./package.json').version)" >> storybook-static/info.html
       - run: echo "</p>" >> storybook-static/info.html
+      - run: echo "<p>nonprod</p>" >> storybook-static/info.html
       - run: git rev-parse HEAD >> storybook-static/info.html
       
       - run: docker build -t ifok-epart-components:latest .
