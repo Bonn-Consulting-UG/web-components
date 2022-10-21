@@ -41,20 +41,17 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
     return html`<div>
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
-          <h2>Passwort ändern</h2>
+          <h2>Password ändern</h2>
           ${
             this.isLoading
               ? html`<bcg-progress></bcg-progress>`
               : html`
                   <bcg-input
-                    label="Aktuelles Passwort*"
+                    label="Aktuelles Password"
                     type="password"
                     placeholder=""
                     name="password"
                     .modelValue="${this.password}"
-                    @model-value-changed=${({ target }: any) => {
-                      this.password = target.value;
-                    }}
                     .validators=${[new Required()]}
                   ></bcg-input>
 
@@ -63,7 +60,7 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
                     .validators=${[new PasswordMatch()]}
                   >
                     <bcg-input
-                      label="Neues Passwort"
+                      label="Neues Password"
                       type="password"
                       .modelValue="${this.newPassword}"
                       @model-value-changed=${({ target }: any) => {
@@ -76,7 +73,7 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
 
                     <bcg-input
                       name="passwordrepeat"
-                      label="Neues Passwort wiederholen"
+                      label="Neues Password wiederholen"
                       type="password"
                       .modelValue="${this.passwordRepeat}"
                       @model-value-changed=${({ target }: any) => {

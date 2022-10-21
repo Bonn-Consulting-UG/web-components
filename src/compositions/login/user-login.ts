@@ -5,7 +5,7 @@ import {
   ScopedElementsMixin,
   property,
 } from '@lion/core';
-import { IsEmail, Required } from '@lion/form-core';
+import { IsEmail, MinLength, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
 import { sendLoginRequest } from '../../utils/services/login';
 import { BcgButtonSubmit } from '../../components/button/button-submit';
@@ -27,9 +27,9 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
 
   onPasswordReset: any = () => console.log(this);
 
-  email: string = '';
+  @property({ type: String }) email: string = '';
 
-  password: string = '';
+  @property({ type: String }) password: string = '';
 
   @property({ type: String }) passwordInputType: string = 'password';
 
@@ -60,7 +60,8 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         return;
       }
       this.isLoading = true;
-      await sendLoginRequest({ email, password });
+      const resp: any = await this.logInHandler(email, password);
+      console.log(resp);
     };
 
     return html`
@@ -106,7 +107,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                     type=${passwordInputType}
                     placeholder=""
                     .modelValue="${password}"
-                    .validators=${[new Required()]}
+                    .validators=${[new Required(), new MinLength(3)]}
                     name="password"
                     @model-value-changed=${({ target }: any) => {
                       password = target.value;

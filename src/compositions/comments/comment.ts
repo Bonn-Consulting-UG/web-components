@@ -62,11 +62,6 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
       <hr />
       <div class="comment-wrapper ${isModerator ? 'moderator' : null}">
         <div class="comment-poster">
-          <img
-            src="https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png"
-            class="comment-image"
-            alt="Avatar/Representation of the Poster"
-          />
           <div class="comment-poster-details">
             <p
               class=" ${author.roles.includes('MODERATOR')
@@ -127,11 +122,6 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
               : null}"
           >
             <div class="comment-poster">
-              <img
-                src="https://pickaface.net/gallery/avatar/unr_test_180620_0636_ocf45ak.png"
-                class="comment-image"
-                alt="Avatar/Representation of the Poster"
-              />
               <div class="comment-poster-details">
                 <p class=" ${i.isModerator ? 'moderator-name' : null}">
                   ${i.author.firstName} ${i.author.lastName}

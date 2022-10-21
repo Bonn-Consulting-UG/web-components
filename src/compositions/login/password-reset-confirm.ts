@@ -92,13 +92,13 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
           ></bcg-input>
         </div>
         <div>
-          <h2>Legen Sie ein neues Passwort an</h2>
+          <h2>Legen Sie ein neues Password an</h2>
           <bcg-fieldset
             name="password-fieldset"
             .validators=${[new PasswordMatch()]}
           >
             <bcg-input
-              label="Passwort"
+              label="Password"
               type=${this.passwordInputType}
               placeholder=""
               name="password"
@@ -117,7 +117,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
 
             <bcg-input
               name="passwordrepeat"
-              label="Passwort wiederholen"
+              label="Password wiederholen"
               type=${this.passwordInputType}
               placeholder=""
               .validators=${[new Required()]}
