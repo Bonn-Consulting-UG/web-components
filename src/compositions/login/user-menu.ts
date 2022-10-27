@@ -81,7 +81,6 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
       isOpen,
       clickHandler,
       logOutHandler,
-      logInHandler,
       registerHandler,
     } = this;
 
@@ -91,18 +90,17 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
           style="display:flex;flex-direction:column; flex-grow:0;"
         >
           ${
-            !isLoggedIn && user == null
+            !isLoggedIn
               ? html`<div style="display:flex; flex-direction:row;">
                   <bcg-button
                     id="login-button"
                     style="margin-right:10px;"
-                    @click="${logInHandler}"
                     variant="secondary"
                     >Anmelden</bcg-button
                   ><bcg-button
                     id="register-button"
                     variant="primary"
-                    @click="${registerHandler}"
+                    @click=${registerHandler}
                     >Registrieren
                   </bcg-button>
                 </div>`

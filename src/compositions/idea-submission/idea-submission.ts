@@ -55,18 +55,12 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
 
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 2000);
         console.log(resp);
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';
         this.notificationMessage = 'Fehler ist aufgetreten';
 
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 2000);
         console.error(err);
       }
     };

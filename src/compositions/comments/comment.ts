@@ -9,9 +9,12 @@ import { de } from 'date-fns/locale';
 import { format } from 'date-fns';
 
 import { addReaction, reportComment } from '../../utils/services/comments.js';
+import { BcgModule } from '../../components/module/module.js';
 
-export class BcgComment extends ScopedElementsMixin(LitElement) {
+export class BcgComment extends ScopedElementsMixin(BcgModule) {
   @property({ type: Object }) comments: any;
+
+  @property({ type: Function }) setResponseTo: any;
 
   @property({ type: Function }) refresh: Function = () =>
     console.log('default');
@@ -68,53 +71,55 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
                 ? 'moderator-name'
                 : null}"
             >
-              ${author.firstName}${author.lastName}
+              ${author.firstName} ${author.lastName}
             </p>
             <p>
-              ${format(Date.parse(createdAt), 'MM/dd/yyyy', { locale: de })}
+              ${format(Date.parse(createdAt), 'dd.MM.yyyy HH:mm ', {
+                locale: de,
+              })}
+              Uhr
             </p>
           </div>
         </div>
         <div>
           <p>${content}</p>
-          <div style="display:flex;">
-            <bcg-reaction
-              .value=${_count.likes}
-              .icon=${'bcg:comments:thumbsup'}
-              .clickHandler=${async () => {
-                await addReaction({ type: 'LIKE' }, id, null);
-                this.refresh();
-              }}
-            ></bcg-reaction>
-            <bcg-reaction
-              .value=${_count.dislikes}
-              .icon=${'bcg:comments:thumbsdown'}
-              .clickHandler=${async () => {
-                await addReaction({ type: 'DISLIKE' }, id, null);
-                this.refresh();
-              }}
-            ></bcg-reaction>
-            <bcg-reaction
-              .value=${'Antworten'}
-              .icon=${'bcg:comments:message'}
-              .clickHandler=${async () => {
-                // this.respondTo();
-                this.refresh();
-              }}
-            ></bcg-reaction>
-            <bcg-reaction
-              .value=${'Melden'}
-              .icon=${'bcg:comments:report'}
-              .clickHandler=${async () => {
-                await reportComment();
-                this.refresh();
-              }}
-            ></bcg-reaction>
-          </div>
+          ${this.isLoggedIn
+            ? html`<div style="display:flex;">
+                <bcg-reaction
+                  .value=${_count.likes}
+                  .icon=${'bcg:comments:thumbsup'}
+                  .clickHandler=${async () => {
+                    await addReaction({ type: 'LIKE' }, id, null);
+                    this.refresh();
+                  }}
+                ></bcg-reaction>
+                <bcg-reaction
+                  .value=${_count.dislikes}
+                  .icon=${'bcg:comments:thumbsdown'}
+                  .clickHandler=${async () => {
+                    await addReaction({ type: 'DISLIKE' }, id, null);
+                    this.refresh();
+                  }}
+                ></bcg-reaction>
+                <bcg-reaction
+                  .value=${'Antworten'}
+                  .icon=${'bcg:comments:message'}
+                  @click=${() => this.setResponseTo(this.comments)}
+                ></bcg-reaction>
+                <bcg-reaction
+                  .value=${'Melden'}
+                  .icon=${'bcg:comments:report'}
+                  .clickHandler=${async () => {
+                    await reportComment(this.comments.id);
+                    this.refresh();
+                  }}
+                ></bcg-reaction>
+              </div>`
+            : null}
         </div>
         ${comments &&
         comments.map(
-          (i: any) => html` <div
+          (i: any, index: number) => html` <div
             class="comment-wrapper comment-response ${i.author.roles.includes(
               'MODERATOR'
             )
@@ -127,14 +132,50 @@ export class BcgComment extends ScopedElementsMixin(LitElement) {
                   ${i.author.firstName} ${i.author.lastName}
                 </p>
                 <p>
-                  ${format(Date.parse(i.createdAt), 'MM/dd/yyyy', {
+                  ${format(Date.parse(createdAt), 'dd.MM.yyyy HH:mm ', {
                     locale: de,
                   })}
+                  Uhr
                 </p>
               </div>
             </div>
             <p>${i.content}</p>
-            <bcg-reaction></bcg-reaction>
+            <div style="display:flex;">
+              ${this.isLoggedIn
+                ? html`
+                    <bcg-reaction
+                      .value=${_count.likes}
+                      .icon=${'bcg:comments:thumbsup'}
+                      .clickHandler=${async () => {
+                        await addReaction({ type: 'LIKE' }, i.id, null);
+                        this.refresh();
+                      }}
+                    ></bcg-reaction>
+                    <bcg-reaction
+                      .value=${_count.dislikes}
+                      .icon=${'bcg:comments:thumbsdown'}
+                      .clickHandler=${async () => {
+                        await addReaction({ type: 'DISLIKE' }, i.id, null);
+                        this.refresh();
+                      }}
+                    ></bcg-reaction>
+                    <bcg-reaction
+                      .value=${'Antworten'}
+                      .icon=${'bcg:comments:message'}
+                      @click=${() => this.setResponseTo(i)}
+                    ></bcg-reaction>
+
+                    <bcg-reaction
+                      .value=${'Melden'}
+                      .icon=${'bcg:comments:report'}
+                      .clickHandler=${async () => {
+                        await reportComment(i.id);
+                        this.refresh();
+                      }}
+                    ></bcg-reaction>
+                  `
+                : null}
+            </div>
           </div>`
         )}
       </div>

@@ -39,6 +39,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
     };
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
     Required.getMessage = async () => 'Angabe benötigt';
+    console.log(this.user);
     return html`
       <div>
         <bcg-form @submit=${submitHandler}>
@@ -69,6 +70,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
                   ></bcg-input>
                   <bcg-input
                     label="Ihre E-Mail"
+                    help-text="Kann nicht geändert werden"
                     .validators=${[new Required(), new IsEmail()]}
                     .modelValue="${this.user.email}"
                     disabled

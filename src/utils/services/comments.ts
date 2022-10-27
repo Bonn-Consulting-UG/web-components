@@ -75,17 +75,42 @@ export const addReaction = async (
   }
 };
 
-export const reportComment = async () => {
+export const reportComment = async (commentId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const resp = await fetch(reportCommentEndpoint(commentId), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const addCommentToComment = async (
+  commentId: any,
+  commentConent: any
+) => {
   try {
     const fetchOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify(''),
+      body: JSON.stringify({
+        title: '',
+        content: commentConent,
+        commentId: commentId,
+      }),
     };
 
-    const resp = await fetch(reportCommentEndpoint, fetchOptions);
+    const resp = await fetch(setCommentsEndpoint, fetchOptions);
     return resp.json();
   } catch (err) {
     console.error(err);

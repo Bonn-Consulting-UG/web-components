@@ -36,15 +36,15 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   dsgvo: object = { value: 'foo', checked: true };
 
-  firstName: string = 'Stefan';
+  firstName: string = '';
 
-  lastName: string = 'Scheifel';
+  lastName: string = '';
 
-  email: string = 'wefw@me.com';
+  email: string = '';
 
-  password: string = '1234';
+  password: string = '';
 
-  passwordrepeat: string = '1234';
+  passwordrepeat: string = '';
 
   @property({ type: String }) passwordInputType: string = 'password';
 

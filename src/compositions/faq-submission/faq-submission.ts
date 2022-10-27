@@ -1,5 +1,6 @@
 import { html, ScopedElementsMixin } from '@lion/core';
 import { IsEmail, Required } from '@lion/form-core';
+import { thumbsdown } from '../../components/icon/export-comment-icons';
 import { BcgModule } from '../../components/module';
 import { faqSubmissionEndpoint } from '../../utils/services/config';
 import { sendFaqSubmissionRequest } from '../../utils/services/module';
@@ -8,14 +9,13 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   faqRequest: any = {
     firstName: '',
     lastName: '',
-    email: 'test@test.de',
+    email: '',
     title: '',
     description: '',
   };
 
   render() {
     const { faqRequest } = this;
-    console.log(this.isLoggedIn);
     IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
     Required.getMessage = async () => 'Angabe benötigt';
 
@@ -30,47 +30,62 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
       // sendContactSubmissionRequest(this.contactRequest, this.moduleId);
 
       try {
-        const fetchOptions = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-          body: JSON.stringify({
-            ...faqRequest,
-            moduleId: this.moduleId,
-            firstName: this.user.given_name,
-            lastName: this.user.family_name,
-          }),
-        };
+        if (!this.isLoggedIn) {
+          const fetchOptionsloggedout = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+            body: JSON.stringify({
+              ...faqRequest,
+              moduleId: this.moduleId,
+              firstName: this.faqRequest.firstName,
+              lastName: this.faqRequest.lastName,
+              email: this.faqRequest.email,
+            }),
+          };
+          const resp = await fetch(
+            faqSubmissionEndpoint(this.moduleId),
+            fetchOptionsloggedout
+          );
+        }
 
-        const resp = await fetch(
-          faqSubmissionEndpoint(this.moduleId),
-          fetchOptions
-        );
+        if (this.isLoggedIn) {
+          const fetchOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+            body: JSON.stringify({
+              ...faqRequest,
+              moduleId: this.moduleId,
+              firstName: this.user.given_name,
+              lastName: this.user.family_name,
+              email: this.user.email,
+            }),
+          };
+
+          const resp = await fetch(
+            faqSubmissionEndpoint(this.moduleId),
+            fetchOptions
+          );
+        }
 
         ev.path[0].resetGroup();
         this.showNotification = true;
         this.notificationMessage = 'Ihre Frage wurde Erfolgreich übersendet';
-
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 2000);
-        console.log(resp);
       } catch (err) {
         this.showNotification = true;
+        console.log(err);
         this.notificationType = 'error';
         this.notificationMessage = 'Fehler ist aufgetreten';
-
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 2000);
-        console.error(err);
       }
     };
 
     return html`
-      <bcg-form @submit=${submitHandler}>
+      <bcg-form @submit=${(ev: any) => submitHandler(ev)}>
         <form @submit=${(e: any) => e.preventDefault()}>
         ${
           this.showNotification
@@ -84,7 +99,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
             <div style="display:flex; flex-direction:row;">
               <h1 style="margin-right:50px;">Reichen Sie Ihre Frage ein!</h1>
               <div style="display:flex; flex-direction:column;">
-                <p style="width:650px;">
+                <p>
                   Unser FAQ konnte Ihre Frage nicht beantworten? Schreiben Sie
                   uns! Erreicht uns eine Frage häufiger, veröffentlichen wir sie
                   hier. Wir kontaktieren Sie mit einer Antwort, sofern uns Ihre
@@ -108,13 +123,13 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   label="Erläuterungen"
                   name="content"
                   placeholder=""
-                  .validators=${[new Required()]}
+                  .validators=${[]}
                   .modelValue="${faqRequest.description}"
                   @model-value-changed=${({ target }: any) => {
                     faqRequest.description = target.value;
                   }}
                 ></bcg-textarea>
-                <p style="width:650px;">
+                <p >
                   Sie können Ihre Frage hier erläutern, damit wir sie besser
                   verstehen und einordnen können. Dies hilft uns, eine
                   zufriedenstellende Antwort zu formulieren. Ihre Erläuterungen
@@ -128,7 +143,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                           label="Ihr Name "
                           placeholder=""
                           name="name"
-                          .validators=${[new Required()]}
+                          .validators=${[]}
                           .modelValue="${faqRequest.name}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.name = target.value;
@@ -139,7 +154,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                           label="Ihre E-Mail "
                           name="email"
                           placeholder=""
-                          .validators=${[new Required()]}
+                          .validators=${[]}
                           .modelValue="${faqRequest.email}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.email = target.value;
@@ -154,8 +169,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                           name="datasec"
                         >
                           <bcg-checkbox
-                            label="Ich akzeptiere die 
-        Datenschutzerklärung"
+                            label="Ich akzeptiere die Datenschutzerklärung</a>"
                             .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
                           ></bcg-checkbox>
                         </bcg-checkbox-group>`

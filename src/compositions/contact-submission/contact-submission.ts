@@ -57,18 +57,11 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         this.showNotification = true;
         this.notificationMessage =
           'Ihre Nachricht wurde Erfolgreich übersendet';
-
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 2000);
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';
         this.notificationMessage = 'Fehler ist aufgetreten';
 
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 2000);
         console.error(err);
       }
     };
@@ -86,23 +79,9 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           }
 
           <div>
-            <h1 style="margin-right:50px;">So erreichen Sie uns</h1>
 
-            <div style="display:flex; flex-direction:row;">
-              <div style="display:flex; flex-direction:column; flex-basis:30%;">
-                <h2>Per Post</h2>
-                <div style="margin-bottom:20px;">
-                  <p>Name</p>
-                  <p>Zusatz</p>
-                  <p>Straße, Hausnummer</p>
-                  <p>PLZ Ort</p>
-                </div>
-                <p>Telefon:</p>
-                <p>E-Mail:</p>
-              </div>
-
-              <div style="display:flex; flex-direction:column;flex-basis:70%;">
-                <h2>Per Konatkformular</h2>
+              <div style="display:flex; flex-direction:column;flex-basis:100%;">
+                <h2>Konatkformular</h2>
 
                 ${
                   this.isLoading
@@ -169,8 +148,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                           .validators=${[new Required()]}
                         >
                           <bcg-checkbox
-                            label="Ich akzeptiere die 
-Datenschutzerklärung"
+                            label="Ich akzeptiere die Datenschutzerklärung"
                             .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
                           ></bcg-checkbox>
                         </bcg-checkbox-group>
@@ -179,7 +157,6 @@ Datenschutzerklärung"
                         </div>
                       `
                 }
-                
                 </div>
               </div>
             </div>

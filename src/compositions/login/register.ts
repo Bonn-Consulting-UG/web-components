@@ -21,7 +21,7 @@ import jwtDecode from 'jwt-decode';
 export class BcgRegister extends ScopedElementsMixin(BcgModule) {
   @property({ type: Number }) currentStep: number = 1;
 
-  maxStep: number = 4;
+  maxStep: number = 3;
 
   verifyCode: number = 0;
 
@@ -29,7 +29,7 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
     let response: any = null;
 
     if (this.currentStep < this.maxStep) {
-      if (this.currentStep === 2) {
+      if (this.currentStep === 1) {
         this.isLoading = true;
 
         response = await sendRegisterRequest(payload);
@@ -46,10 +46,6 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
           this.notificationMessage = `Statuscode: ${response.status} ${responseBody.message}`;
           this.notificationType = 'error';
           this.isLoading = false;
-
-          setTimeout(() => {
-            this.showNotification = false;
-          }, 3000);
         }
 
         this.isLoading = false;
@@ -111,23 +107,23 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
               : html`<h1>Willkommen!</h1>
                   <h2>Registrierung</h2>
                   <span>Schritt ${currentStep} von ${maxStep - 1} </span>`}
-            ${currentStep === 1
+            <!-- ${currentStep === 1
               ? html`<bcg-register-step-one
                   .nextStep="${nextStep}"
                 ></bcg-register-step-one>`
-              : null}
-            ${currentStep === 2
+              : null} -->
+            ${currentStep === 1
               ? html`<bcg-register-step-two
                   .nextStep="${nextStep}"
                 ></bcg-register-step-two> `
               : null}
-            ${currentStep === 3
+            ${currentStep === 2
               ? html`<bcg-register-step-three
                   .user=${this.user}
                   .nextStep="${nextStep}"
                 ></bcg-register-step-three> `
               : null}
-            ${currentStep === 4
+            ${currentStep === 3
               ? html`<bcg-register-step-finished
                   .user=${this.user}
                   .nextStep="${nextStep}"
