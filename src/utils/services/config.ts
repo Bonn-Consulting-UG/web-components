@@ -49,7 +49,8 @@ export const getModuleEndpoint = (moduleId: number) =>
 export const getCommentsEndpointforModule = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments`;
 
-export const reportCommentEndpoint = `${baseURLwithApiVersion}/modules/comments`;
+export const reportCommentEndpoint = (commentId: number) =>
+  `${baseURLwithApiVersion}/comments/${commentId}/report/REPORTED`;
 
 export const setCommentsEndpoint = `${baseURLwithApiVersion}/comments`;
 

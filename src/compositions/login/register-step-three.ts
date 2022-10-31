@@ -43,9 +43,11 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
       this.nextStep(code);
     };
 
-    return html`<bcg-form @submit=${submitHandler}>
+    return html`<bcg-form @submit=${(ev: any) => submitHandler(ev)}>
       <form @submit=${(e: any) => e.preventDefault()}>
         <div>
+          <h1>Registrierung</h1>
+
           <h2>
             Sie haben einen Bestätigungscode per E-Mail (${this.user.email})
             erhalten. Bitte geben Sie den Code ein:
@@ -64,23 +66,23 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
         </div>
         <div>
           <h3>Sie haben keine E-Mail erhalten?</h3>
-          <ul>
-            <li
-              @click=${() => {
-                sendNewVerifyCodeRequest(this.user.id);
-              }}
-            >
-              Neuen Code senden
-            </li>
+          <a
+            href
+            @click=${() => {
+              sendNewVerifyCodeRequest(this.user.id);
+            }}
+          >
+            Neuen Code senden
+          </a>
 
-            <li
-              @click=${() => {
-                this.nextStep('back');
-              }}
-            >
-              E-Mail Adresse überarbeiten
-            </li>
-          </ul>
+          <a
+            href
+            @click=${() => {
+              this.nextStep('back');
+            }}
+          >
+            E-Mail Adresse überarbeiten
+          </a>
         </div>
 
         <bcg-button-submit variant="primary">Code abschicken</bcg-button-submit>

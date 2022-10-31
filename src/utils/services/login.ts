@@ -57,15 +57,7 @@ export const sendLoginRequest = async (user: any) => {
       body: JSON.stringify(user),
     };
 
-    const resp = await fetch(loginEndpoint, fetchOptions);
-    const respData = await resp.json();
-    if (respData.accessToken && resp.status === 201) {
-      await localStorage.setItem('accessToken', respData.accessToken);
-      // eslint-disable-next-line no-restricted-globals
-      location.reload();
-    }
-
-    return resp.status;
+    return await fetch(loginEndpoint, fetchOptions);
   } catch (err) {
     // Handle Error Here
     console.error(err);
@@ -165,11 +157,11 @@ export const sendNewVerifyCodeRequest = async (userId: any) => {
 export const sendPasswordResetRequest = async (data: any) => {
   try {
     const fetchOptions = {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ data }),
+      body: JSON.stringify(data),
     };
 
     const resp = await fetch(changePasswordEndpoint, fetchOptions);
@@ -185,7 +177,7 @@ export const sendPasswordResetRequest = async (data: any) => {
 export const sendPasswordChangeInitRequest = async (data: any) => {
   try {
     const fetchOptions = {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },

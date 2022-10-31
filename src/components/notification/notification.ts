@@ -1,10 +1,17 @@
-import { css, html, LitElement, property, ScopedElementsMixin } from '@lion/core';
+import {
+  css,
+  html,
+  LitElement,
+  property,
+  ScopedElementsMixin,
+} from '@lion/core';
 import { LionIcon } from '@lion/icon';
 import { BcgIcon } from '../icon';
 
 export class BcgNotification extends ScopedElementsMixin(LitElement) {
-  @property()
-  message: string;
+  @property() message: string;
+
+  @property() closeHandler: Function = () => console.log('close notification');
 
   static get scopedElements() {
     return { 'lion-icon': LionIcon };
@@ -15,16 +22,14 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
       ...super.properties,
       variant: {
         type: String,
-        reflect: true
+        reflect: true,
       },
       message: {
         type: String,
-        reflect: true
-      }
+        reflect: true,
+      },
     };
   }
-
-
 
   constructor() {
     super();
@@ -50,11 +55,17 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
           box-sizing: border-box;
           border: var(--border-m) solid var(--primary-color);
         }
+
         .wrapper lion-icon {
           align-self: center;
         }
         .wrapper span {
+          flex-grow: 1;
           margin-left: 10px;
+        }
+
+        .close-button-notification {
+          width: 24px;
         }
         :host([variant='success']) .wrapper,
         :host([variant='success']) .wrapper svg > path {
@@ -80,7 +91,7 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
           fill: var(--alert-color-info);
           border-color: var(--alert-color-info);
         }
-      `
+      `,
     ];
   }
 
@@ -89,6 +100,7 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
       <div class="wrapper">
         <lion-icon icon-id="bcg:comments:message"></lion-icon>
         <span>${this.message}</span>
+        <lion-icon id="close-button-notification"  @click=${this.closeHandler}  icon-id="bcg:general:cross"></bcg-icon>
       </div>
     `;
   }

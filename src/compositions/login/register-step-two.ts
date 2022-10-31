@@ -36,15 +36,15 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   dsgvo: object = { value: 'foo', checked: true };
 
-  firstName: string = 'Stefan';
+  firstName: string = '';
 
-  lastName: string = 'Scheifel';
+  lastName: string = '';
 
-  email: string = 'wefw@me.com';
+  email: string = '';
 
-  password: string = '1234';
+  password: string = '';
 
-  passwordrepeat: string = '1234';
+  passwordrepeat: string = '';
 
   @property({ type: String }) passwordInputType: string = 'password';
 
@@ -131,7 +131,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               .validators=${[new PasswordMatch()]}
             >
               <bcg-input
-                label="Passwort"
+                label="Password"
                 type=${this.passwordInputType}
                 placeholder=""
                 name="password"
@@ -152,7 +152,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               ></lion-icon>
               <bcg-input
                 name="passwordrepeat"
-                label="Passwort wiederholen"
+                label="Password wiederholen"
                 type=${this.passwordInputType}
                 placeholder=""
                 .validators=${[new Required()]}

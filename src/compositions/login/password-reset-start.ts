@@ -68,9 +68,9 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           <div>
-            <h2>Passwort zurücksetzen</h2>
+            <h2>Password zurücksetzen</h2>
             <p>
-              Hier können Sie Ihr bestehendes Passwort zurücksetzen und im
+              Hier können Sie Ihr bestehendes Password zurücksetzen und im
               nächsten Schritt ein neues anlegen.
             </p>
 

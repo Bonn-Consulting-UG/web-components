@@ -6,7 +6,7 @@ export class BcgPasswordResetFinished extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
       nextStep: { type: Function },
-      user: { type: Object }
+      user: { type: Object },
     };
   }
 
@@ -18,11 +18,13 @@ export class BcgPasswordResetFinished extends ScopedElementsMixin(LitElement) {
     return html`
       <div>
         <h2>
-          Ihr Passwort wurde erfolgreich geändert. <br />
-          Sie können Sich jetzt mit Ihrem neuen Passwort anmelden.
+          Ihr Password wurde erfolgreich geändert. <br />
+          Sie können Sich jetzt mit Ihrem neuen Password anmelden.
         </h2>
       </div>
-      <bcg-button-submit @click="${() => this.nextStep()}">Anmelden</bcg-button-submit>
+      <bcg-button-submit @click="${() => this.nextStep()}"
+        >Anmelden</bcg-button-submit
+      >
     `;
   }
 }
