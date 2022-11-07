@@ -131,7 +131,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               .validators=${[new PasswordMatch()]}
             >
               <bcg-input
-                label="Password"
+                label="Passwort"
                 type=${this.passwordInputType}
                 placeholder=""
                 name="password"

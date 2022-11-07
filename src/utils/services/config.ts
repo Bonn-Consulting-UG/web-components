@@ -16,7 +16,11 @@ const baseURLwithApiVersion = `${getApiUrl()}/${APIVersion}`;
 
 // Login/User
 export const registerEndpoint = `${baseURLwithApiVersion}/register`;
+
 export const loginEndpoint = `${baseURLwithApiVersion}/login`;
+
+export const refreshAccessToken = `${baseURLwithApiVersion}/auth/refresh-token`;
+
 export const depleteUserEndpoint = (userID: string) =>
   `${baseURLwithApiVersion}/users/${userID}`;
 
@@ -50,7 +54,13 @@ export const getCommentsEndpointforModule = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments`;
 
 export const reportCommentEndpoint = (commentId: number) =>
-  `${baseURLwithApiVersion}/comments/${commentId}/report/REPORTED`;
+  `${baseURLwithApiVersion}/comments/${commentId}/report`;
+
+export const approveCommentEndpoint = (commentId: number) =>
+  `${baseURLwithApiVersion}/comments/${commentId}/approve`;
+
+export const censorCommentEndpoint = (commentId: number) =>
+  `${baseURLwithApiVersion}/comments/${commentId}/censor`;
 
 export const setCommentsEndpoint = `${baseURLwithApiVersion}/comments`;
 
@@ -75,3 +85,5 @@ export const getCommentReactionWithIdEndpoint = (
 
 // Reactions
 export const reactionEndPoint = `${baseURLwithApiVersion}/reactions`;
+export const reactionDelteEndPoint = (reactionId: number) =>
+  `${baseURLwithApiVersion}/reactions/${reactionId}`;

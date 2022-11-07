@@ -4,6 +4,7 @@ import {
   checkVerifyCodeEndpoint,
   depleteUserEndpoint,
   loginEndpoint,
+  refreshAccessToken,
   registerEndpoint,
   resetPasswordEndpoint,
 } from './config';
@@ -186,6 +187,26 @@ export const sendPasswordChangeInitRequest = async (data: any) => {
     const resp = await fetch(resetPasswordEndpoint, fetchOptions);
 
     return resp;
+  } catch (err) {
+    // Handle Error Here
+    console.error(err);
+    return err;
+  }
+};
+
+export const sendGetNewAccessTokenRequest = async (refreshToken: any) => {
+  try {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ refreshToken }),
+    };
+
+    const resp = await fetch(refreshAccessToken, fetchOptions);
+
+    return resp.json();
   } catch (err) {
     // Handle Error Here
     console.error(err);

@@ -1,16 +1,25 @@
 import { html, LitElement, property } from '@lion/core';
 import jwtDecode from 'jwt-decode';
 import { PropertyValueMap } from 'lit';
-import { sendLoginRequest } from '../../utils/services/login';
+import {
+  sendGetNewAccessTokenRequest,
+  sendLoginRequest,
+} from '../../utils/services/login';
+import { getModule } from '../../utils/services/module';
 import { thumbsdown } from '../icon/export-comment-icons';
 
 export class BcgModule extends LitElement {
   @property({ type: Boolean }) isLoggedIn: Boolean = false;
 
   @property({ type: String }) moduleId: number = 0;
+  @property({ type: String }) submissionId: number = 0;
 
   @property({ type: String }) refreshToken: any =
     localStorage.getItem('refreshToken');
+
+  @property({ type: String }) refreshTokenDecoded: any = this.refreshToken
+    ? jwtDecode(this.refreshToken)
+    : null;
 
   @property({ type: String }) accessToken: any =
     localStorage.getItem('accessToken');
@@ -19,7 +28,7 @@ export class BcgModule extends LitElement {
 
   isOpen: any = false;
 
-  config: any = {};
+  @property({ type: Object }) config: object = {};
 
   @property({ type: Boolean }) showNotification: Boolean = false;
 
@@ -67,14 +76,30 @@ export class BcgModule extends LitElement {
   setupLoggedinUser() {
     localStorage.getItem('accessToken');
     this.user = this.accessToken ? jwtDecode(this.accessToken) : null;
-    console.log(this.user);
 
     if (this.user) {
+      if (Date.now() >= this.user.exp * 1000) {
+        console.log(this.user);
+        this.getNewAccessToken();
+      }
       this.isLoggedIn = true;
     }
   }
 
-  getNewAccessToken() {}
+  async getNewAccessToken() {
+    if (Date.now() >= this.refreshTokenDecoded.exp * 1000) {
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('accessToken');
+    } else {
+      const response: any = await sendGetNewAccessTokenRequest(
+        this.refreshToken
+      );
+      console.log(response.accessToken);
+      console.log(response.refreshToken);
+      localStorage.setItem('accessToken', response.accessToken);
+      localStorage.setItem('refreshToken', response.refreshToken);
+    }
+  }
 
   async logInHandler(email: string, password: string) {
     console.log('huh');
@@ -91,7 +116,15 @@ export class BcgModule extends LitElement {
     return resp;
   }
 
+  async loadConfig() {
+    if (this.moduleId !== 0) {
+      this.config = await getModule(this.moduleId);
+      console.log(this.config);
+    }
+  }
+
   connectedCallback() {
+    this.loadConfig();
     super.connectedCallback();
     this.checkAuthToken();
     this.setupLoggedinUser();

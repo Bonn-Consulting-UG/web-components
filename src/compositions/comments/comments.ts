@@ -39,7 +39,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     this.setupComments();
   }
 
-  @property({ type: Number }) displayedComments: number = 10;
+  @property({ type: Number }) displayedComments: number = 9;
 
   @property() comments: any = [];
 
@@ -90,6 +90,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
           this.responseTo.id,
           this.newComment
         );
+        this.responseTo = {};
       }
       ev.path[0].resetGroup();
       this.setupComments();
@@ -134,9 +135,6 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
               : html`<div>
                   <h3>Bitte melden Sie sich an um sich zu beteiligen</h3>
                 </div>`}
-
-            <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
-
             ${this.isLoggedIn
               ? html`
                   <div style="display:flex;margin-top:20px;">
@@ -147,6 +145,8 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                   </div>
                 `
               : null}
+
+            <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
           </form>
         </bcg-form>
 
@@ -165,7 +165,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         <div
           style="display:flex;align-items: center; align-content: center;justify-content: center; margin-top:20px;"
         >
-          ${comments.length > 10
+          ${comments && comments.length > this.displayedComments
             ? html`<bcg-button
                 variant="secondary"
                 @click=${() =>

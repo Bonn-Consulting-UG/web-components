@@ -104,7 +104,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                       >
                         <bcg-input
                           style="flex-basis:100%;"
-                          label="Password"
+                          label="Passwort"
                           type=${passwordInputType}
                           placeholder=""
                           .modelValue="${password}"

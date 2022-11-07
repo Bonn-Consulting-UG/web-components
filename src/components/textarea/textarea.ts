@@ -1,7 +1,10 @@
 import { LionTextarea } from '@lion/textarea';
-import { css } from '@lion/core';
+import { css, html, property, TemplateResultType } from '@lion/core';
+import { MaxLength } from '@lion/form-core';
 
 export class BcgTextarea extends LionTextarea {
+  @property({ type: Function }) count: any = 0;
+
   static get styles() {
     return [
       ...super.styles,
@@ -23,7 +26,27 @@ export class BcgTextarea extends LionTextarea {
         :host .form-field__help-text ::slotted(div) {
           color: var(--neutral-color-500) !important;
         }
+        .counter {
+          position: absolute;
+          right: 10px;
+          bottom: -10px;
+        }
+
+        .counter-wrapper {
+          position: relative;
+        }
       `,
     ];
+  }
+
+  updated(_changed: any) {
+    super.updated(_changed);
+    this.count = this.querySelector('textarea')?.value.length;
+  }
+  render() {
+    return html`<div class="counter-wrapper">
+      <p class="counter">${this.count}</p>
+      ${super.render()}
+    </div>`;
   }
 }
