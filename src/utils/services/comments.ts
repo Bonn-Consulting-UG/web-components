@@ -3,6 +3,9 @@ import {
   setCommentsEndpoint,
   reactionEndPoint,
   reportCommentEndpoint,
+  reactionDelteEndPoint,
+  approveCommentEndpoint,
+  censorCommentEndpoint,
 } from './config';
 
 export const getAllCommentsForModule = async (moduleID: any) => {
@@ -11,6 +14,9 @@ export const getAllCommentsForModule = async (moduleID: any) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('accessToken')
+          ? `Bearer ${localStorage.getItem('accessToken')}`
+          : '',
       },
     };
 
@@ -75,16 +81,74 @@ export const addReaction = async (
   }
 };
 
+export const removeReaction = async (reactionId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    };
+
+    const resp = await fetch(reactionDelteEndPoint(reactionId), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
 export const reportComment = async (commentId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify({
+        reason: '',
+      }),
+    };
+
+    const resp = await fetch(reportCommentEndpoint(commentId), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const approveComment = async (commentId: any) => {
   try {
     const fetchOptions = {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     };
 
-    const resp = await fetch(reportCommentEndpoint(commentId), fetchOptions);
+    const resp = await fetch(approveCommentEndpoint(commentId), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const censorComment = async (commentId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    };
+
+    const resp = await fetch(censorCommentEndpoint(commentId), fetchOptions);
     return resp.json();
   } catch (err) {
     console.error(err);
@@ -106,7 +170,7 @@ export const addCommentToComment = async (
       body: JSON.stringify({
         title: '',
         content: commentConent,
-        commentId: commentId,
+        parentCommentId: commentId,
       }),
     };
 

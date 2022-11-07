@@ -1,7 +1,15 @@
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import {
+  html,
+  css,
+  LitElement,
+  ScopedElementsMixin,
+  property,
+} from '@lion/core';
 
 export class BcgCommentReaction extends ScopedElementsMixin(LitElement) {
   reactions: any = [];
+
+  @property({ type: String }) iconclass: any;
 
   static get styles() {
     return [
@@ -43,6 +51,11 @@ export class BcgCommentReaction extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    return html` <bcg-reaction .reactions=${this.reactions}></bcg-reaction> `;
+    return html`
+      <bcg-reaction
+        class=${this.iconclass}
+        .reactions=${this.reactions}
+      ></bcg-reaction>
+    `;
   }
 }

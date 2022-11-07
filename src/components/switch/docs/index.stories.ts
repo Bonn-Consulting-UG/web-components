@@ -26,6 +26,13 @@ interface ArgTypes {
   content: Array<ContentArgs>;
 }
 
-const Template: Story<ArgTypes> = () => html` <bcg-switch> </bcg-switch> `;
+const Template: Story<ArgTypes> = () => html`
+  <bcg-switch
+    label="Label"
+    help-text="Help text"
+    @checked-changed=${(ev: any) => console.log(ev.target.checked)}
+  >
+  </bcg-switch>
+`;
 
 export const Default = Template.bind({});
