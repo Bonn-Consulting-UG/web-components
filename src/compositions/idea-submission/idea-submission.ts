@@ -31,6 +31,14 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
       // sendContactSubmissionRequest(this.contactRequest, this.moduleId);
 
       try {
+        const loggedOutpayload = this.isLoggedIn
+          ? {}
+          : {
+              email: `${externalUser.email}`,
+              firstName: `${externalUser.firstName}`,
+              lastName: `${externalUser.lastName}`,
+            };
+
         const fetchOptions = {
           method: 'POST',
           headers: {
@@ -43,9 +51,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
             moduleId,
             title: `${ideaRequest.title}`,
             description: `${ideaRequest.descirption}`,
-            email: `${externalUser.email}`,
-            firstName: `${externalUser.firstName}`,
-            lastName: `${externalUser.lastName}`,
+            ...loggedOutpayload,
           }),
         };
 
