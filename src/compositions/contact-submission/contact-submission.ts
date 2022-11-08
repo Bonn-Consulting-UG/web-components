@@ -13,6 +13,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     description: '',
     templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
   };
+  loggedInPayload = this.isLoggedIn ? {} : this.contactRequest;
 
   render() {
     const { contactRequest } = this;
@@ -36,10 +37,12 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            Authorization: localStorage.getItem('accessToken')
+              ? `Bearer ${localStorage.getItem('accessToken')}`
+              : '',
           },
           body: JSON.stringify({
-            ...contactRequest,
+            ...this.loggedInPayload,
             moduleId: this.moduleId,
           }),
         };
@@ -49,10 +52,9 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         const resp = await fetch(contactSubmissionEndpoint('1'), fetchOptions);
 
         if (resp.status === 201) {
+          this.isLoading = false;
           ev.path[0].resetGroup();
         }
-
-        this.isLoading = false;
 
         this.showNotification = true;
         this.notificationMessage =
@@ -72,6 +74,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           ${
             this.showNotification
               ? html` <bcg-notification
+                  .closeHandler=${this.disabledNotification}
                   variant=${this.notificationType}
                   message=${this.notificationMessage}
                 ></bcg-notification>`
