@@ -7,6 +7,7 @@ import {
   getAllCommentsForModule,
   addCommentToModule,
   addCommentToComment,
+  getAllSubmissionsForAModule,
 } from '../../utils/services/comments.js';
 import { BcgCommentReaction } from './comment-reaction.js';
 import { BcgComment } from './comment.js';
@@ -59,7 +60,14 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   newComment: any = '';
 
   setupComments: any = async () => {
-    const response = await getAllCommentsForModule(this.moduleId);
+    let response;
+    if (this.moduleId !== 0) {
+      response = await getAllCommentsForModule(this.moduleId);
+    }
+
+    if (this.submissionId !== 0) {
+      response = await getAllSubmissionsForAModule(this.submissionId);
+    }
     this.comments = response.results;
     console.log(this.comments);
     this.count = response.resultCount;

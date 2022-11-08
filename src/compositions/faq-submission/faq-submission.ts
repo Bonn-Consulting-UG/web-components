@@ -61,9 +61,15 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
             body: JSON.stringify({
               ...faqRequest,
               moduleId: this.moduleId,
-              firstName: this.user.given_name,
-              lastName: this.user.family_name,
-              email: this.user.email,
+              firstName: localStorage.getItem('accessToken')
+                ? this.user.given_name
+                : faqRequest.firstName,
+              lastName: localStorage.getItem('accessToken')
+                ? this.user.family_name
+                : faqRequest.lastName,
+              email: localStorage.getItem('accessToken')
+                ? this.user.email
+                : faqRequest.email,
             }),
           };
 

@@ -31,6 +31,29 @@ export const getAllCommentsForModule = async (moduleID: any) => {
   }
 };
 
+export const getAllSubmissionsForAModule = async (submissionId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('accessToken')
+          ? `Bearer ${localStorage.getItem('accessToken')}`
+          : '',
+      },
+    };
+
+    const resp = await fetch(
+      getCommentsEndpointforModule(submissionId),
+      fetchOptions
+    );
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
 export const addCommentToModule = async (moduleID: any, commentConent: any) => {
   try {
     const fetchOptions = {
