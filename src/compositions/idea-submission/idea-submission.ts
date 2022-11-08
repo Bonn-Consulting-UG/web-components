@@ -35,7 +35,9 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            Authorization: localStorage.getItem('accessToken')
+              ? `Bearer ${localStorage.getItem('accessToken')}`
+              : '',
           },
           body: JSON.stringify({
             moduleId,
