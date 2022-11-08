@@ -35,7 +35,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
             body: JSON.stringify({
               ...faqRequest,
@@ -43,6 +42,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
               firstName: this.faqRequest.firstName,
               lastName: this.faqRequest.lastName,
               email: this.faqRequest.email,
+              templateId: '7fbab510-a25b-4aab-a2f5-0fc36cc880cd',
             }),
           };
           const resp = await fetch(
@@ -56,7 +56,9 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              Authorization: localStorage.getItem('accessToken')
+                ? `Bearer ${localStorage.getItem('accessToken')}`
+                : '',
             },
             body: JSON.stringify({
               ...faqRequest,
@@ -96,6 +98,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         ${
           this.showNotification
             ? html` <bcg-notification
+                .closeHandler=${this.disabledNotification}
                 variant=${this.notificationType}
                 message=${this.notificationMessage}
               ></bcg-notification>`
@@ -146,13 +149,24 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                 ${
                   !this.isLoggedIn
                     ? html` <bcg-input
-                          label="Ihr Name "
+                          label="Ihr Vorname "
                           placeholder=""
-                          name="name"
+                          name="surname"
                           .validators=${[]}
-                          .modelValue="${faqRequest.name}"
+                          .modelValue="${faqRequest.firstName}"
                           @model-value-changed=${({ target }: any) => {
-                            faqRequest.name = target.value;
+                            faqRequest.firstName = target.value;
+                          }}
+                        ></bcg-input>
+
+                        <bcg-input
+                          label="Ihr Nachname"
+                          placeholder=""
+                          name="lastname"
+                          .validators=${[]}
+                          .modelValue="${faqRequest.lastName}"
+                          @model-value-changed=${({ target }: any) => {
+                            faqRequest.lastName = target.value;
                           }}
                         ></bcg-input>
                         <p>Sofern Sie von uns kontaktiert werden möchten.</p>
