@@ -41,6 +41,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
             moduleId,
             title: `${ideaRequest.title}`,
             description: `${ideaRequest.descirption}`,
+            email: `${externalUser.email}`,
             firstName: `${externalUser.firstName}`,
             lastName: `${externalUser.lastName}`,
           }),
