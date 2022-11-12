@@ -5,7 +5,7 @@ import de from 'date-fns/locale/de';
 import { BcgModule } from '../../components/module/module.js';
 import {
   getAllCommentsForModule,
-  addCommentToModule,
+  addComment,
   addCommentToComment,
   getAllSubmissionsForAModule,
 } from '../../utils/services/comments.js';
@@ -61,16 +61,26 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   setupComments: any = async () => {
     let response;
-    if (this.moduleId !== 0) {
+    if (this.moduleId !== 0 && !this.submissionId) {
       response = await getAllCommentsForModule(this.moduleId);
+      this.comments = response.results;
+      this.count = response.resultCount;
     }
 
-    if (this.submissionId !== 0) {
+    if (this.submissionId !== 0 && !this.moduleId) {
+      console.log(this.submissionId);
       response = await getAllSubmissionsForAModule(this.submissionId);
+      console.log(response);
+
+      // this.comments = response.comments;
+
+      const test = response.moduleId;
+
+      this.comments = response.results;
+      this.count = response.resultCount;
     }
-    this.comments = response.results;
-    console.log(this.comments);
-    this.count = response.resultCount;
+
+    console.log(response);
   };
 
   static get scopedElements() {
@@ -90,7 +100,11 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         return;
       }
       if (!this.responseTo.author) {
-        const resp = await addCommentToModule(this.moduleId, this.newComment);
+        const resp = await addComment(
+          this.moduleId,
+          this.newComment,
+          this.submissionId
+        );
       }
 
       if (this.responseTo.author) {

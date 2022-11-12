@@ -3,13 +3,13 @@ const APIVersion = 'v1';
 
 const getApiUrl = () => {
   if (location.href.includes(`-dev`))
-    return 'https://epart-api-dev.ifok.digital';
+    return 'https://epart-api-nonprod.ifok.digital';
   if (
     location.href.includes(`-nonprod`) ||
     location.href.includes('https://iwbk.bonnconsulting.group')
   )
     return 'https://epart-api-nonprod.ifok.digital';
-  return 'https://epart-api-dev.ifok.digital';
+  return 'https://epart-api-nonprod.ifok.digital';
 };
 
 const baseURLwithApiVersion = `${getApiUrl()}/${APIVersion}`;
@@ -43,6 +43,9 @@ export const faqSubmissionEndpoint = (moduleID: any) =>
 
 export const ideaSubmissionEndpoint = (moduleID: any) =>
   `${baseURLwithApiVersion}/submissions/idea`;
+
+export const getSubmissionsEndpointforModule = (submissionId: number) =>
+  `${baseURLwithApiVersion}/modules/${submissionId}/submissions`;
 
 // Modules
 export const getAllModulesEndpoint = `${baseURLwithApiVersion}/modules`;
