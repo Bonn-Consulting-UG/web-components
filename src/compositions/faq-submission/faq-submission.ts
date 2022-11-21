@@ -1,5 +1,5 @@
 import { html, ScopedElementsMixin } from '@lion/core';
-import { IsEmail, Required } from '@lion/form-core';
+import { IsEmail, MaxLength, MinLength, Required } from '@lion/form-core';
 import { thumbsdown } from '../../components/icon/export-comment-icons';
 import { BcgModule } from '../../components/module';
 import { faqSubmissionEndpoint } from '../../utils/services/config';
@@ -119,7 +119,11 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   rows="6"
                   name="title"
                   label="Ihre Frage *"
-                  .validators=${[new Required()]}
+                  .validators=${[
+                    new Required(),
+                    new MinLength(3),
+                    new MaxLength(500),
+                  ]}
                   placeholder=""
                   .modelValue="${faqRequest.title}"
                   @model-value-changed=${({ target }: any) => {
@@ -132,7 +136,11 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   label="Erläuterungen"
                   name="content"
                   placeholder=""
-                  .validators=${[]}
+                  .validators=${[
+                    new Required(),
+                    new MinLength(3),
+                    new MaxLength(1000),
+                  ]}
                   .modelValue="${faqRequest.description}"
                   @model-value-changed=${({ target }: any) => {
                     faqRequest.description = target.value;

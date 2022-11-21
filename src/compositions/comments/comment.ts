@@ -107,7 +107,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
             ? html`<div style="display:flex;">
                 <bcg-button
                   @click="${async () => {
-                    !likeReaction
+                    !dislikeReaction && !likeReaction
                       ? await addReaction({ type: 'LIKE' }, id, null)
                       : await removeReaction(likeReaction.id);
                     this.refresh();
@@ -121,7 +121,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 </bcg-button>
                 <bcg-button
                   @click=${async () => {
-                    !dislikeReaction
+                    !dislikeReaction && !likeReaction
                       ? await addReaction({ type: 'DISLIKE' }, id, null)
                       : await removeReaction(dislikeReaction.id);
 

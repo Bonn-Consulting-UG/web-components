@@ -57,8 +57,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         }
 
         this.showNotification = true;
-        this.notificationMessage =
-          'Ihre Nachricht wurde Erfolgreich übersendet';
+        this.notificationMessage = 'Danke für Ihren Beitrag!';
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';

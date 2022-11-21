@@ -27,9 +27,6 @@ export class BcgRegisterStepFinished extends ScopedElementsMixin(BcgModule) {
         <h2>Willkommen, ${this.user.given_name} ${this.user.family_name}!</h2>
         <h2>Ihre Registrierung war erfolgreich.</h2>
       </div>
-      <bcg-button-submit @click="${() => this.nextStep()}"
-        >Jetzt beteiligen</bcg-button-submit
-      >
     `;
   }
 }

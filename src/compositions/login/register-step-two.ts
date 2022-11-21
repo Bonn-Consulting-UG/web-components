@@ -152,7 +152,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               ></lion-icon>
               <bcg-input
                 name="passwordrepeat"
-                label="Password wiederholen"
+                label="Passwort wiederholen"
                 type=${this.passwordInputType}
                 placeholder=""
                 .validators=${[new Required()]}

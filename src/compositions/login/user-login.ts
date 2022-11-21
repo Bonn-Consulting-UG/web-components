@@ -129,14 +129,16 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
 
                     <div
                       style="display:flex;margin-top:20px;justify-content: space-between;"
-                    >
-                      <bcg-button
-                        variant="secondary"
+                    >        
+              <bcg-button-submit>Anmelden</bcg-button-submit>
+
+                      <a
+                      style="display: flex;
+    align-items: center;"
                         @click=${onPasswordReset}
                         @keydown=${onPasswordReset}
-                        >Password zurücksetzten</bcg-button
+                        >Passwort zurücksetzen</a
                       >
-                      <bcg-button-submit>Anmelden</bcg-button-submit>
                     </div>
                   </form></bcg-formw
                 >`}
