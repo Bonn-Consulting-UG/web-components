@@ -68,9 +68,9 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           <div>
-            <h2>Password zurücksetzen</h2>
+            <h2>Passwort zurücksetzen</h2>
             <p>
-              Hier können Sie Ihr bestehendes Password zurücksetzen und im
+              Hier können Sie Ihr bestehendes Passwort zurücksetzen und im
               nächsten Schritt ein neues anlegen.
             </p>
 
@@ -88,7 +88,7 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
             <bcg-button @click=${this.back} variant="secondary"
               >Zurück</bcg-button
             >
-            <bcg-button-submit>Password zurücksetzen</bcg-button-submit>
+            <bcg-button-submit>Passwort zurücksetzen</bcg-button-submit>
           </div>
         </form>
       </bcg-form>

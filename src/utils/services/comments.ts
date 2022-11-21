@@ -6,6 +6,7 @@ import {
   reactionDelteEndPoint,
   approveCommentEndpoint,
   censorCommentEndpoint,
+  getSubmissionsEndpointforModule,
 } from './config';
 
 export const getAllCommentsForModule = async (moduleID: any) => {
@@ -31,6 +32,29 @@ export const getAllCommentsForModule = async (moduleID: any) => {
   }
 };
 
+export const getAllSubmissionForModule = async (submissionId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('accessToken')
+          ? `Bearer ${localStorage.getItem('accessToken')}`
+          : '',
+      },
+    };
+
+    const resp = await fetch(
+      getSubmissionsEndpointforModule(submissionId),
+      fetchOptions
+    );
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
 export const getAllSubmissionsForAModule = async (submissionId: any) => {
   try {
     const fetchOptions = {
@@ -44,7 +68,7 @@ export const getAllSubmissionsForAModule = async (submissionId: any) => {
     };
 
     const resp = await fetch(
-      getCommentsEndpointforModule(submissionId),
+      getSubmissionsEndpointforModule(submissionId),
       fetchOptions
     );
     return resp.json();
@@ -54,7 +78,11 @@ export const getAllSubmissionsForAModule = async (submissionId: any) => {
   }
 };
 
-export const addCommentToModule = async (moduleID: any, commentConent: any) => {
+export const addComment = async (
+  moduleId: number,
+  commentConent: any,
+  submissionId: number
+) => {
   try {
     const fetchOptions = {
       method: 'POST',
@@ -65,7 +93,8 @@ export const addCommentToModule = async (moduleID: any, commentConent: any) => {
       body: JSON.stringify({
         title: '',
         content: commentConent,
-        moduleId: moduleID,
+        moduleId: moduleId ? moduleId : null,
+        submissionId: submissionId ? submissionId : null,
       }),
     };
 

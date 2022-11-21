@@ -117,7 +117,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
 
             <bcg-input
               name="passwordrepeat"
-              label="Password wiederholen"
+              label="Passwort wiederholen"
               type=${this.passwordInputType}
               placeholder=""
               .validators=${[new Required()]}
