@@ -6,7 +6,7 @@ import {
   ScopedElementsMixin,
   property,
 } from '@lion/core';
-import { IsEmail, Pattern, Required } from '@lion/form-core';
+import { Required, IsEmail } from '../../utils/helpers/input-errors';
 import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
 import { BcgInput } from '../../components/input/input';
@@ -89,9 +89,6 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
       });
     };
 
-    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
-    Required.getMessage = async () => 'Angabe benötigt';
-
     return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
@@ -99,6 +96,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             <bcg-input
               label="Vorname"
               name="firstName"
+              help-text="Dieser Name ist später öffentlich sichtbar"
               placeholder=""
               .validators=${[new Required()]}
               .modelValue="${firstName}"
@@ -164,9 +162,18 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             </bcg-fieldset>
             <bcg-checkbox-group name="dsgvo" .validators=${[new Required()]}>
               <bcg-checkbox
-                label="Ich akzeptiere die Netiquette und die Datenschutzerklärung."
                 .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung.'}
-              ></bcg-checkbox>
+                ><p slot="label">
+                  Ich akzeptiere die
+                  <a href="https://iwbk-nonprod.ifok.digital/netiquette"
+                    >Netiquette</a
+                  >
+                  und die
+                  <a href="https://iwbk-nonprod.ifok.digital/datenschutz"
+                    >Datenschutzerklärung</a
+                  >
+                </p></bcg-checkbox
+              >
             </bcg-checkbox-group>
             <bcg-button-submit>Registrieren</bcg-button-submit>
           </div>

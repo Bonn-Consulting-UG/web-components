@@ -1,5 +1,9 @@
 import { html, ScopedElementsMixin } from '@lion/core';
-import { IsEmail, MaxLength, MinLength, Required } from '@lion/form-core';
+import {
+  Required,
+  MinLength,
+  MaxLength,
+} from '../../utils/helpers/input-errors';
 import { thumbsdown } from '../../components/icon/export-comment-icons';
 import { BcgModule } from '../../components/module';
 import { faqSubmissionEndpoint } from '../../utils/services/config';
@@ -16,8 +20,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
 
   render() {
     const { faqRequest } = this;
-    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
-    Required.getMessage = async () => 'Angabe benötigt';
 
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -30,65 +32,44 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
       // sendContactSubmissionRequest(this.contactRequest, this.moduleId);
 
       try {
-        if (!this.isLoggedIn) {
-          const fetchOptionsloggedout = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              ...faqRequest,
-              moduleId: this.moduleId,
-              firstName: this.faqRequest.firstName,
-              lastName: this.faqRequest.lastName,
-              email: this.faqRequest.email,
-              templateId: '7fbab510-a25b-4aab-a2f5-0fc36cc880cd',
-            }),
-          };
-          const resp = await fetch(
-            faqSubmissionEndpoint(this.moduleId),
-            fetchOptionsloggedout
-          );
-        }
+        const fetchOptionsloggedout = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('accessToken')
+              ? `Bearer ${localStorage.getItem('accessToken')}`
+              : '',
+          },
+          body: this.isLoggedIn
+            ? JSON.stringify({
+                description: this.faqRequest.description,
+                title: this.faqRequest.title,
+                moduleId: this.moduleId,
+                templateId: '7fbab510-a25b-4aab-a2f5-0fc36cc880cd',
+              })
+            : JSON.stringify({
+                moduleId: this.moduleId,
+                templateId: '7fbab510-a25b-4aab-a2f5-0fc36cc880cd',
+                ...this.faqRequest,
+              }),
+        };
+        const resp = await fetch(
+          faqSubmissionEndpoint(this.moduleId),
+          fetchOptionsloggedout
+        );
 
-        if (this.isLoggedIn) {
-          const fetchOptions = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: localStorage.getItem('accessToken')
-                ? `Bearer ${localStorage.getItem('accessToken')}`
-                : '',
-            },
-            body: JSON.stringify({
-              ...faqRequest,
-              moduleId: this.moduleId,
-              firstName: localStorage.getItem('accessToken')
-                ? this.user.given_name
-                : faqRequest.firstName,
-              lastName: localStorage.getItem('accessToken')
-                ? this.user.family_name
-                : faqRequest.lastName,
-              email: localStorage.getItem('accessToken')
-                ? this.user.email
-                : faqRequest.email,
-            }),
-          };
+        this.faqRequest.description = '';
+        this.faqRequest.title = '';
 
-          const resp = await fetch(
-            faqSubmissionEndpoint(this.moduleId),
-            fetchOptions
-          );
-        }
-
-        ev.path[0].resetGroup();
+        this.notificationType = 'success';
         this.showNotification = true;
-        this.notificationMessage = 'Ihre Frage wurde Erfolgreich übersendet';
+        this.notificationMessage =
+          'Danke für Ihre Frage! Wir bearbeiten sie so schnell wie möglich.';
       } catch (err) {
         this.showNotification = true;
         console.log(err);
         this.notificationType = 'error';
-        this.notificationMessage = 'Fehler ist aufgetreten';
+        this.notificationMessage = 'Ein Fehler ist aufgetreten';
       }
     };
 
@@ -122,7 +103,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   .validators=${[
                     new Required(),
                     new MinLength(3),
-                    new MaxLength(500),
+                    new MaxLength(1000),
                   ]}
                   placeholder=""
                   .modelValue="${faqRequest.title}"
@@ -160,7 +141,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                           label="Ihr Vorname "
                           placeholder=""
                           name="surname"
-                          .validators=${[]}
+                          .validators=${[new MaxLength(50)]}
                           .modelValue="${faqRequest.firstName}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.firstName = target.value;
@@ -171,7 +152,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                           label="Ihr Nachname"
                           placeholder=""
                           name="lastname"
-                          .validators=${[]}
+                          .validators=${[new MaxLength(50)]}
                           .modelValue="${faqRequest.lastName}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.lastName = target.value;
@@ -197,9 +178,15 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                           name="datasec"
                         >
                           <bcg-checkbox
-                            label="Ich akzeptiere die Datenschutzerklärung</a>"
                             .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
-                          ></bcg-checkbox>
+                            ><p slot="label">
+                              Ich akzeptiere die
+                              <a
+                                href="https://iwbk-nonprod.ifok.digital/datenschutz"
+                                >Datenschutzerklärung</a
+                              >
+                            </p></bcg-checkbox
+                          >
                         </bcg-checkbox-group>`
                     : null
                 }

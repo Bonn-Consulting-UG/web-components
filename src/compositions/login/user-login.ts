@@ -5,7 +5,7 @@ import {
   ScopedElementsMixin,
   property,
 } from '@lion/core';
-import { IsEmail, MinLength, Required } from '@lion/form-core';
+import { Required, MinLength, IsEmail } from '../../utils/helpers/input-errors';
 import { BcgModule } from '../../components/module';
 import { sendLoginRequest } from '../../utils/services/login';
 import { BcgButtonSubmit } from '../../components/button/button-submit';
@@ -48,9 +48,6 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
   render() {
     let { email, password, passwordInputType, onPasswordReset } = this;
 
-    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
-    Required.getMessage = async () => 'Angabe benötigt';
-
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
@@ -64,7 +61,8 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
       if (resp.status === 401) {
         this.isLoading = false;
         this.showNotification = true;
-        this.notificationMessage = 'Falsche Zugangsdaten';
+        this.notificationMessage =
+          'Wir konnten Ihre Zugangsdaten bei uns leider nicht finden! Bitte überprüfen Sie sie oder registrieren Sie sich zunächst.';
         this.notificationType = 'error';
       }
 
@@ -133,8 +131,9 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
               <bcg-button-submit>Anmelden</bcg-button-submit>
 
                       <a
+                      href
                       style="display: flex;
-    align-items: center;"
+                       align-items: center;"
                         @click=${onPasswordReset}
                         @keydown=${onPasswordReset}
                         >Passwort zurücksetzen</a

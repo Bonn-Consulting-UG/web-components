@@ -71,17 +71,18 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     const { isModerator, createdAt, author, content, comments, _count, id } =
       this.comments;
 
-    const likeReaction = this.comments.$userReactions.find(
-      (e: any) => e.type === 'LIKE'
-    );
+    const likeReaction = (comment: any) =>
+      comment.$userReactions.find((e: any) => e.type === 'LIKE');
 
-    const dislikeReaction = this.comments.$userReactions.find(
-      (e: any) => e.type === 'DISLIKE'
-    );
+    const dislikeReaction = (comment: any) =>
+      comment.$userReactions.find((e: any) => e.type === 'DISLIKE');
 
     return html`
       <hr />
-      <div class="comment-wrapper ${isModerator ? 'moderator' : null}">
+      <div
+        data-id=${id}
+        class="comment-wrapper ${isModerator ? 'moderator' : null}"
+      >
         <div class="comment-poster">
           <div class="comment-poster-details">
             <p
@@ -107,23 +108,25 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
             ? html`<div style="display:flex;">
                 <bcg-button
                   @click="${async () => {
-                    !dislikeReaction && !likeReaction
+                    !dislikeReaction(this.comments) &&
+                    !likeReaction(this.comments)
                       ? await addReaction({ type: 'LIKE' }, id, null)
-                      : await removeReaction(likeReaction.id);
+                      : await removeReaction(likeReaction(this.comments).id);
                     this.refresh();
                   }}"
                 >
                   <bcg-reaction
                     .value=${_count.likes}
                     .icon=${'bcg:comments:thumbsup'}
-                    iconclass=${likeReaction ? 'filled' : ''}
+                    iconclass=${likeReaction(this.comments) ? 'filled' : ''}
                   ></bcg-reaction>
                 </bcg-button>
                 <bcg-button
                   @click=${async () => {
-                    !dislikeReaction && !likeReaction
+                    !dislikeReaction(this.comments) &&
+                    !likeReaction(this.comments)
                       ? await addReaction({ type: 'DISLIKE' }, id, null)
-                      : await removeReaction(dislikeReaction.id);
+                      : await removeReaction(dislikeReaction(this.comments).id);
 
                     this.refresh();
                   }}
@@ -131,7 +134,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                   <bcg-reaction
                     .value=${_count.dislikes}
                     .icon=${'bcg:comments:thumbsdown'}
-                    iconclass=${dislikeReaction ? 'filled' : ''}
+                    iconclass=${dislikeReaction(this.comments) ? 'filled' : ''}
                   ></bcg-reaction>
                 </bcg-button>
 
@@ -141,27 +144,29 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                     .icon=${'bcg:comments:message'}
                   ></bcg-reaction>
                 </bcg-button>
-                <bcg-button
-                  @click=${async () => {
-                    if (this.comments.$userReported) return;
-                    await reportComment(this.comments.id);
-                    this.refresh();
-                  }}
-                >
-                  <bcg-reaction
-                    .value=${this.comments.$userReported
-                      ? 'Kommentar wurde gemeldet'
-                      : 'Melden'}
-                    .icon=${this.comments.$userReported
-                      ? 'bcg:comments:reportFilled'
-                      : 'bcg:comments:report'}
-                    class=${this.comments.$userReported ? 'error-color' : ''}
-                  ></bcg-reaction>
-                </bcg-button>
 
-                ${this.user.resource_access.account.roles.includes(
-                  'manage-account'
-                )
+                ${this.user.sub !== this.comments.authorId
+                  ? html` <bcg-button
+                      @click=${async () => {
+                        if (this.comments.$userReported) return;
+                        await reportComment(this.comments.id);
+                        this.refresh();
+                      }}
+                    >
+                      <bcg-reaction
+                        .value=${this.comments.$userReported
+                          ? 'Kommentar wurde gemeldet'
+                          : 'Melden'}
+                        .icon=${this.comments.$userReported
+                          ? 'bcg:comments:reportFilled'
+                          : 'bcg:comments:report'}
+                        class=${this.comments.$userReported
+                          ? 'error-color'
+                          : ''}
+                      ></bcg-reaction>
+                    </bcg-button>`
+                  : null}
+                ${this.user.realm_access.roles.includes('MODERATOR')
                   ? html`
                       ${this.comments.status === 'REPORTED' ||
                       this.comments.status === 'WAITING' ||
@@ -225,43 +230,52 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 ? html`
                     <bcg-button
                       @click=${async () => {
-                        await addReaction({ type: 'LIKE' }, i.id, null);
+                        !dislikeReaction(i) && !likeReaction(i)
+                          ? await addReaction({ type: 'LIKE' }, i.id, null)
+                          : await removeReaction(likeReaction(i).id);
+
                         this.refresh();
                       }}
                     >
                       <bcg-reaction
                         .value=${i._count.likes}
                         .icon=${'bcg:comments:thumbsup'}
+                        iconclass=${likeReaction(i) ? 'filled' : ''}
                       ></bcg-reaction>
                     </bcg-button>
                     <bcg-button
                       @click=${async () => {
-                        await addReaction({ type: 'DISLIKE' }, i.id, null);
+                        !dislikeReaction(i) && !likeReaction(i)
+                          ? await addReaction({ type: 'DISLIKE' }, i.id, null)
+                          : await removeReaction(dislikeReaction(i).id);
                         this.refresh();
                       }}
                     >
                       <bcg-reaction
                         .value=${i._count.dislikes}
                         .icon=${'bcg:comments:thumbsdown'}
+                        iconclass=${dislikeReaction(i) ? 'filled' : ''}
                       ></bcg-reaction>
                     </bcg-button>
-                    <bcg-button
-                      @click=${async () => {
-                        if (i.$userReported) return;
-                        await reportComment(i.id);
-                        this.refresh();
-                      }}
-                    >
-                      <bcg-reaction
-                        .value=${i.$userReported
-                          ? 'Kommentar wurde gemeldet'
-                          : 'Melden'}
-                        .icon=${i.$userReported
-                          ? 'bcg:comments:reportFilled'
-                          : 'bcg:comments:report'}
-                        class=${i.$userReported ? 'error-color' : ''}
-                      ></bcg-reaction>
-                    </bcg-button>
+                    ${this.user.sub !== i.authorId
+                      ? html` <bcg-button
+                          @click=${async () => {
+                            if (i.$userReported) return;
+                            await reportComment(i.id);
+                            this.refresh();
+                          }}
+                        >
+                          <bcg-reaction
+                            .value=${i.$userReported
+                              ? 'Kommentar wurde gemeldet'
+                              : 'Melden'}
+                            .icon=${i.$userReported
+                              ? 'bcg:comments:reportFilled'
+                              : 'bcg:comments:report'}
+                            class=${i.$userReported ? 'error-color' : ''}
+                          ></bcg-reaction>
+                        </bcg-button>`
+                      : null}
                   `
                 : null}
             </div>

@@ -3,7 +3,7 @@ import { LionCollapsible } from '@lion/collapsible';
 import { LionIcon } from '@lion/icon';
 import { PropertyValueMap } from 'lit';
 
-export class BcgCollapsible extends ScopedElementsMixin(LionCollapsible) {
+export class BcgCollapsibleButton extends ScopedElementsMixin(LitElement) {
   buttonLabel: string;
 
   content: string;
@@ -11,7 +11,7 @@ export class BcgCollapsible extends ScopedElementsMixin(LionCollapsible) {
   static get styles() {
     return [
       css`
-        .invoker {
+        .:host(*) {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -31,5 +31,26 @@ export class BcgCollapsible extends ScopedElementsMixin(LionCollapsible) {
     super();
     this.buttonLabel = 'Default';
     this.content = '123';
+  }
+
+  static get properties() {
+    return {
+      opened: {
+        type: Boolean,
+        reflect: true,
+      },
+    };
+  }
+
+  static get scopedElements() {
+    return { 'lion-icon': LionIcon };
+  }
+
+  render() {
+    return html`
+      <div>
+        <p>${this.buttonLabel}</p>
+      </div>
+    `;
   }
 }

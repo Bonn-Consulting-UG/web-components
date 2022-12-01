@@ -5,7 +5,7 @@ import {
   ScopedElementsMixin,
   property,
 } from '@lion/core';
-import { MinLength, Required } from '@lion/form-core';
+import { Required, MinLength } from '../../utils/helpers/input-errors';
 import { sendNewVerifyCodeRequest } from '../../utils/services/login';
 import { PasswordMatch } from '../../utils/validators/password-match';
 
@@ -58,8 +58,6 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
   render() {
     console.log(this.user);
     let { code, password, passwordrepeat } = this;
-    Required.getMessage = async () => 'Angabe benötigt';
-    MinLength.getMessage = async () => `Mindestens 4 Zeichen`;
 
     const submitHandler = (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {

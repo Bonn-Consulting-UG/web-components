@@ -32,8 +32,10 @@ export class BcgModule extends LitElement {
 
   @property({ type: Boolean }) showNotification: Boolean = false;
 
-  @property({ type: Boolean }) disabledNotification: Function = () =>
-    (this.showNotification = !this.showNotification);
+  @property({ type: Boolean }) disabledNotification: Function = () => {
+    this.showNotification = !this.showNotification;
+    this.notificationType = '';
+  };
 
   @property({ type: String }) notificationMessage: string =
     'Ihre Nachricht wurde Erfolgreich übersendet';
@@ -64,14 +66,10 @@ export class BcgModule extends LitElement {
     }
   }
 
-  logOutHandler() {
+  logOutHandler = () => {
     localStorage.removeItem('accessToken');
-    this.accessToken = null;
-    this.user = null;
     this.isLoggedIn = false;
-    // eslint-disable-next-line no-restricted-globals
-    location.reload();
-  }
+  };
 
   setupLoggedinUser() {
     localStorage.getItem('accessToken');

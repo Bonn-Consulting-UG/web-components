@@ -31,7 +31,7 @@ export const sendRegisterRequest = async (newUser: any) => {
 export const checkVerifyCode = async (userID: any, code: any) => {
   try {
     const fetchOptions = {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },

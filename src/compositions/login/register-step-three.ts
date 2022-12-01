@@ -1,5 +1,5 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { MinLength, Required } from '@lion/form-core';
+import { Required, MinLength } from '../../utils/helpers/input-errors';
 import { sendNewVerifyCodeRequest } from '../../utils/services/login';
 
 export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
@@ -29,8 +29,6 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
   render() {
     console.log(this.user);
     let { code } = this;
-    Required.getMessage = async () => 'Angabe benötigt';
-    MinLength.getMessage = async () => `Mindestens 6 Zeichen`;
 
     const submitHandler = (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -66,23 +64,25 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
         </div>
         <div>
           <h3>Sie haben keine E-Mail erhalten?</h3>
-          <a
-            href
-            @click=${() => {
-              sendNewVerifyCodeRequest(this.user.id);
-            }}
-          >
-            Neuen Code senden
-          </a>
+          <div style="display:flex;flex-direction:column">
+            <a
+              href="javascript:void(0)"
+              @click=${() => {
+                sendNewVerifyCodeRequest(this.user.id);
+              }}
+            >
+              &bull; Neuen Code senden
+            </a>
 
-          <a
-            href
-            @click=${() => {
-              this.nextStep('back');
-            }}
-          >
-            E-Mail Adresse überarbeiten
-          </a>
+            <a
+              href="javascript:void(0)"
+              @click=${() => {
+                this.nextStep('back');
+              }}
+            >
+              &bull; E-Mail Adresse überarbeiten
+            </a>
+          </div>
         </div>
 
         <bcg-button-submit variant="primary">Code abschicken</bcg-button-submit>

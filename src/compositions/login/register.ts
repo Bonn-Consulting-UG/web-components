@@ -25,6 +25,8 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
 
   verifyCode: number = 0;
 
+  userData: any = null;
+
   nextStep = async (payload: any) => {
     let response: any = null;
 
@@ -34,6 +36,7 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
 
         response = await sendRegisterRequest(payload);
         const responseBody = await response.json();
+        this.userData = responseBody;
 
         if (responseBody.accessToken) {
           localStorage.setItem('accessToken', responseBody.accessToken);
@@ -41,30 +44,40 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
         }
 
         if (response.status === 409 || response.status === 500) {
-          console.log('HELLO ITS ME');
           this.showNotification = true;
-          this.notificationMessage = `Statuscode: ${response.status} ${responseBody.message}`;
+          this.notificationMessage = `Scheinbar sind Sie mit dieser E-Mail-Adresse bei uns schon registriert! Bitte melden Sie sich an. `;
           this.notificationType = 'error';
           this.isLoading = false;
+        } else {
+          this.notificationType = '';
+          this.showNotification = false;
         }
 
         this.isLoading = false;
         if (response.status !== 201) return;
       }
-      if (this.currentStep === 3) {
+      if (this.currentStep === 2) {
         if (payload === 'back') {
           this.currentStep -= 1;
+          return;
         }
-
         this.isLoading = true;
-
-        response = await checkVerifyCode(this.user.sub, payload);
+        response = await checkVerifyCode(this.userData.id, payload);
 
         this.isLoading = false;
 
-        if (response.status !== 201) return;
+        if (response.status !== 200) {
+          this.showNotification = true;
+          this.notificationMessage = `Oh, da stimmt etwas nicht! Bitte überprüfen Sie den Verifizierungscode.`;
+          this.notificationType = 'error';
+        } else {
+          this.notificationType = '';
+          this.showNotification = false;
+        }
       }
-      this.currentStep += 1;
+      if (this.notificationType !== 'error') {
+        this.currentStep += 1;
+      }
     } else {
       location.reload();
     }
@@ -119,13 +132,13 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
               : null}
             ${currentStep === 2
               ? html`<bcg-register-step-three
-                  .user=${this.user}
+                  .user=${this.userData}
                   .nextStep="${nextStep}"
                 ></bcg-register-step-three> `
               : null}
             ${currentStep === 3
               ? html`<bcg-register-step-finished
-                  .user=${this.user}
+                  .user=${this.userData}
                   .nextStep="${nextStep}"
                 ></bcg-register-step-finished> `
               : null}
