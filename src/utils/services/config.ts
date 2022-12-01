@@ -4,12 +4,9 @@ const APIVersion = 'v1';
 const getApiUrl = () => {
   if (location.href.includes(`-dev`))
     return 'https://epart-api-nonprod.ifok.digital';
-  if (
-    location.href.includes(`-nonprod`) ||
-    location.href.includes('https://iwbk.bonnconsulting.group')
-  )
+  if (location.href.includes(`-nonprod`))
     return 'https://epart-api-nonprod.ifok.digital';
-  return 'https://epart-api-nonprod.ifok.digital';
+  return 'https://epart-api-dev.ifok.digital';
 };
 
 const baseURLwithApiVersion = `${getApiUrl()}/${APIVersion}`;

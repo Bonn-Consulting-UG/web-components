@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 
 import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
-import { IsEmail, Required } from '@lion/form-core';
+import { Required, IsEmail } from '../../utils/helpers/input-errors';
 import {
   checkVerifyCode,
   sendPasswordChangeInitRequest,
@@ -61,9 +61,6 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
 
   render() {
     const { maxStep, currentStep } = this;
-
-    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
-    Required.getMessage = async () => 'Angabe benötigt';
 
     return html`
       ${currentStep >= maxStep - 1 ? null : html`<h1>Willkommen zurück!</h1>`}

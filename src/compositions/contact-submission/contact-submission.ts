@@ -1,28 +1,23 @@
 import { html, ScopedElementsMixin } from '@lion/core';
-import { IsEmail, Required } from '@lion/form-core';
 import { BcgModule } from '../../components/module';
+import { Required } from '../../utils/helpers/input-errors';
 import { contactSubmissionEndpoint } from '../../utils/services/config';
 import { sendContactSubmissionRequest } from '../../utils/services/module';
 
 export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
   contactRequest: any = {
-    firstName: '',
+    description: '',
+    templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
     lastName: '',
     title: '',
     email: '',
-    description: '',
-    templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
+    firstName: '',
   };
-  loggedInPayload = this.isLoggedIn ? {} : this.contactRequest;
 
   render() {
     const { contactRequest } = this;
 
-    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
-    Required.getMessage = async () => 'Angabe benötigt';
-
     const submitHandler = async (ev: any) => {
-      console.log(ev.parentElement);
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
           el.hasFeedbackFor.includes('error')
@@ -41,10 +36,17 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
               ? `Bearer ${localStorage.getItem('accessToken')}`
               : '',
           },
-          body: JSON.stringify({
-            ...this.loggedInPayload,
-            moduleId: this.moduleId,
-          }),
+          body: this.isLoggedIn
+            ? JSON.stringify({
+                description: this.contactRequest.description,
+                title: this.contactRequest.title,
+                moduleId: this.moduleId,
+                templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
+              })
+            : JSON.stringify({
+                ...this.contactRequest,
+                moduleId: this.moduleId,
+              }),
         };
 
         this.isLoading = true;
@@ -53,10 +55,12 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
 
         if (resp.status === 201) {
           this.isLoading = false;
-          ev.path[0].resetGroup();
+          this.contactRequest.description = '';
+          this.contactRequest.title = '';
         }
 
         this.showNotification = true;
+        this.notificationType = 'success';
         this.notificationMessage = 'Danke für Ihren Beitrag!';
       } catch (err) {
         this.showNotification = true;
@@ -139,7 +143,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                           rows="6"
                           .validators=${[new Required()]}
                           label="Nachricht"
-                          .modelValue="${contactRequest.text}"
+                          .modelValue="${contactRequest.description}"
                           @model-value-changed=${({ target }: any) => {
                             contactRequest.description = target.value;
                           }}

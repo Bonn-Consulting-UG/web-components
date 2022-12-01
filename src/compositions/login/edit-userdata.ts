@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { IsEmail, Required } from '@lion/form-core';
+import { Required, IsEmail } from '../../utils/helpers/input-errors';
 import { BcgModule } from '../../components/module';
 import { sendUserDataChangeRequest } from '../../utils/services/login';
 
@@ -37,8 +37,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
       const res = await sendUserDataChangeRequest(this.user);
       this.isLoading = false;
     };
-    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
-    Required.getMessage = async () => 'Angabe benötigt';
+
     console.log(this.user);
     return html`
       <div>

@@ -1,5 +1,5 @@
 import { html, ScopedElementsMixin } from '@lion/core';
-import { IsEmail, Required } from '@lion/form-core';
+import { Required, IsEmail } from '../../utils/helpers/input-errors';
 import { BcgModule } from '../../components/module';
 import { ideaSubmissionEndpoint } from '../../utils/services/config';
 import { sendIdeaSubmissionRequest } from '../../utils/services/module';
@@ -60,7 +60,8 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           fetchOptions
         );
 
-        ev.path[0].resetGroup();
+        this.ideaRequest.description = '';
+        this.ideaRequest.title = '';
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
 
@@ -74,14 +75,12 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
-    Required.getMessage = async () => 'Angabe benötigt';
-
     return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${this.showNotification
             ? html` <bcg-notification
+                .closeHandler=${this.disabledNotification}
                 variant=${this.notificationType}
                 message=${this.notificationMessage}
               ></bcg-notification>`

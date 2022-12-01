@@ -7,7 +7,7 @@ import {
   ScopedElementsMixin,
   property,
 } from '@lion/core';
-import { IsEmail, Required } from '@lion/form-core';
+import { Required, IsEmail } from '../../utils/helpers/input-errors';
 import { BcgModule } from '../../components/module';
 
 import { BcgPasswordReset } from './password-reset';
@@ -38,9 +38,6 @@ export class BcgLogin extends ScopedElementsMixin(BcgModule) {
 
   render() {
     const { context, changeContext } = this;
-
-    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
-    Required.getMessage = async () => 'Angabe benötigt';
 
     return html`
       ${context === 'login'

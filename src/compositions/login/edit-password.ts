@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { Pattern, Required } from '@lion/form-core';
+import { Required } from '../../utils/helpers/input-errors';
 import { BcgModule } from '../../components/module';
 import { sendPasswordChangeRequest } from '../../utils/services/login';
 import { PasswordMatch } from '../../utils/validators/password-match';
@@ -37,7 +37,6 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
       });
       this.isLoading = false;
     };
-    Required.getMessage = async () => 'Angabe benötigt';
     return html`<div>
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>

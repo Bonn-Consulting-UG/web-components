@@ -1,5 +1,9 @@
 import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
-import { MaxLength, MinLength, Required } from '@lion/form-core';
+import {
+  Required,
+  MinLength,
+  MaxLength,
+} from '../../utils/helpers/input-errors';
 import { format } from 'date-fns';
 import de from 'date-fns/locale/de';
 import { BcgModule } from '../../components/module/module.js';
@@ -50,7 +54,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   @property() setResponseTo: any = (comment: any) => {
     this.responseTo = comment;
-    console.log(this.responseTo);
+    this.shadowRoot?.querySelector('bcg-form')?.scrollIntoView();
   };
 
   maxCharCount: Number = 500;
@@ -59,12 +63,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   newComment: any = '';
 
-  setupComments: any = async () => {
+  setupComments: any = async (scrollTo?: any) => {
     let response;
     if (this.moduleId !== 0 && !this.submissionId) {
       response = await getAllCommentsForModule(this.moduleId);
       this.comments = response.results;
-      this.count = response.resultCount;
+      this.count = response.totalCount;
     }
 
     if (this.submissionId !== 0 && !this.moduleId) {
@@ -77,9 +81,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
       const test = response.moduleId;
 
       this.comments = response.results;
-      this.count = response.resultCount;
+      this.count = response.totalCount;
     }
-
+    if (scrollTo)
+      this.shadowRoot
+        ?.querySelector(`[data-id="${scrollTo}"]`)
+        ?.scrollIntoView();
     console.log(response);
   };
 
@@ -91,6 +98,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   render() {
     const { maxCharCount, currentCharCount, comments } = this;
+
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
@@ -112,10 +120,11 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
           this.responseTo.id,
           this.newComment
         );
+
         this.responseTo = {};
       }
       ev.path[0].resetGroup();
-      this.setupComments();
+      this.setupComments(this?.responseTo?.id);
     };
 
     return html`
@@ -123,7 +132,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         <bcg-form @submit=${submitHandler}>
           <form @submit=${(e: any) => console.log(e)}>
             ${this.responseTo.author
-              ? html`<div style="flex-grow:1">
+              ? html`<div class="responseTo" style="flex-grow:1">
                   Sie antworten: ${this.responseTo.author.firstName}
                   ${this.responseTo.author.lastName} vom     ${format(
                   Date.parse(this.responseTo.createdAt),
@@ -132,7 +141,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                     locale: de,
                   }
                 )}
-                  <lion-icon id="close-button-notification"  @click=${() => {
+                  <lion-icon id="close-button-notification"w  @click=${() => {
                     this.responseTo = {};
                   }}  icon-id="bcg:general:cross"></bcg-icon>
 
@@ -155,7 +164,9 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                   placeholder="Was denken Sie?"
                 ></bcg-textarea>`
               : html`<div>
-                  <h3>Bitte melden Sie sich an um sich zu beteiligen</h3>
+                  <h3>
+                    Sie müssen sich erst anmelden, um sich beteiligen zu können.
+                  </h3>
                 </div>`}
             ${this.isLoggedIn
               ? html`

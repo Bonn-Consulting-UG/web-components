@@ -1,8 +1,9 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
 import { BcgModule } from '../../components/module';
 
-export class BcgRegisterStepFinished extends ScopedElementsMixin(BcgModule) {
+export class BcgRegisterStepFinished extends ScopedElementsMixin(LitElement) {
   nextStep: any;
+  user: any;
 
   static get properties() {
     return {
@@ -24,7 +25,9 @@ export class BcgRegisterStepFinished extends ScopedElementsMixin(BcgModule) {
   render() {
     return html`
       <div>
-        <h2>Willkommen, ${this.user.given_name} ${this.user.family_name}!</h2>
+        <h2>
+          Willkommen, ${this.user.firstName}${' '}${this.user.family_name}!
+        </h2>
         <h2>Ihre Registrierung war erfolgreich.</h2>
       </div>
     `;

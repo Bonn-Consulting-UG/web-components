@@ -19,11 +19,9 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
   @property({ type: Boolean }) isOpen: boolean = false;
 
-  clickHandler() {
+  clickHandler = () => {
     this.isOpen = !this.isOpen;
-
-    console.log(this.isOpen);
-  }
+  };
 
   registerHandler() {
     console.log('deez', this);
@@ -156,6 +154,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
                   <bcg-button
                     variant="secondary"
                     @click="${() => {
+                      clickHandler();
                       logOutHandler();
                     }}"
                     >Abmelden</bcg-button

@@ -6,7 +6,7 @@ import {
   ScopedElementsMixin,
   property,
 } from '@lion/core';
-import { IsEmail, Pattern, Required } from '@lion/form-core';
+import { Required, IsEmail } from '../../utils/helpers/input-errors';
 import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
 import { BcgInput } from '../../components/input/input';
@@ -60,9 +60,6 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
       }
       this.nextStep(this.email);
     };
-
-    IsEmail.getMessage = async () => 'Muss eine gültige Email sein';
-    Required.getMessage = async () => 'Angabe benötigt';
 
     return html`
       <bcg-form @submit=${submitHandler}>

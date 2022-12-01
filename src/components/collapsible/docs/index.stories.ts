@@ -19,20 +19,25 @@ interface ArgTypes {
 
 const Template: Story<ArgTypes> = args =>
   html`
-    <bcg-collapsible
-      .content=${args.content}
-      .buttonLabel=${args.buttonLabel}
-    ></bcg-collapsible>
+    <bcg-collapsible>
+      <bcg-collapsilbe-button class="invoker" slot="invoker"
+        >${args.buttonLabel}</bcg-collapsilbe-button
+      >
+      <div slot="content">${args.content}</div></bcg-collapsible
+    >
+    <hr />
+    <bcg-collapsible>
+      <bcg-collapsilbe-button class="invoker" slot="invoker"
+        >${args.buttonLabel}</bcg-collapsilbe-button
+      >
+      <div slot="content">${args.content}</div></bcg-collapsible
+    >
   `;
 const Default = Template.bind({});
 
 Default.args = {
-  buttonLabel: 'Show Nutritional value',
-  content: `Orange flesh is 87% water, 12% carbohydrates, 1% protein, and contains
-  negligible fat (table). In a 100 gram reference amount, orange flesh
-  provides 47 calories, and is a rich source of vitamin C, providing 64%
-  of the Daily Value. No other micronutrients are present in significant
-  amounts (table).`,
+  buttonLabel: 'How many comments can I post?',
+  content: `25 comments. Consectetur minim voluptate id officia nisi laborum id exercitation. Ea officia sint anim ut consectetur ullamco. Labore duis pariatur cupidatat anim cupidatat nostrud labore nulla. `,
 };
 
 export { Default };
