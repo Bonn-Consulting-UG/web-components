@@ -23,10 +23,10 @@ jobs:
       - run: echo "<p>nonprod</p>" >> storybook-static/info.html
       - run: git rev-parse HEAD >> storybook-static/info.html
       
-      - run: docker build -t ifok-epart-components:latest .
-      - run: docker tag ifok-epart-components:latest bonnconsulting.jfrog.io/bcg-docker-nonprod/ifok-epart-components:latest
-      - run: docker login https://bonnconsulting.jfrog.io -u bcg-ci-dev -p ${{ secrets.ARTIFACTORY_PASSWORD_DEV }}
-      - run: docker push bonnconsulting.jfrog.io/bcg-docker-nonprod/ifok-epart-components:latest
+      - run: docker build -t ifok-epart-components-nonprod:latest .
+      - run: docker tag ifok-epart-components-nonprod:latest registry-nonprod.bonnconsulting.group/ifok-epart-components-nonprod:latest
+      - run: docker login https://registry-nonprod.bonnconsulting.group -u bcg -p ${{ secrets.REGISTRY_PASSWORD_DEV }}
+      - run: docker push registry-nonprod.bonnconsulting.group/ifok-epart-components-nonprod:latest
 
       - run: wget https://github.com/rancher/cli/releases/download/v2.6.7-rc1/rancher-linux-amd64-v2.6.7-rc1.tar.gz
       - run: sudo tar xzvf rancher-linux-amd64-v2.6.7-rc1.tar.gz
