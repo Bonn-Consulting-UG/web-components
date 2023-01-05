@@ -12,9 +12,10 @@ export class SpamMatch extends Validator {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  execute(val: any, expected: any) {
-    if (isInterpretableValue(val) && isInterpretableValue(expected)) {
-      return val[0] !== expected;
+  execute(input: any, expected: any) {
+    console.log(input, expected);
+    if (isInterpretableValue(input) && isInterpretableValue(expected)) {
+      return input !== expected;
     }
     return false;
   }

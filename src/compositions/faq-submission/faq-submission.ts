@@ -29,6 +29,8 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
+
+      console.log(ev);
       // sendContactSubmissionRequest(this.contactRequest, this.moduleId);
 
       try {
@@ -58,8 +60,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
           fetchOptionsloggedout
         );
 
-        this.faqRequest.description = '';
-        this.faqRequest.title = '';
+        ev.path[0].resetGroup();
 
         this.notificationType = 'success';
         this.showNotification = true;
@@ -101,7 +102,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   name="title"
                   label="Ihre Frage *"
                   .validators=${[
-                    new Required(),
+                    new Required('Textarea'),
                     new MinLength(3),
                     new MaxLength(1000),
                   ]}
@@ -117,11 +118,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   label="Erläuterungen"
                   name="content"
                   placeholder=""
-                  .validators=${[
-                    new Required(),
-                    new MinLength(3),
-                    new MaxLength(1000),
-                  ]}
+                  .validators=${[new MinLength(3), new MaxLength(1000)]}
                   .modelValue="${faqRequest.description}"
                   @model-value-changed=${({ target }: any) => {
                     faqRequest.description = target.value;
@@ -181,10 +178,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                             .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
                             ><p slot="label">
                               Ich akzeptiere die
-                              <a
-                                href="https://iwbk-nonprod.ifok.digital/datenschutz"
-                                >Datenschutzerklärung</a
-                              >
+                              <a href="/datenschutz">Datenschutzerklärung</a>
                             </p></bcg-checkbox
                           >
                         </bcg-checkbox-group>`

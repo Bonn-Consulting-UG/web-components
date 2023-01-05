@@ -34,13 +34,30 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
       }
 
       this.isLoading = true;
-      const res = await sendUserDataChangeRequest(this.user);
+      const res: any = await sendUserDataChangeRequest(this.user);
+      console.log(res);
+      if (res.status === 200) {
+        this.showNotification = true;
+        this.notificationMessage = 'Ihre Änderung wurde gespeichert';
+        this.notificationType = 'success';
+      } else {
+        this.notificationMessage = `Oh, da stimmt etwas nicht! Bitte überprüfen Sie die Eingabe.`;
+        this.notificationType = 'success';
+        this.showNotification = false;
+      }
       this.isLoading = false;
     };
 
     console.log(this.user);
     return html`
       <div>
+        ${this.showNotification
+          ? html`<bcg-notification
+              .closeHandler=${this.disabledNotification}
+              variant=${this.notificationType}
+              message=${this.notificationMessage}
+            ></bcg-notification> `
+          : null}
         <bcg-form @submit=${submitHandler}>
           <form @submit=${(e: any) => e.preventDefault()}>
             <h2>Persönliche Angaben</h2>

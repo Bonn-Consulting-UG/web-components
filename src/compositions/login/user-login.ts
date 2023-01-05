@@ -66,6 +66,12 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         this.notificationType = 'error';
       }
 
+      if (resp.status === 403) {
+        this.isLoading = false;
+        this.showNotification = true;
+        this.notificationMessage = 'Bitte verifizieren Sie ihren User';
+        this.notificationType = 'error';
+      }
       console.log(resp);
     };
 
@@ -92,7 +98,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                         label="E-Mail"
                         placeholder=""
                         .modelValue="${email}"
-                        .validators=${[new Required(), new IsEmail()]}
+                        .validators=${[new Required('Input')]}
                         @model-value-changed=${({ target }: any) => {
                           email = target.value;
                         }}
@@ -106,7 +112,10 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                           type=${passwordInputType}
                           placeholder=""
                           .modelValue="${password}"
-                          .validators=${[new Required(), new MinLength(3)]}
+                          .validators=${[
+                            new Required('Input'),
+                            new MinLength(3),
+                          ]}
                           name="password"
                           @model-value-changed=${({ target }: any) => {
                             password = target.value;
@@ -133,9 +142,11 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                       <a
                       href
                       style="display: flex;
-                       align-items: center;"
+                      align-items: center;"
+                      onclick="return false"
                         @click=${onPasswordReset}
                         @keydown=${onPasswordReset}
+
                         >Passwort zurücksetzen</a
                       >
                     </div>

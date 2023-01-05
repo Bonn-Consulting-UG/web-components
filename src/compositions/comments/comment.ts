@@ -276,6 +276,38 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                           ></bcg-reaction>
                         </bcg-button>`
                       : null}
+                    ${this.user.realm_access.roles.includes('MODERATOR')
+                      ? html`
+                          ${i.status === 'REPORTED' ||
+                          i.status === 'WAITING' ||
+                          i.status === 'CENSORED'
+                            ? html` <bcg-button
+                                @click=${async () => {
+                                  await approveComment(i.id);
+                                  this.refresh();
+                                }}
+                              >
+                                <bcg-reaction
+                                  .value=${'Kommentar freigeben'}
+                                  .icon=${'bcg:comments:report'}
+                                ></bcg-reaction>
+                              </bcg-button>`
+                            : null}
+                          ${i.status === 'APPROVED' || i.status === 'PUBLISHED'
+                            ? html`<bcg-button
+                                @click=${async () => {
+                                  await censorComment(i.id);
+                                  this.refresh();
+                                }}
+                              >
+                                <bcg-reaction
+                                  .value=${'Kommentar sperren'}
+                                  .icon=${'bcg:comments:report'}
+                                ></bcg-reaction>
+                              </bcg-button>`
+                            : null}
+                        `
+                      : ''}
                   `
                 : null}
             </div>

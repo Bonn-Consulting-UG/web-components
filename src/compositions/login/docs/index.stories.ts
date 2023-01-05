@@ -28,13 +28,17 @@ const TemplateProfile: Story<ArgTypes> = () =>
 const TemplateUserMenu: Story<ArgTypes> = () =>
   html` <bcg-user-menu></bcg-user-menu> `;
 
+const TemplateVerify: Story<ArgTypes> = () =>
+  html` <bcg-register-step-three></bcg-register-step-three> `;
+
 const Login = TemplateLogin.bind({});
 const Profile = TemplateProfile.bind({});
 const Register = TemplateRegister.bind({});
 const UserMenu = TemplateUserMenu.bind({});
+const UserVerify = TemplateVerify.bind({});
 
 Login.args = {};
 Register.args = {};
 Profile.args = {};
 
-export { Login, Register, Profile, UserMenu };
+export { Login, Register, Profile, UserMenu, UserVerify };

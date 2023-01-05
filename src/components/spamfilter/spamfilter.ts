@@ -5,13 +5,28 @@ import { SpamMatch } from '../../utils/validators/spamfilter';
 export class BcgSpamFilter extends LitElement {
   selection: any;
 
+  rawdata: any = [
+    { name: 'Becher', icon: 'bcg:spamfilter:cup' },
+    { name: 'Auto', icon: 'bcg:spamfilter:car' },
+    { name: 'Herz', icon: 'bcg:spamfilter:hearth' },
+    { name: 'Schlüssel', icon: 'bcg:spamfilter:key' },
+    { name: 'Flugzeug', icon: 'bcg:spamfilter:plane' },
+    { name: 'Stern', icon: 'bcg:spamfilter:star' },
+    { name: 'Baum', icon: 'bcg:spamfilter:tree' },
+    { name: 'LKW', icon: 'bcg:spamfilter:truck' },
+  ];
+
   data: any = [
-    { name: 'Finger Hoch', icon: 'bcg:comments:thumbsup' },
-    { name: 'Finger Runter', icon: 'bcg:comments:thumbsdown' },
-    { name: 'Nachrichten', icon: 'bcg:comments:message' },
+    this.randomItem(this.rawdata),
+    this.randomItem(this.rawdata),
+    this.randomItem(this.rawdata),
   ];
 
   randomIndex = Math.floor(Math.random() * 3);
+
+  randomItem(items: any) {
+    return items[Math.floor(Math.random() * items.length)];
+  }
 
   currentSelected = this.data[this.randomIndex];
 
@@ -20,7 +35,7 @@ export class BcgSpamFilter extends LitElement {
   static get styles() {
     return [
       css`
-        :host > * .input-group {
+        .input-group {
           display: flex;
           flex-direction: row;
         }
@@ -30,17 +45,21 @@ export class BcgSpamFilter extends LitElement {
 
   render() {
     // console.log(this.currentSelected, this.randomIndex, this.selected);
-    return html`<div>
+    return html`<div style="">
       <div name="text">
-        Bitte wählen sie das "<b>${this.currentSelected.name}</b>" Icon aus
+        Bitte wählen Sie das "<b>${this.currentSelected.name}</b>" Icon aus
       </div>
-      <div name="selection">
+      <div name="selection" style="display:flex;">
         <bcg-radio-group
+          style="width:100%;border:1px solid var(--primary-color); padding:5px;"
           name="spamfilter"
           .validators=${[new SpamMatch(this.currentSelected.name)]}
         >
           ${this.data.map(
-            (el: any) => html`<bcg-radio>
+            (el: any) => html`<bcg-radio
+              name=${el.name}
+              .choiceValue=${el.name}
+            >
               <slot slot="label" class="input-group">
                 <bcg-icon .iconId="${el.icon}"></bcg-icon></slot
             ></bcg-radio>`

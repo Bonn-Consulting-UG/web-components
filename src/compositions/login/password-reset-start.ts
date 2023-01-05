@@ -21,6 +21,8 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
   nextStep: any;
 
   @property({ type: Function }) back: any;
+  @property({ type: Function }) resetEmail: any;
+  @property({ type: Function }) setEmail: any;
 
   onChange: any;
 
@@ -37,8 +39,6 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
     this.nextStep = () => 'test';
   }
 
-  email: string = '';
-
   static get scopedElements() {
     return {
       'bcg-input': BcgInput,
@@ -48,7 +48,7 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    let { email } = this;
+    let { resetEmail } = this;
 
     const submitHandler = (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -58,13 +58,22 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      this.nextStep(this.email);
+      this.nextStep(this.resetEmail);
     };
 
     return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           <div>
+          <div style="display:flex;flex-direction:column">
+            <a
+              href
+              onclick="return false"
+              @click=${this.back}
+              @keydown=${this.back}>
+              Zurück
+            </a>
+
             <h2>Passwort zurücksetzen</h2>
             <p>
               Hier können Sie Ihr bestehendes Passwort zurücksetzen und im
@@ -72,20 +81,17 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
             </p>
 
             <bcg-input-email
-              style="margin-bottom:10px"
+              style="margin-bottom:10px;"
               name="email"
               label="Ihre E-Mail"
               placeholder=""
-              .modelValue="${email}"
+              .modelValue="${resetEmail}"
               .validators=${[new Required(), new IsEmail()]}
               @model-value-changed=${({ target }: any) => {
-                email = target.value;
+                this.resetEmail = target.value;
               }}
             ></bcg-input-email>
-            <bcg-button @click=${this.back} variant="secondary"
-              >Zurück</bcg-button
-            >
-            <bcg-button-submit>Passwort zurücksetzen</bcg-button-submit>
+            <bcg-button-submit style="display:flex;">Passwort zurücksetzen</bcg-button-submit>
           </div>
         </form>
       </bcg-form>

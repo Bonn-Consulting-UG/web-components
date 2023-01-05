@@ -1,5 +1,9 @@
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { Required, MinLength } from '../../utils/helpers/input-errors';
+import {
+  Required,
+  MinLength,
+  MaxLength,
+} from '../../utils/helpers/input-errors';
 import { sendNewVerifyCodeRequest } from '../../utils/services/login';
 
 export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
@@ -56,7 +60,7 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
             label=""
             placeholder="Geben Sie den 6-stelligen Code ein"
             .modelValue="${code}"
-            .validators=${[new Required(), new MinLength(6)]}
+            .validators=${[new Required(), new MinLength(6), new MaxLength(6)]}
             @model-value-changed=${({ target }: any) => {
               code = target.value;
             }}

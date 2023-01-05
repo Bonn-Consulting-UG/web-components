@@ -160,7 +160,10 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 }}
               ></bcg-input>
             </bcg-fieldset>
-            <bcg-checkbox-group name="dsgvo" .validators=${[new Required()]}>
+            <bcg-checkbox-group
+              name="dsgvo"
+              .validators=${[new Required('Checkbox')]}
+            >
               <bcg-checkbox
                 .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung.'}
                 ><p slot="label">

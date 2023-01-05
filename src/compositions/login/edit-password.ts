@@ -38,6 +38,15 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
       this.isLoading = false;
     };
     return html`<div>
+       ${
+         this.showNotification
+           ? html`<bcg-notification
+               .closeHandler=${this.disabledNotification}
+               variant=${this.notificationType}
+               message=${this.notificationMessage}
+             ></bcg-notification> `
+           : null
+       }
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           <h2>Password ändern</h2>
