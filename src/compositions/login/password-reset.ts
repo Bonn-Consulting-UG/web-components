@@ -22,6 +22,7 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
   verifyCode: number = 0;
 
   user: any = 0;
+  resetEmail: any = '';
 
   static get scopedElements() {
     return {
@@ -36,16 +37,14 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
 
     if (this.currentStep < this.maxStep) {
       if (this.currentStep === 1) {
+        this.resetEmail = payload;
+        console.log(payload);
         const response = await sendPasswordChangeInitRequest({
           email: payload,
         });
       }
-      if (this.currentStep === 2) {
-        this.currentStep += 1;
 
-        return;
-      }
-      if (this.currentStep === 3) {
+      if (this.currentStep === 2) {
         response = await sendPasswordResetRequest({
           email: this.user,
           oldPassword: payload.password,
@@ -66,12 +65,14 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
       ${currentStep >= maxStep - 1 ? null : html`<h1>Willkommen zurück!</h1>`}
       ${currentStep === 1
         ? html`<bcg-password-reset-start
+            .resetEmail=${this.resetEmail}
             .nextStep=${this.nextStep}
             .back=${this.back}
           ></bcg-password-reset-start>`
         : null}
       ${currentStep === 2
         ? html`<bcg-password-reset-confirm
+            .resetEmail=${this.resetEmail}
             .nextStep=${this.nextStep}
           ></bcg-password-reset-confirm> `
         : null}

@@ -10,6 +10,10 @@ function resolveBcgIcons(iconset: any, name: any) {
       return import('./export-general-icons.js').then(
         (module: any) => module[name]
       );
+    case 'spamfilter':
+      return import('./export-spamfilter-icons.js').then(
+        (module: any) => module[name]
+      );
     default:
       throw new Error(`Unknown iconset ${iconset}`);
   }

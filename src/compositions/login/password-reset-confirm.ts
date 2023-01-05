@@ -5,7 +5,11 @@ import {
   ScopedElementsMixin,
   property,
 } from '@lion/core';
-import { Required, MinLength } from '../../utils/helpers/input-errors';
+import {
+  Required,
+  MinLength,
+  MaxLength,
+} from '../../utils/helpers/input-errors';
 import { sendNewVerifyCodeRequest } from '../../utils/services/login';
 import { PasswordMatch } from '../../utils/validators/password-match';
 
@@ -28,6 +32,8 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
 
   @property({ type: String }) passwordInputType: string = 'password';
 
+  @property({ type: String }) resetEmail: string = '';
+
   flipPasswordInput() {
     if (this.passwordInputType === 'password') {
       this.passwordInputType = 'text';
@@ -46,7 +52,6 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
   constructor() {
     super();
     this.nextStep = () => 'test';
-    this.user = 'test';
   }
 
   static get styles() {
@@ -56,7 +61,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
   code: any = null;
 
   render() {
-    console.log(this.user);
+    console.log(this.resetEmail);
     let { code, password, passwordrepeat } = this;
 
     const submitHandler = (ev: any) => {
@@ -76,14 +81,18 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
           <h2>Geben Sie den Code ein</h2>
           <p>
             Sie haben einen Code an folgende E-Mail-Adresse
-            erhalten:${this.user.email}
+            erhalten:${this.resetEmail}
           </p>
           <bcg-input
             name="verifycode"
             label=""
-            placeholder="Geben Sie den 6-stelligen Code ein"
+            placeholder="Geben Sie den 15-stelligen Code ein"
             .modelValue="${code}"
-            .validators=${[new Required(), new MinLength(6)]}
+            .validators=${[
+              new Required(),
+              new MinLength(15),
+              new MaxLength(15),
+            ]}
             @model-value-changed=${({ target }: any) => {
               code = target.value;
             }}
@@ -95,6 +104,8 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
             name="password-fieldset"
             .validators=${[new PasswordMatch()]}
           >
+
+          <div style="position: relative;">
             <bcg-input
               label="Passwort"
               type=${this.passwordInputType}
@@ -106,13 +117,26 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
               .validators=${[new Required()]}
               .modelValue="${password}"
             ></bcg-input>
-            <bcg-button
-              style="margin-top:25px ;margin-left:5px"
-              variant="tertiary"
+            <lion-icon
+              style="
+    position: absolute;
+    right: 2%;
+    top: 30px;
+    width: 24px;
+    height: 24px;"
               @click=${this.flipPasswordInput}
-              >P</bcg-button
-            >
+              icon-id="bcg:general:eye"
+            ></lion-icon>
+          </div>
 
+          
+            </div>
+
+
+
+
+            <div style="position: relative;">
+           
             <bcg-input
               name="passwordrepeat"
               label="Passwort wiederholen"
@@ -124,10 +148,26 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
                 passwordrepeat = target.value;
               }}
             ></bcg-input>
+            <lion-icon
+              style="
+    position: absolute;
+    right: 2%;
+    top: 30px;
+    width: 24px;
+    height: 24px;"
+              @click=${this.flipPasswordInput}
+              icon-id="bcg:general:eye"
+            ></lion-icon>
+          </div>
+
+
+
+            
+
           </bcg-fieldset>
         </div>
 
-        <bcg-button-submit>Code abschicken</bcg-button-submit>
+        <bcg-button-submit>Password zurücksetzten</bcg-button-submit>
       </form>
     </bcg-form> `;
   }

@@ -96,8 +96,6 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
     return [css``];
   }
 
-  // break span down '<span>Schritt ${currentStep} von ${maxStep - 1} </span>' to be able to export string to data
-
   render() {
     const { maxStep, notificationHtml, currentStep, nextStep } = this;
 
@@ -111,6 +109,7 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
         : html`
             ${this.showNotification
               ? html`<bcg-notification
+                  .closeHandler=${this.disabledNotification}
                   variant=${this.notificationType}
                   message=${this.notificationMessage}
                 ></bcg-notification> `

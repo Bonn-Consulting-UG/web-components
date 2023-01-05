@@ -54,9 +54,15 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         const resp = await fetch(contactSubmissionEndpoint('1'), fetchOptions);
 
         if (resp.status === 201) {
+          this.contactRequest = {
+            description: '',
+            templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
+            lastName: '',
+            title: '',
+            email: '',
+            firstName: '',
+          };
           this.isLoading = false;
-          this.contactRequest.description = '';
-          this.contactRequest.title = '';
         }
 
         this.showNotification = true;
@@ -150,14 +156,19 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                           placeholder=""
                         ></bcg-textarea>
                         <bcg-checkbox-group
-                          name="datasec"
                           .validators=${[new Required()]}
+                          name="datasec"
                         >
                           <bcg-checkbox
-                            label="Ich akzeptiere die Datenschutzerklärung"
                             .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
-                          ></bcg-checkbox>
+                            ><p slot="label">
+                              Ich akzeptiere die
+                              <a href="/datenschutz">Datenschutzerklärung</a>
+                            </p></bcg-checkbox
+                          >
                         </bcg-checkbox-group>
+
+                        <bcg-spamfilter></bcg-spamfilter>
                         <div>
                           <bcg-button-submit>Senden</bcg-button-submit>
                         </div>

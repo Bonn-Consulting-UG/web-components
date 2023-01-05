@@ -82,7 +82,7 @@ export const sendUserDataChangeRequest = async ({
     };
     console.log(sub);
     const resp = await fetch(changeUserDataEndpoint(sub), fetchOptions);
-    return resp.json();
+    return resp;
   } catch (err) {
     // Handle Error Here
     console.error(err);
@@ -176,12 +176,14 @@ export const sendPasswordResetRequest = async (data: any) => {
 };
 
 export const sendPasswordChangeInitRequest = async (data: any) => {
+  console.log(data);
   try {
     const fetchOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(data),
     };
 
     const resp = await fetch(resetPasswordEndpoint, fetchOptions);

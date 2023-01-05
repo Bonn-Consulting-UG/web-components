@@ -1,8 +1,9 @@
 /* eslint-disable import/extensions */
 import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import { BcgModule } from '../../components/module';
 import { sendUserDeleteRequest } from '../../utils/services/login';
 
-export class BcgEditDelete extends ScopedElementsMixin(LitElement) {
+export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
   static get styles() {
     return [css``];
   }
@@ -32,6 +33,13 @@ export class BcgEditDelete extends ScopedElementsMixin(LitElement) {
       console.log(res);
     };
     return html`
+      ${this.showNotification
+        ? html`<bcg-notification
+            .closeHandler=${this.disabledNotification}
+            variant=${this.notificationType}
+            message=${this.notificationMessage}
+          ></bcg-notification> `
+        : null}
       <h2>Profil löschen</h2>
       <p>
         Wenn Sie sich nicht länger beteiligen möchten, können Sie Ihr
