@@ -28,8 +28,7 @@ const TemplateProfile: Story<ArgTypes> = () =>
 const TemplateUserMenu: Story<ArgTypes> = () =>
   html` <bcg-user-menu></bcg-user-menu> `;
 
-const TemplateVerify: Story<ArgTypes> = () =>
-  html` <bcg-register-step-three></bcg-register-step-three> `;
+const TemplateVerify: Story<ArgTypes> = () => html` <bcg-verify></bcg-verify> `;
 
 const Login = TemplateLogin.bind({});
 const Profile = TemplateProfile.bind({});

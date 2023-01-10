@@ -12,6 +12,7 @@ import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group
 import { BcgInput } from '../../components/input/input';
 import { PasswordMatch } from '../../utils/validators/password-match';
 import { PasswordSecurity } from '../../utils/validators/password-security';
+import { LionIcon } from '@lion/icon';
 
 export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   static get styles() {
@@ -47,6 +48,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
   passwordrepeat: string = '';
 
   @property({ type: String }) passwordInputType: string = 'password';
+  @property({ type: String }) passwordRepeatInputType: string = 'password';
 
   flipPasswordInput() {
     if (this.passwordInputType === 'password') {
@@ -55,12 +57,20 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
       this.passwordInputType = 'password';
     }
   }
+  flipPasswordRepeatInput() {
+    if (this.passwordRepeatInputType === 'password') {
+      this.passwordRepeatInputType = 'text';
+    } else {
+      this.passwordRepeatInputType = 'password';
+    }
+  }
 
   static get scopedElements() {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
       'bcg-checkbox-group': BcgCheckboxGroup,
+      'lion-icon': LionIcon,
     };
   }
 
@@ -128,37 +138,46 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               name="password-fieldset"
               .validators=${[new PasswordMatch()]}
             >
-              <bcg-input
-                label="Passwort"
-                type=${this.passwordInputType}
-                placeholder=""
-                name="password"
-                @model-value-changed=${({ target }: any) => {
-                  password = target.value;
-                }}
-                .validators=${[new Required()]}
-                .modelValue="${password}"
-              ></bcg-input>
-              <lion-icon
-                style="    position: relative;
-    right: -94%;
-    top: -30px;
-    width: 24px;
-    height: 24px;"
-                @click=${this.flipPasswordInput}
-                icon-id="bcg:general:eye"
-              ></lion-icon>
-              <bcg-input
-                name="passwordrepeat"
-                label="Passwort wiederholen"
-                type=${this.passwordInputType}
-                placeholder=""
-                .validators=${[new Required()]}
-                .modelValue="${passwordrepeat}"
-                @model-value-changed=${({ target }: any) => {
-                  passwordrepeat = target.value;
-                }}
-              ></bcg-input>
+              <div style="position:relative;">
+                <bcg-input
+                  label="Passwort"
+                  type=${this.passwordInputType}
+                  placeholder=""
+                  name="password"
+                  @model-value-changed=${({ target }: any) => {
+                    password = target.value;
+                  }}
+                  .validators=${[new Required()]}
+                  .modelValue="${password}"
+                ></bcg-input>
+                <lion-icon
+                  style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
+                  @click=${this.flipPasswordInput}
+                  icon-id=${this.passwordInputType === 'password'
+                    ? 'bcg:general:eye'
+                    : 'bcg:general:eyeopen'}
+                ></lion-icon>
+              </div>
+              <div style="position:relative;">
+                <bcg-input
+                  name="passwordrepeat"
+                  label="Passwort wiederholen"
+                  type=${this.passwordRepeatInputType}
+                  placeholder=""
+                  .validators=${[new Required()]}
+                  .modelValue="${passwordrepeat}"
+                  @model-value-changed=${({ target }: any) => {
+                    passwordrepeat = target.value;
+                  }}
+                ></bcg-input>
+                <lion-icon
+                  style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
+                  @click=${this.flipPasswordRepeatInput}
+                  icon-id=${this.passwordRepeatInputType === 'password'
+                    ? 'bcg:general:eye'
+                    : 'bcg:general:eyeopen'}
+                ></lion-icon>
+              </div>
             </bcg-fieldset>
             <bcg-checkbox-group
               name="dsgvo"

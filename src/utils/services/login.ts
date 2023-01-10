@@ -1,6 +1,7 @@
 import {
   changePasswordEndpoint,
   changeUserDataEndpoint,
+  changeUserPasswordEndpoint,
   checkVerifyCodeEndpoint,
   depleteUserEndpoint,
   loginEndpoint,
@@ -97,17 +98,16 @@ export const sendPasswordChangeRequest = async ({
 }: any) => {
   try {
     const fetchOptions = {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
       body: JSON.stringify({ newPassword, currentPassword }),
     };
-    console.log(userId);
-    const resp = await fetch(changePasswordEndpoint, fetchOptions);
-    console.log('sent');
-    return resp.json();
+    console.log(currentPassword);
+    const resp = await fetch(changeUserPasswordEndpoint(userId), fetchOptions);
+    return resp;
   } catch (err) {
     // Handle Error Here
     console.error(err);
