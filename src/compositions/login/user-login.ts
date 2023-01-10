@@ -129,7 +129,11 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                         width: 24px;
                         height: 24px;"
                           @click=${this.flipPasswordInput}
-                          icon-id="bcg:general:eye"
+                          icon-id=${
+                            passwordInputType === 'password'
+                              ? 'bcg:general:eye'
+                              : 'bcg:general:eyeopen'
+                          }
                         ></lion-icon>
                       </div>
                     </div>

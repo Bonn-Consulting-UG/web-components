@@ -53,6 +53,7 @@ export const componentNames: component = {
   compositions: {
     comments: `${tagPrefix}-comments`,
     login: `${tagPrefix}-login`,
+    verify: `${tagPrefix}-verify`,
     logout: `${tagPrefix}-logout`,
     register: `${tagPrefix}-register`,
     inputMask: `${tagPrefix}-input-mask`,

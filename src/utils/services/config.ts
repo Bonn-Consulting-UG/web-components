@@ -21,7 +21,12 @@ export const refreshAccessToken = `${baseURLwithApiVersion}/auth/refresh-token`;
 export const depleteUserEndpoint = (userID: string) =>
   `${baseURLwithApiVersion}/users/${userID}`;
 
+export const changeUserPasswordEndpoint = (userID: string) =>
+  `${baseURLwithApiVersion}/users/${userID}/change-password`;
+
 export const changePasswordEndpoint = `${baseURLwithApiVersion}/auth/redeem-reset-password-token`;
+
+// export const changePasswordEndpoint = `${baseURLwithApiVersion}/auth/redeem-reset-password-token`;
 
 export const resetPasswordEndpoint = `${baseURLwithApiVersion}/auth/send-reset-password-token`;
 
@@ -50,6 +55,9 @@ export const getModuleEndpoint = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}`;
 
 // Comments
+export const commentDelteEndPoint = (reactionId: number) =>
+  `${baseURLwithApiVersion}/reactions/${reactionId}`;
+
 export const getCommentsEndpointforModule = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments`;
 

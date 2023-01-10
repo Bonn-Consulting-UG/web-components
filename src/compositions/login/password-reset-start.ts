@@ -91,7 +91,11 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
                 this.resetEmail = target.value;
               }}
             ></bcg-input-email>
-            <bcg-button-submit style="display:flex;">Passwort zurücksetzen</bcg-button-submit>
+
+            <div>
+            <bcg-button-submit >Passwort zurücksetzen</bcg-button-submit>
+
+            </div>
           </div>
         </form>
       </bcg-form>
