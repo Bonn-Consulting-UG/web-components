@@ -33,6 +33,8 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) passwordInputType: string = 'password';
   @property({ type: String }) passwordRepeatInputType: string = 'password';
 
+  @property({ type: String }) code: string = '';
+
   @property({ type: String }) resetEmail: string = '';
 
   flipPasswordInput() {
@@ -67,10 +69,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
     return [css``];
   }
 
-  code: any = null;
-
   render() {
-    console.log(this.resetEmail);
     let { code, password, passwordrepeat } = this;
 
     const submitHandler = (ev: any) => {
@@ -81,7 +80,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      this.nextStep();
+      this.nextStep({ code, password });
     };
 
     return html`<bcg-form @submit=${submitHandler}>
