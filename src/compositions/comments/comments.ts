@@ -15,6 +15,7 @@ import {
 } from '../../utils/services/comments.js';
 import { BcgCommentReaction } from './comment-reaction.js';
 import { BcgComment } from './comment.js';
+import { LionIcon } from '@lion/icon';
 
 export interface CommentInterface {
   id: string;
@@ -67,32 +68,37 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     let response;
     if (this.moduleId !== 0 && !this.submissionId) {
       response = await getAllCommentsForModule(this.moduleId);
+
       this.comments = response.results;
       this.count = response.totalCount;
+      if (scrollTo)
+        this.shadowRoot
+          ?.querySelector(`[data-id="${scrollTo}"]`)
+          ?.scrollIntoView();
     }
 
     if (this.submissionId !== 0 && !this.moduleId) {
       console.log(this.submissionId);
       response = await getAllSubmissionsForAModule(this.submissionId);
-      console.log(response);
-
       // this.comments = response.comments;
 
       const test = response.moduleId;
 
       this.comments = response.results;
       this.count = response.totalCount;
+      if (scrollTo)
+        this.shadowRoot
+          ?.querySelector(`[data-id="${scrollTo}"]`)
+          ?.scrollIntoView();
     }
-    if (scrollTo)
-      this.shadowRoot
-        ?.querySelector(`[data-id="${scrollTo}"]`)
-        ?.scrollIntoView();
-    console.log(response);
+    console.log(this.shadowRoot);
+    console.log(scrollTo);
   };
 
   static get scopedElements() {
     return {
       'bcg-comment': BcgComment,
+      'lion-icon': LionIcon,
     };
   }
 
@@ -107,12 +113,15 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
+      let newCommentId;
+
       if (!this.responseTo.author) {
         const resp = await addComment(
           this.moduleId,
           this.newComment,
           this.submissionId
         );
+        newCommentId = resp.id;
       }
 
       if (this.responseTo.author) {
@@ -120,11 +129,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
           this.responseTo.id,
           this.newComment
         );
-
+        newCommentId = resp.id;
         this.responseTo = {};
       }
+
       ev.path[0].resetGroup();
-      this.setupComments(this?.responseTo?.id);
+      this.setupComments(newCommentId);
     };
 
     return html`

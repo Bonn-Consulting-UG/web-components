@@ -103,7 +103,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
 
               <bcg-input
                 label="Titel Ihrer Idee *"
-                .validators=${[new Required()]}
+                .validators=${[]}
                 name="title"
                 .modelValue="${ideaRequest.title}"
                 @model-value-changed=${({ target }: any) => {

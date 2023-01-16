@@ -151,6 +151,24 @@ export const removeReaction = async (reactionId: any) => {
   }
 };
 
+export const removeComment = async (commentId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    };
+
+    // const resp = await fetch(removeDeleteEndPoint(commentId), fetchOptions);
+    // return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
 export const reportComment = async (commentId: any) => {
   try {
     const fetchOptions = {
