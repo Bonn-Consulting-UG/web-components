@@ -136,48 +136,33 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             ></bcg-input-email>
             <bcg-fieldset
               name="password-fieldset"
-              .validators=${[new PasswordMatch()]}
+              .validators=${[new PasswordMatch({password, passwordrepeat})]}
             >
-              <div style="position:relative;">
-                <bcg-input
-                  label="Passwort"
-                  type=${this.passwordInputType}
-                  placeholder=""
-                  name="password"
-                  @model-value-changed=${({ target }: any) => {
-                    password = target.value;
-                  }}
-                  .validators=${[new Required()]}
-                  .modelValue="${password}"
-                ></bcg-input>
-                <lion-icon
-                  style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
-                  @click=${this.flipPasswordInput}
-                  icon-id=${this.passwordInputType === 'password'
-                    ? 'bcg:general:eye'
-                    : 'bcg:general:eyeopen'}
-                ></lion-icon>
-              </div>
-              <div style="position:relative;">
-                <bcg-input
-                  name="passwordrepeat"
-                  label="Passwort wiederholen"
-                  type=${this.passwordRepeatInputType}
-                  placeholder=""
-                  .validators=${[new Required()]}
-                  .modelValue="${passwordrepeat}"
-                  @model-value-changed=${({ target }: any) => {
-                    passwordrepeat = target.value;
-                  }}
-                ></bcg-input>
-                <lion-icon
-                  style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
-                  @click=${this.flipPasswordRepeatInput}
-                  icon-id=${this.passwordRepeatInputType === 'password'
-                    ? 'bcg:general:eye'
-                    : 'bcg:general:eyeopen'}
-                ></lion-icon>
-              </div>
+
+            <bcg-input-password
+              label="Passwort"
+              type=${this.passwordInputType}
+              placeholder=""
+              name="password"
+              @model-value-changed=${({ target }: any) => {
+                password = target.value;
+              }}
+              .validators=${[new Required()]}
+              .modelValue="${password}">
+            </bcg-input-password>
+
+            <bcg-input-password
+              name="passwordrepeat"
+              label="Passwort wiederholen"
+              type=${this.passwordRepeatInputType}
+              placeholder=""
+              .validators=${[new Required()]}
+              .modelValue="${passwordrepeat}"
+              @model-value-changed=${({ target }: any) => {
+                passwordrepeat = target.value;
+              }}
+            ></bcg-input-password>
+
             </bcg-fieldset>
             <bcg-checkbox-group
               name="dsgvo"
