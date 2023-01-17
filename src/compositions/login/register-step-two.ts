@@ -136,7 +136,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             ></bcg-input-email>
             <bcg-fieldset
               name="password-fieldset"
-              .validators=${[new PasswordMatch({password, passwordrepeat})]}
+              .validators=${[new PasswordMatch()]}
             >
 
             <bcg-input-password

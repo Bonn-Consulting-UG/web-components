@@ -12,8 +12,7 @@ export class PasswordMatch extends Validator {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  execute({ password, passwordrepeat }: any, param: any) {
-    console.log(param)
+  execute({ password, passwordrepeat }: any) {
     if (isInterpretableValue(password) && isInterpretableValue(password)) {
       return password !== passwordrepeat;
     }

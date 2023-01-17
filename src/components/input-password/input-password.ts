@@ -33,14 +33,7 @@ export class BcgInputPassword extends BcgInput {
   }
 
   render() {
-    const {
-      validators,
-      label,
-      type,
-      placeholder,
-      name
-      } = this;
-    let { modelValue } = this;
+    const { validators, label, type, placeholder, name } = this;
 
     return html`
     <div class="input-password-wrapper">
@@ -50,9 +43,9 @@ export class BcgInputPassword extends BcgInput {
       type=${type}
       placeholder=${placeholder}
       name=${name}
-      .modelValue=${modelValue}
+      .modelValue=${this.modelValue}
       @model-value-changed=${({ target }: any) => {
-        modelValue = target.value;
+        this.modelValue = target.value;
       }}
       ></bcg-input>
 
