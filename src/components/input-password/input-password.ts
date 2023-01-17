@@ -1,13 +1,8 @@
-import { css, html, LitElement, property } from '@lion/core';
+import { css, html } from '@lion/core';
 import { LionIcon } from '@lion/icon';
 import { BcgInput } from '../input/input';
 
-export class BcgInputPassword extends LitElement {
-  @property() type: any = 'password';
-  @property({ attribute: true, reflect: true }) modelValue: any = '';
-  @property({ reflect: true }) validators: any = '';
-  @property({ reflect: true }) label: any = '';
-  @property({ reflect: true }) placeholder: any = '';
+export class BcgInputPassword extends BcgInput {
 
   static get styles() {
     return [
