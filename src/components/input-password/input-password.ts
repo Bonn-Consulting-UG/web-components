@@ -41,7 +41,6 @@ export class BcgInputPassword extends LitElement {
 
   render() {
     const { validators, label, type, placeholder, name } = this;
-    let { modelValue } = this;
 
     return html` <div class="input-password-wrapper">
       <bcg-input
@@ -50,10 +49,9 @@ export class BcgInputPassword extends LitElement {
         type=${type}
         placeholder=${placeholder}
         name=${name}
-        .modelValue=${modelValue}
+        .modelValue=${this.modelValue}
         @model-value-changed=${({ target }: any) => {
-          modelValue = target.value;
-          console.log(modelValue);
+          this.modelValue = target.value;
         }}
       ></bcg-input>
 
