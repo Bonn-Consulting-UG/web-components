@@ -133,7 +133,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         this.responseTo = {};
       }
 
-      ev.path[0].resetGroup();
+      // ev.path[0].resetGroup();
       this.setupComments(newCommentId);
     };
 
