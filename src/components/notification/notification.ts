@@ -46,6 +46,7 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
           position: absolute;
           position: absolute;
           width: 90%;
+          z-index: 100;
           left: 5%;
           top: 50px;
           background-color: white;

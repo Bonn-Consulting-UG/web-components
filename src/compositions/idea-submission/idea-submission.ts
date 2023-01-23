@@ -87,7 +87,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
             : null}
           <div>
             <div style="display:flex; flex-direction:column;">
-              <h1 style="flex-grow: 1;">Idee einreichen</h1>
               <p style="width:650px;">
                 Hier steht Text, den das Projektteam geschrieben hat und der
                 erklärt, warum es sinnvoll und wichtig ist, eine Idee für das
@@ -97,7 +96,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                 rerum voluptas non nulla alias aut expedita assumenda sit dolor
                 conse.
               </p>
-              <p style="background-color:#56A1E8; width:500px">
+              <p style="">
                 Alle mit * gekennzeichneten Felder sind Pflichtfelder.
               </p>
 

@@ -93,7 +93,6 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           <div>
 
               <div style="display:flex; flex-direction:column;flex-basis:100%;">
-                <h2>Konatkformular</h2>
 
                 ${
                   this.isLoading
