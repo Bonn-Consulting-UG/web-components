@@ -42,19 +42,11 @@ export class BcgModule extends LitElement {
 
   @property({ type: String }) notificationType: string = 'success';
 
-  @property({ type: LitElement || null }) notificationHtml: any = this
-    .showNotification
-    ? html` <bcg-notification
-        variant=${this.notificationType}
-        message=${this.notificationMessage}
-      ></bcg-notification>`
-    : null;
+  @property({ type: LitElement || null }) notificationHtml: any = null;
 
   @property({ type: Boolean }) isLoading: Boolean = false;
 
-  @property() loadingHtml: any = this.isLoading
-    ? html` <bcg-progress></bcg-progress>`
-    : null;
+  @property({ type: LitElement || null }) loadingHtml: any = null;
 
   checkAuthToken() {
     if (
@@ -64,6 +56,27 @@ export class BcgModule extends LitElement {
     ) {
       localStorage.removeItem('accessToken');
     }
+  }
+
+  update(changedProperties: any) {
+    this.updateNotificationHtml();
+    this.updateLoadingHtml();
+    super.update(changedProperties);
+  }
+
+  updateNotificationHtml() {
+    this.notificationHtml = this.showNotification
+    ? html` <bcg-notification
+        variant=${this.notificationType}
+        message=${this.notificationMessage}
+      ></bcg-notification>`
+    : null;
+  }
+
+  updateLoadingHtml() {
+    this.loadingHtml = this.isLoading
+    ? html` <bcg-progress></bcg-progress>`
+    : null;
   }
 
   logOutHandler = () => {
