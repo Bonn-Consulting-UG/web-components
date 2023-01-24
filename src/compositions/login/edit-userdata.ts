@@ -51,13 +51,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
     console.log(this.user);
     return html`
       <div>
-        ${this.showNotification
-          ? html`<bcg-notification
-              .closeHandler=${this.disabledNotification}
-              variant=${this.notificationType}
-              message=${this.notificationMessage}
-            ></bcg-notification> `
-          : null}
+        ${this.notificationHtml}
         <bcg-form @submit=${submitHandler}>
           <form @submit=${(e: any) => e.preventDefault()}>
             <h2>Persönliche Angaben</h2>

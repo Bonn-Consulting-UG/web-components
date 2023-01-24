@@ -72,13 +72,7 @@ export class BcgPasswordReset extends ScopedElementsMixin(BcgModule) {
 
     return html`
       ${currentStep >= maxStep - 1 ? null : html`<h1>Willkommen zurück!</h1>`}
-      ${this.showNotification
-        ? html`<bcg-notification
-            .closeHandler=${this.disabledNotification}
-            variant=${this.notificationType}
-            message=${this.notificationMessage}
-          ></bcg-notification> `
-        : null}
+      ${this.notificationHtml}
       ${currentStep === 1
         ? html`<bcg-password-reset-start
             .resetEmail=${this.resetEmail}

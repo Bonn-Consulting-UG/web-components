@@ -107,13 +107,7 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
       this.isLoading
         ? html`<bcg-progress></bcg-progress>`
         : html`
-            ${this.showNotification
-              ? html`<bcg-notification
-                  .closeHandler=${this.disabledNotification}
-                  variant=${this.notificationType}
-                  message=${this.notificationMessage}
-                ></bcg-notification> `
-              : null}
+            ${this.notificationHtml}
             ${currentStep >= maxStep - 1
               ? null
               : html`<h1>Willkommen!</h1>

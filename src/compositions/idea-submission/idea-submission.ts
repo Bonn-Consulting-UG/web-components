@@ -78,13 +78,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
     return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
-          ${this.showNotification
-            ? html` <bcg-notification
-                .closeHandler=${this.disabledNotification}
-                variant=${this.notificationType}
-                message=${this.notificationMessage}
-              ></bcg-notification>`
-            : null}
+          ${this.notificationHtml}
           <div>
             <div style="display:flex; flex-direction:column;">
               <h1 style="flex-grow: 1;">Idee einreichen</h1>

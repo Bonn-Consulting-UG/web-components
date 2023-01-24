@@ -33,13 +33,7 @@ export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
       console.log(res);
     };
     return html`
-      ${this.showNotification
-        ? html`<bcg-notification
-            .closeHandler=${this.disabledNotification}
-            variant=${this.notificationType}
-            message=${this.notificationMessage}
-          ></bcg-notification> `
-        : null}
+      ${this.notificationHtml}
       <h2>Profil löschen</h2>
       <p>
         Wenn Sie sich nicht länger beteiligen möchten, können Sie Ihr

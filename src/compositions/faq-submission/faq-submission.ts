@@ -77,15 +77,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
     return html`
       <bcg-form @submit=${(ev: any) => submitHandler(ev)}>
         <form @submit=${(e: any) => e.preventDefault()}>
-        ${
-          this.showNotification
-            ? html` <bcg-notification
-                .closeHandler=${this.disabledNotification}
-                variant=${this.notificationType}
-                message=${this.notificationMessage}
-              ></bcg-notification>`
-            : null
-        }
+        ${this.notificationHtml}
           <div>
             <div style="display:flex; flex-direction:row;">
               <h1 style="margin-right:50px;">Reichen Sie Ihre Frage ein!</h1>

@@ -67,6 +67,7 @@ export class BcgModule extends LitElement {
   updateNotificationHtml() {
     this.notificationHtml = this.showNotification
     ? html` <bcg-notification
+        .closeHandler=${this.disabledNotification}
         variant=${this.notificationType}
         message=${this.notificationMessage}
       ></bcg-notification>`

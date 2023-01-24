@@ -78,13 +78,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
     return html`
       <div style="width:640px;">
         <div class="left-side" style="display:flex;flex-direction: column;">
-          ${this.showNotification
-            ? html`<bcg-notification
-                .closeHandler=${this.disabledNotification}
-                variant=${this.notificationType}
-                message=${this.notificationMessage}
-              ></bcg-notification> `
-            : null}
+          ${this.notificationHtml}
           ${this.isLoading
             ? html`<bcg-progress></bcg-progress>`
             : html`<h1>Willkommen zurück!</h1>
