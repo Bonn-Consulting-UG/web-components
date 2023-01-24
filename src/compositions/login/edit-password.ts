@@ -95,9 +95,8 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           <h2>Passwort ändern</h2>
-          ${this.isLoading
-            ? html`<bcg-progress></bcg-progress>`
-            : html`
+          ${this.loadingHtml
+            || html`
                 <div style="position: relative;">
                   <bcg-input
                     label="Aktuelles Passwort"

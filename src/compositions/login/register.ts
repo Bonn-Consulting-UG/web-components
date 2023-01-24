@@ -104,9 +104,8 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
     <div class="left-side" style="flex-direction:row-reverse;width:640px;min-height:300px;"> 
 
     ${
-      this.isLoading
-        ? html`<bcg-progress></bcg-progress>`
-        : html`
+      this.loadingHtml
+        || html`
             ${this.notificationHtml}
             ${currentStep >= maxStep - 1
               ? null

@@ -55,9 +55,8 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
         <bcg-form @submit=${submitHandler}>
           <form @submit=${(e: any) => e.preventDefault()}>
             <h2>Persönliche Angaben</h2>
-            ${this.isLoading
-              ? html`<bcg-progress></bcg-progress>`
-              : html`
+            ${this.loadingHtml
+              || html`
                   <bcg-input
                     label="Ihr Vorname"
                     .validators=${[new Required()]}
