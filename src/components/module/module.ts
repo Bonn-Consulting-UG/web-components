@@ -1,6 +1,6 @@
 import { html, LitElement, property } from '@lion/core';
 import jwtDecode from 'jwt-decode';
-import { PropertyValueMap } from 'lit';
+import { css } from 'lit';
 import {
   sendGetNewAccessTokenRequest,
   sendLoginRequest,
@@ -9,6 +9,18 @@ import { getModule } from '../../utils/services/module';
 import { thumbsdown } from '../icon/export-comment-icons';
 
 export class BcgModule extends LitElement {
+  static get styles() {
+    return [css`
+      .loader {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        background: white;
+      }
+    `];
+  }
+  
   @property({ type: Boolean }) isLoggedIn: Boolean = false;
 
   @property({ type: String }) moduleId: number = 0;
@@ -75,8 +87,8 @@ export class BcgModule extends LitElement {
   }
 
   updateLoadingHtml() {
-    this.loadingHtml = this.isLoading
-    ? html` <bcg-progress></bcg-progress>`
+    this.loadingHtml = !this.isLoading
+    ? html` <bcg-progress class="loader"></bcg-progress>`
     : null;
   }
 

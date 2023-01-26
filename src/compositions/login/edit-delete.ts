@@ -5,7 +5,7 @@ import { sendUserDeleteRequest } from '../../utils/services/login';
 
 export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
   static get styles() {
-    return [css``];
+    return [...super.styles, css``];
   }
 
   user: any;

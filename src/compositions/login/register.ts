@@ -93,7 +93,7 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
   }
 
   static get styles() {
-    return [css``];
+    return [...super.styles, css``];
   }
 
   render() {
@@ -103,39 +103,35 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
     <div style="display:flex;">
     <div class="left-side" style="flex-direction:row-reverse;width:640px;min-height:300px;"> 
 
-    ${
-      this.loadingHtml
-        || html`
-            ${this.notificationHtml}
-            ${currentStep >= maxStep - 1
-              ? null
-              : html`<h1>Willkommen!</h1>
-                  <h2>Registrierung</h2>
-                  <span>Schritt ${currentStep} von ${maxStep - 1} </span>`}
-            <!-- ${currentStep === 1
-              ? html`<bcg-register-step-one
-                  .nextStep="${nextStep}"
-                ></bcg-register-step-one>`
-              : null} -->
-            ${currentStep === 1
-              ? html`<bcg-register-step-two
-                  .nextStep="${nextStep}"
-                ></bcg-register-step-two> `
-              : null}
-            ${currentStep === 2
-              ? html`<bcg-register-step-three
-                  .user=${this.userData}
-                  .nextStep="${nextStep}"
-                ></bcg-register-step-three> `
-              : null}
-            ${currentStep === 3
-              ? html`<bcg-register-step-finished
-                  .user=${this.userData}
-                  .nextStep="${nextStep}"
-                ></bcg-register-step-finished> `
-              : null}
-          `
-    }
+        ${this.loadingHtml}
+        ${this.notificationHtml}
+        ${currentStep >= maxStep - 1
+          ? null
+          : html`<h1>Willkommen!</h1>
+              <h2>Registrierung</h2>
+              <span>Schritt ${currentStep} von ${maxStep - 1} </span>`}
+        <!-- ${currentStep === 1
+          ? html`<bcg-register-step-one
+              .nextStep="${nextStep}"
+            ></bcg-register-step-one>`
+          : null} -->
+        ${currentStep === 1
+          ? html`<bcg-register-step-two
+              .nextStep="${nextStep}"
+            ></bcg-register-step-two> `
+          : null}
+        ${currentStep === 2
+          ? html`<bcg-register-step-three
+              .user=${this.userData}
+              .nextStep="${nextStep}"
+            ></bcg-register-step-three> `
+          : null}
+        ${currentStep === 3
+          ? html`<bcg-register-step-finished
+              .user=${this.userData}
+              .nextStep="${nextStep}"
+            ></bcg-register-step-finished> `
+          : null}
         </div>
         </div>
       </div>

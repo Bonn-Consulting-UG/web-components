@@ -17,7 +17,7 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
   @property({ type: Object }) count: any = {};
 
   static get styles() {
-    return [
+    return [...super.styles,
       css`
         :host .comment-response {
           background-color: white;

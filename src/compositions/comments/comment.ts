@@ -26,7 +26,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     console.log('default');
 
   static get styles() {
-    return [
+    return [...super.styles,
       css`
         :host .comment-response {
           background-color: white;

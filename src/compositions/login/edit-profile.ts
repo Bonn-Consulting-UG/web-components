@@ -7,7 +7,7 @@ import { BcgEditUserData } from './edit-userdata';
 
 export class BcgEditProfile extends ScopedElementsMixin(BcgModule) {
   static get styles() {
-    return [css``];
+    return [...super.styles, css``];
   }
 
   static get scopedElements() {

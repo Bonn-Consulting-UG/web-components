@@ -15,7 +15,7 @@ import { BcgUserLogin } from './user-login';
 
 export class BcgLogin extends ScopedElementsMixin(BcgModule) {
   static get styles() {
-    return [css``];
+    return [...super.styles, css``];
   }
 
   static get scopedElements() {

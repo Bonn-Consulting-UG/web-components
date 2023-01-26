@@ -3,7 +3,7 @@ import { BcgModule } from '../../components/module';
 import { LionIcon } from '@lion/icon';
 export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
   static get styles() {
-    return [
+    return [...super.styles,
       css`
         dialog {
           color: var(--primary-color);

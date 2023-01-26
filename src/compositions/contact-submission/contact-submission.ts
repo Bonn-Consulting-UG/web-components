@@ -1,10 +1,22 @@
-import { html, ScopedElementsMixin } from '@lion/core';
+import { css, html, ScopedElementsMixin } from '@lion/core';
 import { BcgModule } from '../../components/module';
 import { Required } from '../../utils/helpers/input-errors';
 import { contactSubmissionEndpoint } from '../../utils/services/config';
 import { sendContactSubmissionRequest } from '../../utils/services/module';
 
 export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
+  static get styles() {
+    return [...super.styles,
+      css`
+      .contact-submission-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        position:relative;
+      }
+    `];
+  }
+
   contactRequest: any = {
     description: '',
     templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
@@ -83,43 +95,42 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           ${this.notificationHtml}
           <div>
 
-              <div style="display:flex; flex-direction:column;flex-basis:100%;">
-                <h2>Konatkformular</h2>
-                ${this.loadingHtml ||
-                  html`
-                  ${!this.isLoggedIn
-                    ? html` <bcg-input
-                          label="Ihr Vorname "
-                          placeholder=""
-                          name="firstname"
-                          .validators=${[new Required()]}
-                          .modelValue="${contactRequest.firstName}"
-                          @model-value-changed=${({ target }: any) => {
-                            contactRequest.firstName = target.value;
-                          }}
-                        ></bcg-input>
-                        <bcg-input
-                          label="Ihr Nachname"
-                          placeholder=""
-                          name="lastname"
-                          .validators=${[new Required()]}
-                          .modelValue="${contactRequest.lastName}"
-                          @model-value-changed=${({ target }: any) => {
-                            contactRequest.lastName = target.value;
-                          }}
-                        ></bcg-input>
+              <div class="contact-submission-wrapper">
+                <h2>Kontaktformular</h2>
+                ${this.loadingHtml}
+                ${!this.isLoggedIn
+                  ? html` <bcg-input
+                        label="Ihr Vorname "
+                        placeholder=""
+                        name="firstname"
+                        .validators=${[new Required()]}
+                        .modelValue="${contactRequest.firstName}"
+                        @model-value-changed=${({ target }: any) => {
+                          contactRequest.firstName = target.value;
+                        }}
+                      ></bcg-input>
+                      <bcg-input
+                        label="Ihr Nachname"
+                        placeholder=""
+                        name="lastname"
+                        .validators=${[new Required()]}
+                        .modelValue="${contactRequest.lastName}"
+                        @model-value-changed=${({ target }: any) => {
+                          contactRequest.lastName = target.value;
+                        }}
+                      ></bcg-input>
 
-                        <bcg-input-email
-                          name="email"
-                          .validators=${[new Required()]}
-                          .modelValue="${contactRequest.email}"
-                          @model-value-changed=${({ target }: any) => {
-                            contactRequest.email = target.value;
-                          }}
-                          label="Ihre E-Mail "
-                          placeholder=""
-                        ></bcg-input-email>`
-                    : null}
+                      <bcg-input-email
+                        name="email"
+                        .validators=${[new Required()]}
+                        .modelValue="${contactRequest.email}"
+                        @model-value-changed=${({ target }: any) => {
+                          contactRequest.email = target.value;
+                        }}
+                        label="Ihre E-Mail "
+                        placeholder=""
+                      ></bcg-input-email>`
+                  : null}
 
                   <bcg-input
                     name="title"
@@ -160,7 +171,6 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                   <div>
                     <bcg-button-submit>Senden</bcg-button-submit>
                   </div>
-                `}
                 </div>
               </div>
             </div>

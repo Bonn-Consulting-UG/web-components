@@ -20,7 +20,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
   }
 
   static get styles() {
-    return [css``];
+    return [...super.styles, css``];
   }
 
   render() {
@@ -55,43 +55,42 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
         <bcg-form @submit=${submitHandler}>
           <form @submit=${(e: any) => e.preventDefault()}>
             <h2>Persönliche Angaben</h2>
-            ${this.loadingHtml
-              || html`
-                  <bcg-input
-                    label="Ihr Vorname"
-                    .validators=${[new Required()]}
-                    placeholder=""
-                    .modelValue="${this.user.given_name}"
-                    @model-value-changed=${({ target }: any) => {
-                      this.user.given_name = target.value;
-                    }}
-                    name="firstname"
-                  ></bcg-input>
-                  <bcg-input
-                    label="Ihr Nachname"
-                    .validators=${[new Required()]}
-                    placeholder=""
-                    @model-value-changed=${({ target }: any) => {
-                      this.user.family_name = target.value;
-                    }}
-                    .modelValue="${this.user.family_name}"
-                    name="lastname"
-                  ></bcg-input>
-                  <bcg-input
-                    label="Ihre E-Mail"
-                    help-text="Kann nicht geändert werden"
-                    .validators=${[new Required(), new IsEmail()]}
-                    .modelValue="${this.user.email}"
-                    disabled
-                    placeholder=""
-                    name="email"
-                  ></bcg-input>
-                  <bcg-button-submit
-                    style="margin-top:10px"
-                    @click="${() => console.log('ButtonPress Save')}"
-                    >Speichern</bcg-button-submit
-                  >
-                `}
+            ${this.loadingHtml}
+            <bcg-input
+              label="Ihr Vorname"
+              .validators=${[new Required()]}
+              placeholder=""
+              .modelValue="${this.user.given_name}"
+              @model-value-changed=${({ target }: any) => {
+                this.user.given_name = target.value;
+              }}
+              name="firstname"
+            ></bcg-input>
+            <bcg-input
+              label="Ihr Nachname"
+              .validators=${[new Required()]}
+              placeholder=""
+              @model-value-changed=${({ target }: any) => {
+                this.user.family_name = target.value;
+              }}
+              .modelValue="${this.user.family_name}"
+              name="lastname"
+            ></bcg-input>
+            <bcg-input
+              label="Ihre E-Mail"
+              help-text="Kann nicht geändert werden"
+              .validators=${[new Required(), new IsEmail()]}
+              .modelValue="${this.user.email}"
+              disabled
+              placeholder=""
+              name="email"
+            ></bcg-input>
+            <bcg-button-submit
+              style="margin-top:10px"
+              @click="${() => console.log('ButtonPress Save')}"
+              >Speichern</bcg-button-submit
+            >
+
           </form>
         </bcg-form>
       </div>

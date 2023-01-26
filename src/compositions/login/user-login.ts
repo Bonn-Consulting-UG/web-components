@@ -13,7 +13,7 @@ import { LionIcon } from '@lion/icon';
 
 export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
   static get styles() {
-    return [css``];
+    return [...super.styles, css``];
   }
 
   static get properties() {
@@ -79,76 +79,76 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
       <div style="width:640px;">
         <div class="left-side" style="display:flex;flex-direction: column;">
           ${this.notificationHtml}
-          ${this.loadingHtml
-            || html`<h1>Willkommen zurück!</h1>
-                <h2>Anmeldung</h2>
-                <bcg-form name="loginform" @submit="${(ev: any) =>
-                  submitHandler(ev)}">
-                  <form @submit=${(e: any) => e.preventDefault()}>
-                    <div>
-                      <bcg-input-email
-                        name="email"
-                        label="E-Mail"
-                        placeholder=""
-                        .modelValue="${email}"
-                        .validators=${[new Required('Input')]}
-                        @model-value-changed=${({ target }: any) => {
-                          email = target.value;
-                        }}
-                      ></bcg-input-email>
-                      <div
-                        style="display:block;flex-direction:row ; flex-basis:100%; justify-content:center; align-items:center;"
-                      >
-                        <bcg-input
-                          style="flex-basis:100%;"
-                          label="Passwort"
-                          type=${passwordInputType}
-                          placeholder=""
-                          .modelValue="${password}"
-                          .validators=${[
-                            new Required('Input'),
-                            new MinLength(3),
-                          ]}
-                          name="password"
-                          @model-value-changed=${({ target }: any) => {
-                            password = target.value;
-                          }}
-                        ></bcg-input>
+          ${this.loadingHtml}
+          <h1>Willkommen zurück!</h1>
+          <h2>Anmeldung</h2>
+          <bcg-form name="loginform" @submit="${(ev: any) =>
+              submitHandler(ev)}">
+              <form @submit=${(e: any) => e.preventDefault()}>
+                <div>
+                  <bcg-input-email
+                    name="email"
+                    label="E-Mail"
+                    placeholder=""
+                    .modelValue="${email}"
+                    .validators=${[new Required('Input')]}
+                    @model-value-changed=${({ target }: any) => {
+                      email = target.value;
+                    }}
+                  ></bcg-input-email>
+                  <div
+                    style="display:block;flex-direction:row ; flex-basis:100%; justify-content:center; align-items:center;"
+                  >
+                    <bcg-input
+                      style="flex-basis:100%;"
+                      label="Passwort"
+                      type=${passwordInputType}
+                      placeholder=""
+                      .modelValue="${password}"
+                      .validators=${[
+                        new Required('Input'),
+                        new MinLength(3),
+                      ]}
+                      name="password"
+                      @model-value-changed=${({ target }: any) => {
+                        password = target.value;
+                      }}
+                    ></bcg-input>
 
-                        <lion-icon
-                          style="position: relative;
-                        right: -94%;
-                        top: -30px;
-                        width: 24px;
-                        height: 24px;"
-                          @click=${this.flipPasswordInput}
-                          icon-id=${
-                            passwordInputType === 'password'
-                              ? 'bcg:general:eye'
-                              : 'bcg:general:eyeopen'
-                          }
-                        ></lion-icon>
-                      </div>
-                    </div>
+                    <lion-icon
+                      style="position: relative;
+                    right: -94%;
+                    top: -30px;
+                    width: 24px;
+                    height: 24px;"
+                      @click=${this.flipPasswordInput}
+                      icon-id=${
+                        passwordInputType === 'password'
+                          ? 'bcg:general:eye'
+                          : 'bcg:general:eyeopen'
+                      }
+                    ></lion-icon>
+                  </div>
+                </div>
 
-                    <div
-                      style="display:flex;margin-top:20px;justify-content: space-between;"
-                    >        
-              <bcg-button-submit>Anmelden</bcg-button-submit>
+                <div
+                  style="display:flex;margin-top:20px;justify-content: space-between;"
+                >        
+          <bcg-button-submit>Anmelden</bcg-button-submit>
 
-                      <a
-                      href
-                      style="display: flex;
-                      align-items: center;"
-                      onclick="return false"
-                        @click=${onPasswordReset}
-                        @keydown=${onPasswordReset}
+                  <a
+                  href
+                  style="display: flex;
+                  align-items: center;"
+                  onclick="return false"
+                    @click=${onPasswordReset}
+                    @keydown=${onPasswordReset}
 
-                        >Passwort zurücksetzen</a
-                      >
-                    </div>
-                  </form></bcg-formw
-                >`}
+                    >Passwort zurücksetzen</a
+                  >
+                </div>
+              </form></bcg-formw
+            >
         </div>
       </div>
     `;

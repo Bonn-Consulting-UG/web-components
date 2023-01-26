@@ -18,7 +18,7 @@ export class BcgReaction extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) icon: any;
 
   static get styles() {
-    return [
+    return [...super.styles,
       css`
         .filled svg {
           fill: var(--primary-color);
