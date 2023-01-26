@@ -32,14 +32,10 @@ let password = '';
 const Template: Story<ArgTypes> = () =>
   html` <bcg-input-password
   .validators=${[new Required()]}
-  type='password'
   label='Password Input'
   name="password"
   placeholder='Enter password'
   .modelValue=${password}
-  @model-value-changed=${({ target }: any) => {
-    password = target.value;
-  }}
-  ></bcg-input-password> `;
+  ></bcg-input-password>`;
 
 export const Default = Template.bind({});
