@@ -1,5 +1,10 @@
 import { html, ScopedElementsMixin } from '@lion/core';
-import { Required, IsEmail } from '../../utils/helpers/input-errors';
+import {
+  Required,
+  IsEmail,
+  MaxLength,
+  MinLength,
+} from '../../utils/helpers/input-errors';
 import { BcgModule } from '../../components/module';
 import { ideaSubmissionEndpoint } from '../../utils/services/config';
 import { sendIdeaSubmissionRequest } from '../../utils/services/module';
@@ -64,6 +69,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         this.ideaRequest.title = '';
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
+        console.log(ev.target);
 
         console.log(resp);
       } catch (err) {
@@ -102,7 +108,11 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
 
               <bcg-input
                 label="Titel Ihrer Idee *"
-                .validators=${[]}
+                .validators=${[
+                  new Required(),
+                  new MinLength(5),
+                  new MaxLength(100),
+                ]}
                 name="title"
                 .modelValue="${ideaRequest.title}"
                 @model-value-changed=${({ target }: any) => {
