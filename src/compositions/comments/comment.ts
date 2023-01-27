@@ -282,7 +282,11 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
               >
                 <div class="comment-poster">
                   <div class="comment-poster-details">
-                    <p class=" ${i.isModerator ? 'moderator-name' : null}">
+                    <p
+                      class=" ${i.author.roles.includes('MODERATOR')
+                        ? 'moderator-name'
+                        : null}"
+                    >
                       ${i.author.firstName
                         ? i.author.firstName
                         : html`<i><b>Gelöschtes Profil</b></i>`}

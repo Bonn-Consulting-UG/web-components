@@ -140,7 +140,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       sichtbar in Verbindung mit Ihrer Idee erscheinen.
                     </p>
                     <bcg-input
-                      label="Ihr Vorname "
+                      label="Ihr Vorname *"
                       placeholder=""
                       name="firstname"
                       .validators=${[new Required()]}
@@ -150,7 +150,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       }}
                     ></bcg-input>
                     <bcg-input
-                      label="Ihr Nachname"
+                      label="Ihr Nachname  *"
                       placeholder=""
                       name="lastname"
                       .validators=${[new Required()]}
@@ -161,7 +161,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                     ></bcg-input>
                     <p>Sofern Sie von uns kontaktiert werden möchten.</p>
                     <bcg-input-email
-                      label="Ihre E-Mail "
+                      label="Ihre E-Mail  *"
                       name="email"
                       placeholder=""
                       .validators=${[new Required()]}
@@ -176,7 +176,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                     >
                       <bcg-checkbox
                         label="Ich akzeptiere die 
-        Datenschutzerklärung"
+        Datenschutzerklärung  *"
                         .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
                       ></bcg-checkbox>
                     </bcg-checkbox-group>

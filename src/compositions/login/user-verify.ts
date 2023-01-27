@@ -60,7 +60,7 @@ export class BcgUserVerify extends ScopedElementsMixin(LitElement) {
           <bcg-input
             name="verifycode"
             label=""
-            placeholder="Geben Sie den 6-stelligen Code ein"
+            placeholder="Geben Sie den 6-stelligen Code ein  *"
             .modelValue="${code}"
             .validators=${[new Required(), new MinLength(6), new MaxLength(6)]}
             @model-value-changed=${({ target }: any) => {

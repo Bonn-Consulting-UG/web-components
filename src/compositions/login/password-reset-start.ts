@@ -83,7 +83,7 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
             <bcg-input-email
               style="margin-bottom:10px;"
               name="email"
-              label="Ihre E-Mail"
+              label="Ihre E-Mail  *"
               placeholder=""
               .modelValue="${resetEmail}"
               .validators=${[new Required(), new IsEmail()]}
