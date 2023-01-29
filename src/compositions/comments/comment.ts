@@ -88,7 +88,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
       comment.$userReactions.find((e: any) => e.type === 'DISLIKE');
 
     return html`
-        <!--  <dialog id="dialog" open>
+         <dialog id="dialog" open>
      <header style=" display:flex;justify-content: flex-end;align-content: flex-end;">
               <bcg-button id="close-button" variant="tertiary"
                 ><lion-icon icon-id="bcg:general:cross"></bcg-icon
@@ -100,7 +100,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
           <bcg-button variant="primary">Ja</bcg-button>
           <bcg-button variant="primary">Nein</bcg-button>
           </div>
-    </dialog> -->
+    </dialog>
         <hr />
         <div
           data-id=${id}

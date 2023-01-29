@@ -60,11 +60,14 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           }),
         };
 
-        const resp = await fetch(
+        const response = await fetch(
           ideaSubmissionEndpoint(this.moduleId),
           fetchOptions
         );
 
+        const resp = await response.json();
+        console.log(resp);
+        location.pathname = `${location.pathname}/${resp.id}`;
         this.ideaRequest.description = '';
         this.ideaRequest.title = '';
         this.showNotification = true;
@@ -176,7 +179,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                     >
                       <bcg-checkbox
                         label="Ich akzeptiere die 
-        Datenschutzerklärung  *"
+Datenschutzerklärung  *"
                         .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
                       ></bcg-checkbox>
                     </bcg-checkbox-group>
