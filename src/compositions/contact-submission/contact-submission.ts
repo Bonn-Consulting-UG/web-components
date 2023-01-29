@@ -100,7 +100,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                     : html`
                         ${!this.isLoggedIn
                           ? html` <bcg-input
-                                label="Ihr Vorname "
+                                label="Ihr Vorname *"
                                 placeholder=""
                                 name="firstname"
                                 .validators=${[new Required()]}
@@ -110,7 +110,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                                 }}
                               ></bcg-input>
                               <bcg-input
-                                label="Ihr Nachname"
+                                label="Ihr Nachname  *"
                                 placeholder=""
                                 name="lastname"
                                 .validators=${[new Required()]}
@@ -127,14 +127,14 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                                 @model-value-changed=${({ target }: any) => {
                                   contactRequest.email = target.value;
                                 }}
-                                label="Ihre E-Mail "
+                                label="Ihre E-Mail  *"
                                 placeholder=""
                               ></bcg-input-email>`
                           : null}
 
                         <bcg-input
                           name="title"
-                          label="Betreff"
+                          label="Betreff *"
                           .validators=${[new Required()]}
                           placeholder=""
                           .modelValue="${contactRequest.title}"
@@ -147,7 +147,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                           name="content"
                           rows="6"
                           .validators=${[new Required()]}
-                          label="Nachricht"
+                          label="Nachricht *"
                           .modelValue="${contactRequest.description}"
                           @model-value-changed=${({ target }: any) => {
                             contactRequest.description = target.value;
@@ -162,7 +162,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                             .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
                             ><p slot="label">
                               Ich akzeptiere die
-                              <a href="/datenschutz">Datenschutzerklärung</a>
+                              <a href="/datenschutz">Datenschutzerklärung *</a>
                             </p></bcg-checkbox
                           >
                         </bcg-checkbox-group>
