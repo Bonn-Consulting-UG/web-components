@@ -3,7 +3,7 @@
   "description": "Bcg-components following open-wc recommendations",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "0.0.3-2",
+  "version": "0.0.3-14",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
@@ -85,6 +85,7 @@
     "@web/rollup-plugin-html": "^1.11.0",
     "@web/test-runner": "next",
     "concurrently": "^7.2.1",
+    "cypress": "^12.3.0",
     "deepmerge": "^4.2.2",
     "es-dev-server": "^2.1.0",
     "eslint": "^8.20.0",

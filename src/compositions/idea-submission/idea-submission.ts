@@ -1,5 +1,10 @@
 import { html, ScopedElementsMixin } from '@lion/core';
-import { Required, IsEmail } from '../../utils/helpers/input-errors';
+import {
+  Required,
+  IsEmail,
+  MaxLength,
+  MinLength,
+} from '../../utils/helpers/input-errors';
 import { BcgModule } from '../../components/module';
 import { ideaSubmissionEndpoint } from '../../utils/services/config';
 import { sendIdeaSubmissionRequest } from '../../utils/services/module';
@@ -55,15 +60,19 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           }),
         };
 
-        const resp = await fetch(
+        const response = await fetch(
           ideaSubmissionEndpoint(this.moduleId),
           fetchOptions
         );
 
+        const resp = await response.json();
+        console.log(resp);
+        location.pathname = `${location.pathname}/${resp.id}`;
         this.ideaRequest.description = '';
         this.ideaRequest.title = '';
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
+        console.log(ev.target);
 
         console.log(resp);
       } catch (err) {
@@ -87,7 +96,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
             : null}
           <div>
             <div style="display:flex; flex-direction:column;">
-              <h1 style="flex-grow: 1;">Idee einreichen</h1>
               <p style="width:650px;">
                 Hier steht Text, den das Projektteam geschrieben hat und der
                 erklärt, warum es sinnvoll und wichtig ist, eine Idee für das
@@ -97,13 +105,17 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                 rerum voluptas non nulla alias aut expedita assumenda sit dolor
                 conse.
               </p>
-              <p style="background-color:#56A1E8; width:500px">
+              <p style="">
                 Alle mit * gekennzeichneten Felder sind Pflichtfelder.
               </p>
 
               <bcg-input
                 label="Titel Ihrer Idee *"
-                .validators=${[new Required()]}
+                .validators=${[
+                  new Required(),
+                  new MinLength(5),
+                  new MaxLength(100),
+                ]}
                 name="title"
                 .modelValue="${ideaRequest.title}"
                 @model-value-changed=${({ target }: any) => {
@@ -131,7 +143,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       sichtbar in Verbindung mit Ihrer Idee erscheinen.
                     </p>
                     <bcg-input
-                      label="Ihr Vorname "
+                      label="Ihr Vorname *"
                       placeholder=""
                       name="firstname"
                       .validators=${[new Required()]}
@@ -141,7 +153,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       }}
                     ></bcg-input>
                     <bcg-input
-                      label="Ihr Nachname"
+                      label="Ihr Nachname  *"
                       placeholder=""
                       name="lastname"
                       .validators=${[new Required()]}
@@ -152,7 +164,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                     ></bcg-input>
                     <p>Sofern Sie von uns kontaktiert werden möchten.</p>
                     <bcg-input-email
-                      label="Ihre E-Mail "
+                      label="Ihre E-Mail  *"
                       name="email"
                       placeholder=""
                       .validators=${[new Required()]}
@@ -167,7 +179,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                     >
                       <bcg-checkbox
                         label="Ich akzeptiere die 
-        Datenschutzerklärung"
+Datenschutzerklärung  *"
                         .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
                       ></bcg-checkbox>
                     </bcg-checkbox-group>

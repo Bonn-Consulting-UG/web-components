@@ -17,29 +17,62 @@ export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
     };
   }
 
-  // break span down '<span>Schritt ${currentStep} von ${maxStep - 1} </span>' to be able to export string to data
+  dialogState: string = 'open';
+
+  protected updated(): void {
+    const deleteDialog: any = this.shadowRoot?.querySelector('#dialog');
+    const openButton = this.shadowRoot?.querySelector('#open-button-delete');
+    const closeButton = this.shadowRoot?.querySelector('#close-button');
+    const closeButtonWithinDialog = this.shadowRoot?.querySelector(
+      '#close-button-secondary'
+    );
+    openButton?.addEventListener('click', () => {
+      deleteDialog?.showModal();
+    });
+
+    closeButton?.addEventListener('click', () => {
+      deleteDialog?.close();
+    });
+    closeButton?.addEventListener('click', () => {
+      deleteDialog?.close();
+    });
+    closeButtonWithinDialog?.addEventListener('click', () => {
+      deleteDialog?.close();
+    });
+  }
 
   render() {
     const submitHandler = async (ev: any) => {
-      if (ev.target.hasFeedbackFor.includes('error')) {
-        const firstFormElWithError = ev.target.formElements.find((el: any) =>
-          el.hasFeedbackFor.includes('error')
-        );
-        firstFormElWithError.focus();
-        return;
-      }
-
-      const res = await sendUserDeleteRequest(this.user.sub);
-      console.log(res);
+      console.log('hihi');
+      // const res = await sendUserDeleteRequest(this.user.sub);
+      // console.log(res);
     };
     return html`
-      ${this.showNotification
-        ? html`<bcg-notification
-            .closeHandler=${this.disabledNotification}
-            variant=${this.notificationType}
-            message=${this.notificationMessage}
-          ></bcg-notification> `
-        : null}
+
+
+     <dialog id="dialog">
+          <header style=" display:flex;justify-content: flex-end;align-content: flex-end;">
+              <bcg-button id="close-button" variant="tertiary"
+                ><lion-icon icon-id="bcg:general:cross"></bcg-icon
+              ></bcg-button>
+            </header>
+
+           <p>Sind Sie sicher, dass Sie Ihr Profil wirklich löschen möchten?</p>
+          <div>
+          <bcg-button variant="primary" id="close-button-secondary">Nein, Profil nicht löschen</bcg-button>
+          <bcg-button variant="primary" @click=${submitHandler}>Ja, Profil löschen</bcg-button>
+          
+          </div>
+    </dialog>
+      ${
+        this.showNotification
+          ? html`<bcg-notification
+              .closeHandler=${this.disabledNotification}
+              variant=${this.notificationType}
+              message=${this.notificationMessage}
+            ></bcg-notification> `
+          : null
+      }
       <h2>Profil löschen</h2>
       <p>
         Wenn Sie sich nicht länger beteiligen möchten, können Sie Ihr
@@ -47,11 +80,9 @@ export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
         Daten gelöscht. Sofern Sie im Rahmen der Beteiligung Beiträge verfasst
         haben, bleiben diese unter der Angabe „Profil gelöscht“ erhalten.
       </p>
-      <bcg-form style="margin-top:10px" @submit=${submitHandler}>
-        <form @submit=${(e: any) => e.preventDefault()}>
-          <bcg-button-submit>Profil löschen</bcg-button-submit>
-        </form>
-      </bcg-form>
+     
+          <bcg-button variant="primary" id="open-button-delete">Profil löschen</bcg-button-submit>
+
     `;
   }
 }

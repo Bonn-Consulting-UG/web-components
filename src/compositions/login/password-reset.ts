@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 
 import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
+import { BcgModule } from '../../components/module';
 import { Required, IsEmail } from '../../utils/helpers/input-errors';
 import {
   checkVerifyCode,
@@ -12,7 +13,7 @@ import { BcgPasswordResetConfirm } from './password-reset-confirm';
 import { BcgPasswordResetFinished } from './password-reset-finished';
 import { BcgPasswordResetStart } from './password-reset-start';
 
-export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
+export class BcgPasswordReset extends ScopedElementsMixin(BcgModule) {
   @property({ type: Number }) currentStep: number = 1;
 
   @property({ type: Function }) back: any = () => console.log('back default');
@@ -46,11 +47,19 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
 
       if (this.currentStep === 2) {
         response = await sendPasswordResetRequest({
-          email: this.user,
-          oldPassword: payload.password,
-          newPassword: payload.newpassword,
+          resetPasswordToken: payload.code,
+          password: payload.password,
         });
-        if (response.status !== 204) return;
+
+        if (response.status !== 201) {
+          this.showNotification = true;
+          this.notificationMessage = `Oh, da stimmt etwas nicht! Bitte überprüfen Sie den Verifizierungscode.`;
+          this.notificationType = 'error';
+          return;
+        } else {
+          this.notificationType = '';
+          this.showNotification = false;
+        }
       }
       this.currentStep += 1;
     } else {
@@ -63,6 +72,13 @@ export class BcgPasswordReset extends ScopedElementsMixin(LitElement) {
 
     return html`
       ${currentStep >= maxStep - 1 ? null : html`<h1>Willkommen zurück!</h1>`}
+      ${this.showNotification
+        ? html`<bcg-notification
+            .closeHandler=${this.disabledNotification}
+            variant=${this.notificationType}
+            message=${this.notificationMessage}
+          ></bcg-notification> `
+        : null}
       ${currentStep === 1
         ? html`<bcg-password-reset-start
             .resetEmail=${this.resetEmail}

@@ -95,7 +95,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                     <div>
                       <bcg-input-email
                         name="email"
-                        label="E-Mail"
+                        label="E-Mail *"
                         placeholder=""
                         .modelValue="${email}"
                         .validators=${[new Required('Input')]}
@@ -108,7 +108,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                       >
                         <bcg-input
                           style="flex-basis:100%;"
-                          label="Passwort"
+                          label="Passwort *"
                           type=${passwordInputType}
                           placeholder=""
                           .modelValue="${password}"

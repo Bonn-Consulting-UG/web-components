@@ -33,6 +33,8 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) passwordInputType: string = 'password';
   @property({ type: String }) passwordRepeatInputType: string = 'password';
 
+  @property({ type: String }) code: string = '';
+
   @property({ type: String }) resetEmail: string = '';
 
   flipPasswordInput() {
@@ -67,10 +69,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
     return [css``];
   }
 
-  code: any = null;
-
   render() {
-    console.log(this.resetEmail);
     let { code, password, passwordrepeat } = this;
 
     const submitHandler = (ev: any) => {
@@ -81,7 +80,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
         firstFormElWithError.focus();
         return;
       }
-      this.nextStep();
+      this.nextStep({ code, password });
     };
 
     return html`<bcg-form @submit=${submitHandler}>
@@ -95,7 +94,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
           <bcg-input
             name="verifycode"
             label=""
-            placeholder="Geben Sie den 15-stelligen Code ein"
+            placeholder="Geben Sie den 15-stelligen Code ein  *"
             .modelValue="${code}"
             .validators=${[
               new Required(),
@@ -115,7 +114,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
           >
             <div style="position: relative;">
               <bcg-input
-                label="Passwort"
+                label="Passwort  *"
                 type=${this.passwordInputType}
                 placeholder=""
                 name="password"
@@ -142,7 +141,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
             <div style="position: relative;">
               <bcg-input
                 name="passwordrepeat"
-                label="Passwort wiederholen"
+                label="Passwort wiederholen  *"
                 type=${this.passwordRepeatInputType}
                 placeholder=""
                 .validators=${[new Required()]}

@@ -46,6 +46,7 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
           position: absolute;
           position: absolute;
           width: 90%;
+          z-index: 100;
           left: 5%;
           top: 50px;
           background-color: white;
@@ -99,7 +100,7 @@ export class BcgNotification extends ScopedElementsMixin(LitElement) {
     return html`
       <div class="wrapper">
         <lion-icon icon-id="bcg:comments:message"></lion-icon>
-        <span>${this.message}</span>
+        <span class="notification-message">${this.message}</span>
         <lion-icon id="close-button-notification"  @click=${this.closeHandler}  icon-id="bcg:general:cross"></bcg-icon>
       </div>
     `;
