@@ -95,7 +95,9 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                   hier. Wir kontaktieren Sie mit einer Antwort, sofern uns Ihre
                   E-Mail-Daten vorliegen.
                 </p>
-
+                <p style="">
+                Alle mit * gekennzeichneten Felder sind Pflichtfelder.
+              </p>
                 <bcg-textarea
                   rows="6"
                   name="title"
