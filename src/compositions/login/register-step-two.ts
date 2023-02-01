@@ -138,9 +138,6 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               name="password-fieldset"
               .validators=${[new PasswordMatch()]}
             >
-
-            <bcg-input-password .validators=${[new Required()]}
->
               <div style="position:relative;">
                 <bcg-input
                   label="Passwort  *"
@@ -156,11 +153,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 <lion-icon
                   style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
                   @click=${this.flipPasswordInput}
-                  icon-id=${
-                    this.passwordInputType === 'password'
-                      ? 'bcg:general:eye'
-                      : 'bcg:general:eyeopen'
-                  }
+                  icon-id=${this.passwordInputType === 'password'
+                    ? 'bcg:general:eye'
+                    : 'bcg:general:eyeopen'}
                 ></lion-icon>
               </div>
               <div style="position:relative;">
@@ -178,11 +173,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 <lion-icon
                   style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
                   @click=${this.flipPasswordRepeatInput}
-                  icon-id=${
-                    this.passwordRepeatInputType === 'password'
-                      ? 'bcg:general:eye'
-                      : 'bcg:general:eyeopen'
-                  }
+                  icon-id=${this.passwordRepeatInputType === 'password'
+                    ? 'bcg:general:eye'
+                    : 'bcg:general:eyeopen'}
                 ></lion-icon>
               </div>
             </bcg-fieldset>
