@@ -37,6 +37,8 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
       const res: any = await sendUserDataChangeRequest(this.user);
       console.log(res);
       if (res.status === 200) {
+        await this.getNewAccessToken();
+
         this.showNotification = true;
         this.notificationMessage = 'Ihre Änderung wurde gespeichert';
         this.notificationType = 'success';
