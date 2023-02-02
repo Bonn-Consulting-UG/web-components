@@ -106,7 +106,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             <bcg-input
               label="Vorname"
               name="firstName"
-              help-text="Dieser Name ist später öffentlich sichtbar"
+              help-text="Dieser Name ist später öffentlich sichtbar  *"
               placeholder=""
               .validators=${[new Required()]}
               .modelValue="${firstName}"
@@ -116,7 +116,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             ></bcg-input>
             <bcg-input
               name="lastName"
-              label="Nachname"
+              label="Nachname  *"
               placeholder=""
               .modelValue="${lastName}"
               .validators=${[new Required()]}
@@ -126,7 +126,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             ></bcg-input>
             <bcg-input-email
               name="email"
-              label="Ihre E-Mail"
+              label="Ihre E-Mail  *"
               placeholder=""
               .modelValue="${email}"
               .validators=${[new Required(), new IsEmail()]}
@@ -138,12 +138,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               name="password-fieldset"
               .validators=${[new PasswordMatch()]}
             >
-
-            <bcg-input-password .validators=${[new Required()]}
->
               <div style="position:relative;">
                 <bcg-input
-                  label="Passwort"
+                  label="Passwort  *"
                   type=${this.passwordInputType}
                   placeholder=""
                   name="password"
@@ -156,17 +153,15 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 <lion-icon
                   style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
                   @click=${this.flipPasswordInput}
-                  icon-id=${
-                    this.passwordInputType === 'password'
-                      ? 'bcg:general:eye'
-                      : 'bcg:general:eyeopen'
-                  }
+                  icon-id=${this.passwordInputType === 'password'
+                    ? 'bcg:general:eye'
+                    : 'bcg:general:eyeopen'}
                 ></lion-icon>
               </div>
               <div style="position:relative;">
                 <bcg-input
                   name="passwordrepeat"
-                  label="Passwort wiederholen"
+                  label="Passwort wiederholen  *"
                   type=${this.passwordRepeatInputType}
                   placeholder=""
                   .validators=${[new Required()]}
@@ -178,11 +173,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 <lion-icon
                   style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
                   @click=${this.flipPasswordRepeatInput}
-                  icon-id=${
-                    this.passwordRepeatInputType === 'password'
-                      ? 'bcg:general:eye'
-                      : 'bcg:general:eyeopen'
-                  }
+                  icon-id=${this.passwordRepeatInputType === 'password'
+                    ? 'bcg:general:eye'
+                    : 'bcg:general:eyeopen'}
                 ></lion-icon>
               </div>
             </bcg-fieldset>
@@ -191,7 +184,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               .validators=${[new Required('Checkbox')]}
             >
               <bcg-checkbox
-                .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung.'}
+                .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung. *'}
                 ><p slot="label">
                   Ich akzeptiere die
                   <a href="https://iwbk-nonprod.ifok.digital/netiquette"

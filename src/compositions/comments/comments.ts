@@ -71,10 +71,11 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
       this.comments = response.results;
       this.count = response.totalCount;
+
+      console.log(scrollTo);
+      console.log(this.shadowRoot?.querySelector(`[data-id="${scrollTo}"]`));
       if (scrollTo)
-        this.shadowRoot
-          ?.querySelector(`[data-id="${scrollTo}"]`)
-          ?.scrollIntoView();
+        document.querySelector(`[data-id="${scrollTo}"]`)?.scrollIntoView();
     }
 
     if (this.submissionId !== 0 && !this.moduleId) {
@@ -171,7 +172,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                   name="comment"
                   id="comment-textarea"
                   rows="4"
-                  placeholder="Was denken Sie?"
+                  placeholder="Was denken Sie?  *"
                 ></bcg-textarea>`
               : html`<div>
                   <h3>

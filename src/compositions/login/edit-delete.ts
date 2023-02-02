@@ -23,6 +23,9 @@ export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
     const deleteDialog: any = this.shadowRoot?.querySelector('#dialog');
     const openButton = this.shadowRoot?.querySelector('#open-button-delete');
     const closeButton = this.shadowRoot?.querySelector('#close-button');
+    const closeButtonPrimary = this.shadowRoot?.querySelector(
+      '#close-button-primary'
+    );
     const closeButtonWithinDialog = this.shadowRoot?.querySelector(
       '#close-button-secondary'
     );
@@ -39,13 +42,22 @@ export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
     closeButtonWithinDialog?.addEventListener('click', () => {
       deleteDialog?.close();
     });
+    closeButtonPrimary?.addEventListener('click', () => {
+      deleteDialog?.close();
+    });
   }
 
   render() {
     const submitHandler = async (ev: any) => {
-      console.log('hihi');
-      // const res = await sendUserDeleteRequest(this.user.sub);
-      // console.log(res);
+      const res = await sendUserDeleteRequest(this.user.sub);
+
+      this.showNotification = true;
+      this.notificationMessage =
+        'Ihr Profil wurde erfolgreich gelöscht Sie werden automatisch ausgeloggt und weitergeleitet';
+      setTimeout(() => {
+        this.logOutHandler();
+        location.reload();
+      }, 5000);
     };
     return html`
 
@@ -60,7 +72,7 @@ export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
            <p>Sind Sie sicher, dass Sie Ihr Profil wirklich löschen möchten?</p>
           <div>
           <bcg-button variant="primary" id="close-button-secondary">Nein, Profil nicht löschen</bcg-button>
-          <bcg-button variant="primary" @click=${submitHandler}>Ja, Profil löschen</bcg-button>
+          <bcg-button variant="primary" id="close-button-primary" @click=${submitHandler}>Ja, Profil löschen</bcg-button>
           
           </div>
     </dialog>
