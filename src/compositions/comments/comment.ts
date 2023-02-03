@@ -16,14 +16,34 @@ import {
   reportComment,
 } from '../../utils/services/comments.js';
 import { BcgModule } from '../../components/module/module.js';
+import { BcgModeratorMenu } from './comment-moderator-menu.js';
+import { BcgUserMenu } from './comment-user-menu.js';
 
 export class BcgComment extends ScopedElementsMixin(BcgModule) {
   @property({ type: Object }) comments: any;
 
+  @property({ type: Boolean }) isFocused: any;
+
+  @property({ type: Function }) changeDialog: any;
+
+  @property({ type: Function }) canEdit: any = false;
+
   @property({ type: Function }) setResponseTo: any;
+
+  @property({ type: Boolean }) requestPending: boolean = false;
 
   @property({ type: Function }) refresh: Function = () =>
     console.log('default');
+
+  @property({ type: Function }) onEdit: Function = () =>
+    (this.canEdit = !this.canEdit);
+
+  static get scopedElements() {
+    return {
+      'bcg-moderator-menu': BcgModeratorMenu,
+      'bcg-user-comment-menu': BcgUserMenu,
+    };
+  }
 
   static get styles() {
     return [
@@ -31,13 +51,13 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
         :host .comment-response {
           background-color: white;
           margin-left: 100px;
-          border: 1px grey solid;
+          border: none;!important;
         }
         :host .moderator {
-          border-left: 5px solid green;
+          border-left: 3px solid #028e86;
         }
         :host .moderator-name {
-          color: green;
+          color: #028e86;
         }
 
         :host .comment-poster {
@@ -47,6 +67,9 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
         :host .comment-wrapper {
           display: flex;
           flex-direction: column;
+          padding: 14px;
+          border-top: 1px solid var(--neutral-color-900);
+          border-bottom: none;
         }
         :host .comment-details {
           display: flex;
@@ -67,6 +90,18 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     ];
   }
 
+  updated(changedProperties: any): void {
+    this?.shadowRoot
+      ?.querySelector(`#comment`)
+      ?.addEventListener('mouseenter', () => (this.isFocused = true));
+
+    this?.shadowRoot
+      ?.querySelector(`#comment`)
+      ?.addEventListener('mouseleave', () => (this.isFocused = false));
+    console.log(this.isFocused);
+    super.updated(changedProperties);
+  }
+
   render() {
     const {
       isModerator,
@@ -77,9 +112,8 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
       _count,
       id,
       status,
+      authorId,
     } = this.comments;
-
-    const dialog: any = this.shadowRoot?.querySelector('#dialog');
 
     const likeReaction = (comment: any) =>
       comment.$userReactions.find((e: any) => e.type === 'LIKE');
@@ -88,39 +122,48 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
       comment.$userReactions.find((e: any) => e.type === 'DISLIKE');
 
     return html`
-         <dialog id="dialog" open>
-     <header style=" display:flex;justify-content: flex-end;align-content: flex-end;">
-              <bcg-button id="close-button" variant="tertiary"
-                ><lion-icon icon-id="bcg:general:cross"></bcg-icon
-              ></bcg-button>
-            </header>
-
-           <p> Verstößt dieser Kommentar aus Ihrer Sicht wirklich gegen unsere Netiquette</p>
-          <div>
-          <bcg-button variant="primary">Ja</bcg-button>
-          <bcg-button variant="primary">Nein</bcg-button>
-          </div>
-    </dialog>
-        <hr />
         <div
+          id="comment"
           data-id=${id}
           class="comment-wrapper ${isModerator ? 'moderator' : null}"
         >
+       ${
+         this.isFocused & this.user.realm_access.roles.includes('MODERATOR')
+           ? html`<bcg-moderator-menu
+               .commentStatus=${this.comments.status}
+               .commentId=${this.comments.id}
+               .changeDialog=${this.changeDialog}
+             ></bcg-moderator-menu>`
+           : null
+       } 
+       ${
+         this.isFocused && this.user.sub === authorId
+           ? html` <bcg-user-comment-menu
+               .commentStatus=${this.comments.status}
+               .onEdit=${this.onEdit}
+               .commentId=${this.comments.id}
+               .changeDialog=${this.changeDialog}
+             ></bcg-user-comment-menu>`
+           : null
+       }
+       
           <div class="comment-poster">
             <div class="comment-poster-details">
-              <p
-                class=" ${
-                  author.roles.includes('MODERATOR') ? 'moderator-name' : null
-                }"
-              >
+            <p>
                 ${
                   author.firstName
                     ? author.firstName
                     : html`<i><b>Gelöschtes Profil</b></i>`
                 }
                 ${author.lastName ? author.lastName : null}
-                ${author.roles.includes('MODERATOR') ? '(Moderator)' : null}
-              </p>
+               
+                <span
+                class=" ${
+                  author.roles.includes('MODERATOR') ? 'moderator-name' : null
+                }"
+              >${author.roles.includes('MODERATOR') ? '(Moderator)' : null}
+              </span>
+            </p>
               <p>
                 ${format(Date.parse(createdAt), 'dd.MM.yyyy HH:mm ', {
                   locale: de,
@@ -132,8 +175,25 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
           <div>
             <p>
               ${
-                status !== 'CENSORED'
-                  ? content
+                status !== 'CENSORED' ||
+                (this.isLoggedIn &&
+                  this.user.realm_access.roles.includes('MODERATOR'))
+                  ? this.canEdit
+                    ? html`<div style="display:flex;flex-direction:column;">
+                        <bcg-textarea .value=${content}></bcg-textarea>
+                        <div>
+                          <bcg-button style="margin-top:10px;" variant="primary"
+                            >Speichern</bcg-button
+                          >
+                          <bcg-button
+                            @click=${this.onEdit}
+                            style="margin-top:10px;"
+                            variant="primary"
+                            >Abbrechen</bcg-button
+                          >
+                        </div>
+                      </div>`
+                    : content
                   : html`<span style="color:grey;">
                       Dieser Kommentar ist nicht sichtbar, weil er gegen die
                       Netiquette verstößt.</span
@@ -142,18 +202,25 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
             </p>
 
             ${
-              this.isLoggedIn && status !== 'CENSORED'
+              (this.isLoggedIn && status !== 'CENSORED') ||
+              (this.isLoggedIn &&
+                this.user.realm_access &&
+                this.user.realm_access.roles.includes('MODERATOR'))
                 ? html`<div style="display:flex;">
                     <bcg-button
-                      @click="${async () => {
+                      @click=${async () => {
+                        if (this.requestPending) return;
+                        this.requestPending = true;
                         !dislikeReaction(this.comments) &&
                         !likeReaction(this.comments)
                           ? await addReaction({ type: 'LIKE' }, id, null)
                           : await removeReaction(
-                              likeReaction(this.comments).id
+                              likeReaction(this.comments).id ||
+                                dislikeReaction(this.comments.id)
                             );
+                        this.requestPending = false;
                         this.refresh();
-                      }}"
+                      }}
                     >
                       <bcg-reaction
                         .value=${_count.likes}
@@ -176,9 +243,9 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                       <bcg-reaction
                         .value=${_count.dislikes}
                         .icon=${'bcg:comments:thumbsdown'}
-                        iconclass=${dislikeReaction(this.comments)
-                          ? 'filled'
-                          : ''}
+                        iconclass=${
+                          dislikeReaction(this.comments) ? 'filled' : ''
+                        }
                       ></bcg-reaction>
                     </bcg-button>
 
@@ -191,85 +258,92 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                       ></bcg-reaction>
                     </bcg-button>
 
-                    ${this.user.sub !== this.comments.authorId
-                      ? html` <bcg-button
-                          @click=${async () => {
-                            if (this.comments.$userReported) return;
-                            await reportComment(this.comments.id);
-                            this.refresh();
-                          }}
-                        >
-                          <bcg-reaction
-                            .value=${this.comments.$userReported
-                              ? 'Kommentar wurde gemeldet'
-                              : 'Melden'}
-                            .icon=${this.comments.$userReported
-                              ? 'bcg:comments:reportFilled'
-                              : 'bcg:comments:report'}
-                            class=${this.comments.$userReported
-                              ? 'error-color'
-                              : ''}
-                          ></bcg-reaction>
-                        </bcg-button>`
-                      : null}
-                    ${this.user.sub === this.comments.authorId
-                      ? html` <bcg-button
-                          @click=${async () => {
-                            console.log('remove comment');
-                          }}
-                        >
-                          <bcg-reaction
-                            .value=${this.comments.$userReported
-                              ? 'Kommentar wurde gemeldet'
-                              : 'Melden'}
-                            .icon=${this.comments.$userReported
-                              ? 'bcg:comments:reportFilled'
-                              : 'bcg:comments:report'}
-                            class=${this.comments.$userReported
-                              ? 'error-color'
-                              : ''}
-                          ></bcg-reaction>
-                        </bcg-button>`
-                      : null}
-                    ${this.user &&
-                    this.user.realm_access.roles.includes('MODERATOR')
-                      ? html`
-                          ${this.comments.status === 'REPORTED' ||
-                          this.comments.status === 'WAITING' ||
-                          this.comments.status === 'CENSORED'
-                            ? html` <bcg-button
-                                @click=${async () => {
-                                  await approveComment(this.comments.id);
-                                  this.refresh();
-                                }}
-                              >
-                                <bcg-reaction
-                                  .value=${'Kommentar freigeben'}
-                                  .icon=${'bcg:comments:report'}
-                                ></bcg-reaction>
-                              </bcg-button>`
-                            : null}
-                          ${this.comments.status === 'APPROVED' ||
-                          this.comments.status === 'PUBLISHED'
-                            ? html`<bcg-button
-                                @click=${async () => {
-                                  await censorComment(this.comments.id);
-                                  this.refresh();
-                                }}
-                              >
-                                <bcg-reaction
-                                  .value=${'Kommentar sperren'}
-                                  .icon=${'bcg:comments:report'}
-                                ></bcg-reaction>
-                              </bcg-button>`
-                            : null}
-                        `
-                      : ''}
+                    <!-- ${
+                      this.user.sub !== this.comments.authorId
+                        ? html` <bcg-button
+                            @click=${async () => {
+                              if (this.comments.$userReported) return;
+                              this.changeDialog('Hallo?', reportComment);
+                              // await reportComment(this.comments.id);
+                              this.refresh();
+                            }}
+                          >
+                            <bcg-reaction
+                              .value=${this.comments.$userReported
+                                ? 'Kommentar wurde gemeldet'
+                                : 'Melden'}
+                              .icon=${this.comments.$userReported
+                                ? 'bcg:comments:reportFilled'
+                                : 'bcg:comments:report'}
+                              class=${this.comments.$userReported
+                                ? 'error-color'
+                                : ''}
+                            ></bcg-reaction>
+                          </bcg-button>`
+                        : null
+                    } -->
+                    <!-- ${
+                      this.user.sub === this.comments.authorId
+                        ? html` <bcg-button
+                            @click=${async () => {
+                              this.changeDialog(
+                                `Löschen ? ${this.comments.authorId}`
+                              );
+                            }}
+                          >
+                            <bcg-reaction
+                              .value=${'Kommentar löschen'}
+                              .icon=${'bcg:general:cross'}
+                              class=${this.comments.$userReported
+                                ? 'error-color'
+                                : ''}
+                            ></bcg-reaction>
+                          </bcg-button>`
+                        : null
+                    } -->
+                    <!-- ${
+                      this.user &&
+                      this.user.realm_access &&
+                      this.user.realm_access.roles.includes('MODERATOR')
+                        ? html`
+                            ${this.comments.status === 'REPORTED' ||
+                            this.comments.status === 'WAITING' ||
+                            this.comments.status === 'CENSORED'
+                              ? html` <bcg-button
+                                  @click=${async () => {
+                                    await approveComment(this.comments.id);
+                                    this.refresh();
+                                  }}
+                                >
+                                  <bcg-reaction
+                                    .value=${'Kommentar freigeben'}
+                                    .icon=${'bcg:comments:report'}
+                                  ></bcg-reaction>
+                                </bcg-button>`
+                              : null}
+                            ${this.comments.status === 'APPROVED' ||
+                            this.comments.status === 'PUBLISHED'
+                              ? html`<bcg-button
+                                  @click=${async () => {
+                                    await censorComment(this.comments.id);
+                                    this.refresh();
+                                  }}
+                                >
+                                  <bcg-reaction
+                                    .value=${'Kommentar sperren'}
+                                    .icon=${'bcg:comments:report'}
+                                  ></bcg-reaction>
+                                </bcg-button>`
+                              : null}
+                            -->
+                          `
+                        : ''
+                    }
                   </div>`
                 : null
             }
           </div>
-          ${
+          <!-- ${
             comments &&
             comments.map(
               (i: any, index: number) => html` <div
@@ -282,18 +356,21 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
               >
                 <div class="comment-poster">
                   <div class="comment-poster-details">
-                    <p
-                      class=" ${i.author.roles.includes('MODERATOR')
-                        ? 'moderator-name'
-                        : null}"
-                    >
+                    <p>
                       ${i.author.firstName
-                        ? i.author.firstName
+                        ? i.author.firstNamex
                         : html`<i><b>Gelöschtes Profil</b></i>`}
                       ${i.author.lastName ? i.author.lastName : null}
-                      ${i.author.roles.includes('MODERATOR')
-                        ? '(Moderator)'
-                        : null}
+                      <span
+                        class=" ${i.author.roles.includes('MODERATOR')
+                          ? 'moderator-name'
+                          : null}"
+                        ><b
+                          >${i.author.roles.includes('MODERATOR')
+                            ? '(Moderator)'
+                            : null}</b
+                        >
+                      </span>
                     </p>
                     <p>
                       ${format(Date.parse(createdAt), 'dd.MM.yyyy HH:mm ', {
@@ -397,7 +474,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 </div>
               </div>`
             )
-          }
+          } -->
         </div>
       </dialog>
     `;

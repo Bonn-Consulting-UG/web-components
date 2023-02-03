@@ -16,6 +16,8 @@ import {
 import { BcgCommentReaction } from './comment-reaction.js';
 import { BcgComment } from './comment.js';
 import { LionIcon } from '@lion/icon';
+import { BcgDialog } from '../../components/dialog/dialog';
+import { BcgModeratorMenu } from './comment-moderator-menu';
 
 export interface CommentInterface {
   id: string;
@@ -62,6 +64,24 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   currentCharCount: Number = this.getElementsByTagName('textarea').length;
 
+  changeDialog = (content: any, callback: any) => {
+    this.showDialog = true;
+    this.dialogContent = content;
+    this.confirmHandler = async () => {
+      await callback();
+      this.showDialog = false;
+      this.setupComments();
+    };
+  };
+
+  closeDialog = (content: any) => {
+    this.showDialog = true;
+    this.dialogContent = content;
+    this.closeHandler = () => {
+      this.showDialog = false;
+    };
+  };
+
   newComment: any = '';
 
   setupComments: any = async (scrollTo?: any) => {
@@ -72,10 +92,10 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
       this.comments = response.results;
       this.count = response.totalCount;
 
-      console.log(scrollTo);
-      console.log(this.shadowRoot?.querySelector(`[data-id="${scrollTo}"]`));
-      if (scrollTo)
-        document.querySelector(`[data-id="${scrollTo}"]`)?.scrollIntoView();
+      // console.log(scrollTo);
+      // console.log(this.shadowRoot?.querySelector(`[data-id="${scrollTo}"]`));
+      // if (scrollTo)
+      //   document.querySelector(`[data-id="${scrollTo}"]`)?.scrollIntoView();
     }
 
     if (this.submissionId !== 0 && !this.moduleId) {
@@ -92,14 +112,14 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
           ?.querySelector(`[data-id="${scrollTo}"]`)
           ?.scrollIntoView();
     }
-    console.log(this.shadowRoot);
-    console.log(scrollTo);
   };
 
   static get scopedElements() {
     return {
       'bcg-comment': BcgComment,
       'lion-icon': LionIcon,
+      'bcg-dialog': BcgDialog,
+      'bcg-moderator-menu': BcgModeratorMenu,
     };
   }
 
@@ -139,6 +159,8 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     };
 
     return html`
+      ${this.dialogHtml}
+
       <div style="display:flex; flex-direction:column;">
         <bcg-form @submit=${submitHandler}>
           <form @submit=${(e: any) => console.log(e)}>
@@ -195,10 +217,11 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         </bcg-form>
 
         <div>
-          ${comments &&
-          comments.map((comment: any, index: any) => {
+          ${this.comments &&
+          this.comments.map((comment: any, index: any) => {
             if (index <= this.displayedComments) {
               return html`<bcg-comment
+                .changeDialog=${this.changeDialog}
                 .refresh=${this.setupComments}
                 .comments="${comment}"
                 .setResponseTo=${this.setResponseTo}
@@ -218,6 +241,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
               >`
             : null}
         </div>
+        <button
+          @click=${() =>
+            this.changeDialog('works', () => console.log('mashallah'))}
+        >
+          Test
+        </button>
       </div>
     `;
   }

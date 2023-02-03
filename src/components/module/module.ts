@@ -42,6 +42,8 @@ export class BcgModule extends LitElement {
 
   @property({ type: String }) notificationType: string = 'success';
 
+  @property({ type: Boolean }) showDialog: any = false;
+
   @property({ type: LitElement || null }) notificationHtml: any = this
     .showNotification
     ? html` <bcg-notification
@@ -52,9 +54,19 @@ export class BcgModule extends LitElement {
 
   @property({ type: Boolean }) isLoading: Boolean = false;
 
+  @property({ type: Boolean }) dialogContent: any = 'Test';
+
   @property() loadingHtml: any = this.isLoading
     ? html` <bcg-progress></bcg-progress>`
     : null;
+
+  @property({ type: Function }) confirmHandler: Function = () =>
+    console.log('close dialog in module');
+
+  @property({ type: Function }) closeHandler: Function = () =>
+    console.log('close dialog in module');
+
+  @property({ type: LitElement || null }) dialogHtml: any = null;
 
   checkAuthToken() {
     if (
@@ -64,6 +76,21 @@ export class BcgModule extends LitElement {
     ) {
       localStorage.removeItem('accessToken');
     }
+  }
+
+  update(changedProperties: any) {
+    this.updateDialog();
+    console.log(this.showDialog);
+    super.update(changedProperties);
+  }
+
+  updateDialog() {
+    this.dialogHtml = html` <bcg-dialog
+      .onConfirmHandler=${this.confirmHandler}
+      .onCloseHandler=${this.closeHandler}
+      .showDialog=${this.showDialog}
+      .content=${this.dialogContent}
+    ></bcg-dialog>`;
   }
 
   logOutHandler = () => {
@@ -117,7 +144,7 @@ export class BcgModule extends LitElement {
   async loadConfig() {
     if (this.moduleId !== 0) {
       this.config = await getModule(this.moduleId);
-      console.log(this.config);
+      console.table(this.config);
     }
   }
 

@@ -2,8 +2,8 @@ import { html, TemplateResult } from '@lion/core';
 import '../index.js';
 
 export default {
-  title: 'Components/Dialog',
-  component: 'bcg-dialog',
+  title: 'Components/Textarea',
+  component: 'bcg-textarea',
   argTypes: {
     content: {
       options: [],
@@ -13,6 +13,7 @@ export default {
 
 interface ContentArgs {
   button: string;
+  panel: string;
 }
 
 interface Story<T> {
@@ -24,13 +25,7 @@ interface Story<T> {
 interface ArgTypes {
   content: Array<ContentArgs>;
 }
-const placementModeLocalConfig = {
-  placementMode: 'local',
-  elementToFocusAfterHide: document.body,
-  hidesOnEsc: true,
-};
 
-const Template: Story<ArgTypes> = () =>
-  html` <bcg-dialog content="Dialog text?"> </bcg-dialog> `;
+const Template: Story<ArgTypes> = () => html` <bcg-textarea> </bcg-textarea> `;
 
 export const Default = Template.bind({});
