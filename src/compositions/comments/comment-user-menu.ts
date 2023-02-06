@@ -27,6 +27,8 @@ export class BcgUserMenu extends LitElement {
 
   @property({ type: String }) commentId: any;
 
+  @property({ type: String }) canEdit: any;
+
   @property({ type: String }) commentStatus: any;
 
   @property({ type: String }) options: any = [
@@ -37,7 +39,13 @@ export class BcgUserMenu extends LitElement {
         this.changeDialog(
           html`Soll Ihr Kommentar wirklich gelöscht werden? Hinweis: Mögliche
           Unterkommentare anderer Nutzer:innen bleiben erhalten.`,
-          () => deleteComment(this.commentId)
+          () => {
+            deleteComment(this.commentId);
+
+            if (this.canEdit) {
+              this.onEdit();
+            }
+          }
         ),
     },
     {

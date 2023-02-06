@@ -270,3 +270,22 @@ export const deleteComment = async (commentId: any) => {
     return err;
   }
 };
+
+export const editComment = async (commentId: any, commentConent: any) => {
+  try {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify({ content: commentConent }),
+    };
+
+    const resp = await fetch(commentDelteEndPoint(commentId), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};

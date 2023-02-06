@@ -1,12 +1,13 @@
 import { LionTextarea } from '@lion/textarea';
 import { css, html, property, TemplateResultType } from '@lion/core';
 import { MaxLength } from '@lion/form-core';
+import { BcgModule } from '../module';
 
-export class BcgTextarea extends LionTextarea {
+export class BcgTextarea extends BcgModule {
   @property({ type: Function }) count: any = 0;
 
   static get styles() {
-    return [...super.styles, css``];
+    return [css``];
   }
 
   updated(_changed: any) {
@@ -14,16 +15,6 @@ export class BcgTextarea extends LionTextarea {
     this.count = this.querySelector('textarea')?.value.length;
   }
   render() {
-    return html`<div class="counter-wrapper">
-      ${super.render()}
-
-      <p
-        class="counter     ${this.hasFeedbackFor.length > 0 && this.touched
-          ? 'counter-with-feedback'
-          : ''} ${this.label ? null : 'no-label'}"
-      >
-        ${this.count}
-      </p>
-    </div> `;
+    return html``;
   }
 }

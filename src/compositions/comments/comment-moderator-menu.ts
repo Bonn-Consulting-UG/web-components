@@ -24,6 +24,8 @@ export class BcgModeratorMenu extends LitElement {
 
   @property({ type: String }) commentStatus: any;
 
+  @property({ type: String }) commentId: any;
+
   @property({ type: Boolean }) isFocused: any;
 
   @property({ type: String }) options: any = [
@@ -32,7 +34,7 @@ export class BcgModeratorMenu extends LitElement {
       onClickHandler: () =>
         this.changeDialog(
           'Verstößt dieser Kommentar aus Ihrer Sicht wirklich gegen unsere Netiquette?',
-          () => console.log('cracked af bro')
+          () => censorComment(this.commentId)
         ),
       icon: '',
     },
@@ -40,13 +42,11 @@ export class BcgModeratorMenu extends LitElement {
       label: 'Freigeben',
       onClickHandler: () =>
         this.changeDialog('Wollen das Kommentar wirklich freigeben?', () =>
-          console.log('cracked af bro')
+          approveComment(this.commentId)
         ),
       icon: '',
     },
   ];
-
-  @property({ type: String }) commentId: any;
 
   static get styles() {
     return [
