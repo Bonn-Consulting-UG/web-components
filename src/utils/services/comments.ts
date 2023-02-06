@@ -7,6 +7,7 @@ import {
   approveCommentEndpoint,
   censorCommentEndpoint,
   getSubmissionsEndpointforModule,
+  commentDelteEndPoint,
 } from './config';
 
 export const getAllCommentsForModule = async (moduleID: any) => {
@@ -245,6 +246,43 @@ export const addCommentToComment = async (
     };
 
     const resp = await fetch(setCommentsEndpoint, fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const deleteComment = async (commentId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    };
+
+    const resp = await fetch(commentDelteEndPoint(commentId), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const editComment = async (commentId: any, commentConent: any) => {
+  try {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify({ content: commentConent }),
+    };
+
+    const resp = await fetch(commentDelteEndPoint(commentId), fetchOptions);
     return resp.json();
   } catch (err) {
     console.error(err);

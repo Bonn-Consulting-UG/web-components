@@ -29,11 +29,17 @@ export class BcgTextarea extends LionTextarea {
         .counter {
           position: absolute;
           right: 10px;
-          bottom: -10px;
+          top: 75%;
         }
 
         .counter-wrapper {
           position: relative;
+        }
+        .counter-with-feedback {
+          top: calc(80% - 22px) !important;
+        }
+        .no-label {
+          top: calc(80% - 10px);
         }
       `,
     ];
@@ -45,8 +51,15 @@ export class BcgTextarea extends LionTextarea {
   }
   render() {
     return html`<div class="counter-wrapper">
-      <p class="counter">${this.count}</p>
       ${super.render()}
-    </div>`;
+
+      <span
+        class="counter ${this.hasFeedbackFor.length > 0 && this.touched
+          ? 'counter-with-feedback'
+          : null} ${this.label ? null : 'no-label'}"
+      >
+        ${this.count}
+      </span>
+    </div> `;
   }
 }

@@ -55,8 +55,8 @@ export const getModuleEndpoint = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}`;
 
 // Comments
-export const commentDelteEndPoint = (reactionId: number) =>
-  `${baseURLwithApiVersion}/reactions/${reactionId}`;
+export const commentDelteEndPoint = (commentId: number) =>
+  `${baseURLwithApiVersion}/comments/${commentId}`;
 
 export const getCommentsEndpointforModule = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments`;
