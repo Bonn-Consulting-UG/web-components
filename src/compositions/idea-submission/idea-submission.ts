@@ -66,8 +66,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         );
 
         const resp = await response.json();
-        console.log(resp);
-        location.pathname = `${location.pathname}/${resp.id}`;
+        location.href = `${location.href}/${resp.id}`;
         this.ideaRequest.description = '';
         this.ideaRequest.title = '';
         this.showNotification = true;
@@ -96,15 +95,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
             : null}
           <div>
             <div style="display:flex; flex-direction:column;">
-              <p style="width:650px;">
-                Hier steht Text, den das Projektteam geschrieben hat und der
-                erklärt, warum es sinnvoll und wichtig ist, eine Idee für das
-                projekt zu hinterlassen. Lorem ipsum dolor sit amet. Est
-                eligendi accusantium est cumque excepturi sit necessitatibus
-                consequatur non minus sunt et nobis quia et veniam eligendi. Ea
-                rerum voluptas non nulla alias aut expedita assumenda sit dolor
-                conse.
-              </p>
               <p style="">
                 Alle mit * gekennzeichneten Felder sind Pflichtfelder.
               </p>
@@ -178,8 +168,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       .validators=${[new Required()]}
                     >
                       <bcg-checkbox
-                        label="Ich akzeptiere die 
-Datenschutzerklärung  *"
+                        label="Ich akzeptiere die Datenschutzerklärung  *"
                         .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
                       ></bcg-checkbox>
                     </bcg-checkbox-group>
