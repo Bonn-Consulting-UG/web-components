@@ -1,16 +1,11 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
+import { Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
 export default {
   title: 'Compositions/Comments',
   component: 'bcg-comments',
 };
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   buttonLabel: string;
