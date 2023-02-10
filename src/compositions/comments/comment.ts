@@ -122,6 +122,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
       id,
       status,
       authorId,
+      isDeleted,
     } = this.comments;
 
     const editSubmitHandler = async (ev: any) => {
@@ -155,6 +156,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
        ${
          this.isFocused && this.user?.realm_access?.roles?.includes('MODERATOR')
            ? html`<bcg-moderator-menu
+               style="position: relative;"
                .commentStatus=${this.comments.status}
                .commentId=${this.comments.id}
                .changeDialog=${this.changeDialog}
@@ -162,8 +164,10 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
            : null
        } 
        ${
-         this.isFocused && this.user.sub === authorId
+         this.isFocused && this.isLoggedIn
            ? html` <bcg-user-comment-menu
+               style="position: relative;"
+               .authorId=${this.comments.authorId}
                .commentStatus=${this.comments.status}
                .onEdit=${this.onEdit}
                .canEdit=${this.canEdit}
@@ -177,17 +181,23 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
             <div class="comment-poster-details">
             <p>
                 ${
-                  author.firstName
+                  author && author.firstName
                     ? author.firstName
                     : html`<i><b>Gelöschtes Profil</b></i>`
                 }
-                ${author.lastName ? author.lastName : null}
+                ${author && author.lastName ? author.lastName : null}
                
                 <span
                 class=" ${
-                  author.roles.includes('MODERATOR') ? 'moderator-name' : null
+                  author && author.roles.includes('MODERATOR')
+                    ? 'moderator-name'
+                    : null
                 }"
-              >${author.roles.includes('MODERATOR') ? '(Moderator)' : null}
+              >${
+                author && author.roles.includes('MODERATOR')
+                  ? '(Moderator)'
+                  : null
+              }
               </span>
             </p>
               <p>
@@ -240,6 +250,10 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                         </form></bcg-form
                       >`
                     : content
+                  : isDeleted
+                  ? html`<span style="color:grey;">
+                      Kommentar wurde durch Autor gelöscht</span
+                    >`
                   : html`<span style="color:grey;">
                       Dieser Kommentar ist nicht sichtbar, weil er gegen die
                       Netiquette verstößt.</span

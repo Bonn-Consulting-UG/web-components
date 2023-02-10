@@ -30,7 +30,7 @@ Default.args = {};
 const SubmissionComments: Story<ArgTypes> = () =>
   html`
     <bcg-comments
-      submissionId="95484971-42ac-4f7d-84e6-1db45efe13cf"
+      submissionId="e49a4102-822e-41c7-b308-2af32736c079"
     ></bcg-comments>
   `;
 

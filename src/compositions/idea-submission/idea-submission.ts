@@ -72,6 +72,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
         console.log(ev.target);
+        ev.path[0].resetGroup();
 
         console.log(resp);
       } catch (err) {
@@ -84,7 +85,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
     };
 
     return html`
-      <bcg-form @submit=${submitHandler}>
+      <bcg-form @submit=${(e: any) => submitHandler(e)}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${this.showNotification
             ? html` <bcg-notification
@@ -176,10 +177,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                 : null}
 
               <div>
-                <bcg-button-submit
-                  @click="${() => console.log('ButtonPress Senden')}"
-                  >Senden</bcg-button-submit
-                >
+                <bcg-button-submit>Senden</bcg-button-submit>
               </div>
             </div>
           </div>

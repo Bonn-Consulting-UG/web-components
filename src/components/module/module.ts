@@ -28,7 +28,7 @@ export class BcgModule extends LitElement {
 
   isOpen: any = false;
 
-  @property({ type: Object }) config: object = {};
+  @property({ type: Object }) config: any = {};
 
   @property({ type: Boolean }) showNotification: Boolean = false;
 

@@ -27,8 +27,8 @@ const Template: Story<ArgTypes> = () =>
     ></bcg-idea-reaction>
   `;
 
-const Default = Template.bind({});
+const IdeaReaction = Template.bind({});
 
-Default.args = {};
+IdeaReaction.args = {};
 
-export { Default };
+export { IdeaReaction };
