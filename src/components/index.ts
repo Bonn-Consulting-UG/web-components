@@ -13,7 +13,7 @@ import './input/index.js';
 import './input-amount/index.js';
 import './input-date/index.js';
 import './input-datepicker/index.js';
-
+import './map/index.js';
 import './input-email/index.js';
 import './input-iban/index.js';
 import './input-range/index.js';
