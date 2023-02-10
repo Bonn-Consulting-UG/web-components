@@ -28,6 +28,7 @@ import './select/index.js';
 import './select-rich/index.js';
 import './spamfilter/index.js';
 import './notification/index.js';
+import './dialog/index.js';
 import './progress/index.js';
 import './steps/index.js';
 import './switch/index.js';

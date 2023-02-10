@@ -7,9 +7,9 @@ export default {
   component: 'bcg-dialog',
   argTypes: {
     content: {
-      options: []
-    }
-  }
+      options: [],
+    },
+  },
 };
 
 interface ContentArgs {
@@ -23,14 +23,10 @@ interface ArgTypes {
 const placementModeLocalConfig = {
   placementMode: 'local',
   elementToFocusAfterHide: document.body,
-  hidesOnEsc: true
+  hidesOnEsc: true,
 };
 
-const Template: Story<ArgTypes> = () => html`
-  <bcg-dialog .config=${placementModeLocalConfig}>
-    <button slot="invoker">Open</button>
-    <bcg-dialog-frame has-close-button slot="content"></bcg-dialog-frame>
-  </bcg-dialog>
-`;
+const Template: Story<ArgTypes> = () =>
+  html` <bcg-dialog content="Dialog text?"> </bcg-dialog> `;
 
 export const Default = Template.bind({});
