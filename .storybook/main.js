@@ -1,13 +1,11 @@
-
-
-
 module.exports = {
-  stories: ['../dist/components/**/**/docs/*.stories.{js,md,mdx}'],
+  "stories": ['../dist/components/**/**/docs/*.stories.{js,md,mdx}'],
+  "addons": [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials"
+  ],
+  "framework": "@storybook/web-components",
   rollupConfig(config) {
     return config;
   },
-};
-
-    // config.plugins.push( replace({
-    //   'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL)
-    // }))
+}
