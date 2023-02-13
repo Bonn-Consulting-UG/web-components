@@ -66,15 +66,17 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         );
 
         const resp = await response.json();
-        location.href = `${location.href}/${resp.id}`;
         this.ideaRequest.description = '';
+
+        setTimeout(() => {
+          console.log(this.shadowRoot?.querySelector('form'));
+          this.shadowRoot?.querySelector('form')?.resetGroup();
+        }, 1000);
         this.ideaRequest.title = '';
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
-        console.log(ev.target);
-        ev.path[0].resetGroup();
 
-        console.log(resp);
+        location.href = `${location.href}/${resp.id}`;
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';
