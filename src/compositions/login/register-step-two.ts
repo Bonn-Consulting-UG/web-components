@@ -104,9 +104,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
         <form @submit=${(e: any) => e.preventDefault()}>
           <div>
             <bcg-input
-              label="Vorname"
+              label="Vorname  *"
               name="firstName"
-              help-text="Dieser Name ist später öffentlich sichtbar  *"
+              help-text="Dieser Name ist später öffentlich sichtbar"
               placeholder=""
               .validators=${[new Required()]}
               .modelValue="${firstName}"

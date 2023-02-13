@@ -19,11 +19,14 @@ import {
 import { BcgModule } from '../../components/module/module.js';
 import { commentDelteEndPoint } from '../../utils/services/config.js';
 
-export class BcgUserMenu extends LitElement {
+export class BcgUserMenu extends BcgModule {
   @property({ type: Boolean }) isOpen: boolean = false;
 
   @property({ type: Function }) changeDialog: any;
+
   @property({ type: Function }) onEdit: any;
+
+  @property({ type: Function }) authorId: any = null;
 
   @property({ type: String }) commentId: any;
 
@@ -32,9 +35,15 @@ export class BcgUserMenu extends LitElement {
   @property({ type: String }) commentStatus: any;
 
   @property({ type: String }) options: any = [
-    { label: 'Bearbeiten', onClickHandler: () => this.onEdit() },
+    {
+      label: 'Bearbeiten',
+      onClickHandler: () => this.onEdit(),
+      condition: this.authorId === this.user.sub,
+    },
     {
       label: 'Löschen',
+      condition: this.authorId === this.user.sub,
+
       onClickHandler: () =>
         this.changeDialog(
           html`Soll Ihr Kommentar wirklich gelöscht werden? Hinweis: Mögliche
@@ -55,6 +64,7 @@ export class BcgUserMenu extends LitElement {
           'Verstößt dieser Kommentar aus Ihrer Sicht wirklich gegen unsere Netiquette?',
           () => reportComment(this.commentId)
         ),
+      condition: this.authorId !== this.user.sub,
     },
   ];
 
@@ -85,12 +95,14 @@ export class BcgUserMenu extends LitElement {
           ><lion-icon icon-id="bcg:comments:dots"></lion-icon
         ></bcg-button>
         ${this.isOpen
-          ? this.options.map(
-              (e: any) =>
-                html`<bcg-button @click=${e.onClickHandler}
-                  >${e.label}</bcg-button
-                >`
-            )
+          ? this.options.map((e: any) => {
+              console.log(e.condition);
+              return !e.condition
+                ? html`<bcg-button @click=${e.onClickHandler}
+                    >${e.label}</bcg-button
+                  >`
+                : null;
+            })
           : null}
       </div>
     `;

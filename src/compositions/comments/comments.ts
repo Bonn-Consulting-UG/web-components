@@ -195,7 +195,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                   name="comment"
                   id="comment-textarea"
                   rows="4"
-                  placeholder="Was denken Sie?  *"
+                  placeholder="Was denken Sie?"
                 ></bcg-textarea>`
               : html`<div>
                   <h3>
