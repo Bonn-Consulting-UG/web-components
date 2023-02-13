@@ -249,11 +249,11 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                           </div>
                         </form></bcg-form
                       >`
-                    : content
-                  : isDeleted
-                  ? html`<span style="color:grey;">
-                      Kommentar wurde durch Autor gelöscht</span
-                    >`
+                    : !isDeleted
+                    ? content
+                    : html`<span style="color:grey;">
+                        Kommentar wurde durch Autor gelöscht</span
+                      >`
                   : html`<span style="color:grey;">
                       Dieser Kommentar ist nicht sichtbar, weil er gegen die
                       Netiquette verstößt.</span
