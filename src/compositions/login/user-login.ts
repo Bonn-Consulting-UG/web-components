@@ -76,7 +76,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
     };
 
     return html`
-      <div style="width:640px;">
+      <div>
         <div class="left-side" style="display:flex;flex-direction: column;">
           ${this.showNotification
             ? html`<bcg-notification
