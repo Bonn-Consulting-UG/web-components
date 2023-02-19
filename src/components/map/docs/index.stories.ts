@@ -3,15 +3,16 @@ import { ArgTypes, Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
 export default {
-  title: 'Components/InputTel',
-  component: 'bcg-input-tel',
+  title: 'Components/Interactive Map',
+  component: 'bcg-interactive-map',
   argTypes: {
     content: {
-      options: [],
-    },
-  },
+      options: []
+    }
+  }
 };
 
-const Template: Story<ArgTypes> = () => html` <bcg-input-tel></bcg-input-tel> `;
+const Template: Story<ArgTypes> = () =>
+  html` <bcg-interactive-map></bcg-interactive-map> `;
 
 export const Default = Template.bind({});

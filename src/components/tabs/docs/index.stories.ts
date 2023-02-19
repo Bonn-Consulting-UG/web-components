@@ -1,7 +1,8 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
 import '../index.js';
 import '../../tab-panel/index.js';
 import '../../tab-button/index.js';
+import { Story } from '../../../model/story-interfaces.js';
 
 export default {
   title: 'Components/Tabs',
@@ -11,12 +12,6 @@ export default {
     },
   },
 };
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   content: any;
