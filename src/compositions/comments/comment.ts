@@ -220,7 +220,12 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 author && author.roles.includes('MODERATOR')
                   ? '(Moderator)'
                   : null
-              }
+              }</span>
+            <span>${
+              this.user.realm_access.roles.includes('MODERATOR')
+                ? `Status:${this.comments.status}`
+                : null
+            }
               </span>
             </p>
               <p>
