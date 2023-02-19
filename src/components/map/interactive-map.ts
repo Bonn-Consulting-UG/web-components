@@ -1,5 +1,4 @@
 import { html, LitElement, property } from '@lion/core';
-import 'mapbox-gl/dist/mapbox-gl.css';
 
 const mapboxgl = require('mapbox-gl');
 

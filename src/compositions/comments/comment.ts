@@ -25,6 +25,7 @@ import {
   MinLength,
   Required,
 } from '../../utils/helpers/input-errors.js';
+import { Func } from 'mocha';
 
 export class BcgComment extends ScopedElementsMixin(BcgModule) {
   @property({ type: Object }) comments: any;
@@ -40,6 +41,27 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
   @property({ type: Function }) newComment: any;
 
   @property({ type: Boolean }) requestPending: boolean = false;
+
+  @property({ type: Function }) changeReaction: any = async (type: any) => {
+    const likeReaction = () =>
+      this.comments.$userReactions.find((e: any) => e.type === 'LIKE');
+
+    const dislikeReaction = () =>
+      this.comments.$userReactions.find((e: any) => e.type === 'DISLIKE');
+
+    if (this.requestPending) return;
+    this.requestPending = true;
+
+    if (!dislikeReaction() && !likeReaction()) {
+      await addReaction({ type }, this.comments.id);
+      this.refresh();
+      setTimeout(() => (this.requestPending = false), 300);
+    } else {
+      await removeReaction(likeReaction()?.id || dislikeReaction()?.id);
+      setTimeout(() => (this.requestPending = false), 300);
+      this.refresh();
+    }
+  };
 
   @property({ type: Function }) refresh: Function = () =>
     console.log('default');
@@ -107,11 +129,17 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     this?.shadowRoot
       ?.querySelector(`#comment`)
       ?.addEventListener('mouseleave', () => (this.isFocused = false));
-    console.log(this.isFocused);
+
     super.updated(changedProperties);
   }
 
   render() {
+    const likeReaction = (comment: any) =>
+      comment.$userReactions.find((e: any) => e.type === 'LIKE');
+
+    const dislikeReaction = (comment: any) =>
+      comment.$userReactions.find((e: any) => e.type === 'DISLIKE');
+
     const {
       isModerator,
       createdAt,
@@ -140,11 +168,6 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
       this.refresh();
       this.canEdit = false;
     };
-    const likeReaction = (comment: any) =>
-      comment.$userReactions.find((e: any) => e.type === 'LIKE');
-
-    const dislikeReaction = (comment: any) =>
-      comment.$userReactions.find((e: any) => e.type === 'DISLIKE');
 
     return html`
     <a id=${id}></a>
@@ -267,39 +290,15 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 this.user.realm_access &&
                 this.user.realm_access.roles.includes('MODERATOR'))
                 ? html`<div style="display:flex;">
-                    <bcg-button
-                      @click=${async () => {
-                        if (this.requestPending) return;
-                        this.requestPending = true;
-                        !dislikeReaction(this.comments) &&
-                        !likeReaction(this.comments)
-                          ? await addReaction({ type: 'LIKE' }, id, null)
-                          : await removeReaction(
-                              likeReaction(this.comments).id ||
-                                dislikeReaction(this.comments.id)
-                            );
-                        this.requestPending = false;
-                        this.refresh();
-                      }}
-                    >
+                    <bcg-button @click=${() => this.changeReaction('LIKE')}>
                       <bcg-reaction
                         .value=${_count.likes}
                         .icon=${'bcg:comments:thumbsup'}
                         iconclass=${likeReaction(this.comments) ? 'filled' : ''}
                       ></bcg-reaction>
                     </bcg-button>
-                    <bcg-button
-                      @click=${async () => {
-                        !dislikeReaction(this.comments) &&
-                        !likeReaction(this.comments)
-                          ? await addReaction({ type: 'DISLIKE' }, id, null)
-                          : await removeReaction(
-                              dislikeReaction(this.comments).id
-                            );
 
-                        this.refresh();
-                      }}
-                    >
+                    <bcg-button @click=${() => this.changeReaction('DISLIKE')}>
                       <bcg-reaction
                         .value=${_count.dislikes}
                         .icon=${'bcg:comments:thumbsdown'}

@@ -39,7 +39,7 @@ export class BcgPasswordReset extends ScopedElementsMixin(BcgModule) {
     if (this.currentStep < this.maxStep) {
       if (this.currentStep === 1) {
         this.resetEmail = payload;
-        console.log(payload);
+
         const response = await sendPasswordChangeInitRequest({
           email: payload,
         });

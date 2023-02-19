@@ -30,7 +30,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         return;
       }
 
-      console.log(ev);
       // sendContactSubmissionRequest(this.contactRequest, this.moduleId);
 
       try {
@@ -68,7 +67,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
           'Danke für Ihre Frage! Wir bearbeiten sie so schnell wie möglich.';
       } catch (err) {
         this.showNotification = true;
-        console.log(err);
         this.notificationType = 'error';
         this.notificationMessage = 'Ein Fehler ist aufgetreten';
       }

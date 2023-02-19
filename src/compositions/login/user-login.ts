@@ -72,7 +72,6 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         this.notificationMessage = 'Bitte verifizieren Sie ihren User';
         this.notificationType = 'error';
       }
-      console.log(resp);
     };
 
     return html`

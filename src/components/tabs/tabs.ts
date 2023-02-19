@@ -13,9 +13,7 @@ export class BcgTabs extends ScopedElementsMixin(LitElement) {
     this._setupFeature();
   }
 
-  _setupFeature() {
-    console.log(this);
-  }
+  _setupFeature() {}
 
   static get scopedElements() {
     return {

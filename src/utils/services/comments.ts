@@ -6,7 +6,7 @@ import {
   reactionDelteEndPoint,
   approveCommentEndpoint,
   censorCommentEndpoint,
-  getSubmissionsEndpointforModule,
+  getSubmissionsEndpoint,
   commentDelteEndPoint,
 } from './config';
 
@@ -33,7 +33,30 @@ export const getAllCommentsForModule = async (moduleID: any) => {
   }
 };
 
-export const getAllSubmissionForModule = async (submissionId: any) => {
+// export const getAllSubmissionForModule = async (submissionId: any) => {
+//   try {
+//     const fetchOptions = {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: localStorage.getItem('accessToken')
+//           ? `Bearer ${localStorage.getItem('accessToken')}`
+//           : '',
+//       },
+//     };
+
+//     const resp = await fetch(
+//       getSubmissionsEndpointforModule(submissionId),
+//       fetchOptions
+//     );
+//     return resp.json();
+//   } catch (err) {
+//     console.error(err);
+//     return err;
+//   }
+// };
+
+export const getSubmission = async (submissionId: any) => {
   try {
     const fetchOptions = {
       method: 'GET',
@@ -46,30 +69,7 @@ export const getAllSubmissionForModule = async (submissionId: any) => {
     };
 
     const resp = await fetch(
-      getSubmissionsEndpointforModule(submissionId),
-      fetchOptions
-    );
-    return resp.json();
-  } catch (err) {
-    console.error(err);
-    return err;
-  }
-};
-
-export const getAllSubmissionsForAModule = async (submissionId: any) => {
-  try {
-    const fetchOptions = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('accessToken')
-          ? `Bearer ${localStorage.getItem('accessToken')}`
-          : '',
-      },
-    };
-
-    const resp = await fetch(
-      getSubmissionsEndpointforModule(submissionId),
+      getSubmissionsEndpoint(submissionId),
       fetchOptions
     );
     return resp.json();

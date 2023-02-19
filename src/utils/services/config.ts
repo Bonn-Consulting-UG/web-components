@@ -46,7 +46,7 @@ export const faqSubmissionEndpoint = (moduleID: any) =>
 export const ideaSubmissionEndpoint = (moduleID: any) =>
   `${baseURLwithApiVersion}/submissions/idea`;
 
-export const getSubmissionsEndpointforModule = (submissionId: number) =>
+export const getSubmissionsEndpoint = (submissionId: number) =>
   `${baseURLwithApiVersion}/submissions/${submissionId}`;
 
 // Modules

@@ -28,7 +28,6 @@ export class BcgLogin extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) context: String = 'login';
 
   changeContext: any = () => {
-    console.log(this.context);
     if (this.context === 'login') {
       this.context = 'passwordreset';
     } else {

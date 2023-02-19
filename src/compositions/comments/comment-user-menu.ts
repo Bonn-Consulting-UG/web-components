@@ -18,6 +18,7 @@ import {
 } from '../../utils/services/comments.js';
 import { BcgModule } from '../../components/module/module.js';
 import { commentDelteEndPoint } from '../../utils/services/config.js';
+import { PropertyValueMap } from 'lit';
 
 export class BcgUserMenu extends BcgModule {
   @property({ type: Boolean }) isOpen: boolean = false;
@@ -34,49 +35,55 @@ export class BcgUserMenu extends BcgModule {
 
   @property({ type: String }) commentStatus: any;
 
-  @property({ type: String }) options: any = [
-    {
-      label: 'Bearbeiten',
-      onClickHandler: () => this.onEdit(),
-      condition: this.authorId === this.user.sub,
-    },
-    {
-      label: 'Löschen',
-      condition: this.authorId === this.user.sub,
-
-      onClickHandler: () =>
-        this.changeDialog(
-          html`Soll Ihr Kommentar wirklich gelöscht werden? Hinweis: Mögliche
-          Unterkommentare anderer Nutzer:innen bleiben erhalten.`,
-          () => {
-            deleteComment(this.commentId);
-
-            if (this.canEdit) {
-              this.onEdit();
-            }
-          }
-        ),
-    },
-    {
-      label: 'Melden',
-      onClickHandler: () =>
-        this.changeDialog(
-          'Verstößt dieser Kommentar aus Ihrer Sicht wirklich gegen unsere Netiquette?',
-          () => reportComment(this.commentId)
-        ),
-      condition: this.authorId !== this.user.sub,
-    },
-  ];
+  @property({ type: String }) options: any = [];
 
   updated(changedProperties: any): void {
     this?.shadowRoot
       ?.querySelector(`#wrapper`)
       ?.addEventListener('mouseleave', () => {
-        console.log('leave');
         this.isOpen = false;
       });
-    console.log(this.isOpen);
+
+    console.log(changedProperties);
     super.updated(changedProperties);
+  }
+
+  protected firstUpdated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    this.options = [
+      {
+        label: 'Bearbeiten',
+        onClickHandler: () => this.onEdit(),
+        condition: this.authorId === this.user.sub,
+      },
+      {
+        label: 'Löschen',
+        condition: this.authorId === this.user.sub,
+
+        onClickHandler: () =>
+          this.changeDialog(
+            html`Soll Ihr Kommentar wirklich gelöscht werden? Hinweis: Mögliche
+            Unterkommentare anderer Nutzer:innen bleiben erhalten.`,
+            () => {
+              deleteComment(this.commentId);
+
+              if (this.canEdit) {
+                this.onEdit();
+              }
+            }
+          ),
+      },
+      {
+        label: 'Melden',
+        onClickHandler: () =>
+          this.changeDialog(
+            'Verstößt dieser Kommentar aus Ihrer Sicht wirklich gegen unsere Netiquette?',
+            () => reportComment(this.commentId)
+          ),
+        condition: this.authorId !== this.user.sub,
+      },
+    ];
   }
 
   static get styles() {
@@ -97,11 +104,11 @@ export class BcgUserMenu extends BcgModule {
         ${this.isOpen
           ? this.options.map((e: any) => {
               console.log(e.condition);
-              return !e.condition
-                ? html`<bcg-button @click=${e.onClickHandler}
-                    >${e.label}</bcg-button
-                  >`
-                : null;
+              if (e.condition) {
+                return html`<bcg-button @click=${e.onClickHandler}
+                  >${e.label}</bcg-button
+                >`;
+              }
             })
           : null}
       </div>
