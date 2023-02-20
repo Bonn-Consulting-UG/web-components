@@ -1,4 +1,5 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
+import { Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
 export default {
@@ -11,12 +12,6 @@ interface ContentArgs {
   label: string;
   helpText: string;
   placeholder: string;
-}
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
 }
 
 const Template: Story<ContentArgs> = args =>

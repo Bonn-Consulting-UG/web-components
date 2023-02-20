@@ -43,7 +43,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
               firstName: `${externalUser.firstName}`,
               lastName: `${externalUser.lastName}`,
             };
-        console.log(loggedOutpayload);
         const fetchOptions = {
           method: 'POST',
           headers: {

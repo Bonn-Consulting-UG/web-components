@@ -32,7 +32,6 @@ export class BcgDialog extends LitElement {
   };
 
   private _changeDialog: any = (e: Event) => {
-    console.log(e);
     this.openDialog();
   };
 

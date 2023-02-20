@@ -80,7 +80,7 @@ export class BcgModule extends LitElement {
 
   update(changedProperties: any) {
     this.updateDialog();
-    console.log(this.showDialog);
+
     super.update(changedProperties);
   }
 
@@ -104,7 +104,6 @@ export class BcgModule extends LitElement {
 
     if (this.user) {
       if (Date.now() >= this.user.exp * 1000) {
-        console.log(this.user);
         this.getNewAccessToken();
       }
       this.isLoggedIn = true;
@@ -119,15 +118,13 @@ export class BcgModule extends LitElement {
       const response: any = await sendGetNewAccessTokenRequest(
         this.refreshToken
       );
-      console.log(response.accessToken);
-      console.log(response.refreshToken);
+
       localStorage.setItem('accessToken', response.accessToken);
       localStorage.setItem('refreshToken', response.refreshToken);
     }
   }
 
   async logInHandler(email: string, password: string) {
-    console.log('huh');
     const resp: any = await sendLoginRequest({ email, password });
     const respData = await resp.json();
     if (respData.accessToken && resp.status === 201) {

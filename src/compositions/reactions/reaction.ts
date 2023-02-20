@@ -9,7 +9,7 @@ export class BcgReaction extends ScopedElementsMixin(BcgModule) {
   }
 
   @property({ type: Function }) clickHandler: Function = () =>
-    console.log('123');
+    console.log('default icon clickhandler');
 
   @property({ type: String }) value: any;
 

@@ -72,11 +72,10 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         this.notificationMessage = 'Bitte verifizieren Sie ihren User';
         this.notificationType = 'error';
       }
-      console.log(resp);
     };
 
     return html`
-      <div style="width:640px;">
+      <div>
         <div class="left-side" style="display:flex;flex-direction: column;">
           ${this.showNotification
             ? html`<bcg-notification

@@ -1,4 +1,5 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
+import { Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
 export default {
@@ -15,15 +16,10 @@ interface ContentArgs {
   button: string;
 }
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
-
 interface ArgTypes {
   content: Array<ContentArgs>;
 }
+
 const placementModeLocalConfig = {
   placementMode: 'local',
   elementToFocusAfterHide: document.body,

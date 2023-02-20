@@ -69,7 +69,7 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
       }
 
       this.isLoading = true;
-      console.log(this.password);
+
       const res: any = await sendPasswordChangeRequest({
         currentPassword: this.password,
         newPassword: this.newPassword,
