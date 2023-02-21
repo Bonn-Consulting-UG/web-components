@@ -1,4 +1,5 @@
 import { html } from '@lion/core';
+import { Required } from '@lion/form-core';
 import { ArgTypes, Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
@@ -12,7 +13,23 @@ export default {
   },
 };
 
+interface ContentArgs {
+  button: string;
+  panel: string;
+}
+
+let password = '';
+
 const Template: Story<ArgTypes> = () =>
-  html` <bcg-input-password></bcg-input-password> `;
+  html`
+    <bcg-input-password
+      .validators=${[new Required()]}
+      type="password"
+      label="Password Input"
+      name="password"
+      placeholder="Enter password"
+      .modelValue=${password}
+    ></bcg-input-password>
+  `;
 
 export const Default = Template.bind({});
