@@ -29,9 +29,6 @@ const Template: Story<ArgTypes> = () =>
       name="password"
       placeholder="Enter password"
       .modelValue=${password}
-      @model-value-changed=${({ target }: any) => {
-        password = target.value;
-      }}
     ></bcg-input-password>
   `;
 
