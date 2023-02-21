@@ -19,6 +19,7 @@ import './input-iban/index.js';
 import './input-range/index.js';
 import './input-stepper/index.js';
 import './input-tel/index.js';
+import './input-password/index.js';
 import './input-tel-dropdown/index.js';
 import './listbox/index.js';
 import './module/index.js';
