@@ -4,6 +4,8 @@ import { BcgInput } from '../input/input';
 
 export class BcgInputPassword extends BcgInput {
 
+  type = 'password';
+
   static get styles() {
     return [
       css`

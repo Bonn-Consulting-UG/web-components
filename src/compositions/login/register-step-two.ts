@@ -51,8 +51,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup,
-      'lion-icon': LionIcon,
+      'bcg-checkbox-group': BcgCheckboxGroup
     };
   }
 
@@ -61,7 +60,6 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   render() {
     let { firstName, lastName, email, password, passwordrepeat, dsgvo } = this;
-    console.log(password);
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>

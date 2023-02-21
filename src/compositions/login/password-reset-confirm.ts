@@ -30,28 +30,9 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
 
   passwordrepeat: string = '';
 
-  @property({ type: String }) passwordInputType: string = 'password';
-  @property({ type: String }) passwordRepeatInputType: string = 'password';
-
   @property({ type: String }) code: string = '';
 
   @property({ type: String }) resetEmail: string = '';
-
-  flipPasswordInput() {
-    if (this.passwordInputType === 'password') {
-      this.passwordInputType = 'text';
-    } else {
-      this.passwordInputType = 'password';
-    }
-  }
-
-  flipPasswordRepeatInput() {
-    if (this.passwordRepeatInputType === 'password') {
-      this.passwordRepeatInputType = 'text';
-    } else {
-      this.passwordRepeatInputType = 'password';
-    }
-  }
 
   static get properties() {
     return {
@@ -112,57 +93,21 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
             name="password-fieldset"
             .validators=${[new PasswordMatch()]}
           >
-            <div style="position: relative;">
-              <bcg-input
-                label="Passwort  *"
-                type=${this.passwordInputType}
-                placeholder=""
-                name="password"
-                @model-value-changed=${({ target }: any) => {
-                  password = target.value;
-                }}
-                .validators=${[new Required()]}
-                .modelValue="${password}"
-              ></bcg-input>
-              <lion-icon
-                style="
-    position: absolute;
-    right: 2%;
-    top: 30px;
-    width: 24px;
-    height: 24px;"
-                @click=${this.flipPasswordInput}
-                icon-id=${this.passwordInputType === 'password'
-                  ? 'bcg:general:eye'
-                  : 'bcg:general:eyeopen'}
-              ></lion-icon>
-            </div>
+            <bcg-input-password
+              label="Passwort"
+              placeholder=""
+              name="password"
+              .validators=${[new Required()]}
+              .modelValue="${password}"
+            ></bcg-input-password>
 
-            <div style="position: relative;">
-              <bcg-input
-                name="passwordrepeat"
-                label="Passwort wiederholen  *"
-                type=${this.passwordRepeatInputType}
-                placeholder=""
-                .validators=${[new Required()]}
-                .modelValue="${this.passwordrepeat}"
-                @model-value-changed=${({ target }: any) => {
-                  passwordrepeat = target.value;
-                }}
-              ></bcg-input>
-              <lion-icon
-                style="
-    position: absolute;
-    right: 2%;
-    top: 30px;
-    width: 24px;
-    height: 24px;"
-                @click=${this.flipPasswordRepeatInput}
-                icon-id=${this.passwordRepeatInputType === 'password'
-                  ? 'bcg:general:eye'
-                  : 'bcg:general:eyeopen'}
-              ></lion-icon>
-            </div>
+            <bcg-input-password
+              label="Passwort wiederholen"
+              placeholder=""
+              name="passwordrepeat"
+              .validators=${[new Required()]}
+              .modelValue="${passwordrepeat}"
+            ></bcg-input-password>
           </bcg-fieldset>
         </div>
 
