@@ -35,8 +35,10 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
 
       this.isLoading = true;
       const res: any = await sendUserDataChangeRequest(this.user);
-      console.log(res);
+
       if (res.status === 200) {
+        await this.getNewAccessToken();
+
         this.showNotification = true;
         this.notificationMessage = 'Ihre Änderung wurde gespeichert';
         this.notificationType = 'success';
@@ -48,7 +50,6 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
       this.isLoading = false;
     };
 
-    console.log(this.user);
     return html`
       <div>
         ${this.showNotification
@@ -65,7 +66,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
               ? html`<bcg-progress></bcg-progress>`
               : html`
                   <bcg-input
-                    label="Ihr Vorname"
+                    label="Ihr Vorname *"
                     .validators=${[new Required()]}
                     placeholder=""
                     .modelValue="${this.user.given_name}"
@@ -75,7 +76,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
                     name="firstname"
                   ></bcg-input>
                   <bcg-input
-                    label="Ihr Nachname"
+                    label="Ihr Nachname *"
                     .validators=${[new Required()]}
                     placeholder=""
                     @model-value-changed=${({ target }: any) => {
@@ -85,7 +86,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
                     name="lastname"
                   ></bcg-input>
                   <bcg-input
-                    label="Ihre E-Mail"
+                    label="Ihre E-Mail *"
                     help-text="Kann nicht geändert werden"
                     .validators=${[new Required(), new IsEmail()]}
                     .modelValue="${this.user.email}"
@@ -93,9 +94,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
                     placeholder=""
                     name="email"
                   ></bcg-input>
-                  <bcg-button-submit
-                    style="margin-top:10px"
-                    @click="${() => console.log('ButtonPress Save')}"
+                  <bcg-button-submit style="margin-top:10px"
                     >Speichern</bcg-button-submit
                   >
                 `}

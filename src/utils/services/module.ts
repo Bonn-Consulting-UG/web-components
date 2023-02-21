@@ -84,3 +84,22 @@ export const getModule = async (moduleID: any) => {
     return err;
   }
 };
+
+export const updateModule = async (moduleID: any, updatedData: any) => {
+  try {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify({ ...updatedData }),
+    };
+
+    const resp = await fetch(getModuleEndpoint(moduleID), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};

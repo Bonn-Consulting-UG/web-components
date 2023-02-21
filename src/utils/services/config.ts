@@ -3,7 +3,7 @@ const APIVersion = 'v1';
 
 const getApiUrl = () => {
   if (location.href.includes(`-dev`))
-    return 'https://epart-api-nonprod.ifok.digital';
+    return 'https://epart-api-dev.ifok.digital';
   if (location.href.includes(`-nonprod`))
     return 'https://epart-api-nonprod.ifok.digital';
   return 'https://epart-api-dev.ifok.digital';
@@ -46,8 +46,8 @@ export const faqSubmissionEndpoint = (moduleID: any) =>
 export const ideaSubmissionEndpoint = (moduleID: any) =>
   `${baseURLwithApiVersion}/submissions/idea`;
 
-export const getSubmissionsEndpointforModule = (submissionId: number) =>
-  `${baseURLwithApiVersion}/modules/${submissionId}/submissions`;
+export const getSubmissionsEndpoint = (submissionId: number) =>
+  `${baseURLwithApiVersion}/submissions/${submissionId}`;
 
 // Modules
 export const getAllModulesEndpoint = `${baseURLwithApiVersion}/modules`;
@@ -55,8 +55,8 @@ export const getModuleEndpoint = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}`;
 
 // Comments
-export const commentDelteEndPoint = (reactionId: number) =>
-  `${baseURLwithApiVersion}/reactions/${reactionId}`;
+export const commentDelteEndPoint = (commentId: number) =>
+  `${baseURLwithApiVersion}/comments/${commentId}`;
 
 export const getCommentsEndpointforModule = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}/comments`;

@@ -86,7 +86,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
         <form @submit=${(e: any) => e.preventDefault()}>
           <div>
             <bcg-input
-              label="Vorname"
+              label="Vorname  *"
               name="firstName"
               help-text="Dieser Name ist später öffentlich sichtbar"
               placeholder=""
@@ -98,7 +98,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             ></bcg-input>
             <bcg-input
               name="lastName"
-              label="Nachname"
+              label="Nachname  *"
               placeholder=""
               .modelValue="${lastName}"
               .validators=${[new Required()]}
@@ -108,7 +108,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             ></bcg-input>
             <bcg-input-email
               name="email"
-              label="Ihre E-Mail"
+              label="Ihre E-Mail  *"
               placeholder=""
               .modelValue="${email}"
               .validators=${[new Required(), new IsEmail()]}
@@ -142,7 +142,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               .validators=${[new Required('Checkbox')]}
             >
               <bcg-checkbox
-                .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung.'}
+                .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung. *'}
                 ><p slot="label">
                   Ich akzeptiere die
                   <a href="https://iwbk-nonprod.ifok.digital/netiquette"

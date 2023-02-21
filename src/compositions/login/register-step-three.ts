@@ -31,7 +31,6 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
   code: any = null;
 
   render() {
-    console.log(this.user);
     let { code } = this;
 
     const submitHandler = (ev: any) => {
@@ -58,7 +57,7 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
           <bcg-input
             name="verifycode"
             label=""
-            placeholder="Geben Sie den 6-stelligen Code ein"
+            placeholder="Geben Sie den 6-stelligen Code ein *"
             .modelValue="${code}"
             .validators=${[new Required(), new MinLength(6), new MaxLength(6)]}
             @model-value-changed=${({ target }: any) => {

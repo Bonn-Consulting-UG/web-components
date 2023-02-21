@@ -1,4 +1,5 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
+import { Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
 export default {
@@ -10,12 +11,6 @@ export default {
   },
 };
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
-
 interface ArgTypes {
   buttonLabel: string;
   content: string;
@@ -23,12 +18,12 @@ interface ArgTypes {
 const Template: Story<ArgTypes> = () =>
   html`
     <bcg-idea-reaction
-      moduleId="3275cc46-38da-4033-a281-acedadc93db6"
+      submissionId="e49a4102-822e-41c7-b308-2af32736c079"
     ></bcg-idea-reaction>
   `;
 
-const Default = Template.bind({});
+const IdeaReaction = Template.bind({});
 
-Default.args = {};
+IdeaReaction.args = {};
 
-export { Default };
+export { IdeaReaction };

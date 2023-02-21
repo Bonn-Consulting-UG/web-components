@@ -30,7 +30,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         return;
       }
 
-      console.log(ev);
       // sendContactSubmissionRequest(this.contactRequest, this.moduleId);
 
       try {
@@ -68,7 +67,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
           'Danke für Ihre Frage! Wir bearbeiten sie so schnell wie möglich.';
       } catch (err) {
         this.showNotification = true;
-        console.log(err);
         this.notificationType = 'error';
         this.notificationMessage = 'Ein Fehler ist aufgetreten';
       }
@@ -88,15 +86,10 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         }
           <div>
             <div style="display:flex; flex-direction:row;">
-              <h1 style="margin-right:50px;">Reichen Sie Ihre Frage ein!</h1>
               <div style="display:flex; flex-direction:column;">
-                <p>
-                  Unser FAQ konnte Ihre Frage nicht beantworten? Schreiben Sie
-                  uns! Erreicht uns eine Frage häufiger, veröffentlichen wir sie
-                  hier. Wir kontaktieren Sie mit einer Antwort, sofern uns Ihre
-                  E-Mail-Daten vorliegen.
+                <p style="">
+                Alle mit * gekennzeichneten Felder sind Pflichtfelder.
                 </p>
-
                 <bcg-textarea
                   rows="6"
                   name="title"

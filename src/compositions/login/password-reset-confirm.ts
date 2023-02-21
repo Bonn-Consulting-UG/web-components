@@ -94,7 +94,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
           <bcg-input
             name="verifycode"
             label=""
-            placeholder="Geben Sie den 15-stelligen Code ein"
+            placeholder="Geben Sie den 15-stelligen Code ein  *"
             .modelValue="${code}"
             .validators=${[
               new Required(),
@@ -114,7 +114,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
           >
             <div style="position: relative;">
               <bcg-input
-                label="Passwort"
+                label="Passwort  *"
                 type=${this.passwordInputType}
                 placeholder=""
                 name="password"
@@ -141,7 +141,7 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
             <div style="position: relative;">
               <bcg-input
                 name="passwordrepeat"
-                label="Passwort wiederholen"
+                label="Passwort wiederholen  *"
                 type=${this.passwordRepeatInputType}
                 placeholder=""
                 .validators=${[new Required()]}

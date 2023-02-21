@@ -23,9 +23,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     this.isOpen = !this.isOpen;
   };
 
-  registerHandler() {
-    console.log('deez', this);
-  }
+  registerHandler() {}
 
   connectedCallback(): void {
     super.connectedCallback();

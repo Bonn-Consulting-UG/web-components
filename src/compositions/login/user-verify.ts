@@ -30,8 +30,6 @@ export class BcgUserVerify extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    console.log(this.code);
-    console.log(this.userId);
     let { code } = this;
 
     const submitHandler = async (ev: any) => {
@@ -44,7 +42,6 @@ export class BcgUserVerify extends ScopedElementsMixin(LitElement) {
       }
 
       const response = await checkVerifyCode(this.userId, this.code);
-      console.log(response);
     };
 
     return html`<bcg-form @submit=${(ev: any) => submitHandler(ev)}>
@@ -60,7 +57,7 @@ export class BcgUserVerify extends ScopedElementsMixin(LitElement) {
           <bcg-input
             name="verifycode"
             label=""
-            placeholder="Geben Sie den 6-stelligen Code ein"
+            placeholder="Geben Sie den 6-stelligen Code ein  *"
             .modelValue="${code}"
             .validators=${[new Required(), new MinLength(6), new MaxLength(6)]}
             @model-value-changed=${({ target }: any) => {

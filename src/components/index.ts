@@ -13,7 +13,7 @@ import './input/index.js';
 import './input-amount/index.js';
 import './input-date/index.js';
 import './input-datepicker/index.js';
-
+// import './map/index.js';
 import './input-email/index.js';
 import './input-iban/index.js';
 import './input-range/index.js';
@@ -28,6 +28,7 @@ import './select/index.js';
 import './select-rich/index.js';
 import './spamfilter/index.js';
 import './notification/index.js';
+import './dialog/index.js';
 import './progress/index.js';
 import './steps/index.js';
 import './switch/index.js';

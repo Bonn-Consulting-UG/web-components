@@ -6,7 +6,8 @@ import {
   reactionDelteEndPoint,
   approveCommentEndpoint,
   censorCommentEndpoint,
-  getSubmissionsEndpointforModule,
+  getSubmissionsEndpoint,
+  commentDelteEndPoint,
 } from './config';
 
 export const getAllCommentsForModule = async (moduleID: any) => {
@@ -32,7 +33,30 @@ export const getAllCommentsForModule = async (moduleID: any) => {
   }
 };
 
-export const getAllSubmissionForModule = async (submissionId: any) => {
+// export const getAllSubmissionForModule = async (submissionId: any) => {
+//   try {
+//     const fetchOptions = {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: localStorage.getItem('accessToken')
+//           ? `Bearer ${localStorage.getItem('accessToken')}`
+//           : '',
+//       },
+//     };
+
+//     const resp = await fetch(
+//       getSubmissionsEndpointforModule(submissionId),
+//       fetchOptions
+//     );
+//     return resp.json();
+//   } catch (err) {
+//     console.error(err);
+//     return err;
+//   }
+// };
+
+export const getSubmission = async (submissionId: any) => {
   try {
     const fetchOptions = {
       method: 'GET',
@@ -45,30 +69,7 @@ export const getAllSubmissionForModule = async (submissionId: any) => {
     };
 
     const resp = await fetch(
-      getSubmissionsEndpointforModule(submissionId),
-      fetchOptions
-    );
-    return resp.json();
-  } catch (err) {
-    console.error(err);
-    return err;
-  }
-};
-
-export const getAllSubmissionsForAModule = async (submissionId: any) => {
-  try {
-    const fetchOptions = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('accessToken')
-          ? `Bearer ${localStorage.getItem('accessToken')}`
-          : '',
-      },
-    };
-
-    const resp = await fetch(
-      getSubmissionsEndpointforModule(submissionId),
+      getSubmissionsEndpoint(submissionId),
       fetchOptions
     );
     return resp.json();
@@ -151,6 +152,24 @@ export const removeReaction = async (reactionId: any) => {
   }
 };
 
+export const removeComment = async (commentId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    };
+
+    // const resp = await fetch(removeDeleteEndPoint(commentId), fetchOptions);
+    // return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
 export const reportComment = async (commentId: any) => {
   try {
     const fetchOptions = {
@@ -227,6 +246,43 @@ export const addCommentToComment = async (
     };
 
     const resp = await fetch(setCommentsEndpoint, fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const deleteComment = async (commentId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    };
+
+    const resp = await fetch(commentDelteEndPoint(commentId), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const editComment = async (commentId: any, commentConent: any) => {
+  try {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify({ content: commentConent }),
+    };
+
+    const resp = await fetch(commentDelteEndPoint(commentId), fetchOptions);
     return resp.json();
   } catch (err) {
     console.error(err);

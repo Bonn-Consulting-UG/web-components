@@ -1,11 +1,24 @@
-import { css, html, LitElement } from '@lion/core';
-import { Required } from '../../utils/helpers/input-errors';
+import {
+  css,
+  html,
+  LitElement,
+  property,
+  ScopedElementsMixin,
+} from '@lion/core';
+import { Required } from '@lion/form-core';
 import { SpamMatch } from '../../utils/validators/spamfilter';
+import { BcgRadioGroup } from '../radio-group/radio-group';
+
+interface IconData {
+  name: string;
+  icon: string;
+}
 
 export class BcgSpamFilter extends LitElement {
+  @property({ type: String }) selected = '';
   selection: any;
 
-  rawdata: any = [
+  rawdata: IconData[] = [
     { name: 'Becher', icon: 'bcg:spamfilter:cup' },
     { name: 'Auto', icon: 'bcg:spamfilter:car' },
     { name: 'Herz', icon: 'bcg:spamfilter:hearth' },
@@ -16,56 +29,78 @@ export class BcgSpamFilter extends LitElement {
     { name: 'LKW', icon: 'bcg:spamfilter:truck' },
   ];
 
-  data: any = [
-    this.randomItem(this.rawdata),
-    this.randomItem(this.rawdata),
-    this.randomItem(this.rawdata),
+  rawdataCopy: IconData[] = [...this.rawdata];
+
+  data: IconData[] = [
+    this.popRandomItem(this.rawdataCopy),
+    this.popRandomItem(this.rawdataCopy),
+    this.popRandomItem(this.rawdataCopy),
   ];
 
-  randomIndex = Math.floor(Math.random() * 3);
-
-  randomItem(items: any) {
-    return items[Math.floor(Math.random() * items.length)];
+  createRenderRoot() {
+    return this;
   }
 
-  currentSelected = this.data[this.randomIndex];
-
-  selected = '';
-
-  static get styles() {
-    return [
-      css`
-        .input-group {
-          display: flex;
-          flex-direction: row;
-        }
-      `,
-    ];
+  popRandomItem(items: any[]) {
+    return items.splice(this.randomIndex(items.length), 1)[0];
   }
+
+  randomIndex(limit: number): number {
+    return Math.floor(Math.random() * limit);
+  }
+
+  currentSelected: IconData = this.data[this.randomIndex(this.data.length)];
 
   render() {
-    // console.log(this.currentSelected, this.randomIndex, this.selected);
-    return html`<div style="">
-      <div name="text">
+    return html` <div
+        name="text"
+        style="margin-bottom: 1em; text-align: center"
+      >
         Bitte wählen Sie das "<b>${this.currentSelected.name}</b>" Icon aus
       </div>
-      <div name="selection" style="display:flex;">
+      <div name="selection">
         <bcg-radio-group
-          style="width:100%;border:1px solid var(--primary-color); padding:5px;"
+          style="
+          width: 20em;
+          min-height: 4.5em;
+          margin: auto;
+          display: flex;
+          justify-content: center;
+          "
           name="spamfilter"
-          .validators=${[new SpamMatch(this.currentSelected.name)]}
+          @model-value-changed=${(ev: any) => {
+            this.selected = ev.target.modelValue;
+          }}
+          .validators=${[
+            new Required(),
+            new SpamMatch(this.currentSelected.name),
+          ]}
         >
-          ${this.data.map(
-            (el: any) => html`<bcg-radio
-              name=${el.name}
-              .choiceValue=${el.name}
-            >
-              <slot slot="label" class="input-group">
-                <bcg-icon .iconId="${el.icon}"></bcg-icon></slot
-            ></bcg-radio>`
-          )}
+          <div
+            style="width: 10em; display: flex; justify-content: space-between; margin: auto; margin-bottom: 1em"
+          >
+            ${this.data.map(
+              (el: any) => html` <bcg-radio
+                name=${el.name}
+                .choiceValue=${el.name}
+                style="position: relative"
+              >
+                <label
+                  slot="label"
+                  style="position: absolute; height: 100%; top: 0; background: white; cursor: pointer"
+                >
+                  <bcg-icon
+                    style="width: 2em; height: 2em; color:${this.selected ===
+                    el.name
+                      ? 'var(--alert-color-warning)'
+                      : ''}"
+                    icon-id="${el.icon}"
+                  ></bcg-icon>
+                </label>
+              </bcg-radio>`
+            )}
+          </div>
         </bcg-radio-group>
-      </div>
-    </div>`;
+      </div>`;
   }
 }

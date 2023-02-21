@@ -1,4 +1,5 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
+import { Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
 export default {
@@ -6,15 +7,9 @@ export default {
   component: 'bcg-cantact-submission',
   argTypes: {
     content: {},
-    buttonLabel: {}
-  }
+    buttonLabel: {},
+  },
 };
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   buttonLabel: string;
@@ -26,8 +21,8 @@ const DefaultTemplate: Story<ArgTypes> = () =>
     moduleId="3275cc46-38da-4033-a281-acedadc93db6"
   ></bcg-contact-submission> `;
 
-const Default = DefaultTemplate.bind({});
+const ContactSubmission = DefaultTemplate.bind({});
 
-Default.args = {};
+ContactSubmission.args = {};
 
-export { Default };
+export { ContactSubmission };

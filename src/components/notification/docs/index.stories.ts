@@ -1,4 +1,5 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
+import { Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
 export default {
@@ -12,16 +13,11 @@ export default {
   }
 };
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
-
 interface ArgTypes {
   type: string;
   message: string;
 }
+
 const Template: Story<ArgTypes> = args =>
   html`
     <bcg-notification

@@ -1,5 +1,10 @@
 import { html, ScopedElementsMixin } from '@lion/core';
-import { Required, IsEmail } from '../../utils/helpers/input-errors';
+import {
+  Required,
+  IsEmail,
+  MaxLength,
+  MinLength,
+} from '../../utils/helpers/input-errors';
 import { BcgModule } from '../../components/module';
 import { ideaSubmissionEndpoint } from '../../utils/services/config';
 import { sendIdeaSubmissionRequest } from '../../utils/services/module';
@@ -38,7 +43,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
               firstName: `${externalUser.firstName}`,
               lastName: `${externalUser.lastName}`,
             };
-        console.log(loggedOutpayload);
         const fetchOptions = {
           method: 'POST',
           headers: {
@@ -55,17 +59,23 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           }),
         };
 
-        const resp = await fetch(
+        const response = await fetch(
           ideaSubmissionEndpoint(this.moduleId),
           fetchOptions
         );
 
+        const resp = await response.json();
         this.ideaRequest.description = '';
+
+        setTimeout(() => {
+          console.log(this.shadowRoot?.querySelector('form'));
+          this.shadowRoot?.querySelector('form')?.resetGroup();
+        }, 1000);
         this.ideaRequest.title = '';
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
 
-        console.log(resp);
+        location.href = `${location.href}/${resp.id}`;
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';
@@ -76,7 +86,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
     };
 
     return html`
-      <bcg-form @submit=${submitHandler}>
+      <bcg-form @submit=${(e: any) => submitHandler(e)}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${this.showNotification
             ? html` <bcg-notification
@@ -87,23 +97,17 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
             : null}
           <div>
             <div style="display:flex; flex-direction:column;">
-              <h1 style="flex-grow: 1;">Idee einreichen</h1>
-              <p style="width:650px;">
-                Hier steht Text, den das Projektteam geschrieben hat und der
-                erklärt, warum es sinnvoll und wichtig ist, eine Idee für das
-                projekt zu hinterlassen. Lorem ipsum dolor sit amet. Est
-                eligendi accusantium est cumque excepturi sit necessitatibus
-                consequatur non minus sunt et nobis quia et veniam eligendi. Ea
-                rerum voluptas non nulla alias aut expedita assumenda sit dolor
-                conse.
-              </p>
-              <p style="background-color:#56A1E8; width:500px">
+              <p style="">
                 Alle mit * gekennzeichneten Felder sind Pflichtfelder.
               </p>
 
               <bcg-input
                 label="Titel Ihrer Idee *"
-                .validators=${[new Required()]}
+                .validators=${[
+                  new Required(),
+                  new MinLength(5),
+                  new MaxLength(100),
+                ]}
                 name="title"
                 .modelValue="${ideaRequest.title}"
                 @model-value-changed=${({ target }: any) => {
@@ -131,7 +135,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       sichtbar in Verbindung mit Ihrer Idee erscheinen.
                     </p>
                     <bcg-input
-                      label="Ihr Vorname "
+                      label="Ihr Vorname *"
                       placeholder=""
                       name="firstname"
                       .validators=${[new Required()]}
@@ -141,7 +145,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       }}
                     ></bcg-input>
                     <bcg-input
-                      label="Ihr Nachname"
+                      label="Ihr Nachname  *"
                       placeholder=""
                       name="lastname"
                       .validators=${[new Required()]}
@@ -152,7 +156,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                     ></bcg-input>
                     <p>Sofern Sie von uns kontaktiert werden möchten.</p>
                     <bcg-input-email
-                      label="Ihre E-Mail "
+                      label="Ihre E-Mail  *"
                       name="email"
                       placeholder=""
                       .validators=${[new Required()]}
@@ -166,8 +170,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       .validators=${[new Required()]}
                     >
                       <bcg-checkbox
-                        label="Ich akzeptiere die 
-        Datenschutzerklärung"
+                        label="Ich akzeptiere die Datenschutzerklärung  *"
                         .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
                       ></bcg-checkbox>
                     </bcg-checkbox-group>
@@ -175,10 +178,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                 : null}
 
               <div>
-                <bcg-button-submit
-                  @click="${() => console.log('ButtonPress Senden')}"
-                  >Senden</bcg-button-submit
-                >
+                <bcg-button-submit>Senden</bcg-button-submit>
               </div>
             </div>
           </div>

@@ -24,5 +24,6 @@ export default {
   input: ['src/components/index.ts', 'src/compositions/index.ts'],
   output: {
     dir: 'dist'
-  }
+  },
+
 };

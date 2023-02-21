@@ -69,7 +69,7 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
       }
 
       this.isLoading = true;
-      console.log(this.password);
+
       const res: any = await sendPasswordChangeRequest({
         currentPassword: this.password,
         newPassword: this.newPassword,
@@ -106,7 +106,7 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
             : html`
                 <div style="position: relative;">
                   <bcg-input
-                    label="Aktuelles Passwort"
+                    label="Aktuelles Passwort  *"
                     type=${this.passwordInputType}
                     placeholder=""
                     name="password"
@@ -130,7 +130,7 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
                 >
                   <div style="position: relative;">
                     <bcg-input
-                      label="Neues Passwort"
+                      label="Neues Passwort  *"
                       type=${this.passwordNewInputType}
                       .modelValue=${this.newPassword}
                       @model-value-changed=${({ target }: any) => {
@@ -152,7 +152,7 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
                   <div style="position: relative;">
                     <bcg-input
                       name="passwordrepeat"
-                      label="Neues Passwort wiederholen"
+                      label="Neues Passwort wiederholen *"
                       type=${this.passwordRepeatInputType}
                       .modelValue=${this.passwordRepeat}
                       @model-value-changed=${({ target }: any) => {

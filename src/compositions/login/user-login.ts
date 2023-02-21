@@ -72,11 +72,10 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         this.notificationMessage = 'Bitte verifizieren Sie ihren User';
         this.notificationType = 'error';
       }
-      console.log(resp);
     };
 
     return html`
-      <div style="width:640px;">
+      <div>
         <div class="left-side" style="display:flex;flex-direction: column;">
           ${this.showNotification
             ? html`<bcg-notification
@@ -95,7 +94,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                     <div>
                       <bcg-input-email
                         name="email"
-                        label="E-Mail"
+                        label="E-Mail *"
                         placeholder=""
                         .modelValue="${email}"
                         .validators=${[new Required('Input')]}
@@ -108,7 +107,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                       >
                         <bcg-input
                           style="flex-basis:100%;"
-                          label="Passwort"
+                          label="Passwort *"
                           type=${passwordInputType}
                           placeholder=""
                           .modelValue="${password}"

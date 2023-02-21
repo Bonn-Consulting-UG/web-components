@@ -1,4 +1,5 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
+import { Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
 export default {
@@ -10,12 +11,6 @@ export default {
   },
 };
 
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
-
 interface ArgTypes {
   buttonLabel: string;
   content: string;
@@ -26,8 +21,14 @@ const DefaultTemplate: Story<ArgTypes> = () =>
     moduleId="2b3004fd-8e18-41ad-a763-6b63482cbcdf"
   ></bcg-idea-submission> `;
 
+const IdeaUserMenuTemplate: Story<ArgTypes> = () =>
+  html`<bcg-idea-user-menu
+    moduleId="2b3004fd-8e18-41ad-a763-6b63482cbcdf"
+  ></bcg-idea-user-menu> `;
+
 const Default = DefaultTemplate.bind({});
+const IdeaUserMenu = IdeaUserMenuTemplate.bind({});
 
 Default.args = {};
 
-export { Default };
+export { Default, IdeaUserMenu };

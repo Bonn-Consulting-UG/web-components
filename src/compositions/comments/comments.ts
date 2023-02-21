@@ -11,10 +11,13 @@ import {
   getAllCommentsForModule,
   addComment,
   addCommentToComment,
-  getAllSubmissionsForAModule,
+  getSubmission,
 } from '../../utils/services/comments.js';
 import { BcgCommentReaction } from './comment-reaction.js';
 import { BcgComment } from './comment.js';
+import { LionIcon } from '@lion/icon';
+import { BcgDialog } from '../../components/dialog/dialog';
+import { BcgModeratorMenu } from './comment-moderator-menu';
 
 export interface CommentInterface {
   id: string;
@@ -50,6 +53,8 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   @property() count: any = [];
 
+  @property() newComment: any = '';
+
   @property() responseTo: any = {};
 
   @property() setResponseTo: any = (comment: any) => {
@@ -61,7 +66,23 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   currentCharCount: Number = this.getElementsByTagName('textarea').length;
 
-  newComment: any = '';
+  changeDialog = (content: any, callback: any) => {
+    this.showDialog = true;
+    this.dialogContent = content;
+    this.confirmHandler = async () => {
+      await callback();
+      this.showDialog = false;
+      this.setupComments();
+    };
+  };
+
+  closeDialog = (content: any) => {
+    this.showDialog = true;
+    this.dialogContent = content;
+    this.closeHandler = () => {
+      this.showDialog = false;
+    };
+  };
 
   setupComments: any = async (scrollTo?: any) => {
     let response;
@@ -72,32 +93,32 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     }
 
     if (this.submissionId !== 0 && !this.moduleId) {
-      console.log(this.submissionId);
-      response = await getAllSubmissionsForAModule(this.submissionId);
-      console.log(response);
-
-      // this.comments = response.comments;
-
-      const test = response.moduleId;
-
-      this.comments = response.results;
-      this.count = response.totalCount;
+      response = await getSubmission(this.submissionId);
+      this.comments = response.comments;
+      this.count = response._count.comments;
     }
-    if (scrollTo)
-      this.shadowRoot
-        ?.querySelector(`[data-id="${scrollTo}"]`)
-        ?.scrollIntoView();
-    console.log(response);
+
+    console.log(this.shadowRoot?.querySelectorAll(`*`));
+    setTimeout(
+      () =>
+        scrollTo
+          ? this.shadowRoot?.querySelector(`#${scrollTo}`)?.scrollIntoView()
+          : null,
+      500
+    );
   };
 
   static get scopedElements() {
     return {
       'bcg-comment': BcgComment,
+      'lion-icon': LionIcon,
+      'bcg-dialog': BcgDialog,
+      'bcg-moderator-menu': BcgModeratorMenu,
     };
   }
 
   render() {
-    const { maxCharCount, currentCharCount, comments } = this;
+    const { comments } = this;
 
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -107,12 +128,15 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         firstFormElWithError.focus();
         return;
       }
+      let newCommentId;
+
       if (!this.responseTo.author) {
         const resp = await addComment(
           this.moduleId,
           this.newComment,
           this.submissionId
         );
+        newCommentId = resp.id;
       }
 
       if (this.responseTo.author) {
@@ -120,17 +144,21 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
           this.responseTo.id,
           this.newComment
         );
-
+        newCommentId = resp.id;
         this.responseTo = {};
       }
-      ev.path[0].resetGroup();
-      this.setupComments(this?.responseTo?.id);
+      let textarea = this.shadowRoot?.querySelector('textarea');
+      textarea!.value = '';
+      this.newComment = '';
+      this.setupComments(newCommentId);
     };
 
     return html`
+      ${this.dialogHtml}
+
       <div style="display:flex; flex-direction:column;">
-        <bcg-form @submit=${submitHandler}>
-          <form @submit=${(e: any) => console.log(e)}>
+        <bcg-form name="sentcomment" @submit=${(ev: any) => submitHandler(ev)}>
+          <form name="sentcomment" @submit=${(e: any) => e.preventDefault()}>
             ${this.responseTo.author
               ? html`<div class="responseTo" style="flex-grow:1">
                   Sie antworten: ${this.responseTo.author.firstName}
@@ -184,14 +212,42 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         </bcg-form>
 
         <div>
-          ${comments &&
-          comments.map((comment: any, index: any) => {
+          ${this.comments &&
+          this.comments.map((comment: any, index: any) => {
             if (index <= this.displayedComments) {
-              return html`<bcg-comment
-                .refresh=${this.setupComments}
-                .comments="${comment}"
-                .setResponseTo=${this.setResponseTo}
-              ></bcg-comment>`;
+              if (comment.comments) {
+                return html`
+                  <bcg-comment
+                    id=${comment.id}
+                    .changeDialog=${this.changeDialog}
+                    .refresh=${this.setupComments}
+                    .comments="${comment}"
+                    .setResponseTo=${this.setResponseTo}
+                  ></bcg-comment>
+                  ${comment.comments.map((subcomment: any) => {
+                    return html`<div
+                      style=" background-color: white;
+                    padding-left: 100px;
+                    border: none!important;"
+                    >
+                      <bcg-comment
+                        id="${subcomment.id}"
+                        .changeDialog=${this.changeDialog}
+                        .refresh=${this.setupComments}
+                        .comments="${subcomment}"
+                      ></bcg-comment>
+                    </div>`;
+                  })}
+                </div>`;
+              }
+              if (!comment.comments)
+                return html`<bcg-comment
+                  id=${comment}
+                  .changeDialog=${this.changeDialog}
+                  .refresh=${this.setupComments}
+                  .comments="${comment}"
+                  .setResponseTo=${this.setResponseTo}
+                ></bcg-comment> `;
             }
           })}
         </div>
