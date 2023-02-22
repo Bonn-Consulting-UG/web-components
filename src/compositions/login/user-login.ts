@@ -102,6 +102,9 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                             new MinLength(3),
                           ]}
                           name="password"
+                          @model-value-changed=${({ target }: any) => {
+                            password = target.value;
+                          }}
                         ></bcg-input-password>
 
                     </div>

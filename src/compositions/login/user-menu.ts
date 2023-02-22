@@ -110,7 +110,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
           <dialog id="login-dialog">
             <header
-              style=" display:flex;justify-content: flex-end;align-content: flex-end;"
+              style="MIN-width: 320px; display:flex;justify-content: flex-end;align-content: flex-end;"
             >
               <bcg-button id="close-button" variant="tertiary"
                 ><lion-icon icon-id="bcg:general:cross"></bcg-icon
@@ -119,7 +119,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
             <bcg-login></bcg-login>
           </dialog>
 
-          <dialog style="max-width: 670px;" id="edit-dialog">
+          <dialog style="" id="edit-dialog">
             <header
               style=" display:flex;justify-content: flex-end;align-content: flex-end;"
             >
