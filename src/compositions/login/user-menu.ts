@@ -81,26 +81,23 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     } = this;
 
     return html`
-      <div>
-        <div
-          style="display:flex;flex-direction:column; flex-grow:0;"
-        >
+
           ${
             !isLoggedIn
-              ? html`<div style="display:flex; flex-direction:row;">
-                  <bcg-button
+              ? html`
+                  <li
                     id="login-button"
                     style="margin-right:10px;"
                     variant="secondary"
                     >Anmelden</bcg-button
-                  ><bcg-button
+                  ><li
                     id="register-button"
                     variant="primary"
                     @click=${registerHandler}
                     >Registrieren
-                  </bcg-button>
-                </div>`
-              : html`<bcg-button
+          </li>
+                `
+              : html`<li
                   @click="${clickHandler}"
                   style="margin-bottom:3px;"
                   variant="primary"
@@ -143,24 +140,26 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
           ${
             isOpen
-              ? html`<bcg-button
+              ? html`<div>
+                  <li
                     style="margin-bottom:3px; "
                     variant="secondary"
                     id="edit-button"
-                    >Mein Profil</bcg-button
                   >
-                  <bcg-button
+                    Mein Profil
+                  </li>
+                  <li
                     variant="secondary"
                     @click="${() => {
                       clickHandler();
                       logOutHandler();
                     }}"
-                    >Abmelden</bcg-button
-                  > `
+                  >
+                    Abmelden
+                  </li>
+                </div>`
               : null
           }
-        </div>
-      </div>
     `;
   }
 }

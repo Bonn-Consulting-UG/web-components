@@ -1,6 +1,7 @@
 import { html, LitElement, property } from '@lion/core';
 import jwtDecode from 'jwt-decode';
 import { PropertyValueMap } from 'lit';
+import { getSubmission } from '../../utils/services/comments';
 import {
   sendGetNewAccessTokenRequest,
   sendLoginRequest,
@@ -139,8 +140,12 @@ export class BcgModule extends LitElement {
   }
 
   async loadConfig() {
-    if (this.moduleId !== 0) {
+    if (this.moduleId !== 0 && this.submissionId === 0) {
       this.config = await getModule(this.moduleId);
+      console.table(this.config);
+    }
+    if (this.submissionId !== 0 && this.moduleId === 0) {
+      this.config = await getSubmission(this.submissionId);
       console.table(this.config);
     }
   }
