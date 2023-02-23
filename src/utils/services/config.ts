@@ -6,6 +6,8 @@ const getApiUrl = () => {
     return 'https://epart-api-dev.ifok.digital';
   if (location.href.includes(`-nonprod`))
     return 'https://epart-api-nonprod.ifok.digital';
+  if (location.href.includes(`a4plus`))
+    return 'https://epart-api-nonprod.ifok.digital';
   return 'https://epart-api-dev.ifok.digital';
 };
 

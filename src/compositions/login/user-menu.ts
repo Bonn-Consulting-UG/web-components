@@ -17,9 +17,6 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     return { 'lion-icon': LionIcon };
   }
 
-  createRenderRoot() {
-    return this;
-  }
   @property({ type: Boolean }) isOpen: boolean = false;
 
   clickHandler = () => {
@@ -149,7 +146,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
                     variant="secondary"
                     id="edit-button"
                   >
-                    Mein Profil
+                    <a onclick="()=>ev.preventDefault()" )> Mein Profil </a>
                   </li>
                   <li
                     variant="secondary"
