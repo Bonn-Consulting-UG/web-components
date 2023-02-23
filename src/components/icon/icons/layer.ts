@@ -1,0 +1,13 @@
+import { html } from '@lion/core';
+
+export const layer = html`<svg
+  width="32"
+  height="22"
+  viewBox="0 0 32 22"
+  xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M10.2086 0L0 6.67416V17.7978L16.4908 22L32 14.8315L28.2699 2.7191L19.0429 4.20225L10.2086 0Z"
+  />
+</svg>
+
+ `;

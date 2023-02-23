@@ -12,7 +12,12 @@ export default {
   }
 };
 
+const token = 'pk.eyJ1IjoiY2hhbXBlbHRhIiwiYSI6ImNsZHN4M3hybzB3cWgzb3BmZTR5dTR4NGUifQ.1GA4l71P0Kl9a58_3ciLXg';
+
 const Template: Story<ArgTypes> = () =>
-  html` <bcg-interactive-map></bcg-interactive-map> `;
+  html`
+  <div style="width: 800px; height: 600px;"> 
+    <bcg-interactive-map accessToken=${token} overlayButtonLabel="Fachkarten" ></bcg-interactive-map>
+  </div>`;
 
 export const Default = Template.bind({});

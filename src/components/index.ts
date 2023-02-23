@@ -37,3 +37,4 @@ import './tab-panel/index.js';
 import './tabs/index.js';
 import './textarea/index.js';
 import './tooltip/index.js';
+import './overlay/index.js';
