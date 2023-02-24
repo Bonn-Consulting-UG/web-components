@@ -62,7 +62,14 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
             email: '',
             firstName: '',
           };
-          this.isLoading = false;
+        }
+        this.isLoading = false;
+
+        if (!resp.ok) {
+          this.showNotification = true;
+          this.notificationType = 'error';
+          this.notificationMessage = 'Fehler ist aufgetreten';
+          throw new Error('Fehler ist aufgetreten');
         }
 
         this.showNotification = true;
@@ -72,8 +79,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         this.showNotification = true;
         this.notificationType = 'error';
         this.notificationMessage = 'Fehler ist aufgetreten';
-
-        console.error(err);
+        this.isLoading = false;
       }
     };
 

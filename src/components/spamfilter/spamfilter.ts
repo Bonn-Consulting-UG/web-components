@@ -1,4 +1,10 @@
-import { css, html, LitElement, property, ScopedElementsMixin } from '@lion/core';
+import {
+  css,
+  html,
+  LitElement,
+  property,
+  ScopedElementsMixin,
+} from '@lion/core';
 import { Required } from '@lion/form-core';
 import { SpamMatch } from '../../utils/validators/spamfilter';
 import { BcgRadioGroup } from '../radio-group/radio-group';
@@ -8,10 +14,8 @@ interface IconData {
   icon: string;
 }
 
-
 export class BcgSpamFilter extends LitElement {
-  
-  @property({type: String}) selected = '';
+  @property({ type: String }) selected = '';
   selection: any;
 
   rawdata: IconData[] = [
@@ -30,7 +34,7 @@ export class BcgSpamFilter extends LitElement {
   data: IconData[] = [
     this.popRandomItem(this.rawdataCopy),
     this.popRandomItem(this.rawdataCopy),
-    this.popRandomItem(this.rawdataCopy)
+    this.popRandomItem(this.rawdataCopy),
   ];
 
   createRenderRoot() {
@@ -48,8 +52,10 @@ export class BcgSpamFilter extends LitElement {
   currentSelected: IconData = this.data[this.randomIndex(this.data.length)];
 
   render() {
-    return html`
-      <div name="text" style="margin-bottom: 1em; text-align: center">
+    return html` <div
+        name="text"
+        style="margin-bottom: 1em; text-align: center"
+      >
         Bitte wählen Sie das "<b>${this.currentSelected.name}</b>" Icon aus
       </div>
       <div name="selection">
@@ -62,22 +68,38 @@ export class BcgSpamFilter extends LitElement {
           justify-content: center;
           "
           name="spamfilter"
-          @model-value-changed=${(ev:any) => {this.selected = ev.target.modelValue;}}
-          .validators=${[new Required(), new SpamMatch(this.currentSelected.name)]}
+          @model-value-changed=${(ev: any) => {
+            this.selected = ev.target.modelValue;
+          }}
+          .validators=${[
+            new Required(),
+            new SpamMatch(this.currentSelected.name),
+          ]}
         >
-        <div style="width: 10em; display: flex; justify-content: space-between; margin: auto; margin-bottom: 1em">
-          ${this.data.map(
-            (el: any) => html`
-            <bcg-radio
-              name=${el.name}
-              .choiceValue=${el.name}
-              style="position: relative">
-              <label slot="label" style="position: absolute; height: 100%; top: 0; background: white; cursor: pointer">
-                <bcg-icon style="width: 2em; height: 2em; color:${this.selected === el.name ? 'var(--alert-color-warning)' : ''}" icon-id="${el.icon}"></bcg-icon>
-              </label>
-            </bcg-radio>`
-          )}
-        </div>
+          <div
+            style="width: 10em; display: flex; justify-content: space-between; margin: auto; margin-bottom: 1em"
+          >
+            ${this.data.map(
+              (el: any) => html` <bcg-radio
+                name=${el.name}
+                .choiceValue=${el.name}
+                style="position: relative"
+              >
+                <label
+                  slot="label"
+                  style="position: absolute; height: 100%; top: 0; background: white; cursor: pointer"
+                >
+                  <bcg-icon
+                    style="width: 2em; height: 2em; color:${this.selected ===
+                    el.name
+                      ? 'var(--alert-color-warning)'
+                      : ''}"
+                    icon-id="${el.icon}"
+                  ></bcg-icon>
+                </label>
+              </bcg-radio>`
+            )}
+          </div>
         </bcg-radio-group>
       </div>`;
   }

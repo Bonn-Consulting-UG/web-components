@@ -65,10 +65,9 @@ export class BcgModeratorMenu extends LitElement {
     this?.shadowRoot
       ?.querySelector(`#wrapper`)
       ?.addEventListener('mouseleave', () => {
-        console.log('leave');
         this.isOpen = false;
       });
-    console.log(this.isOpen);
+
     super.updated(changedProperties);
   }
 

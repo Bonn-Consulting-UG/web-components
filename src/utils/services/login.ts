@@ -49,7 +49,6 @@ export const checkVerifyCode = async (userID: any, code: any) => {
 };
 
 export const sendLoginRequest = async (user: any) => {
-  console.log(user);
   try {
     const fetchOptions = {
       method: 'POST',
@@ -81,7 +80,6 @@ export const sendUserDataChangeRequest = async ({
       },
       body: JSON.stringify({ firstName: given_name, lastName: family_name }),
     };
-    console.log(sub);
     const resp = await fetch(changeUserDataEndpoint(sub), fetchOptions);
     return resp;
   } catch (err) {
@@ -105,7 +103,6 @@ export const sendPasswordChangeRequest = async ({
       },
       body: JSON.stringify({ newPassword, currentPassword }),
     };
-    console.log(currentPassword);
     const resp = await fetch(changeUserPasswordEndpoint(userId), fetchOptions);
     return resp;
   } catch (err) {

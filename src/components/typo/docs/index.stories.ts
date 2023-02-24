@@ -1,16 +1,11 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
+import { Story } from '../../../model/story-interfaces';
 
 export default {
   title: 'Components/Typo',
   component: 'bcg-base',
   argTypes: {}
 };
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
 
 interface ArgTypes {
   label: string;

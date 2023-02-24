@@ -39,6 +39,7 @@ export const componentNames: component = {
   inputstepper: `${tagPrefix}-input-stepper`,
   inputamount: `${tagPrefix}-input-amount`,
   inputtel: `${tagPrefix}-input-tel`,
+  interactivemap: `${tagPrefix}-interactive-map`,
   inputteldropdown: `${tagPrefix}-input-tel-dropdown`,
   checkboxgroup: `${tagPrefix}-checkbox-group`,
   checkbox: `${tagPrefix}-checkbox`,

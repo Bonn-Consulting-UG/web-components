@@ -1,4 +1,5 @@
-import { html, TemplateResult } from '@lion/core';
+import { html } from '@lion/core';
+import { ArgTypes, Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
 export default {
@@ -10,21 +11,6 @@ export default {
     },
   },
 };
-
-interface ContentArgs {
-  button: string;
-  panel: string;
-}
-
-interface Story<T> {
-  (args: T): TemplateResult;
-  args?: Partial<T>;
-  argTypes?: Record<string, unknown>;
-}
-
-interface ArgTypes {
-  content: Array<ContentArgs>;
-}
 
 const Template: Story<ArgTypes> = () =>
   html` <bcg-input-amount></bcg-input-amount> `;
