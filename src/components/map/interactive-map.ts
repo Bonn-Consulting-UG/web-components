@@ -1,9 +1,11 @@
 
 import { css, html, LitElement, property, PropertyValues, ScopedElementsMixin } from '@lion/core';
+import { MapMouseEvent } from 'mapbox-gl';
 import { LayerData } from '../../model/LayerData';
 import { BcgButton } from '../button/button';
 
 const mapboxgl = require('mapbox-gl');
+const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 
 export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
 
@@ -11,20 +13,27 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   @property({type: Array}) initialPosition: [number, number] = [13.4, 52.51];
   @property({type: Number}) initialZoom = 10;
   @property({type: Array}) layerData?: LayerData[];
+  @property({type: Array}) markers?: any[];
+  @property({type: Function}) geocoderInputCallback: Function = (input: any) => {};
+  @property({type: Function}) markerSetCallback: Function = (marker: any) => {};
+  @property({type: String}) pinColor = '#9747FF';
 
   map: any;
+  isSettingMarker = false;
 
   firstUpdated() {
     this.initMap();
   }
 
   updated(changedProperties: PropertyValues<this>) {
-    if (!changedProperties.get('layerData')) {
-      return
-    }
+    this.updateLayers(changedProperties.get('layerData'));
+    this.updateMarkers(changedProperties.get('markers'));
+  }
 
-    const prevLayers = changedProperties.get('layerData');
-    //console.log(this.layerData)
+  updateLayers(prevLayers?: LayerData[]) {
+    if (!prevLayers) {
+      return;
+    }
     let removedLayers = prevLayers?.filter((prevLayer: LayerData) => !this.layerData?.includes(prevLayer));
 
     removedLayers?.map((layer: LayerData) => {
@@ -40,6 +49,16 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
         this.addMapLayer();
       })
     }
+  }
+
+  updateMarkers(prevMarkers?: any[]) {
+    if (!prevMarkers) {
+      return;
+    }
+    console.log(prevMarkers)
+    prevMarkers.map(marker => {
+      new mapboxgl.Marker().setLngLat([13.4, 52.51]).addTo(this.map);
+    })
   }
 
   static get scopedElements() {
@@ -64,10 +83,30 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
       zoom: this.initialZoom, // starting zoom
       });
     this.map.addControl(new mapboxgl.NavigationControl({showCompass: false}));
+    // Add the control to the map.
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl
+    })
+    this.map.addControl(geocoder);
+    if (this.map.on) {
+      this.map.on('mouseover', (e:any) => { 
+        if (this.isSettingMarker) {
+          const marker = new mapboxgl.Marker({
+            color: this.pinColor,
+            draggable: true
+          }).setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
+          this.markerSetCallback(marker);
+          this.isSettingMarker = false;
+        }
+      })
+    }
+    // hide geocoder input
+    (this.renderRoot.querySelector('.mapboxgl-ctrl-geocoder') as HTMLElement).style.visibility = 'hidden';
+    geocoder.on('result', (input: any) => this.geocoderInputCallback(input))
   }
 
   addMapLayer() {
-    //console.log(this.layerData)
     this.layerData?.map(data => {
       if (this.map.getSource(data.id)) {
         return;
@@ -100,7 +139,13 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   render() {
     return html`
       <link href='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css' rel='stylesheet' />
-      <div id='map'></div>
+      <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+      <div
+      @drop=${(e: any) => {
+        e.preventDefault();
+        this.isSettingMarker = true;
+      }}
+      @dragover=${(e: any) => e.preventDefault()} id='map' style="width: 100%; height: 100%;"></div>
      `;
   }
 }

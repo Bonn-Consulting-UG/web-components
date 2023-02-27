@@ -18,7 +18,6 @@ export class BcgOverlay extends ScopedElementsMixin(LitElement) {
       background-color: white;
       box-shadow: var(--core-shadow-plus-10);
       position: relative;
-      overflow-y: auto;
       z-index: 3;
     }
 
@@ -33,8 +32,10 @@ export class BcgOverlay extends ScopedElementsMixin(LitElement) {
 
     .content {
       position: absolute;
-      top: 40px;
+      top: 50px;
       width: 100%;
+      height: calc(100% - 50px);
+      overflow-y: auto;
     }
     `
   }

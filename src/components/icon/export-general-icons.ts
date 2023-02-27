@@ -6,3 +6,4 @@ export { collapse } from './icons/collapse';
 export { expand } from './icons/expand';
 export { layer } from './icons/layer';
 export { close } from './icons/close';
+export { marker } from './icons/marker'
