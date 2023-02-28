@@ -17,6 +17,7 @@ export class BcgLogin extends ScopedElementsMixin(BcgModule) {
   static get styles() {
     return [css``];
   }
+  @property({ type: Boolean }) disablePasswordReset: boolean = false;
 
   static get scopedElements() {
     return {
@@ -41,6 +42,7 @@ export class BcgLogin extends ScopedElementsMixin(BcgModule) {
     return html`
       ${context === 'login'
         ? html` <bcg-user-login
+            .disablePasswordReset=${this.disablePasswordReset}
             .onPasswordReset=${changeContext}
           ></bcg-user-login>`
         : html`<bcg-password-reset

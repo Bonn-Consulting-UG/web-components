@@ -29,6 +29,8 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
 
   @property({ type: String }) email: string = '';
 
+  @property({ type: Boolean }) disablePasswordReset: boolean = false;
+
   @property({ type: String }) password: string = '';
 
   static get scopedElements() {
@@ -113,17 +115,20 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                       style="display:flex;margin-top:20px;justify-content: space-between;"
                     >        
               <bcg-button-submit>Anmelden</bcg-button-submit>
-
-                      <a
-                      href
-                      style="display: flex;
-                      align-items: center;"
-                      onclick="return false"
+                ${
+                  !this.disablePasswordReset
+                    ? html` <a
+                        href
+                        style="display: flex;
+                align-items: center;"
+                        onclick="return false"
                         @click=${onPasswordReset}
                         @keydown=${onPasswordReset}
-
                         >Passwort zurücksetzen</a
-                      >
+                      >`
+                    : null
+                }
+                     
                     </div>
                   </form></bcg-formw
                 >`}

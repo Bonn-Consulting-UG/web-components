@@ -19,7 +19,7 @@ import { BcgModule } from '../../components/module';
 import jwtDecode from 'jwt-decode';
 
 export class BcgRegister extends ScopedElementsMixin(BcgModule) {
-  @property({ type: Number }) currentStep: number = 1;
+  @property({ type: Number }) currentStep: number = 3;
 
   maxStep: number = 3;
 
