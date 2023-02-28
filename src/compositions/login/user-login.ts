@@ -78,7 +78,14 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
             : null}
           ${this.isLoading
             ? html`<bcg-progress></bcg-progress>`
-            : html`<h1>Willkommen zurück!</h1>
+            : html`
+            
+          ${
+            !this.disablePasswordReset
+              ? html`<h1>Willkommen zurück!</h1>`
+              : null
+          }
+            
                 <h2>Anmeldung</h2>
                 <bcg-form name="loginform" @submit="${(ev: any) =>
                   submitHandler(ev)}">
