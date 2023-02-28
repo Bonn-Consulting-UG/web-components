@@ -1,11 +1,25 @@
-import { html, property, ScopedElementsMixin, TemplateResult } from "@lion/core";
+import { html, property, ScopedElementsMixin } from "@lion/core";
+import { Required } from "@lion/form-core";
 import { LionStep, LionSteps } from "@lion/steps";
 import { LionTabs } from "@lion/tabs";
 import { BcgModule } from "../../components/module";
 import { LayerData } from "../../model/LayerData";
+import { mapSubmissionEndpoint } from "../../utils/services/config";
 import { mapSubmissionStyle } from './style-map-submission';
 
-const mapboxgl = require('mapbox-gl');
+interface MapRequest {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  title?: string;
+  description?: string;
+  points: MapData[];
+};
+
+interface MapData {
+  longitude?: number;
+  latitude?: number;
+}
 
 export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
@@ -29,10 +43,17 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({type: Boolean}) showLayerContent: boolean = true;
   @property({type: Object}) currentMarker: any;
   @property({type: Object}) currentGeocoderInput: any;
-
+  @property({type: Object}) currentMapSubmission: MapRequest = { points: []};
+  @property({type: Boolean}) privacyChecked = false;
+  @property({type: String}) notificationType = '';
+  @property({type: String}) notificationMessage = '';
+  
   @property({type: Array}) submissions: any[] = [];
 
+
   geocoder: any;
+  isLoading = false;
+
 
   static get scopedElements() {
     return {
@@ -81,10 +102,22 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   }
 
   handleGeocoderInput(input: any) {
-    console.log(input)
     this.currentGeocoderInput = input;
     this.removeCurrentMarker();
+    this.currentMapSubmission.points = [{ 
+      longitude: input.result.center[0], 
+      latitude: input.result.center[1]
+    }];
   }
+
+  handleMarkerInput(marker: any) {
+    this.currentMarker = marker;
+    this.clearGeocoder();
+    this.currentMapSubmission.points = [{ 
+      longitude: marker.getLngLat().lng, 
+      latitude: marker.getLngLat().lat
+    }];
+  } 
 
   removeCurrentMarker() {
     if (!this.currentMarker) {
@@ -92,14 +125,86 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     }
     this.currentMarker.remove();
     this.currentMarker = undefined;
+    this.currentMapSubmission.points = [];
   }
 
-  clearGeocoder() {
+  clearGeocoder() {
     this.currentGeocoderInput = undefined;
+    this.currentMapSubmission.points = [];
     (this.geocoder.querySelector('.mapboxgl-ctrl-geocoder--button') as HTMLButtonElement)?.click();
   }
 
+  async submitSubmission() {
+    try {
+      const fetchOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('accessToken')
+            ? `Bearer ${localStorage.getItem('accessToken')}`
+            : '',
+        },
+        body: this.isLoggedIn
+          ? JSON.stringify({
+              description: this.currentMapSubmission.description,
+              title: this.currentMapSubmission.title,
+              points: this.currentMapSubmission.points,
+              moduleId: this.moduleId,
+            })
+          : JSON.stringify({
+              ...this.currentMapSubmission,
+              moduleId: this.moduleId,
+            }),
+      };
+      this.isLoading = true;
+
+      const resp = await fetch(mapSubmissionEndpoint('1'), fetchOptions);
+
+      if (resp.status === 201) {
+        this.resetCurrentSubmission();
+        this.isLoading = false;
+      }
+
+      this.notificationType = 'success';
+      this.notificationMessage = 'Vielen Dank für Ihren Hinweis!';
+    } catch (err) {
+      this.resetCurrentSubmission();
+      this.notificationType = 'error';
+      this.notificationMessage = 'Fehler ist aufgetreten';
+      this.isLoading = false;
+    }
+  }
+
+  resetCurrentSubmission() {
+    this.clearGeocoder();
+    this.removeCurrentMarker();
+    this.currentMapSubmission = {
+      description: '',
+      lastName: '',
+      title: '',
+      email: '',
+      firstName: '',
+      points: []
+    };
+    this.privacyChecked = false;
+  }
+
+  resetStepper() {
+    const stepper = (this.renderRoot.querySelector('.stepper') as any);
+    stepper?._goTo(0, stepper.__current);
+  }
+
+  closeOverlay() {
+    this.showOverlay = false;
+    this.resetCurrentSubmission();
+    (this.renderRoot.querySelector('.submission-form') as any)?.reset();
+    (this.renderRoot.querySelector('.contact-form') as any)?.reset();
+    this.resetStepper();
+  }
+
   render() {
+    // TODO: Remove
+    this.isLoggedIn = false;
     return html`
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
@@ -118,14 +223,14 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             actionButtonLabel=${this.actionButtonLabel}
             .pinColor=${this.pinColor}
             .actionButtonCallback=${() => { this.showOverlay = true; this.showLayerContent = true; }}
-            .closeButtonCallback=${() => { this.showOverlay = false; this.clearGeocoder(); this.removeCurrentMarker(); }}
+            .closeButtonCallback=${() => this.closeOverlay()}
             initialZoom=${this.initialZoom}
             .initialPosition=${this.initialPosition}
             overlayWidth=${this.overlayWidth}
             .activeLayers=${this.activeLayers}
             .showOverlay=${this.showOverlay}
             .geocoderInputCallback=${(input: any) => { this.handleGeocoderInput(input) }}
-            .markerSetCallback=${(marker: any) => { this.currentMarker = marker; this.clearGeocoder() }}
+            .markerSetCallback=${(marker: any) => { this.handleMarkerInput(marker) }}
             >
               <div class="overlay-content" slot="overlay-content">
                 ${this.showLayerContent ? 
@@ -164,7 +269,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                   })}
                   </bcg-checkbox-group>
                   ` : html`
-                    <lion-steps style="height: 100%">
+                    <lion-steps style="height: 100%" class="stepper">
 
                       <lion-step initial-step class="submission-step">
                         <div class="step-content">
@@ -180,7 +285,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                           </div>
                         </div>
                         <div class="step-navigation">
-                          1/3
+                          ${this.isLoggedIn ? '1/2' : '1/3'}
                           <button
                           .disabled=${!this.currentMarker && !this.currentGeocoderInput}
                           type="button"
@@ -194,55 +299,154 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                       </lion-step>
 
                       <lion-step class="submission-step">
-                        <div class="step-content">
-                          <h3>Ihr Hinweis</h3>
-                          <bcg-input label="Titel"></bcg-input>
-                          <bcg-input label="Ihr Hinweis"></bcg-input>
-                        </div>
-                        <div class="step-navigation">
-                          <button
-                          type="button"
-                          @click=${(ev: {
-                            target: {
-                              parentElement: { parentElement: { controller: { previous: () => any } } };
-                            };
-                          }) => ev.target.parentElement.parentElement.controller.previous()}
-                          >
-                            <
-                          </button>
-                          2/3
-                          <button
-                            type="button"
-                            @click=${(ev: {
-                              target: { parentElement: { parentElement: { controller: { next: () => any } } } };
-                            }) => ev.target.parentElement.parentElement.controller.next()}
-                          >
-                            >
-                          </button>
-                        </div>
+                      <bcg-form style="height: 100%" class="submission-form" @submit=${(ev: any) => {
+                          if (!ev.target.hasFeedbackFor.includes('error')) {
+                            ev.target.parentElement.controller.next();
+                          }
+                        }}>
+                        <form @submit=${(e: any) => e.preventDefault()}>
+                            <div class="step-content">
+                              <h3>Ihr Hinweis</h3>
+                              <bcg-input
+                              label="Titel"
+                              placeholder=""
+                              name="title"
+                              .validators=${[new Required()]}
+                              .modelValue="${this.currentMapSubmission.title}"
+                              @model-value-changed=${({ target }: any) => {
+                                this.currentMapSubmission.title = target.value;
+                                this.currentMapSubmission = {...this.currentMapSubmission};
+                              }}
+                              ></bcg-input>
+                              <bcg-input
+                              label="Ihr Hinweis"
+                              placeholder=""
+                              name="description"
+                              .validators=${[new Required()]}
+                              .modelValue="${this.currentMapSubmission.description}"
+                              @model-value-changed=${({ target }: any) => {
+                                this.currentMapSubmission.description = target.value;
+                                this.currentMapSubmission = {...this.currentMapSubmission};
+                              }}
+                              ></bcg-input>
+                            </div>
+                            <div class="step-navigation">
+                              <button
+                              type="button"
+                              @click=${(ev: {
+                                target: {
+                                  parentElement: { parentElement: { parentElement: { parentElement: { controller: { previous: () => any } } } } };
+                                };
+                              }) => ev.target.parentElement.parentElement.parentElement.parentElement.controller.previous()}
+                              >
+                                <
+                              </button>
+                              ${this.isLoggedIn ? '2/2' : '2/3'}
+                              <button
+                                type="button"
+                                @click=${(ev: {
+                                  target: { parentElement: { parentElement: { parentElement: { submit: (ev:any) => any } } } };
+                                }) => {
+                                  ev.target.parentElement.parentElement.parentElement.submit(ev);
+                                }}
+                              >
+                                >
+                              </button>
+                            </div>
+                          </form>
+                        </bcg-form>
                       </lion-step>
 
+                      ${!this.isLoggedIn ? html`
                       <lion-step class="submission-step">
-                        <div class="step-content">
-                          <h3>Über Sie</h3>
-                          <bcg-input label="Vorname"></bcg-input>
-                          <bcg-input label="Nachname"></bcg-input>
-                          <bcg-input label="E-Mail"></bcg-input>
-                          <bcg-checkbox label="Ich habe die Datenschutzerklärung gelesen, verstanden und bin damit einverstanden, dass meine Personendaten gespeichert werden."></bcg-checkbox>
-                        </div>
-                        <div class="step-navigation">
-                          <button
-                          type="button"
-                          @click=${(ev: {
-                            target: {
-                              parentElement: { parentElement: { controller: { previous: () => any } } };
-                            };
-                          }) => ev.target.parentElement.parentElement.controller.previous()}
-                          >
-                            <
-                          </button>
-                          3/3
-                        </div>
+                        <bcg-form class="contact-form" @submit=${(ev: any) => {
+                          if (!ev.target.hasFeedbackFor.includes('error')) {
+                            ev.target.parentElement.controller.next();
+                            this.submitSubmission();
+                          }
+                        }}>
+                          <form @submit=${(e: any) => e.preventDefault()}>
+                            <div class="step-content">
+                              <h3>Über Sie</h3>
+                              <bcg-input
+                              label="Vorname"
+                              placeholder=""
+                              name="firstName"
+                              .validators=${[new Required()]}
+                              .modelValue="${this.currentMapSubmission.firstName}"
+                              @model-value-changed=${({ target }: any) => {
+                                this.currentMapSubmission.firstName = target.value;
+                                this.currentMapSubmission = {...this.currentMapSubmission};
+                              }}
+                              ></bcg-input>
+                              <bcg-input
+                              label="Nachname"
+                              placeholder=""
+                              name="lastName"
+                              .validators=${[new Required()]}
+                              .modelValue="${this.currentMapSubmission.lastName}"
+                              @model-value-changed=${({ target }: any) => {
+                                this.currentMapSubmission.lastName = target.value;
+                                this.currentMapSubmission = {...this.currentMapSubmission};
+                              }}
+                              ></bcg-input>
+                              <bcg-input-email
+                              label="E-Mail"
+                              placeholder=""
+                              name="email"
+                              .validators=${[new Required()]}
+                              .modelValue="${this.currentMapSubmission.email}"
+                              @model-value-changed=${({ target }: any) => {
+                                this.currentMapSubmission.email = target.value;
+                                this.currentMapSubmission = {...this.currentMapSubmission};
+                              }}
+                              ></bcg-input-email>
+                              <bcg-checkbox
+                              name="privacy"
+                              .validators=${[new Required()]}
+                              .checked=${this.privacyChecked}
+                              @model-value-changed=${({ target }: any) => {
+                                this.privacyChecked = target.checked;
+                              }}
+                              label="Ich habe die Datenschutzerklärung gelesen, verstanden und bin damit einverstanden, dass meine Personendaten gespeichert werden."></bcg-checkbox>
+                            </div>
+                            <div class="step-navigation">
+                              <button
+                              type="button"
+                              @click=${(ev: {
+                                target: {
+                                  parentElement: { parentElement: { parentElement: { parentElement: { controller: { previous: () => any } } } } };
+                                };
+                              }) => ev.target.parentElement.parentElement.parentElement.parentElement.controller.previous()}
+                              >
+                                <
+                              </button>
+                              3/3
+                              <button
+                              type="button"
+                              @click=${(ev: {
+                                target: { parentElement: { parentElement: { parentElement: { submit: (ev:any) => any } } } };
+                              }) => {
+                                ev.target.parentElement.parentElement.parentElement.submit(ev);
+                              }}
+                            >
+                              >
+                            </button>
+                            </div>
+                          </form>
+                        </bcg-form>
+                      </lion-step>
+                      ` : ''}
+
+                      <lion-step class="submission-step">
+                      ${this.isLoading
+                      ? html` <bcg-progress></bcg-progress>`
+                      : html`
+                        ${this.notificationType === 'success' ? html`<span>Success!</span>` : html`<span>Fehler!</span>`}
+                        <h1>${this.notificationMessage}</h1>
+                        <bcg-button variant="secondary" @click=${() => this.closeOverlay()}>Schließen</bcg-button>
+                      `
+                      }
                       </lion-step>
 
                     </lion-steps>

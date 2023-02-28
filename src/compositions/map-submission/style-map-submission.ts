@@ -87,8 +87,8 @@ export const mapSubmissionStyle = css
     cursor: move;
 }
 
-.marker-icon:active {
-
+.submission-form {
+    height: 100%;
 }
 
 `
