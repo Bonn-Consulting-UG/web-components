@@ -15,6 +15,7 @@ export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
   @property({type: String}) accessToken: string = '';
   @property({type: Array}) initialPosition: [number, number] = [13.4, 52.51];
   @property({type: Array}) activeLayers: LayerData[] = [];
+  @property({type: Array}) submissions: any[] = [];
   @property({type: Number}) initialZoom = 10;
   @property({type: Function}) geocoderInputCallback: Function = (input: any) => {};
   @property({type: Function}) markerSetCallback: Function = (marker: any) => {};
@@ -36,6 +37,7 @@ export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
       .initialZoom=${this.initialZoom}
       .geocoderInputCallback=${this.geocoderInputCallback}
       .markerSetCallback=${this.markerSetCallback}
+      .submissions=${this.submissions}
       >
       </bcg-interactive-map>
 

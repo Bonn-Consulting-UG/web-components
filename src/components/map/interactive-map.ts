@@ -13,7 +13,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   @property({type: Array}) initialPosition: [number, number] = [13.4, 52.51];
   @property({type: Number}) initialZoom = 10;
   @property({type: Array}) layerData?: LayerData[];
-  @property({type: Array}) markers?: any[];
+  @property({type: Array}) submissions: any[] = [];
   @property({type: Function}) geocoderInputCallback: Function = (input: any) => {};
   @property({type: Function}) markerSetCallback: Function = (marker: any) => {};
   @property({type: String}) pinColor = '#9747FF';
@@ -27,7 +27,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
 
   updated(changedProperties: PropertyValues<this>) {
     this.updateLayers(changedProperties.get('layerData'));
-    this.updateMarkers(changedProperties.get('markers'));
+    this.updateSubmissions(changedProperties.get('submissions'));
   }
 
   updateLayers(prevLayers?: LayerData[]) {
@@ -51,14 +51,19 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  updateMarkers(prevMarkers?: any[]) {
-    if (!prevMarkers) {
+  updateSubmissions(prevSubmissions?: any[]) {
+    if (!prevSubmissions) {
       return;
     }
-    console.log(prevMarkers)
-    prevMarkers.map(marker => {
-      new mapboxgl.Marker().setLngLat([13.4, 52.51]).addTo(this.map);
-    })
+    const newSubmissions = this.submissions.filter((sub: any) => !prevSubmissions.includes(sub));
+    newSubmissions.map(submission => {
+      new mapboxgl.Marker().setLngLat([submission.points[0].longitude, submission.points[0].latitude]).setPopup(new mapboxgl.Popup().setHTML(`
+        <div>
+          <h1>${submission.title}</h1>
+          <p>${submission.description}</p>
+        </div>
+        `)).addTo(this.map);
+    });
   }
 
   static get scopedElements() {

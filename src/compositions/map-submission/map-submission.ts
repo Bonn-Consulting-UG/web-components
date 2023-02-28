@@ -4,7 +4,7 @@ import { LionStep, LionSteps } from "@lion/steps";
 import { LionTabs } from "@lion/tabs";
 import { BcgModule } from "../../components/module";
 import { LayerData } from "../../model/LayerData";
-import { mapSubmissionEndpoint } from "../../utils/services/config";
+import { getCommentsEndpointforModule, getSubmissionsEndpointforModule, mapSubmissionEndpoint } from "../../utils/services/config";
 import { mapSubmissionStyle } from './style-map-submission';
 
 interface MapRequest {
@@ -47,9 +47,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({type: Boolean}) privacyChecked = false;
   @property({type: String}) notificationType = '';
   @property({type: String}) notificationMessage = '';
-  
-  @property({type: Array}) submissions: any[] = [];
 
+  @property({type: Array}) submissions: any[] = [];
 
   geocoder: any;
   isLoading = false;
@@ -69,6 +68,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
   get categories() {
     return [...new Set(this.layers.map(layer => layer.category))];
+  }
+
+  firstUpdated() {
+    this.fetchSubmissions().then(res => {
+      this.submissions = res.results.filter((submission: any) => submission.points?.length >= 1);
+    });
   }
 
   switchCategoryExpandedState = (category: string) => {
@@ -134,6 +139,29 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     (this.geocoder.querySelector('.mapboxgl-ctrl-geocoder--button') as HTMLButtonElement)?.click();
   }
 
+  async fetchSubmissions() {
+    try {
+      const fetchOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('accessToken')
+            ? `Bearer ${localStorage.getItem('accessToken')}`
+            : '',
+        },
+      };
+  
+      const resp = await fetch(
+        getSubmissionsEndpointforModule(this.moduleId),
+        fetchOptions
+      );
+      return resp.json();
+    } catch (err) {
+      console.error(err);
+      return err;
+    }
+  }
+
   async submitSubmission() {
     try {
       const fetchOptions = {
@@ -162,6 +190,9 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
       if (resp.status === 201) {
         this.resetCurrentSubmission();
+        this.fetchSubmissions().then(res => {
+          this.submissions = res.results.filter((submission: any) => submission.points?.length >= 1);
+        });
         this.isLoading = false;
       }
 
@@ -228,6 +259,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             .initialPosition=${this.initialPosition}
             overlayWidth=${this.overlayWidth}
             .activeLayers=${this.activeLayers}
+            .submissions=${this.submissions}
             .showOverlay=${this.showOverlay}
             .geocoderInputCallback=${(input: any) => { this.handleGeocoderInput(input) }}
             .markerSetCallback=${(marker: any) => { this.handleMarkerInput(marker) }}
