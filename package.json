@@ -3,7 +3,7 @@
   "description": "Bcg-components following open-wc recommendations",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "0.0.3-44",
+  "version": "0.0.3-45",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
@@ -54,6 +54,7 @@
     "@lion/tabs": "^0.13.0",
     "@lion/textarea": "^0.16.0",
     "@lion/tooltip": "^0.24.0",
+    "@mapbox/mapbox-gl-geocoder": "^5.0.1",
     "@storybook/addons": "^6.5.9",
     "axios": "^0.27.2",
     "dark-theme-utils": "^0.4.0",
