@@ -15,12 +15,9 @@ export class PasswordSecurity extends Validator {
   execute(value: any) {
     const isStringValidator = new IsString();
 
-    console.log(typeof value);
-
     if (isInterpretableValue(value)) {
       // if (isStringValidator.execute(value) || !isInitialsRegex.test(value)) {
       // }
-      // console.log(value);
       // return value.test(
       //   '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{12,}$'
       // );

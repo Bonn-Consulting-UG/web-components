@@ -19,7 +19,7 @@ import { BcgModule } from '../../components/module';
 import jwtDecode from 'jwt-decode';
 
 export class BcgRegister extends ScopedElementsMixin(BcgModule) {
-  @property({ type: Number }) currentStep: number = 1;
+  @property({ type: Number }) currentStep: number = 3;
 
   maxStep: number = 3;
 
@@ -101,7 +101,7 @@ export class BcgRegister extends ScopedElementsMixin(BcgModule) {
 
     return html`
     <div style="display:flex;">
-    <div class="left-side" style="flex-direction:row-reverse;width:640px;min-height:300px;"> 
+    <div class="left-side" style="width:100%;flex-direction:row-reverse;"> 
 
     ${
       this.isLoading

@@ -43,34 +43,15 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   email: string = '';
 
-  password: string = '';
+  @property() password: string = '';
 
-  passwordrepeat: string = '';
-
-  @property({ type: String }) passwordInputType: string = 'password';
-  @property({ type: String }) passwordRepeatInputType: string = 'password';
-
-  flipPasswordInput() {
-    if (this.passwordInputType === 'password') {
-      this.passwordInputType = 'text';
-    } else {
-      this.passwordInputType = 'password';
-    }
-  }
-  flipPasswordRepeatInput() {
-    if (this.passwordRepeatInputType === 'password') {
-      this.passwordRepeatInputType = 'text';
-    } else {
-      this.passwordRepeatInputType = 'password';
-    }
-  }
+  @property() passwordrepeat: string = '';
 
   static get scopedElements() {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup,
-      'lion-icon': LionIcon,
+      'bcg-checkbox-group': BcgCheckboxGroup
     };
   }
 
@@ -79,7 +60,6 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
 
   render() {
     let { firstName, lastName, email, password, passwordrepeat, dsgvo } = this;
-
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
@@ -104,9 +84,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
         <form @submit=${(e: any) => e.preventDefault()}>
           <div>
             <bcg-input
-              label="Vorname"
+              label="Vorname  *"
               name="firstName"
-              help-text="Dieser Name ist später öffentlich sichtbar  *"
+              help-text="Dieser Name ist später öffentlich sichtbar"
               placeholder=""
               .validators=${[new Required()]}
               .modelValue="${firstName}"
@@ -138,46 +118,22 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
               name="password-fieldset"
               .validators=${[new PasswordMatch()]}
             >
-              <div style="position:relative;">
-                <bcg-input
-                  label="Passwort  *"
-                  type=${this.passwordInputType}
-                  placeholder=""
-                  name="password"
-                  @model-value-changed=${({ target }: any) => {
-                    password = target.value;
-                  }}
-                  .validators=${[new Required()]}
-                  .modelValue="${password}"
-                ></bcg-input>
-                <lion-icon
-                  style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
-                  @click=${this.flipPasswordInput}
-                  icon-id=${this.passwordInputType === 'password'
-                    ? 'bcg:general:eye'
-                    : 'bcg:general:eyeopen'}
-                ></lion-icon>
-              </div>
-              <div style="position:relative;">
-                <bcg-input
-                  name="passwordrepeat"
-                  label="Passwort wiederholen  *"
-                  type=${this.passwordRepeatInputType}
-                  placeholder=""
-                  .validators=${[new Required()]}
-                  .modelValue="${passwordrepeat}"
-                  @model-value-changed=${({ target }: any) => {
-                    passwordrepeat = target.value;
-                  }}
-                ></bcg-input>
-                <lion-icon
-                  style="position: absolute;right: 2%;top: 30px;width: 24px;height: 24px;"
-                  @click=${this.flipPasswordRepeatInput}
-                  icon-id=${this.passwordRepeatInputType === 'password'
-                    ? 'bcg:general:eye'
-                    : 'bcg:general:eyeopen'}
-                ></lion-icon>
-              </div>
+              <bcg-input-password
+                name="password"
+                label="Passwort"
+                placeholder=""
+                .validators=${[new Required()]}
+                .modelValue="${password}"
+              >
+              </bcg-input-password>
+
+              <bcg-input-password
+                name="passwordrepeat"
+                label="Passwort wiederholen"
+                placeholder=""
+                .validators=${[new Required()]}
+                .modelValue="${passwordrepeat}"
+              ></bcg-input-password>
             </bcg-fieldset>
             <bcg-checkbox-group
               name="dsgvo"

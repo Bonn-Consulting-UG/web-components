@@ -30,8 +30,6 @@ export class BcgUserVerify extends ScopedElementsMixin(LitElement) {
   }
 
   render() {
-    console.log(this.code);
-    console.log(this.userId);
     let { code } = this;
 
     const submitHandler = async (ev: any) => {
@@ -44,7 +42,6 @@ export class BcgUserVerify extends ScopedElementsMixin(LitElement) {
       }
 
       const response = await checkVerifyCode(this.userId, this.code);
-      console.log(response);
     };
 
     return html`<bcg-form @submit=${(ev: any) => submitHandler(ev)}>

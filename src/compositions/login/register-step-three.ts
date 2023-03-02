@@ -31,7 +31,6 @@ export class BcgRegisterStepThree extends ScopedElementsMixin(LitElement) {
   code: any = null;
 
   render() {
-    console.log(this.user);
     let { code } = this;
 
     const submitHandler = (ev: any) => {

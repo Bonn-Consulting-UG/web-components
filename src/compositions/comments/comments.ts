@@ -11,7 +11,7 @@ import {
   getAllCommentsForModule,
   addComment,
   addCommentToComment,
-  getAllSubmissionsForAModule,
+  getSubmission,
 } from '../../utils/services/comments.js';
 import { BcgCommentReaction } from './comment-reaction.js';
 import { BcgComment } from './comment.js';
@@ -88,30 +88,24 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     let response;
     if (this.moduleId !== 0 && !this.submissionId) {
       response = await getAllCommentsForModule(this.moduleId);
-
       this.comments = response.results;
       this.count = response.totalCount;
-
-      // console.log(scrollTo);
-      // console.log(this.shadowRoot?.querySelector(`[data-id="${scrollTo}"]`));
-      // if (scrollTo)
-      //   document.querySelector(`[data-id="${scrollTo}"]`)?.scrollIntoView();
     }
 
     if (this.submissionId !== 0 && !this.moduleId) {
-      console.log(this.submissionId);
-      response = await getAllSubmissionsForAModule(this.submissionId);
-      // this.comments = response.comments;
-
-      const test = response.moduleId;
-
-      this.comments = response.results;
-      this.count = response.totalCount;
-      if (scrollTo)
-        this.shadowRoot
-          ?.querySelector(`[data-id="${scrollTo}"]`)
-          ?.scrollIntoView();
+      response = await getSubmission(this.submissionId);
+      this.comments = response.comments;
+      this.count = response._count.comments;
     }
+
+    console.log(this.shadowRoot?.querySelectorAll(`*`));
+    setTimeout(
+      () =>
+        scrollTo
+          ? this.shadowRoot?.querySelector(`#${scrollTo}`)?.scrollIntoView()
+          : null,
+      500
+    );
   };
 
   static get scopedElements() {
@@ -195,7 +189,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                   name="comment"
                   id="comment-textarea"
                   rows="4"
-                  placeholder="Was denken Sie?  *"
+                  placeholder="Was denken Sie?"
                 ></bcg-textarea>`
               : html`<div>
                   <h3>
@@ -224,6 +218,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
               if (comment.comments) {
                 return html`
                   <bcg-comment
+                    id=${comment.id}
                     .changeDialog=${this.changeDialog}
                     .refresh=${this.setupComments}
                     .comments="${comment}"
@@ -236,6 +231,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                     border: none!important;"
                     >
                       <bcg-comment
+                        id="${subcomment.id}"
                         .changeDialog=${this.changeDialog}
                         .refresh=${this.setupComments}
                         .comments="${subcomment}"
@@ -246,6 +242,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
               }
               if (!comment.comments)
                 return html`<bcg-comment
+                  id=${comment}
                   .changeDialog=${this.changeDialog}
                   .refresh=${this.setupComments}
                   .comments="${comment}"

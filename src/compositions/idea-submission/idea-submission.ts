@@ -43,7 +43,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
               firstName: `${externalUser.firstName}`,
               lastName: `${externalUser.lastName}`,
             };
-        console.log(loggedOutpayload);
         const fetchOptions = {
           method: 'POST',
           headers: {
@@ -66,14 +65,17 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         );
 
         const resp = await response.json();
-        location.href = `${location.href}/${resp.id}`;
         this.ideaRequest.description = '';
+
+        setTimeout(() => {
+          console.log(this.shadowRoot?.querySelector('form'));
+          this.shadowRoot?.querySelector('form')?.resetGroup();
+        }, 1000);
         this.ideaRequest.title = '';
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
-        console.log(ev.target);
 
-        console.log(resp);
+        location.href = `${location.href}/${resp.id}`;
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';
@@ -84,7 +86,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
     };
 
     return html`
-      <bcg-form @submit=${submitHandler}>
+      <bcg-form @submit=${(e: any) => submitHandler(e)}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${this.showNotification
             ? html` <bcg-notification
@@ -176,10 +178,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                 : null}
 
               <div>
-                <bcg-button-submit
-                  @click="${() => console.log('ButtonPress Senden')}"
-                  >Senden</bcg-button-submit
-                >
+                <bcg-button-submit>Senden</bcg-button-submit>
               </div>
             </div>
           </div>

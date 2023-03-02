@@ -7,8 +7,8 @@ export default {
   component: 'bcg-cantact-submission',
   argTypes: {
     content: {},
-    buttonLabel: {}
-  }
+    buttonLabel: {},
+  },
 };
 
 interface ArgTypes {
@@ -21,8 +21,8 @@ const DefaultTemplate: Story<ArgTypes> = () =>
     moduleId="3275cc46-38da-4033-a281-acedadc93db6"
   ></bcg-contact-submission> `;
 
-const Default = DefaultTemplate.bind({});
+const ContactSubmission = DefaultTemplate.bind({});
 
-Default.args = {};
+ContactSubmission.args = {};
 
-export { Default };
+export { ContactSubmission };

@@ -26,9 +26,13 @@ export class BcgRegisterStepFinished extends ScopedElementsMixin(LitElement) {
     return html`
       <div>
         <h2>
-          Willkommen, ${this.user.firstName}${' '}${this.user.family_name}!
+          Willkommen,
+          ${this.user ? this.user.firstName : null}${' '}${this.user
+            ? this.user.family_name
+            : null}!
         </h2>
         <h2>Ihre Registrierung war erfolgreich.</h2>
+        <bcg-login .disablePasswordReset=${true}></bcg-login>
       </div>
     `;
   }

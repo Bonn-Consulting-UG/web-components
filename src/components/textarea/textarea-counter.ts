@@ -6,7 +6,5 @@ export class BcgTextareaWithCounter extends LionTextarea {
     return html`<bcg-textarea></bcg-textarea>`;
   }
 
-  updated() {
-    console.log(this.querySelector('textarea')?.value.length);
-  }
+  updated() {}
 }

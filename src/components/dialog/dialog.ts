@@ -7,6 +7,8 @@ export class BcgDialog extends LitElement {
   @property({ type: String }) content: string = '';
   @property({ type: LitElement }) dialog: any = '';
   @property({ type: Boolean }) showDialog: any;
+  @property({ type: Boolean }) onCancelLabel: any = 'Nein';
+  @property({ type: Boolean }) onConfirmLabel: any = 'Ja';
 
   @property({ type: LitElement }) onCloseHandler: any = () => {
     console.log('Close Dialogs Defaultfunction');
@@ -32,7 +34,6 @@ export class BcgDialog extends LitElement {
   };
 
   private _changeDialog: any = (e: Event) => {
-    console.log(e);
     this.openDialog();
   };
 
@@ -60,11 +61,11 @@ export class BcgDialog extends LitElement {
          <bcg-button @click=${async () => {
            await this.onConfirmHandler();
            this.closeDialog();
-         }} variant="primary">Ja</bcg-button>
+         }} variant="primary">${this.onConfirmLabel}</bcg-button>
          <bcg-button @click=${async () => {
            await this.onCloseHandler();
            this.closeDialog();
-         }} variant="primary">Nein</bcg-button>
+         }} variant="primary">${this.onCancelLabel}</bcg-button>
          </div>
    </dialog>
   `;

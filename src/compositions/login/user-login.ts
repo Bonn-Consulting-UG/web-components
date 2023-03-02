@@ -29,24 +29,16 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
 
   @property({ type: String }) email: string = '';
 
+  @property({ type: Boolean }) disablePasswordReset: boolean = false;
+
   @property({ type: String }) password: string = '';
-
-  @property({ type: String }) passwordInputType: string = 'password';
-
-  flipPasswordInput() {
-    if (this.passwordInputType === 'password') {
-      this.passwordInputType = 'text';
-    } else {
-      this.passwordInputType = 'password';
-    }
-  }
 
   static get scopedElements() {
     return { 'lion-icon': LionIcon };
   }
 
   render() {
-    let { email, password, passwordInputType, onPasswordReset } = this;
+    let { email, password, onPasswordReset } = this;
 
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -72,11 +64,10 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
         this.notificationMessage = 'Bitte verifizieren Sie ihren User';
         this.notificationType = 'error';
       }
-      console.log(resp);
     };
 
     return html`
-      <div style="width:640px;">
+      <div>
         <div class="left-side" style="display:flex;flex-direction: column;">
           ${this.showNotification
             ? html`<bcg-notification
@@ -87,7 +78,14 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
             : null}
           ${this.isLoading
             ? html`<bcg-progress></bcg-progress>`
-            : html`<h1>Willkommen zurück!</h1>
+            : html`
+            
+          ${
+            !this.disablePasswordReset
+              ? html`<h1>Willkommen zurück!</h1>`
+              : null
+          }
+            
                 <h2>Anmeldung</h2>
                 <bcg-form name="loginform" @submit="${(ev: any) =>
                   submitHandler(ev)}">
@@ -103,13 +101,9 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                           email = target.value;
                         }}
                       ></bcg-input-email>
-                      <div
-                        style="display:block;flex-direction:row ; flex-basis:100%; justify-content:center; align-items:center;"
-                      >
-                        <bcg-input
-                          style="flex-basis:100%;"
-                          label="Passwort *"
-                          type=${passwordInputType}
+
+                        <bcg-input-password
+                          label="Passwort"
                           placeholder=""
                           .modelValue="${password}"
                           .validators=${[
@@ -120,39 +114,28 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                           @model-value-changed=${({ target }: any) => {
                             password = target.value;
                           }}
-                        ></bcg-input>
+                        ></bcg-input-password>
 
-                        <lion-icon
-                          style="position: relative;
-                        right: -94%;
-                        top: -30px;
-                        width: 24px;
-                        height: 24px;"
-                          @click=${this.flipPasswordInput}
-                          icon-id=${
-                            passwordInputType === 'password'
-                              ? 'bcg:general:eye'
-                              : 'bcg:general:eyeopen'
-                          }
-                        ></lion-icon>
-                      </div>
                     </div>
 
                     <div
                       style="display:flex;margin-top:20px;justify-content: space-between;"
                     >        
               <bcg-button-submit>Anmelden</bcg-button-submit>
-
-                      <a
-                      href
-                      style="display: flex;
-                      align-items: center;"
-                      onclick="return false"
+                ${
+                  !this.disablePasswordReset
+                    ? html` <a
+                        href
+                        style="display: flex;
+                align-items: center;"
+                        onclick="return false"
                         @click=${onPasswordReset}
                         @keydown=${onPasswordReset}
-
                         >Passwort zurücksetzen</a
-                      >
+                      >`
+                    : null
+                }
+                     
                     </div>
                   </form></bcg-formw
                 >`}

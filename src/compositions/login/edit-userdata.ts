@@ -35,7 +35,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
 
       this.isLoading = true;
       const res: any = await sendUserDataChangeRequest(this.user);
-      console.log(res);
+
       if (res.status === 200) {
         await this.getNewAccessToken();
 
@@ -50,7 +50,6 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
       this.isLoading = false;
     };
 
-    console.log(this.user);
     return html`
       <div>
         ${this.showNotification
@@ -95,9 +94,7 @@ export class BcgEditUserData extends ScopedElementsMixin(BcgModule) {
                     placeholder=""
                     name="email"
                   ></bcg-input>
-                  <bcg-button-submit
-                    style="margin-top:10px"
-                    @click="${() => console.log('ButtonPress Save')}"
+                  <bcg-button-submit style="margin-top:10px"
                     >Speichern</bcg-button-submit
                   >
                 `}
