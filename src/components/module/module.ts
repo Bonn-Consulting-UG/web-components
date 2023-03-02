@@ -55,6 +55,10 @@ export class BcgModule extends LitElement {
 
   @property({ type: Boolean }) isLoading: Boolean = false;
 
+  @property({ type: String }) onConfirmLabel: string = 'Ja';
+
+  @property({ type: String }) onCancelLabel: string = 'Nein';
+
   @property({ type: Boolean }) dialogContent: any = 'Test';
 
   @property() loadingHtml: any = this.isLoading
@@ -91,6 +95,8 @@ export class BcgModule extends LitElement {
       .onCloseHandler=${this.closeHandler}
       .showDialog=${this.showDialog}
       .content=${this.dialogContent}
+      .onConfirmLabel=${this.onConfirmLabel}
+      .onCancelLabel=${this.onCancelLabel}
     ></bcg-dialog>`;
   }
 
