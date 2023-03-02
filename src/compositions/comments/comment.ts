@@ -297,7 +297,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 ? html`<div style="display:flex;">
                     <bcg-button @click=${() => this.changeReaction('LIKE')}>
                       <bcg-reaction
-                        .value=${_count.likes}
+                        .value=${_count?.likes}
                         .icon=${'bcg:comments:thumbsup'}
                         iconclass=${likeReaction(this.comments) ? 'filled' : ''}
                       ></bcg-reaction>
@@ -305,7 +305,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
 
                     <bcg-button @click=${() => this.changeReaction('DISLIKE')}>
                       <bcg-reaction
-                        .value=${_count.dislikes}
+                        .value=${_count?.dislikes}
                         .icon=${'bcg:comments:thumbsdown'}
                         iconclass=${dislikeReaction(this.comments)
                           ? 'filled'
