@@ -12,6 +12,7 @@ export const mapOverlayStyle = css
   bottom: 25px;
   left: 20px;
   cursor: pointer;
+  border-radius: var(--border-radius-s);
 }
 
 .overlay-wrapper {

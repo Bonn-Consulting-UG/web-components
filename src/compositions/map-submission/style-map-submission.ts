@@ -8,10 +8,12 @@ export const mapSubmissionStyle = css
 .submission-button {
     float: right;
     cursor: pointer;
+    border: var(--border-xs) solid var(--primary-color);
+    border-radius: var(--border-radius-xs);
 }
 
 .overlay-content {
-    height: 100%;
+    height: calc(100% - 50px);
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -27,7 +29,7 @@ export const mapSubmissionStyle = css
 .separator {
     margin-top: 15px;
     width: 100%;
-    border-bottom: 1px solid var(--neutral-color-500);
+    border-bottom: 1px solid var(--background-color-500);
 }
   
 .expand-icon {
@@ -89,6 +91,40 @@ export const mapSubmissionStyle = css
 
 .submission-form {
     height: 100%;
+}
+
+.tab-button {
+    font-weight: normal;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    position: relative;
+    background: var(--background-color-500);
+}
+
+.tab-button:first-of-type {
+    border-radius: var(--border-radius-s) 0 0 var(--border-radius-s);
+}
+
+.tab-button:last-of-type {
+    border-radius: 0 var(--border-radius-s) var(--border-radius-s) 0;
+}
+
+.tab-button[selected]:before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    border-radius: var(--border-radius-s);
+    background: #fff;
+}
+
+.button-icon {
+    height: 20px;
+    width: 20px;
+    margin-right: 0.3em;
+    margin-bottom: -4px;
 }
 
 `
