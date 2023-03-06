@@ -441,7 +441,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
                       <lion-step class="submission-step">
                         <div class="step-content">
-                          <bcg-form style="height: 100%" class="submission-form" @submit=${(
+                          <bcg-form style="height: 100%" class="submission-form" @submit=${async (
                             ev: any
                           ) => {
                             if (
@@ -449,8 +449,9 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                 'error'
                               )
                             ) {
-                              this.stepper?.next();
-                              this.submitSubmission();
+                              this.isLoggedIn
+                                ? await this.submitSubmission()
+                                : this.stepper?.next();
                             }
                           }}>
                             <form @submit=${(e: any) => e.preventDefault()}>
