@@ -25,6 +25,7 @@ const DefaultTemplate: Story<ArgTypes> = () =>
       accessToken=${token}
       moduleId="3275cc46-38da-4033-a281-acedadc93db6"
       overlayButtonLabel="Fachkarten"
+      actionButtonLabel="Fachkarten"
       initialZoom="8"
       .initialPosition=${[-70.94416, 43.46633]}
       overlayWidth="30%"

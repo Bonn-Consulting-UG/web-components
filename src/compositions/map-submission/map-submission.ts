@@ -58,6 +58,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
   geocoder: any;
   isLoading = false;
+  submissionForm: any;
+  contactForm: any;
 
   static get scopedElements() {
     return {
@@ -121,6 +123,15 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         (this.geocoder as HTMLElement).style.visibility = 'hidden';
       }
     }
+    this.stepper = !this.stepper
+      ? (this.renderRoot.querySelector('.stepper') as any)
+      : this.stepper;
+    this.submissionForm = !this.submissionForm
+      ? (this.renderRoot.querySelector('.submission-form') as any)
+      : this.submissionForm;
+    this.contactForm = !this.contactForm
+      ? (this.renderRoot.querySelector('.contact-form') as any)
+      : this.contactForm;
   }
 
   handleGeocoderInput(input: any) {
@@ -180,6 +191,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         getSubmissionsEndpointforModule(this.moduleId),
         fetchOptions
       );
+      console.log(resp);
       return resp.json();
     } catch (err) {
       console.error(err);
@@ -211,7 +223,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
       };
       this.isLoading = true;
 
-      const resp = await fetch(mapSubmissionEndpoint('1'), fetchOptions);
+      const resp = await fetch(mapSubmissionEndpoint(''), fetchOptions);
 
       if (resp.status === 201) {
         this.resetCurrentSubmission();
@@ -226,10 +238,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
       this.notificationType = 'success';
       this.notificationMessage = 'Vielen Dank für Ihren Hinweis!';
     } catch (err) {
+      console.log(err);
+
       this.resetCurrentSubmission();
-      this.notificationType = 'error';
-      this.notificationMessage = 'Fehler ist aufgetreten';
-      this.isLoading = false;
+      // this.notificationType = 'error';
+      // this.notificationMessage = 'Fehler ist aufgetreten';
+      // this.isLoading = false;
     }
   }
 
@@ -248,15 +262,14 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   }
 
   resetStepper() {
-    const stepper = this.renderRoot.querySelector('.stepper') as any;
-    stepper?._goTo(0, stepper.__current);
+    this.stepper?._goTo(0, this.stepper.__current);
   }
 
   closeOverlay() {
     this.showOverlay = false;
     this.resetCurrentSubmission();
-    (this.renderRoot.querySelector('.submission-form') as any)?.reset();
-    (this.renderRoot.querySelector('.contact-form') as any)?.reset();
+    this.submissionForm?.reset();
+    this.contactForm?.reset();
     this.resetStepper();
   }
 
@@ -279,10 +292,25 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             this.showOverlay = true;
             this.showLayerContent = false;
           }}
-          >Hinweis eingeben</bcg-button
         >
+          <div>
+            <lion-icon
+              class="button-icon"
+              icon-id="bcg:general:edit"
+            ></lion-icon>
+            Hinweis eingeben
+          </div>
+        </bcg-button>
         <lion-tabs>
-          <bcg-tab-button slot="tab">Karte</bcg-tab-button>
+          <bcg-tab-button class="tab-button" slot="tab">
+            <div>
+              <lion-icon
+                class="button-icon"
+                icon-id="bcg:general:map"
+              ></lion-icon>
+              Karte
+            </div>
+          </bcg-tab-button>
           <bcg-tab-panel slot="panel">
             <div style="width: 100%; height: 600px">
               <bcg-map-overlay
@@ -412,15 +440,21 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                       </lion-step>
 
                       <lion-step class="submission-step">
-                      <bcg-form style="height: 100%" class="submission-form" @submit=${(
-                        ev: any
-                      ) => {
-                        if (!ev.target.hasFeedbackFor.includes('error')) {
-                          ev.target.parentElement.controller.next();
-                        }
-                      }}>
-                        <form @submit=${(e: any) => e.preventDefault()}>
-                            <div class="step-content">
+                        <div class="step-content">
+                          <bcg-form style="height: 100%" class="submission-form" @submit=${async (
+                            ev: any
+                          ) => {
+                            if (
+                              !this.submissionForm.hasFeedbackFor.includes(
+                                'error'
+                              )
+                            ) {
+                              this.isLoggedIn
+                                ? await this.submitSubmission()
+                                : this.stepper?.next();
+                            }
+                          }}>
+                            <form @submit=${(e: any) => e.preventDefault()}>
                               <h3>Ihr Hinweis</h3>
                               <bcg-input
                               label="Titel"
@@ -451,56 +485,56 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                 };
                               }}
                               ></bcg-input>
-                            </div>
-                            <div class="step-navigation">
-                            <bcg-button
-                          variant="secondary"
-                          .disabled=${
-                            !this.currentMarker && !this.currentGeocoderInput
-                          }
-                          @click=${() => this.stepper?.previous()}
-                          type="button">
-                            <
-                          </bcg-button>
+                            </form>
+                          </bcg-form>
+                        </div>
+                        <div class="step-navigation">
+                        <bcg-button
+                      variant="secondary"
+                      .disabled=${
+                        !this.currentMarker && !this.currentGeocoderInput
+                      }
+                      @click=${() => this.stepper?.previous()}
+                      type="button">
+                        <
+                      </bcg-button>
 
-                              ${this.isLoggedIn ? '2/2' : '2/3'}
-                              <bcg-button
-                          variant="primary"
-                          .disabled=${
-                            !this.currentMarker && !this.currentGeocoderInput
-                          }
-                          @click=${() => this.stepper?.next()}
-                          type="button">
-                            >
+                          ${this.isLoggedIn ? '2/2' : '2/3'}
+                          <bcg-button
+                      variant="primary"
+                      .disabled=${
+                        !this.currentMarker && !this.currentGeocoderInput
+                      }
+                      @click=${() => this.submissionForm?.submit()}
+                      type="button">
+                        >
+                      </bcg-button>
+                            
                           </bcg-button>
-                                
-                              </bcg-button>
-                            </div>
-                          </form>
-                        </bcg-form>
+                        </div>
                       </lion-step>
 
                       ${
                         !this.isLoggedIn
                           ? html`
                               <lion-step class="submission-step">
-                                <bcg-form
-                                  class="contact-form"
-                                  @submit=${(ev: any) => {
-                                    if (
-                                      !ev.target.hasFeedbackFor.includes(
-                                        'error'
-                                      )
-                                    ) {
-                                      ev.target.parentElement.controller.next();
-                                      this.submitSubmission();
-                                    }
-                                  }}
-                                >
-                                  <form
-                                    @submit=${(e: any) => e.preventDefault()}
+                                <div class="step-content">
+                                  <bcg-form
+                                    class="contact-form"
+                                    @submit=${(ev: any) => {
+                                      if (
+                                        !this.contactForm?.hasFeedbackFor.includes(
+                                          'error'
+                                        )
+                                      ) {
+                                        this.stepper?.next();
+                                        this.submitSubmission();
+                                      }
+                                    }}
                                   >
-                                    <div class="step-content">
+                                    <form
+                                      @submit=${(e: any) => e.preventDefault()}
+                                    >
                                       <h3>Über Sie</h3>
                                       <bcg-input
                                         label="Vorname"
@@ -564,30 +598,29 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                         }}
                                         label="Ich habe die Datenschutzerklärung gelesen, verstanden und bin damit einverstanden, dass meine Personendaten gespeichert werden."
                                       ></bcg-checkbox>
-                                    </div>
-                                    <div class="step-navigation">
-                                      <bcg-button
-                                        variant="secondary"
-                                        .disabled=${!this.currentMarker &&
-                                        !this.currentGeocoderInput}
-                                        @click=${() => this.stepper?.previous()}
-                                        type="button"
-                                      >
-                                        <
-                                      </bcg-button>
-                                      3/3
-                                      <bcg-button
-                                        variant="primary"
-                                        .disabled=${!this.currentMarker &&
-                                        !this.currentGeocoderInput}
-                                        @click=${() => this.stepper?.next()}
-                                        type="button"
-                                      >
-                                        >
-                                      </bcg-button>
-                                    </div>
-                                  </form>
-                                </bcg-form>
+                                    </form>
+                                  </bcg-form>
+                                </div>
+                                <div class="step-navigation">
+                                  <bcg-button
+                                    variant="secondary"
+                                    .disabled=${!this.currentMarker &&
+                                    !this.currentGeocoderInput}
+                                    @click=${() => this.stepper?.previous()}
+                                    type="button"
+                                  >
+                                    <
+                                  </bcg-button>
+                                  3/3
+                                  <bcg-button-submit
+                                    variant="primary"
+                                    .disabled=${!this.currentMarker &&
+                                    !this.currentGeocoderInput}
+                                    type="button"
+                                  >
+                                    >
+                                  </bcg-button-submit>
+                                </div>
                               </lion-step>
                             `
                           : ''
@@ -619,7 +652,16 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-panel>
 
-          <bcg-tab-button slot="tab">Liste</bcg-tab-button>
+          <bcg-tab-button class="tab-button" slot="tab">
+            <div>
+              <lion-icon
+                class="button-icon"
+                style="margin-right: 0.4em"
+                icon-id="bcg:general:list"
+              ></lion-icon>
+              Liste
+            </div>
+          </bcg-tab-button>
           <bcg-tab-panel slot="panel">Liste</bcg-tab-panel>
         </lion-tabs>
       </div>
