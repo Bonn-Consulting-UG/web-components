@@ -99,6 +99,9 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
               name="password"
               .validators=${[new Required()]}
               .modelValue="${password}"
+              @model-value-changed=${({ target }: any) => {
+                password = target.value;
+              }}
             ></bcg-input-password>
 
             <bcg-input-password
@@ -107,6 +110,9 @@ export class BcgPasswordResetConfirm extends ScopedElementsMixin(LitElement) {
               name="passwordrepeat"
               .validators=${[new Required()]}
               .modelValue="${passwordrepeat}"
+              @model-value-changed=${({ target }: any) => {
+                passwordrepeat = target.value;
+              }}
             ></bcg-input-password>
           </bcg-fieldset>
         </div>
