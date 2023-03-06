@@ -110,7 +110,8 @@ export const addComment = async (
 export const addReaction = async (
   type: any,
   commentId: any,
-  moduleId?: any
+  moduleId?: any,
+  submissionId?: any
 ) => {
   try {
     const fetchOptions = {
@@ -122,7 +123,8 @@ export const addReaction = async (
       body: JSON.stringify({
         ...type,
         commentId: moduleId ? '' : commentId,
-        moduleId,
+        moduleId: moduleId === 0 ? '' : moduleId,
+        submissionId: submissionId === 0 ? '' : submissionId,
       }),
     };
 

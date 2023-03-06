@@ -23,6 +23,9 @@ export class BcgInput extends LionInput {
         :host .form-field__help-text ::slotted(div) {
           color: var(--neutral-color-500) !important;
         }
+        :host .form-field__feedback {
+          color: var(--alert-color-error);
+        }
       `,
     ];
   }
