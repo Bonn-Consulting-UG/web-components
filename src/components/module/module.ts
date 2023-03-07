@@ -85,7 +85,6 @@ export class BcgModule extends LitElement {
 
   update(changedProperties: any) {
     this.updateDialog();
-
     super.update(changedProperties);
   }
 
@@ -113,7 +112,6 @@ export class BcgModule extends LitElement {
       if (Date.now() >= this.user.exp * 1000) {
         this.getNewAccessToken();
       }
-      this.isLoggedIn = true;
     }
   }
 
@@ -125,7 +123,7 @@ export class BcgModule extends LitElement {
       const response: any = await sendGetNewAccessTokenRequest(
         this.refreshToken
       );
-
+      this.isLoggedIn = true;
       localStorage.setItem('accessToken', response.accessToken);
       localStorage.setItem('refreshToken', response.refreshToken);
     }
