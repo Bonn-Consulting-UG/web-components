@@ -18,6 +18,8 @@ interface ArgTypes {
   content: string;
 }
 
+// test maxBounds: [[-73.9876, 40.7661], [-73.9397, 40.8002]]
+
 const DefaultTemplate: Story<ArgTypes> = () =>
   html`
     <div style="width: 1000px; height: 800px">
@@ -27,6 +29,7 @@ const DefaultTemplate: Story<ArgTypes> = () =>
       overlayButtonLabel="Fachkarten"
       actionButtonLabel="Fachkarten"
       initialZoom="8"
+      .maxBounds=${undefined}
       .initialPosition=${[-70.94416, 43.46633]}
       overlayWidth="30%"
       overlayHeader="Fachkarten"

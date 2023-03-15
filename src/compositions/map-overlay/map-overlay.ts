@@ -17,6 +17,7 @@ export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
   @property({type: Array}) activeLayers: LayerData[] = [];
   @property({type: Array}) submissions: any[] = [];
   @property({type: Number}) initialZoom = 10;
+  @property({type: Array}) maxBounds = undefined;
   @property({type: Function}) geocoderInputCallback: Function = (input: any) => {};
   @property({type: Function}) markerSetCallback: Function = (marker: any) => {};
   @property({type: String}) pinColor = '#9747FF';
@@ -35,6 +36,7 @@ export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
       .layerData=${this.activeLayers}
       .initialPosition=${this.initialPosition}
       .initialZoom=${this.initialZoom}
+      .maxBounds=${this.maxBounds}
       .geocoderInputCallback=${this.geocoderInputCallback}
       .markerSetCallback=${this.markerSetCallback}
       .submissions=${this.submissions}

@@ -17,6 +17,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) accessToken: string = '';
   @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
   @property({ type: Number }) initialZoom = 10;
+  @property({ type: Array }) maxBounds = undefined;
   @property({ type: Array }) layerData?: LayerData[];
   @property({ type: Array }) submissions: any[] = [];
   @property({ type: Function }) geocoderInputCallback: Function = (
@@ -107,6 +108,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
       container: this.renderRoot.querySelector('#map') as HTMLElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: this.initialPosition, // starting position [lng, lat]
+      maxBounds: this.maxBounds,
       zoom: this.initialZoom, // starting zoom
     });
     this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }));
@@ -114,7 +116,9 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
+      bbox: this.maxBounds ? [...this.maxBounds[0], ...this.maxBounds[1]] : undefined
     });
+
     this.map.addControl(geocoder);
     if (this.map.on) {
       this.map.on('mouseover', (e: any) => {
@@ -164,7 +168,67 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
           'line-width': 3,
         },
       });
+
+      this.flyToLayer(this.map.getSource(data.id)?._data);
     });
+
+  }
+
+  flyToLayer(layerData: any) {
+    let isVisible = false;
+    let centerCoordinates: any[] = []
+
+    if (layerData.type === 'FeatureCollection') {
+      for (let i = 0; i <  layerData.features.length; i++) {
+        isVisible = this.isLayerVisible(layerData.features[i].geometry?.coordinates, centerCoordinates);
+        if (isVisible) {
+          break;
+        }
+      }
+    } else {
+      isVisible = this.isLayerVisible(layerData.geometry?.coordinates, centerCoordinates);
+    }
+
+    if (!isVisible) {
+      this.map.flyTo({
+        // take value in the middle (multiple values possible if it is a feature collection)
+        center: centerCoordinates[+(centerCoordinates.length / 2).toFixed(0) - 1],
+      })
+    }
+  }
+
+  // returns true if Layer is visible on the Map. Optional fills an given array with the center coordinates of the layer
+  isLayerVisible(coordinates: any[], centerCoordinates?: any[]): boolean {
+    const bounds = this.map.getBounds();
+    let res = false;
+    const flatCoordinates = this.flatCoordinates(coordinates);
+    let firstCoordinate = flatCoordinates[0];
+    let middleCoordinate = [];
+
+    for (let i = 0; i < flatCoordinates.length; i++) {
+      if (flatCoordinates[i][0] > bounds._sw.lng && flatCoordinates[i][1] > bounds._sw.lat && flatCoordinates[i][0] < bounds._ne.lng && flatCoordinates[i][1] < bounds._ne.lat) {
+        res = true;
+        break;
+      }
+      if (i === flatCoordinates.length / 2) {
+        middleCoordinate = flatCoordinates[i];
+        centerCoordinates?.push([(firstCoordinate[0] + middleCoordinate[0]) / 2, (firstCoordinate[1] + middleCoordinate[1]) / 2])
+      }
+    }
+    return res;
+  }
+
+  flatCoordinates(value: any): any {
+    const res: any = [];
+    const func = (value: any) => {
+      if (value?.[0]?.length) {
+        value.map((value:any) => func(value))
+      } else {
+        res.push(value);
+      }
+    }
+    func(value)
+    return res;
   }
 
   render() {

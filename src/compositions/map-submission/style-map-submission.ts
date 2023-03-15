@@ -83,6 +83,13 @@ export const mapSubmissionStyle = css
     padding-left: 1em;
 }
 
+.pin-info-text {
+    color: var(--neutral-color-600);
+    font-size: 0.8em;
+    line-height: 1.6em;
+    margin-bottom: 0.2em;
+}
+
 .marker-icon {
     width: 27px;
     height: 41px;

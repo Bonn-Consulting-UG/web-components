@@ -6,7 +6,7 @@ import { any } from 'cypress/types/bluebird';
 import { BcgModule } from '../../components/module';
 import { LayerData } from '../../model/LayerData';
 import {
-  getCommentsEndpointforModule,
+  getReverseGeocodingEndpoint,
   getSubmissionsEndpointforModule,
   mapSubmissionEndpoint,
 } from '../../utils/services/config';
@@ -38,6 +38,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) accessToken: string = '';
   @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
   @property({ type: Number }) initialZoom = 10;
+  @property({ type: Array }) maxBounds = undefined;
   @property({ type: String }) pinColor = '#9747FF';
 
   // internal use
@@ -59,6 +60,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   geocoder: any;
   submissionForm: any;
   contactForm: any;
+
+  @property({ type: String }) currentAdress: string = '';
 
   static get scopedElements() {
     return {
@@ -147,9 +150,17 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     ];
   }
 
-  handleMarkerInput(marker: any) {
+  async handleMarkerInput(marker: any) {
     this.currentMarker = marker;
+    // reverse geocoding
+    const resp = await fetch(
+      getReverseGeocodingEndpoint(marker.getLngLat().lng, marker.getLngLat().lat, this.accessToken)
+    )
+    resp.json().then(res => {
+      this.currentAdress = res.features[0].place_name;
+    });
     this.clearGeocoder();
+
     this.currentMapSubmission.points = [
       {
         longitude: marker.getLngLat().lng,
@@ -193,7 +204,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         getSubmissionsEndpointforModule(this.moduleId),
         fetchOptions
       );
-      console.log(resp);
+
       return resp.json();
     } catch (err) {
       console.error(err);
@@ -338,6 +349,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                 }}
                 .closeButtonCallback=${() => this.closeOverlay()}
                 initialZoom=${this.initialZoom}
+                .maxBounds=${this.maxBounds}
                 .initialPosition=${this.initialPosition}
                 overlayWidth=${this.overlayWidth}
                 .activeLayers=${this.activeLayers}
@@ -399,8 +411,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                           class="layer-icon"
                                           icon-id="bcg:general:layer"
                                           style="fill: ${layer.color
-                                            ? '#0080ff'
-                                            : null}"
+                                            ? layer.color
+                                            : '#0080ff'}"
                                         ></lion-icon>
                                         <span class="layer-label"
                                           >${layer.label}</span
@@ -438,6 +450,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                 : html`<div style="width:27px"></div>`
                             }
                             <span class="pin-text">Platzieren Sie diesen Pin durch Ziehen und Ablegen an der von Ihnen gewählten Position auf der Karte</span>
+                          </div>
+                          <div class="current-marker-info">
+                            ${this.currentMarker ? html`
+                            <p class="pin-info-text">${this.currentAdress}</p>
+                            <span class="pin-info-text">[ Lng: ${this.currentMapSubmission.points[0]?.longitude?.toFixed(4)}, Lat: ${this.currentMapSubmission.points[0]?.latitude?.toFixed(4)} ]
+                            </span>` : ``}
                           </div>
                         </div>
                         <div class="step-navigation">
