@@ -130,6 +130,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
             .setLngLat([e.lngLat.lng, e.lngLat.lat])
             .addTo(this.map);
           this.markerSetCallback(marker);
+          marker.on('dragend', () => this.markerSetCallback(marker));
           this.isSettingMarker = false;
         }
       });
