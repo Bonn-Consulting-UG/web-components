@@ -25,7 +25,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
 
   moduleId: number = 0;
 
-  onPasswordReset: any = () => console.log(this);
+  @property({ type: String }) onPasswordReset: any = () => console.log('');
 
   @property({ type: String }) email: string = '';
 
@@ -127,7 +127,7 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                     ? html` <a
                         href
                         style="display: flex;
-                align-items: center;"
+                        align-items: center;"
                         onclick="return false"
                         @click=${onPasswordReset}
                         @keydown=${onPasswordReset}

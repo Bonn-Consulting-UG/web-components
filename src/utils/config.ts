@@ -56,6 +56,7 @@ export const componentNames: component = {
     comments: `${tagPrefix}-comments`,
     login: `${tagPrefix}-login`,
     verify: `${tagPrefix}-verify`,
+    reset: `${tagPrefix}-password-reset`,
     logout: `${tagPrefix}-logout`,
     register: `${tagPrefix}-register`,
     inputMask: `${tagPrefix}-input-mask`,

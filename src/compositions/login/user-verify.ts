@@ -5,6 +5,8 @@ import {
   ScopedElementsMixin,
   property,
 } from '@lion/core';
+import { HttpResponseInterceptor } from 'cypress/types/net-stubbing';
+import { BcgModule } from '../../components/module';
 import {
   Required,
   MinLength,
@@ -15,7 +17,7 @@ import {
   sendNewVerifyCodeRequest,
 } from '../../utils/services/login';
 
-export class BcgUserVerify extends ScopedElementsMixin(LitElement) {
+export class BcgUserVerify extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) code: any = new URLSearchParams(
     window.location.search
   ).get('code');
@@ -32,6 +34,11 @@ export class BcgUserVerify extends ScopedElementsMixin(LitElement) {
   render() {
     let { code } = this;
 
+    const redirect = () =>
+      setTimeout(() => {
+        window.location.href = window.origin;
+      }, 5000);
+
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
@@ -41,17 +48,40 @@ export class BcgUserVerify extends ScopedElementsMixin(LitElement) {
         return;
       }
 
-      const response = await checkVerifyCode(this.userId, this.code);
+      const response: any = await checkVerifyCode(this.userId, this.code);
+
+      if (response.status === 200) {
+        this.showNotification = true;
+        this.notificationMessage = `Ihr User wurde erfolgreich Freigeschaltet - Sie werden in 5 Sekunden weitergeleitet`;
+        this.notificationType = 'success';
+        redirect();
+      } else if (response.status === 409) {
+        this.showNotification = true;
+        this.notificationMessage = `User wurde bereits Verifiziert.`;
+        this.notificationType = 'error';
+        redirect();
+      } else if (response.status === 400) {
+        this.showNotification = true;
+        this.notificationMessage = `Unbekannter Fehler aufgetreten`;
+        this.notificationType = 'error';
+      }
     };
 
     return html`<bcg-form @submit=${(ev: any) => submitHandler(ev)}>
+      ${this.showNotification
+        ? html`<bcg-notification
+            .closeHandler=${this.disabledNotification}
+            variant=${this.notificationType}
+            message=${this.notificationMessage}
+          ></bcg-notification> `
+        : null}
       <form @submit=${(e: any) => e.preventDefault()}>
         <div>
           <h1>Verifizierung</h1>
 
           <h2>
-            Sie haben einen Bestätigungscode per E-Mail (${this.userEmail})
-            erhalten. Bitte geben Sie den Code ein:
+            Sie haben einen Bestätigungscode per E-Mail erhalten. Bitte geben
+            Sie den Code ein:
           </h2>
 
           <bcg-input

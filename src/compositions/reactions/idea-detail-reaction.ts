@@ -76,7 +76,8 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
           await addReaction(
             { type: 'LIKE' },
             '',
-            this.moduleId || this.submissionId
+            this.moduleId,
+            this.submissionId
           ),
             setTimeout(() => (this.isLoading = false), 3000);
           this.fetchData();
@@ -89,7 +90,8 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
           await addReaction(
             { type: 'DISLIKE' },
             '',
-            this.moduleId || this.submissionId
+            this.moduleId,
+            this.submissionId
           ),
             this.fetchData();
         }}

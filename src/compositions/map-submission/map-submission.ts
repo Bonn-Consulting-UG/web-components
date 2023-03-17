@@ -57,7 +57,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: Array }) submissions: any[] = [];
 
   geocoder: any;
-  isLoading = false;
   submissionForm: any;
   contactForm: any;
 
@@ -77,12 +76,13 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     return [...new Set(this.layers.map(layer => layer.category))];
   }
 
-  firstUpdated() {
+  firstUpdated(changed: any) {
     this.fetchSubmissions().then(res => {
       this.submissions = res.results.filter(
         (submission: any) => submission.points?.length >= 1
       );
     });
+    super.firstUpdated(changed);
   }
 
   switchCategoryExpandedState = (category: string) => {
@@ -97,7 +97,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     this.expandedCategories = [...this.expandedCategories];
   };
 
-  updated() {
+  updated(changed: any) {
     this.stepper = this.renderRoot.querySelector('.stepper') as any;
 
     const wrapperElement = this.renderRoot.querySelector('.wrapper');
@@ -132,6 +132,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     this.contactForm = !this.contactForm
       ? (this.renderRoot.querySelector('.contact-form') as any)
       : this.contactForm;
+
+    super.updated(changed);
   }
 
   handleGeocoderInput(input: any) {
@@ -241,9 +243,9 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
       console.log(err);
 
       this.resetCurrentSubmission();
-      // this.notificationType = 'error';
-      // this.notificationMessage = 'Fehler ist aufgetreten';
-      // this.isLoading = false;
+      this.notificationType = 'error';
+      this.notificationMessage = 'Fehler ist aufgetreten';
+      this.isLoading = false;
     }
   }
 
@@ -271,6 +273,18 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     this.submissionForm?.reset();
     this.contactForm?.reset();
     this.resetStepper();
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    // this.currentMapSubmission = {
+    //   description: '123',
+    //   lastName: 'Scheifel',
+    //   title: 'Testtitel'
+    //   email: 'sts@1234.de',
+    //   firstName: 'Stefan',
+    //   points: [],
+    // };
   }
 
   render() {
@@ -384,8 +398,9 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                         <lion-icon
                                           class="layer-icon"
                                           icon-id="bcg:general:layer"
-                                          style="fill: ${layer.color ??
-                                          '#0080ff'}"
+                                          style="fill: ${layer.color
+                                            ? '#0080ff'
+                                            : null}"
                                         ></lion-icon>
                                         <span class="layer-label"
                                           >${layer.label}</span
@@ -451,7 +466,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                             ) {
                               this.isLoggedIn
                                 ? await this.submitSubmission()
-                                : this.stepper?.next();
+                                : null;
+                              this.stepper?.next();
                             }
                           }}>
                             <form @submit=${(e: any) => e.preventDefault()}>
@@ -527,8 +543,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                           'error'
                                         )
                                       ) {
-                                        this.stepper?.next();
-                                        this.submitSubmission();
                                       }
                                     }}
                                   >
@@ -612,7 +626,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                     <
                                   </bcg-button>
                                   3/3
+
                                   <bcg-button-submit
+                                    @click=${() => {
+                                      this.submitSubmission();
+                                      this.stepper?.next();
+                                    }}
                                     variant="primary"
                                     .disabled=${!this.currentMarker &&
                                     !this.currentGeocoderInput}
