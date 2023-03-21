@@ -40,6 +40,9 @@ export class BcgTextarea extends LionTextarea {
         .no-label {
           // top: calc(80% - 10px);
         }
+        :host .form-field__feedback {
+          color: var(--alert-color-error);
+        }
       `,
     ];
   }
