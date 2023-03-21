@@ -111,6 +111,8 @@ export class BcgModule extends LitElement {
     if (this.user) {
       if (Date.now() >= this.user.exp * 1000) {
         this.getNewAccessToken();
+      } else {
+        this.isLoggedIn = true;
       }
     }
   }
@@ -156,8 +158,8 @@ export class BcgModule extends LitElement {
 
   connectedCallback() {
     this.loadConfig();
-    super.connectedCallback();
     this.checkAuthToken();
     this.setupLoggedinUser();
+    super.connectedCallback();
   }
 }
