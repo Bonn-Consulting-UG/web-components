@@ -16,7 +16,7 @@ const mapboxgl = require('mapbox-gl');
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 
 export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
-  @property({ type: String }) accessToken: string = '';
+  @property({ type: String }) mapAccessToken: string = '';
   @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
   @property({ type: Number }) initialZoom = 10;
   @property({ type: Array }) maxBounds = undefined;
@@ -134,7 +134,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   }
 
   initMap() {
-    mapboxgl.accessToken = this.accessToken;
+    mapboxgl.accessToken = this.mapAccessToken;
     this.map = new mapboxgl.Map({
       container: this.renderRoot.querySelector('#map') as HTMLElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL

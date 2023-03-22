@@ -2,7 +2,6 @@ import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
 import { Required } from '@lion/form-core';
 import { LionStep, LionSteps } from '@lion/steps';
 import { LionTabs } from '@lion/tabs';
-import { any } from 'cypress/types/bluebird';
 import { BcgModule } from '../../components/module';
 import { LayerData } from '../../model/LayerData';
 import { MapSubmission } from '../../model/MapSubmission';
@@ -24,7 +23,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) actionButtonLabel = 'Open Overlay';
   @property({ type: String }) overlayWidth: string = '40%';
   // mapbox properties
-  @property({ type: String }) accessToken: string = '';
+  @property({ type: String }) mapAccessToken: string = '';
   @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
   @property({ type: Number }) initialZoom = 10;
   @property({ type: Array }) maxBounds = undefined;
@@ -151,7 +150,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     this.currentMarker = marker;
     // reverse geocoding
     const resp = await fetch(
-      getReverseGeocodingEndpoint(marker.getLngLat().lng, marker.getLngLat().lat, this.accessToken)
+      getReverseGeocodingEndpoint(marker.getLngLat().lng, marker.getLngLat().lat, this.mapAccessToken)
     )
     resp.json().then(res => {
       this.currentAdress = res.features[0].place_name;
@@ -283,17 +282,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     this.resetStepper();
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    // this.currentMapSubmission = {
-    //   description: '123',
-    //   lastName: 'Scheifel',
-    //   title: 'Testtitel'
-    //   email: 'sts@1234.de',
-    //   firstName: 'Stefan',
-    //   points: [],
-    // };
-  }
 
   switchSortState() {
     this.sortByDateFunction = this.sortByDateFunction === this.sortByNewest ? this.sortByOldest : this.sortByNewest;
@@ -353,7 +341,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             <div style="width: 100%; height: ${this.mapHeight}px">
               <bcg-map-overlay
                 class="bcg-overlay"
-                accessToken=${this.accessToken}
+                mapAccessToken=${this.mapAccessToken}
                 actionButtonLabel=${this.actionButtonLabel}
                 .pinColor=${this.pinColor}
                 .actionButtonCallback=${() => {

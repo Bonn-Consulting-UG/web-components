@@ -30,18 +30,34 @@ export class BcgButton extends LionButton {
           box-sizing: border-box;
         }
         :host([variant='primary']) {
-          background-color: var(--secondary-color);
-          border-radius: var(--border-radius-l);
-          font-family: var(--primary-body-regular-L-font-family);
-          color: var(--primary-color);
-          padding: ${unsafeCSS(buttoPadding)};
+          display: inline-block;
+          font-family: var(--primary-button-default-L-font-family);
+          font-size: var(--primary-button-default-L-font-size);
+          font-weight: var(--primary-button-default-L-font-weight);
+          color: var(--primary-button-default-L-foreground-color);
+          line-height: var(--button-line-height);
+          background-color: var(--primary-button-default-L-background-color);
+          border: var(--primary-button-default-L-border);
+          border-radius: var(--primary-button-default-L-border-radius);
+          padding: var(--primary-button-default-L-inner-spacing);
         }
         :host([variant='primary']:hover) {
-          background-color: var(--secondary-color);
-          border-radius: var(--border-radius-l);
-          font-family: var(--primary-body-regular-L-font-family);
-          color: var(--primary-color);
-          box-shadow: var(--core-shadow-plus-10);
+          /* States contain default state fallback value*/
+          font-family: var(
+            --primary-button-hover-L-font-family,
+            var(--primary-default-hover-L-font-family)
+          );
+          font-size: var(
+            --primary-button-hover-L-font-size,
+            var(--primary-default-hover-L-font-size)
+          );
+          /* ... usw. */
+          /* Only Values that changed need to be defined in global.css*/
+          box-shadow: var(
+            --primary-button-hover-L-box-shadow,
+            var(--primary-button-default-L-box-shadow)
+          );
+          --foreground-color: white;
         }
         :host([variant='primary']:active) {
           background-color: var(--secondary-color-600);
@@ -53,12 +69,39 @@ export class BcgButton extends LionButton {
           color: var(--neutral-color-500);
         }
         :host([variant='secondary']) {
-          background-color: var(--neutral-color-0);
-          font-family: var(--primary-body-regular-L-font-family);
-          color: var(--primary-color);
-          border-radius: var(--border-radius-l);
-          border: var(--border-xs) solid var(--primary-color);
-          padding: ${unsafeCSS(buttoPadding)};
+          font-family: var(
+            --secondary-button-default-L-font-family,
+            var(--primary-button-default-L-font-family)
+          );
+          font-size: var(
+            --secondary-button-default-L-font-size,
+            var(--primary-button-default-L-font-size)
+          );
+          font-weight: var(
+            --secondary-button-default-L-font-weight,
+            var(--primary-button-default-L-font-weight)
+          );
+          color: var(
+            --secondary-button-default-L-foreground-color,
+            var(--primary-button-default-L-foreground-color)
+          );
+          line-height: var(--button-line-height);
+          background-color: var(
+            --secondary-button-default-L-background-color,
+            var(--primary-button-default-L-background-color)
+          );
+          border: var(
+            --secondary-button-default-L-border,
+            var(--primary-button-default-L-border)
+          );
+          border-radius: var(
+            --secondary-button-default-L-border-radius,
+            var(--primary-button-default-L-border-radius)
+          );
+          padding: var(
+            --secondary-button-default-L-inner-spacing,
+            var(--primary-button-default-L-inner-spacing)
+          );
         }
         :host([variant='secondary']:hover) {
           box-shadow: var(--core-shadow-plus-10);
@@ -67,11 +110,7 @@ export class BcgButton extends LionButton {
           background-color: var(--primary-color-100);
           border: none;
         }
-        :host([variant='secondary'][disabled]) {
-          background-color: var(--neutral-color-0);
-          color: var(--neutral-color-500);
-          border: var(--border-xs) solid var(--neutral-color-500);
-        }
+
         :host([variant='tertiary']) {
           background-color: var(--neutral-color-0);
           font-family: var(--primary-body-regular-L-font-family);
