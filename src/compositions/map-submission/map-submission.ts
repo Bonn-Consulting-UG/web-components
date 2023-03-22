@@ -5,6 +5,7 @@ import { LionTabs } from '@lion/tabs';
 import { any } from 'cypress/types/bluebird';
 import { BcgModule } from '../../components/module';
 import { LayerData } from '../../model/LayerData';
+import { MapSubmission } from '../../model/MapSubmission';
 import {
   getReverseGeocodingEndpoint,
   getSubmissionsEndpointforModule,
@@ -12,24 +13,12 @@ import {
 } from '../../utils/services/config';
 import { mapSubmissionStyle } from './style-map-submission';
 
-interface MapRequest {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  title?: string;
-  description?: string;
-  points: MapData[];
-}
-
-interface MapData {
-  longitude?: number;
-  latitude?: number;
-}
-
 export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   // settable properties
   @property({ type: String }) overlayHeader: string = 'Overlay';
   @property({ type: Array }) layers: LayerData[] = [];
+  @property({ type: Number }) mapHeight = 600;
+  @property({ type: String }) createSubmittsionButtonLabel = 'Hinweis eingeben';
 
   // map-overlay properties
   @property({ type: String }) actionButtonLabel = 'Open Overlay';
@@ -48,12 +37,20 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: Boolean }) showLayerContent: boolean = true;
   @property({ type: Object }) currentMarker: any;
   @property({ type: Object }) currentGeocoderInput: any;
-  @property({ type: Object }) currentMapSubmission: MapRequest = { points: [] };
+  @property({ type: Object }) currentMapSubmission: MapSubmission = { points: [] };
   @property({ type: Boolean }) privacyChecked = false;
   @property({ type: String }) notificationType = '';
   @property({ type: String }) notificationMessage = '';
 
   @property({ type: LitElement || undefined }) stepper: any;
+
+  sortByNewest = (a: MapSubmission, b: MapSubmission) => 
+    new Date(a.createdAt ?? '').getTime() - new Date(b.createdAt ?? '').getTime();
+  sortByOldest = (a: MapSubmission, b: MapSubmission) => 
+    new Date(b.createdAt ?? '').getTime() - new Date(a.createdAt ?? '').getTime();
+  @property({ type: String }) sortBy: 'newest' | 'oldest' = 'newest';
+  @property({ type: Function }) sortByDateFunction = this.sortByNewest;
+
 
   @property({ type: Array }) submissions: any[] = [];
 
@@ -298,6 +295,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     // };
   }
 
+  switchSortState() {
+    this.sortByDateFunction = this.sortByDateFunction === this.sortByNewest ? this.sortByOldest : this.sortByNewest;
+    this.sortBy = this.sortBy === 'newest' ? 'oldest' : 'newest';
+  }
+
   render() {
     return html`
       <link
@@ -323,9 +325,20 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
               class="button-icon"
               icon-id="bcg:general:edit"
             ></lion-icon>
-            Hinweis eingeben
+            ${this.createSubmittsionButtonLabel}
           </div>
         </bcg-button>
+
+        <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
+          <div style="margin-right: 5px">${this.sortBy === 'newest' ? 'Neuste zuerst' : 'Älteste zuerst'}</div>
+          <lion-icon
+          class="expand-icon"
+          icon-id=${this.sortBy === 'newest'
+            ? 'bcg:general:expand'
+            : 'bcg:general:collapse'}
+          ></lion-icon>
+        </bcg-button>
+
         <lion-tabs>
           <bcg-tab-button class="tab-button" slot="tab">
             <div>
@@ -337,7 +350,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
-            <div style="width: 100%; height: 600px">
+            <div style="width: 100%; height: ${this.mapHeight}px">
               <bcg-map-overlay
                 class="bcg-overlay"
                 accessToken=${this.accessToken}
@@ -699,7 +712,16 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
               Liste
             </div>
           </bcg-tab-button>
-          <bcg-tab-panel slot="panel">Liste</bcg-tab-panel>
+          <bcg-tab-panel slot="panel">
+            <div style="display: grid;grid-template-columns: 50% 50%; height: 100%">
+              ${this.submissions.sort(this.sortByDateFunction).map(submission => html`
+              <div style="padding: 5px;">
+                <bcg-submission-card
+                .submission=${submission}
+                ></bcg-submission-card>
+              </div>`)}
+            </div>
+          </bcg-tab-panel>
         </lion-tabs>
       </div>
     `;

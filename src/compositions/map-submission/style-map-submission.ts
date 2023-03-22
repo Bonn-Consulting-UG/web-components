@@ -3,6 +3,9 @@ import { css } from "@lion/core";
 export const mapSubmissionStyle = css
 `
 .wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .submission-button {
@@ -134,4 +137,11 @@ export const mapSubmissionStyle = css
     margin-bottom: -4px;
 }
 
+.sort-button {
+    float: right;
+    margin-right: 20px;
+    border: none;
+    box-shadow: none;
+    cursor: pointer
+}
 `

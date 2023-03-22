@@ -7,8 +7,10 @@ import {
   ScopedElementsMixin,
 } from '@lion/core';
 import { MapMouseEvent } from 'mapbox-gl';
+import { SubmissionCard } from '../../compositions/submission-card/submisson-card';
 import { LayerData } from '../../model/LayerData';
 import { BcgButton } from '../button/button';
+import { BcgCard } from '../card/card';
 
 const mapboxgl = require('mapbox-gl');
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
@@ -78,28 +80,57 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
           submission.points[0].latitude,
         ])
         .setPopup(
-          new mapboxgl.Popup().setHTML(`
-        <div>
-          <h1>${submission.title}</h1>
-          <p>${submission.description}</p>
-        </div>
-        `)
+          new mapboxgl.Popup().addClassName('popup').setHTML(`
+          <bcg-card>
+            <slot name="content">
+              <div class="content-wrapper"">
+                <div class="text-container">
+                  <span class="creator-text">${submission?.firstName} ${submission?.lastName}</span>
+                  <p class="title-text">${submission?.title}</p>
+                </div>
+      
+                <div class="actions-container">
+                  <bcg-button variant="primary">Zum Hinweis</bcg-button>
+                  <div class="reactions-container">
+                    <lion-icon
+                    class="comment-icon"
+                    icon-id="bcg:comments:comment"
+                    ></lion-icon>
+                    <span style="margin-right: 20px">${submission?._count?.comments}</span>
+                    <bcg-idea-reaction likeCount=${submission?._count?.likes} dislikeCount=${submission?._count?.dislikes}></bcg-idea-reaction>
+                  </div>
+                </div>
+              </div>
+            </slot>
+          </bcg-card>
+          `)
         )
         .addTo(this.map);
     });
   }
 
   static get scopedElements() {
-    return { 'bcg-button': BcgButton };
+    return {
+      'bcg-button': BcgButton,
+      'bcg-card': BcgCard,
+    };
   }
 
   static get styles() {
-    return css`
-      #map {
-        width: 100%;
-        height: 100%;
-      }
-    `;
+    return [SubmissionCard.styles, css`
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .popup {
+      max-width: 500px !important;
+    }
+
+    .mapboxgl-popup-content {
+      padding: 0;
+    }
+  `];
   }
 
   initMap() {

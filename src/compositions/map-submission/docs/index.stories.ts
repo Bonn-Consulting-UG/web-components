@@ -26,6 +26,7 @@ const DefaultTemplate: Story<ArgTypes> = () =>
       <bcg-map-submission
       accessToken=${token}
       moduleId="3275cc46-38da-4033-a281-acedadc93db6"
+      mapHeight="600"
       overlayButtonLabel="Fachkarten"
       actionButtonLabel="Fachkarten"
       initialZoom="8"
