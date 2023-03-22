@@ -105,16 +105,16 @@ export class BcgModule extends LitElement {
   };
 
   setupLoggedinUser() {
-    localStorage.getItem('accessToken');
     this.user = this.accessToken ? jwtDecode(this.accessToken) : null;
-
     if (this.user) {
       if (Date.now() >= this.user.exp * 1000) {
         this.getNewAccessToken();
-      } else {
+      }
+      if (Date.now() <= this.user.exp * 1000) {
         this.isLoggedIn = true;
       }
     }
+    console.log(this.user);
   }
 
   async getNewAccessToken() {
@@ -125,7 +125,9 @@ export class BcgModule extends LitElement {
       const response: any = await sendGetNewAccessTokenRequest(
         this.refreshToken
       );
-      this.isLoggedIn = true;
+      if (response.accessToken) {
+        this.isLoggedIn = true;
+      }
       localStorage.setItem('accessToken', response.accessToken);
       localStorage.setItem('refreshToken', response.refreshToken);
     }
@@ -161,5 +163,6 @@ export class BcgModule extends LitElement {
     this.checkAuthToken();
     this.setupLoggedinUser();
     super.connectedCallback();
+    console.log(this.isLoggedIn);
   }
 }

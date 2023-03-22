@@ -35,7 +35,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) actionButtonLabel = 'Open Overlay';
   @property({ type: String }) overlayWidth: string = '40%';
   // mapbox properties
-  @property({ type: String }) accessToken: string = '';
+  @property({ type: String }) mapAccessToken: string = '';
   @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
   @property({ type: Number }) initialZoom = 10;
   @property({ type: String }) pinColor = '#9747FF';
@@ -275,18 +275,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     this.resetStepper();
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    // this.currentMapSubmission = {
-    //   description: '123',
-    //   lastName: 'Scheifel',
-    //   title: 'Testtitel'
-    //   email: 'sts@1234.de',
-    //   firstName: 'Stefan',
-    //   points: [],
-    // };
-  }
-
   render() {
     return html`
       <link
@@ -329,7 +317,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             <div style="width: 100%; height: 600px">
               <bcg-map-overlay
                 class="bcg-overlay"
-                accessToken=${this.accessToken}
+                accessToken=${this.mapAccessToken}
                 actionButtonLabel=${this.actionButtonLabel}
                 .pinColor=${this.pinColor}
                 .actionButtonCallback=${() => {
