@@ -16,6 +16,7 @@ export default {
 const testSubmission: MapSubmission = {
   firstName: 'Max',
   lastName: 'Mustermann',
+  createdAt: '2022-08-03T00:00:00.000Z',
   email: 'Mustermann@email.de',
   title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore',
   description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore',

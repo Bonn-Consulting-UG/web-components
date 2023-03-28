@@ -24,13 +24,13 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
       .creator-text {
         font-size: 0.9em;
         font-style: italic;
+        margin: 0;
       }
 
       .title-text {
         font-size: 1.2em;
         font-weight: bold;
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin: 0;
       }
 
       .actions-container {
@@ -71,9 +71,9 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
       <slot name="content">
         <div class="content-wrapper">
           <div class="text-container">
-            <span class="creator-text">${this.submission?.firstName} ${this.submission?.lastName}</span>
+            <p class="creator-text">${this.submission?.firstName} ${this.submission?.lastName}</p>
+            <p class="creator-text">${new Date(this.submission?.createdAt ?? '').toLocaleDateString()}</p>
             <p class="title-text">${this.submission?.title}</p>
-            <span>${this.submission?.description}</span>
           </div>
 
           <div class="actions-container">

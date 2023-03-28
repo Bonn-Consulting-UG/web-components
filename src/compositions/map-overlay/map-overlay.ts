@@ -5,6 +5,7 @@ import { mapOverlayStyle } from './style-map-overlay';
 
 export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
   // settable properies
+  @property({ type: Boolean }) showActionButton = true;
   @property({ type: String }) actionButtonLabel = 'Action Button';
   @property({ type: Function }) actionButtonCallback = () => {
     this.showOverlay = true;
@@ -45,12 +46,14 @@ export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
         >
         </bcg-interactive-map>
 
-        <bcg-button
-          class="action-button"
-          variant="secondary"
-          @click=${() => this.actionButtonCallback()}
-          >${this.actionButtonLabel}</bcg-button
-        >
+        ${this.showActionButton ? html`
+          <bcg-button
+            class="action-button"
+            variant="secondary"
+            @click=${() => this.actionButtonCallback()}
+            >${this.actionButtonLabel}</bcg-button
+          >
+        ` : ``}
 
         ${this.showOverlay
           ? html` <div
