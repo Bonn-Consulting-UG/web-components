@@ -144,4 +144,36 @@ export const mapSubmissionStyle = css
     box-shadow: none;
     cursor: pointer
 }
+
+.list-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 500px 500px;
+    height: 100%";
+}
+
+@media screen and (max-width:1010px) {
+    .list-grid {
+        grid-template-columns: 100%;
+        place-items: center;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .submission-button {
+        float: unset;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .sort-button {
+        float: unset;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .tab-button {
+        width: 50%;
+    }
+}
 `

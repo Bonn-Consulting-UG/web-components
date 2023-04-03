@@ -33,32 +33,19 @@ export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
   render() {
     return html`
       <div class="map-wrapper">
-        <bcg-interactive-map
-          class="interactive-map"
-          mapAccessToken=${this.mapAccessToken}
-          .layerData=${this.activeLayers}
-          .initialPosition=${this.initialPosition}
-          .initialZoom=${this.initialZoom}
- 		  .maxBounds=${this.maxBounds}
-          .geocoderInputCallback=${this.geocoderInputCallback}
-          .markerSetCallback=${this.markerSetCallback}
-          .submissions=${this.submissions}
-        >
-        </bcg-interactive-map>
 
-        ${this.showActionButton ? html`
-          <bcg-button
-            class="action-button"
-            variant="secondary"
-            @click=${() => this.actionButtonCallback()}
-            >${this.actionButtonLabel}</bcg-button
-          >
+        ${this.showActionButton && !this.showOverlay ? html`
+        <bcg-button
+          class="action-button"
+          variant="secondary"
+          @click=${() => this.actionButtonCallback()}
+          >${this.actionButtonLabel}</bcg-button
+        >
         ` : ``}
 
         ${this.showOverlay
           ? html` <div
               class="overlay-wrapper"
-              style="width: ${this.overlayWidth}"
             >
               <bcg-overlay
                 .closeButtonCallback=${() => this.closeButtonCallback()}
@@ -67,6 +54,19 @@ export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
               </bcg-overlay>
             </div>`
           : ''}
+
+        <bcg-interactive-map
+          class="interactive-map"
+          mapAccessToken=${this.mapAccessToken}
+          .layerData=${this.activeLayers}
+          .initialPosition=${this.initialPosition}
+          .initialZoom=${this.initialZoom}
+ 		      .maxBounds=${this.maxBounds}
+          .geocoderInputCallback=${this.geocoderInputCallback}
+          .markerSetCallback=${this.markerSetCallback}
+          .submissions=${this.submissions}
+        >
+        </bcg-interactive-map>
       </div>
     `;
   }
