@@ -155,7 +155,6 @@ export const mapSubmissionStyle = css
 @media screen and (max-width:1010px) {
     .list-grid {
         grid-template-columns: 100%;
-        place-items: center;
     }
 }
 
