@@ -102,3 +102,7 @@ export const getCommentReactionWithIdEndpoint = (
 export const reactionEndPoint = `${baseURLwithApiVersion}/reactions`;
 export const reactionDelteEndPoint = (reactionId: number) =>
   `${baseURLwithApiVersion}/reactions/${reactionId}`;
+
+// Mapbox
+export const getReverseGeocodingEndpoint = (longitude: number, latitude: number, accessToken: string) => 
+  `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`;
