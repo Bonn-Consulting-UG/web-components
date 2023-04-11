@@ -68,6 +68,7 @@ export const componentNames: component = {
     faqOverview: `${tagPrefix}-faq-overview`,
     editUser: `${tagPrefix}-edit-user`,
     userMenu: `${tagPrefix}-user-menu`,
+    submissionCard: `${tagPrefix}-submission-card`,
     reaction: {
       idea: `${tagPrefix}-idea-reaction`,
     },

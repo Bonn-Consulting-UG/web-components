@@ -2,34 +2,24 @@ import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
 import { Required } from '@lion/form-core';
 import { LionStep, LionSteps } from '@lion/steps';
 import { LionTabs } from '@lion/tabs';
-import { any } from 'cypress/types/bluebird';
 import { BcgModule } from '../../components/module';
 import { LayerData } from '../../model/LayerData';
+import { MapSubmission } from '../../model/MapSubmission';
 import {
-  getCommentsEndpointforModule,
+  getReverseGeocodingEndpoint,
   getSubmissionsEndpointforModule,
   mapSubmissionEndpoint,
 } from '../../utils/services/config';
 import { mapSubmissionStyle } from './style-map-submission';
 
-interface MapRequest {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  title?: string;
-  description?: string;
-  points: MapData[];
-}
-
-interface MapData {
-  longitude?: number;
-  latitude?: number;
-}
-
 export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   // settable properties
   @property({ type: String }) overlayHeader: string = 'Overlay';
   @property({ type: Array }) layers: LayerData[] = [];
+  @property({ type: Number }) mapHeight = 600;
+  @property({ type: String }) createSubmissionButtonLabel = 'Hinweis eingeben';
+  @property({ type: Boolean }) showCreateSubmissionButton = true;
+  @property({ type: Boolean }) showOverlayButton = true;
 
   // map-overlay properties
   @property({ type: String }) actionButtonLabel = 'Open Overlay';
@@ -38,6 +28,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) mapAccessToken: string = '';
   @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
   @property({ type: Number }) initialZoom = 10;
+  @property({ type: Array }) maxBounds = undefined;
   @property({ type: String }) pinColor = '#9747FF';
 
   // internal use
@@ -47,18 +38,29 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: Boolean }) showLayerContent: boolean = true;
   @property({ type: Object }) currentMarker: any;
   @property({ type: Object }) currentGeocoderInput: any;
-  @property({ type: Object }) currentMapSubmission: MapRequest = { points: [] };
+  @property({ type: Object }) currentMapSubmission: MapSubmission = { points: [] };
   @property({ type: Boolean }) privacyChecked = false;
   @property({ type: String }) notificationType = '';
   @property({ type: String }) notificationMessage = '';
 
   @property({ type: LitElement || undefined }) stepper: any;
+  @property({ type: Number }) currentTabIndex = 0;
+
+  sortByNewest = (a: MapSubmission, b: MapSubmission) => 
+    new Date(a.createdAt ?? '').getTime() - new Date(b.createdAt ?? '').getTime();
+  sortByOldest = (a: MapSubmission, b: MapSubmission) => 
+    new Date(b.createdAt ?? '').getTime() - new Date(a.createdAt ?? '').getTime();
+  @property({ type: String }) sortBy: 'newest' | 'oldest' = 'newest';
+  @property({ type: Function }) sortByDateFunction = this.sortByNewest;
+
 
   @property({ type: Array }) submissions: any[] = [];
 
   geocoder: any;
   submissionForm: any;
   contactForm: any;
+
+  @property({ type: String }) currentAdress: string = '';
 
   static get scopedElements() {
     return {
@@ -98,8 +100,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   };
 
   updated(changed: any) {
-    this.stepper = this.renderRoot.querySelector('.stepper') as any;
-
+    this.stepper = this.renderRoot.querySelector('.stepper') as any; 
     const wrapperElement = this.renderRoot.querySelector('.wrapper');
     if (!this.geocoder) {
       this.geocoder = this.renderRoot
@@ -147,9 +148,17 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     ];
   }
 
-  handleMarkerInput(marker: any) {
+  async handleMarkerInput(marker: any) {
     this.currentMarker = marker;
+    // reverse geocoding
+    const resp = await fetch(
+      getReverseGeocodingEndpoint(marker.getLngLat().lng, marker.getLngLat().lat, this.mapAccessToken)
+    )
+    resp.json().then(res => {
+      this.currentAdress = res.features[0].place_name;
+    });
     this.clearGeocoder();
+
     this.currentMapSubmission.points = [
       {
         longitude: marker.getLngLat().lng,
@@ -193,7 +202,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         getSubmissionsEndpointforModule(this.moduleId),
         fetchOptions
       );
-      console.log(resp);
+
       return resp.json();
     } catch (err) {
       console.error(err);
@@ -275,6 +284,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     this.resetStepper();
   }
 
+
+  switchSortState() {
+    this.sortByDateFunction = this.sortByDateFunction === this.sortByNewest ? this.sortByOldest : this.sortByNewest;
+    this.sortBy = this.sortBy === 'newest' ? 'oldest' : 'newest';
+  }
+
   render() {
     return html`
       <link
@@ -287,24 +302,40 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         type="text/css"
       />
       <div class="wrapper">
-        <bcg-button
-          variant="primary"
-          class="submission-button"
-          @click=${() => {
-            this.showOverlay = true;
-            this.showLayerContent = false;
-          }}
-        >
-          <div>
-            <lion-icon
-              class="button-icon"
-              icon-id="bcg:general:edit"
-            ></lion-icon>
-            Hinweis eingeben
-          </div>
-        </bcg-button>
-        <lion-tabs>
-          <bcg-tab-button class="tab-button" slot="tab">
+        ${this.showCreateSubmissionButton ? html`
+          <bcg-button
+            variant="primary"
+            class="submission-button"
+            @click=${() => {
+              this.showOverlay = true;
+              this.showLayerContent = false;
+              this.currentTabIndex = 0;
+            }}
+          >
+            <div>
+              <lion-icon
+                class="button-icon"
+                icon-id="bcg:general:edit"
+              ></lion-icon>
+              ${this.createSubmissionButtonLabel}
+            </div>
+          </bcg-button>
+        ` : ``}
+
+        ${this.currentTabIndex === 1 ? html`
+          <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
+          <div style="margin-right: 5px">${this.sortBy === 'newest' ? 'Neuste zuerst' : 'Älteste zuerst'}</div>
+          <lion-icon
+          class="expand-icon"
+          icon-id=${this.sortBy === 'newest'
+            ? 'bcg:general:expand'
+            : 'bcg:general:collapse'}
+          ></lion-icon>
+          </bcg-button>`
+        : ``}
+
+        <lion-tabs class="tabs" .selectedIndex=${this.currentTabIndex}>
+          <bcg-tab-button @click=${() => this.currentTabIndex = 0} class="tab-button" slot="tab">
             <div>
               <lion-icon
                 class="button-icon"
@@ -314,10 +345,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
-            <div style="width: 100%; height: 600px">
+            <div style="width: 100%; height: ${this.mapHeight}px">
               <bcg-map-overlay
                 class="bcg-overlay"
-                accessToken=${this.mapAccessToken}
+                mapAccessToken=${this.mapAccessToken}
+                .showActionButton=${this.showOverlayButton}
                 actionButtonLabel=${this.actionButtonLabel}
                 .pinColor=${this.pinColor}
                 .actionButtonCallback=${() => {
@@ -326,6 +358,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                 }}
                 .closeButtonCallback=${() => this.closeOverlay()}
                 initialZoom=${this.initialZoom}
+                .maxBounds=${this.maxBounds}
                 .initialPosition=${this.initialPosition}
                 overlayWidth=${this.overlayWidth}
                 .activeLayers=${this.activeLayers}
@@ -387,8 +420,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                           class="layer-icon"
                                           icon-id="bcg:general:layer"
                                           style="fill: ${layer.color
-                                            ? '#0080ff'
-                                            : null}"
+                                            ? layer.color
+                                            : '#0080ff'}"
                                         ></lion-icon>
                                         <span class="layer-label"
                                           >${layer.label}</span
@@ -426,6 +459,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                 : html`<div style="width:27px"></div>`
                             }
                             <span class="pin-text">Platzieren Sie diesen Pin durch Ziehen und Ablegen an der von Ihnen gewählten Position auf der Karte</span>
+                          </div>
+                          <div class="current-marker-info">
+                            ${this.currentMarker ? html`
+                            <p class="pin-info-text">${this.currentAdress}</p>
+                            <span class="pin-info-text">[ Lng: ${this.currentMapSubmission.points[0]?.longitude?.toFixed(4)}, Lat: ${this.currentMapSubmission.points[0]?.latitude?.toFixed(4)} ]
+                            </span>` : ``}
                           </div>
                         </div>
                         <div class="step-navigation">
@@ -659,7 +698,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-panel>
 
-          <bcg-tab-button class="tab-button" slot="tab">
+          <bcg-tab-button class="tab-button" @click=${() => this.currentTabIndex = 1} slot="tab">
             <div>
               <lion-icon
                 class="button-icon"
@@ -669,7 +708,16 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
               Liste
             </div>
           </bcg-tab-button>
-          <bcg-tab-panel slot="panel">Liste</bcg-tab-panel>
+          <bcg-tab-panel slot="panel">
+            <div class="list-grid">
+              ${this.submissions.sort(this.sortByDateFunction).map(submission => html`
+              <div style="padding: 5px;">
+                <bcg-submission-card
+                .submission=${submission}
+                ></bcg-submission-card>
+              </div>`)}
+            </div>
+          </bcg-tab-panel>
         </lion-tabs>
       </div>
     `;

@@ -11,7 +11,7 @@ export class BcgCard extends LionCalendar {
           border-radius: 5px;
           box-shadow: 0 0 2px #ccc;
           display: inline-block;
-          padding: 5px;
+          width: 100%;
         }
       `
     ];
