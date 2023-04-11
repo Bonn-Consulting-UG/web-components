@@ -709,7 +709,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
-            <div style="display: grid;grid-template-columns: 50% 50%; height: 100%">
+            <div class="list-grid">
               ${this.submissions.sort(this.sortByDateFunction).map(submission => html`
               <div style="padding: 5px;">
                 <bcg-submission-card

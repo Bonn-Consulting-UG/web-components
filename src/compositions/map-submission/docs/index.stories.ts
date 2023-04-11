@@ -22,7 +22,7 @@ interface ArgTypes {
 
 const DefaultTemplate: Story<ArgTypes> = () =>
   html`
-    <div style="width: 1000px; height: 800px">
+    <div style="width: 100%; height: 800px">
       <bcg-map-submission
         mapAccessToken=${token}
         moduleId="3275cc46-38da-4033-a281-acedadc93db6"

@@ -13,8 +13,13 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
   static get styles() {
     return [
       css`
+      .card {
+        max-width: 500px;
+      }
+
       .content-wrapper {
         padding: 10px;
+        max-width: 500px;
       }
 
       .text-container {
@@ -42,7 +47,11 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
 
       .reactions-container {
         display: flex;
-        justify-content: space-between;
+        align-items: center;
+      }
+
+      .comment {
+        display: flex;
         align-items: center;
       }
 
@@ -51,6 +60,16 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
         height: 18px;
         margin-left: 20px;
         margin-right: 10px
+      }
+
+      @media screen and (max-width:500px) {
+        .actions-container {
+          display: block;
+        }
+
+        .submission-button {
+          width: 100%;
+        }
       }
       `
     ];
@@ -67,7 +86,7 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
 
   render() {
     return html`
-    <bcg-card>
+    <bcg-card class="card">
       <slot name="content">
         <div class="content-wrapper">
           <div class="text-container">
@@ -77,13 +96,15 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
           </div>
 
           <div class="actions-container">
-            <bcg-button variant="primary">${this.buttonLabel}</bcg-button>
+            <bcg-button class="submission-button" variant="primary">${this.buttonLabel}</bcg-button>
             <div class="reactions-container">
-              <lion-icon
-              class="comment-icon"
-              icon-id="bcg:comments:comment"
-              ></lion-icon>
-              <span style="margin-right: 20px">${this.submission?._count?.comments}</span>
+              <div class="comment">
+                <lion-icon
+                class="comment-icon"
+                icon-id="bcg:comments:comment"
+                ></lion-icon>
+                <span style="margin-right: 20px">${this.submission?._count?.comments}</span>
+              </div>
               <bcg-idea-reaction likeCount=${this.submission?._count?.likes} dislikeCount=${this.submission?._count?.dislikes}></bcg-idea-reaction>
             </div>
           </div>
