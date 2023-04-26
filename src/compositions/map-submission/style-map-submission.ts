@@ -152,6 +152,10 @@ export const mapSubmissionStyle = css
     height: 100%";
 }
 
+.submission-permission-hint {
+    float: right;
+}
+
 @media screen and (max-width:1010px) {
     .list-grid {
         grid-template-columns: 100%;

@@ -6,7 +6,8 @@ import {
   sendGetNewAccessTokenRequest,
   sendLoginRequest,
 } from '../../utils/services/login';
-import { getModule } from '../../utils/services/module';
+import { testResp } from './testIAMResponse';
+import { getModule, getPermissions } from '../../utils/services/module';
 import { thumbsdown } from '../icon/export-comment-icons';
 
 export class BcgModule extends LitElement {
@@ -72,6 +73,10 @@ export class BcgModule extends LitElement {
     console.log('close dialog in module');
 
   @property({ type: LitElement || null }) dialogHtml: any = null;
+
+  // Permissions
+  @property({ type: Boolean }) canViewSubmissions = false;
+  @property({ type: Boolean }) canCreateSubmissions = false;
 
   checkAuthToken() {
     if (
@@ -158,10 +163,33 @@ export class BcgModule extends LitElement {
     }
   }
 
+  async fetchPermissions() {
+    /*
+    this.user = 'franz.moderator@example.org'
+    if  (!this.user) {
+      return;
+    }
+    const resp = await getPermissions()
+    return resp.json();
+    */
+    return testResp;
+  }
+
+  async loadPermissions() {
+    const allowKey = 'EFFECT_ALLOW';
+    const resp = await this.fetchPermissions();
+    const submissionPermissions = resp?.results.find(permission => permission.resource.kind === 'epart-submission')?.actions;
+    this.canViewSubmissions = submissionPermissions.view === allowKey;
+    this.canCreateSubmissions = submissionPermissions.create === allowKey;
+    console.log('Can view Submissions: ', this.canViewSubmissions);
+    console.log('Can create Submissions: ',this.canCreateSubmissions);
+  }
+
   connectedCallback() {
     this.loadConfig();
     this.checkAuthToken();
     this.setupLoggedinUser();
+    this.loadPermissions();
     super.connectedCallback();
     console.log(this.isLoggedIn);
   }

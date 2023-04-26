@@ -11,6 +11,7 @@ const getApiUrl = () => {
 };
 
 const baseURLwithApiVersion = `${getApiUrl()}/${APIVersion}`;
+const iamUrl = `https://iam-api.ifok.digital`;
 
 // Login/User
 export const registerEndpoint = `${baseURLwithApiVersion}/register`;
@@ -36,6 +37,10 @@ export const changeUserDataEndpoint = (userID: string) =>
 
 export const checkVerifyCodeEndpoint = (userID: string) =>
   `${baseURLwithApiVersion}/users/${userID}/verify`;
+
+// IAM / Cerbos (Permissions)
+export const getCheckResourcesEndpoint = () =>
+  `${iamUrl}/api/check/resources`;
 
 // Forms
 export const contactSubmissionEndpoint = (moduleID: any) =>

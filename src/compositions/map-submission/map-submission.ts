@@ -79,11 +79,14 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   }
 
   firstUpdated(changed: any) {
-    this.fetchSubmissions().then(res => {
-      this.submissions = res.results.filter(
-        (submission: any) => submission.points?.length >= 1
-      );
-    });
+    this.showCreateSubmissionButton = this.canCreateSubmissions;
+    if (this.canViewSubmissions) {
+      this.fetchSubmissions().then(res => {
+        this.submissions = res.results.filter(
+          (submission: any) => submission.points?.length >= 1
+        );
+      });
+    }
     super.firstUpdated(changed);
   }
 
@@ -320,9 +323,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
               ${this.createSubmissionButtonLabel}
             </div>
           </bcg-button>
-        ` : ``}
+        ` : !this.isLoggedIn ? html
+          `<div class="submission-permission-hint">Sie müssen angemeldet sein, um sich beteiligen zu können</div>` 
+          : ``}
 
-        ${this.currentTabIndex === 1 ? html`
+        ${this.currentTabIndex === 1 && this.canViewSubmissions ? html`
           <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
           <div style="margin-right: 5px">${this.sortBy === 'newest' ? 'Neuste zuerst' : 'Älteste zuerst'}</div>
           <lion-icon
@@ -710,12 +715,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
             <div class="list-grid">
-              ${this.submissions.sort(this.sortByDateFunction).map(submission => html`
+              ${this.canViewSubmissions ? this.submissions.sort(this.sortByDateFunction).map(submission => html`
               <div style="padding: 5px;">
                 <bcg-submission-card
                 .submission=${submission}
                 ></bcg-submission-card>
-              </div>`)}
+              </div>`) : `Sie haben keine Berechtigung um Hinweise zu sehen`}
             </div>
           </bcg-tab-panel>
         </lion-tabs>
