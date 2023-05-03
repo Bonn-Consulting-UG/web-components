@@ -79,14 +79,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   }
 
   firstUpdated(changed: any) {
-    this.showCreateSubmissionButton = this.canCreateSubmissions;
-    if (this.canViewSubmissions) {
-      this.fetchSubmissions().then(res => {
-        this.submissions = res.results.filter(
-          (submission: any) => submission.points?.length >= 1
-        );
-      });
-    }
+    this.fetchSubmissions().then(res => {
+      this.submissions = res.results.filter(
+        (submission: any) => submission.points?.length >= 1
+      );
+    });
     super.firstUpdated(changed);
   }
 
@@ -103,6 +100,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   };
 
   updated(changed: any) {
+    this.showCreateSubmissionButton = this.isRegistrationRequiredToCreateSubmissions ? !!this.isLoggedIn : true;
     this.stepper = this.renderRoot.querySelector('.stepper') as any; 
     const wrapperElement = this.renderRoot.querySelector('.wrapper');
     if (!this.geocoder) {
@@ -305,29 +303,26 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         type="text/css"
       />
       <div class="wrapper">
-        ${this.showCreateSubmissionButton ? html`
-          <bcg-button
-            variant="primary"
-            class="submission-button"
-            @click=${() => {
-              this.showOverlay = true;
-              this.showLayerContent = false;
-              this.currentTabIndex = 0;
-            }}
-          >
-            <div>
-              <lion-icon
-                class="button-icon"
-                icon-id="bcg:general:edit"
-              ></lion-icon>
-              ${this.createSubmissionButtonLabel}
-            </div>
-          </bcg-button>
-        ` : !this.isLoggedIn ? html
-          `<div class="submission-permission-hint">Sie müssen angemeldet sein, um sich beteiligen zu können</div>` 
-          : ``}
+        ${this.createSubmissionHtml(html`<bcg-button
+        variant="primary"
+        class="submission-button"
+        @click=${() => {
+          this.showOverlay = true;
+          this.showLayerContent = false;
+          this.currentTabIndex = 0;
+        }}
+      >
+        <div>
+          <lion-icon
+            class="button-icon"
+            icon-id="bcg:general:edit"
+          ></lion-icon>
+          ${this.createSubmissionButtonLabel}
+        </div>
+      </bcg-button>
+      `)}
 
-        ${this.currentTabIndex === 1 && this.canViewSubmissions ? html`
+        ${this.currentTabIndex === 1 ? html`
           <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
           <div style="margin-right: 5px">${this.sortBy === 'newest' ? 'Neuste zuerst' : 'Älteste zuerst'}</div>
           <lion-icon
@@ -715,12 +710,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
             <div class="list-grid">
-              ${this.canViewSubmissions ? this.submissions.sort(this.sortByDateFunction).map(submission => html`
+              ${this.submissions.sort(this.sortByDateFunction).map(submission => html`
               <div style="padding: 5px;">
                 <bcg-submission-card
                 .submission=${submission}
                 ></bcg-submission-card>
-              </div>`) : `Sie haben keine Berechtigung um Hinweise zu sehen`}
+              </div>`)}
             </div>
           </bcg-tab-panel>
         </lion-tabs>

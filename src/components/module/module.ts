@@ -1,6 +1,6 @@
 import { html, LitElement, property } from '@lion/core';
 import jwtDecode from 'jwt-decode';
-import { PropertyValueMap } from 'lit';
+import { PropertyValueMap, TemplateResult } from 'lit';
 import { getSubmission } from '../../utils/services/comments';
 import {
   sendGetNewAccessTokenRequest,
@@ -75,8 +75,14 @@ export class BcgModule extends LitElement {
   @property({ type: LitElement || null }) dialogHtml: any = null;
 
   // Permissions
-  @property({ type: Boolean }) canViewSubmissions = false;
-  @property({ type: Boolean }) canCreateSubmissions = false;
+  @property({ type: Boolean }) isRegistrationRequiredToCreateSubmissions = true;
+  @property({ type: LitElement || null }) createSubmissionHtml = (content: TemplateResult): any => {
+    if (!this.isRegistrationRequiredToCreateSubmissions || (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn)) {
+      return content;
+    } else {
+      return html`<div class="submission-permission-hint">Sie müssen angemeldet sein, um sich beteiligen zu können</div>`;
+    }
+  }
 
   checkAuthToken() {
     if (
@@ -161,35 +167,13 @@ export class BcgModule extends LitElement {
       this.config = await getSubmission(this.submissionId);
       console.table(this.config);
     }
-  }
-
-  async fetchPermissions() {
-    /*
-    this.user = 'franz.moderator@example.org'
-    if  (!this.user) {
-      return;
-    }
-    const resp = await getPermissions()
-    return resp.json();
-    */
-    return testResp;
-  }
-
-  async loadPermissions() {
-    const allowKey = 'EFFECT_ALLOW';
-    const resp = await this.fetchPermissions();
-    const submissionPermissions = resp?.results.find(permission => permission.resource.kind === 'epart-submission')?.actions;
-    this.canViewSubmissions = submissionPermissions.view === allowKey;
-    this.canCreateSubmissions = submissionPermissions.create === allowKey;
-    console.log('Can view Submissions: ', this.canViewSubmissions);
-    console.log('Can create Submissions: ',this.canCreateSubmissions);
+    this.isRegistrationRequiredToCreateSubmissions = this.config.config?.isRegistrationRequired;
   }
 
   connectedCallback() {
     this.loadConfig();
     this.checkAuthToken();
     this.setupLoggedinUser();
-    this.loadPermissions();
     super.connectedCallback();
     console.log(this.isLoggedIn);
   }
