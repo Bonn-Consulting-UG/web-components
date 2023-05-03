@@ -6,8 +6,7 @@ import {
   sendGetNewAccessTokenRequest,
   sendLoginRequest,
 } from '../../utils/services/login';
-import { testResp } from './testIAMResponse';
-import { getModule, getPermissions } from '../../utils/services/module';
+import { getModule } from '../../utils/services/module';
 import { thumbsdown } from '../icon/export-comment-icons';
 
 export class BcgModule extends LitElement {

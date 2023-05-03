@@ -3,7 +3,6 @@ import {
   faqSubmissionEndpoint,
   ideaSubmissionEndpoint,
   getModuleEndpoint,
-  getCheckResourcesEndpoint,
 } from './config';
 
 export const sendContactSubmissionRequest = async (
@@ -104,21 +103,3 @@ export const updateModule = async (moduleID: any, updatedData: any) => {
     return err;
   }
 };
-
-
-export const getPermissions = async(payload: any) => {
-  try {
-    const fetchOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    };
-    const resp = await fetch(getCheckResourcesEndpoint(), fetchOptions);
-    return resp.json();
-  } catch (err) {
-    console.error(err);
-    return err;
-  }
-}
