@@ -91,7 +91,11 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
                 </div>
       
                 <div class="actions-container">
-                  <bcg-button variant="primary">Zum Hinweis</bcg-button>
+                  <a
+                  href=${window.origin + '/submission/' + submission?.id}
+                  target="_blank">
+                    <bcg-button variant="primary">Zum Hinweis</bcg-button>
+                  </a>
                   <div class="reactions-container">
                     <lion-icon
                     class="comment-icon"

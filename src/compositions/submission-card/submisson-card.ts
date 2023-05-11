@@ -96,7 +96,13 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
           </div>
 
           <div class="actions-container">
-            <bcg-button class="submission-button" variant="primary">${this.buttonLabel}</bcg-button>
+            <a
+            href=${window.origin + '/submission/' + this.submission?.id}
+            target="_blank">
+              <bcg-button
+              class="submission-button"
+              variant="primary">${this.buttonLabel}</bcg-button>
+            </a>
             <div class="reactions-container">
               <div class="comment">
                 <lion-icon
