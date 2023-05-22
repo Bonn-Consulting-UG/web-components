@@ -20,9 +20,7 @@ export class BcgTextarea extends LionTextarea {
           color: var(--primary-color);
           border: var(--border-xs) solid var(--neutral-color-500);
         }
-        :host .form-field__label ::slotted(label) {
-          color: var(--primary-color);
-        }
+
         :host .form-field__help-text ::slotted(div) {
           color: var(--neutral-color-500) !important;
         }
@@ -39,6 +37,9 @@ export class BcgTextarea extends LionTextarea {
         }
         .no-label {
           // top: calc(80% - 10px);
+        }
+        :host .form-field__feedback {
+          color: var(--alert-color-error);
         }
       `,
     ];

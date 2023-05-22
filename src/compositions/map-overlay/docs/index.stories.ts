@@ -23,7 +23,7 @@ const DefaultTemplate: Story<ArgTypes> = () =>
   html`
       <div style="width: 800px; height: 600px">
         <bcg-map-overlay
-          accessToken=${token}
+          mapAccessToken=${token}
           actionButtonLabel="Open Overlay"
           initialZoom="8"
           .initialPosition=${[-70.94416, 43.46633]}

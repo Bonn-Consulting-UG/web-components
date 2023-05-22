@@ -5,6 +5,7 @@ export const testLayers: LayerData[] = [
       id: '12345',
       category: "Kategorie 1",
       label: "Layer 1",
+      color: 'red',
       sourceData: {
         type: 'geojson',
         data: {

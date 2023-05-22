@@ -3,6 +3,9 @@ import { css } from "@lion/core";
 export const mapSubmissionStyle = css
 `
 .wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .submission-button {
@@ -83,6 +86,13 @@ export const mapSubmissionStyle = css
     padding-left: 1em;
 }
 
+.pin-info-text {
+    color: var(--neutral-color-600);
+    font-size: 0.8em;
+    line-height: 1.6em;
+    margin-bottom: 0.2em;
+}
+
 .marker-icon {
     width: 27px;
     height: 41px;
@@ -127,4 +137,42 @@ export const mapSubmissionStyle = css
     margin-bottom: -4px;
 }
 
+.sort-button {
+    float: right;
+    margin-right: 20px;
+    border: none;
+    box-shadow: none;
+    cursor: pointer
+}
+
+.list-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 500px 500px;
+    height: 100%";
+}
+
+@media screen and (max-width:1010px) {
+    .list-grid {
+        grid-template-columns: 100%;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .submission-button {
+        float: unset;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .sort-button {
+        float: unset;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .tab-button {
+        width: 50%;
+    }
+}
 `

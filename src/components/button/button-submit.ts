@@ -9,22 +9,36 @@ export class BcgButtonSubmit extends LionButtonSubmit {
       ...super.styles,
       css`
         :host {
-          background-color: var(--secondary-color);
-          border-radius: var(--border-radius-l);
-          font-family: var(--primary-body-medium-L);
-          color: var(--primary-color);
-          padding: ${unsafeCSS(buttoPadding)};
+          display: inline-block;
+          font-family: var(--primary-button-default-L-font-family);
+          font-size: var(--primary-button-default-L-font-size);
+          font-weight: var(--primary-button-default-L-font-weight);
+          color: var(--primary-button-default-L-foreground-color);
+          line-height: var(--button-line-height);
+          background-color: var(--primary-button-default-L-background-color);
+          border: var(--primary-button-default-L-border);
+          border-radius: var(--primary-button-default-L-border-radius);
+          padding: var(--primary-button-default-L-inner-spacing);
         }
         :host(:hover) {
-          box-shadow: var(--core-shadow-plus-10);
-          background-color: var(--secondary-color);
+          background-color: var(--primary-button-default-L-background-color);
+          /* States contain default state fallback value*/
+          font-family: var(
+            --primary-button-hover-L-font-family,
+            var(--primary-default-hover-L-font-family)
+          );
+          font-size: var(
+            --primary-button-hover-L-font-size,
+            var(--primary-default-hover-L-font-size)
+          );
+          /* ... usw. */
+          /* Only Values that changed need to be defined in global.css*/
+          box-shadow: var(
+            --primary-button-hover-L-box-shadow,
+            var(--primary-button-default-L-box-shadow)
+          );
         }
-        :host(:active) {
-          background-color: var(--secondary-color-600);
-        }
-        :host([variant='primary']:focused) {
-        }
-      `
+      `,
     ];
   }
 }

@@ -17,7 +17,7 @@ const token = 'pk.eyJ1IjoiY2hhbXBlbHRhIiwiYSI6ImNsZHN4M3hybzB3cWgzb3BmZTR5dTR4NG
 const Template: Story<ArgTypes> = () =>
   html`
   <div style="width: 800px; height: 600px;"> 
-    <bcg-interactive-map accessToken=${token} overlayButtonLabel="Fachkarten" ></bcg-interactive-map>
+    <bcg-interactive-map mapAccessToken=${token} overlayButtonLabel="Fachkarten" ></bcg-interactive-map>
   </div>`;
 
 export const Default = Template.bind({});
