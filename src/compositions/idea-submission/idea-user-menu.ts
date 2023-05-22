@@ -15,6 +15,8 @@ import { PropertyValueMap } from 'lit';
 import { LionIcon } from '@lion/icon';
 
 export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
+  onCancelLabel = 'Abbrechen';
+  onConfirmLabel = 'Speichern';
   @property() title = this.config?.name;
   @property() content = this.config?.content;
   onEditHandler() {

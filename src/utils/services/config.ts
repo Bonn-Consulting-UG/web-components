@@ -47,6 +47,12 @@ export const faqSubmissionEndpoint = (moduleID: any) =>
 export const ideaSubmissionEndpoint = (moduleID: any) =>
   `${baseURLwithApiVersion}/submissions/idea`;
 
+export const mapSubmissionEndpoint = (moduleID: any) =>
+`${baseURLwithApiVersion}/submissions/map`;
+
+export const getSubmissionsEndpointforModule = (submissionId: number) =>
+  `${baseURLwithApiVersion}/modules/${submissionId}/submissions`;
+  
 export const getSubmissionsEndpoint = (submissionId: number) =>
   `${baseURLwithApiVersion}/submissions/${submissionId}`;
 
@@ -96,3 +102,7 @@ export const getCommentReactionWithIdEndpoint = (
 export const reactionEndPoint = `${baseURLwithApiVersion}/reactions`;
 export const reactionDelteEndPoint = (reactionId: number) =>
   `${baseURLwithApiVersion}/reactions/${reactionId}`;
+
+// Mapbox
+export const getReverseGeocodingEndpoint = (longitude: number, latitude: number, accessToken: string) => 
+  `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`;

@@ -1,7 +1,14 @@
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
+import {
+  html,
+  css,
+  LitElement,
+  ScopedElementsMixin,
+  property,
+} from '@lion/core';
 
 export class BcgPasswordResetFinished extends ScopedElementsMixin(LitElement) {
-  nextStep: any;
+  @property({ type: Function }) changeContext: any = () =>
+    console.log('back default');
 
   static get properties() {
     return {
@@ -22,7 +29,7 @@ export class BcgPasswordResetFinished extends ScopedElementsMixin(LitElement) {
           Sie können Sich jetzt mit Ihrem neuen Password anmelden.
         </h2>
       </div>
-      <bcg-button-submit @click="${() => this.nextStep()}"
+      <bcg-button-submit @click="${this.changeContext}"
         >Anmelden</bcg-button-submit
       >
     `;

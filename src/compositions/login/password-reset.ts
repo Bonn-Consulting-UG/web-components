@@ -63,7 +63,7 @@ export class BcgPasswordReset extends ScopedElementsMixin(BcgModule) {
       }
       this.currentStep += 1;
     } else {
-      console.log('close Dialog');
+      this.back();
     }
   };
 
@@ -94,6 +94,7 @@ export class BcgPasswordReset extends ScopedElementsMixin(BcgModule) {
         : null}
       ${currentStep === 3
         ? html`<bcg-password-reset-finished
+            .changeContext=${this.back}
             .nextStep=${this.nextStep}
           ></bcg-password-reset-finished> `
         : null}

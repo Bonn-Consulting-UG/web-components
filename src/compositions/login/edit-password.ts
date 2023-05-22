@@ -78,6 +78,9 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
                   name="password"
                   .modelValue=${this.password}
                   .validators=${[new Required()]}
+                  @model-value-changed=${({ target }: any) => {
+                    this.password = target.value;
+                  }}
                 ></bcg-input-password>
 
                 <bcg-fieldset
@@ -90,6 +93,9 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
                     name="password"
                     .modelValue=${this.newPassword}
                     .validators=${[new Required()]}
+                    @model-value-changed=${({ target }: any) => {
+                      this.newPassword = target.value;
+                    }}
                   ></bcg-input-password>
 
                   <bcg-input-password
@@ -98,6 +104,9 @@ export class BcgEditPassword extends ScopedElementsMixin(BcgModule) {
                     name="passwordrepeat"
                     .modelValue=${this.passwordRepeat}
                     .validators=${[new Required()]}
+                    @model-value-changed=${({ target }: any) => {
+                      this.passwordRepeat = target.value;
+                    }}
                   ></bcg-input-password>
                 </bcg-fieldset>
               `}

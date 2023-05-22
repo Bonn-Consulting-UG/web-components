@@ -23,6 +23,9 @@ const TemplateProfile: Story<ArgTypes> = () =>
 const TemplateUserMenu: Story<ArgTypes> = () =>
   html` <bcg-user-menu></bcg-user-menu> `;
 
+const PasswordReset: Story<ArgTypes> = () =>
+  html` <bcg-password-reset></bcg-password-reset> `;
+
 const TemplateVerify: Story<ArgTypes> = () => html` <bcg-verify></bcg-verify> `;
 
 const Login = TemplateLogin.bind({});
@@ -30,9 +33,10 @@ const Profile = TemplateProfile.bind({});
 const Register = TemplateRegister.bind({});
 const UserMenu = TemplateUserMenu.bind({});
 const UserVerify = TemplateVerify.bind({});
+const PWR = PasswordReset.bind({});
 
 Login.args = {};
 Register.args = {};
 Profile.args = {};
 
-export { Login, Register, Profile, UserMenu, UserVerify };
+export { Login, Register, Profile, UserMenu, UserVerify, PWR };

@@ -20,26 +20,26 @@ export class BcgTextarea extends LionTextarea {
           color: var(--primary-color);
           border: var(--border-xs) solid var(--neutral-color-500);
         }
-        :host .form-field__label ::slotted(label) {
-          color: var(--primary-color);
-        }
+
         :host .form-field__help-text ::slotted(div) {
           color: var(--neutral-color-500) !important;
         }
         .counter {
           position: absolute;
           right: 10px;
-          top: 75%;
         }
 
         .counter-wrapper {
           position: relative;
         }
         .counter-with-feedback {
-          top: calc(80% - 22px) !important;
+          bottom: 0px;
         }
         .no-label {
-          top: calc(80% - 10px);
+          // top: calc(80% - 10px);
+        }
+        :host .form-field__feedback {
+          color: var(--alert-color-error);
         }
       `,
     ];
@@ -53,13 +53,13 @@ export class BcgTextarea extends LionTextarea {
     return html`<div class="counter-wrapper">
       ${super.render()}
 
-      <span
+      <div
         class="counter ${this.hasFeedbackFor.length > 0 && this.touched
           ? 'counter-with-feedback'
           : null} ${this.label ? null : 'no-label'}"
       >
         ${this.count}
-      </span>
+      </div>
     </div> `;
   }
 }

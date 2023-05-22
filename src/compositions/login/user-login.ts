@@ -25,9 +25,11 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
 
   moduleId: number = 0;
 
-  onPasswordReset: any = () => console.log(this);
+  @property({ type: String }) onPasswordReset: any = () => console.log('');
 
   @property({ type: String }) email: string = '';
+
+  @property({ type: Boolean }) disablePasswordReset: boolean = false;
 
   @property({ type: String }) password: string = '';
 
@@ -76,7 +78,14 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
             : null}
           ${this.isLoading
             ? html`<bcg-progress></bcg-progress>`
-            : html`<h1>Willkommen zurück!</h1>
+            : html`
+            
+          ${
+            !this.disablePasswordReset
+              ? html`<h1>Willkommen zurück!</h1>`
+              : null
+          }
+            
                 <h2>Anmeldung</h2>
                 <bcg-form name="loginform" @submit="${(ev: any) =>
                   submitHandler(ev)}">
@@ -113,17 +122,20 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
                       style="display:flex;margin-top:20px;justify-content: space-between;"
                     >        
               <bcg-button-submit>Anmelden</bcg-button-submit>
-
-                      <a
-                      href
-                      style="display: flex;
-                      align-items: center;"
-                      onclick="return false"
+                ${
+                  !this.disablePasswordReset
+                    ? html` <a
+                        href
+                        style="display: flex;
+                        align-items: center;"
+                        onclick="return false"
                         @click=${onPasswordReset}
                         @keydown=${onPasswordReset}
-
                         >Passwort zurücksetzen</a
-                      >
+                      >`
+                    : null
+                }
+                     
                     </div>
                   </form></bcg-formw
                 >`}

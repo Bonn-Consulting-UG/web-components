@@ -55,6 +55,10 @@ export class BcgModule extends LitElement {
 
   @property({ type: Boolean }) isLoading: Boolean = false;
 
+  @property({ type: String }) onConfirmLabel: string = 'Ja';
+
+  @property({ type: String }) onCancelLabel: string = 'Nein';
+
   @property({ type: Boolean }) dialogContent: any = 'Test';
 
   @property() loadingHtml: any = this.isLoading
@@ -81,7 +85,6 @@ export class BcgModule extends LitElement {
 
   update(changedProperties: any) {
     this.updateDialog();
-
     super.update(changedProperties);
   }
 
@@ -91,6 +94,8 @@ export class BcgModule extends LitElement {
       .onCloseHandler=${this.closeHandler}
       .showDialog=${this.showDialog}
       .content=${this.dialogContent}
+      .onConfirmLabel=${this.onConfirmLabel}
+      .onCancelLabel=${this.onCancelLabel}
     ></bcg-dialog>`;
   }
 
@@ -100,15 +105,16 @@ export class BcgModule extends LitElement {
   };
 
   setupLoggedinUser() {
-    localStorage.getItem('accessToken');
     this.user = this.accessToken ? jwtDecode(this.accessToken) : null;
-
     if (this.user) {
       if (Date.now() >= this.user.exp * 1000) {
         this.getNewAccessToken();
       }
-      this.isLoggedIn = true;
+      if (Date.now() <= this.user.exp * 1000) {
+        this.isLoggedIn = true;
+      }
     }
+    console.log(this.user);
   }
 
   async getNewAccessToken() {
@@ -119,7 +125,9 @@ export class BcgModule extends LitElement {
       const response: any = await sendGetNewAccessTokenRequest(
         this.refreshToken
       );
-
+      if (response.accessToken) {
+        this.isLoggedIn = true;
+      }
       localStorage.setItem('accessToken', response.accessToken);
       localStorage.setItem('refreshToken', response.refreshToken);
     }
@@ -152,8 +160,9 @@ export class BcgModule extends LitElement {
 
   connectedCallback() {
     this.loadConfig();
-    super.connectedCallback();
     this.checkAuthToken();
     this.setupLoggedinUser();
+    super.connectedCallback();
+    console.log(this.isLoggedIn);
   }
 }

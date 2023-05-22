@@ -15,9 +15,13 @@ export default {
 const Template: Story<ArgTypes> = () =>
   html`
     <bcg-card
+    style="width: 300px;"
       ><slot name="content"
-        ><p>Hello</p>
-        <bcg-input label="Testinput" placeholder="123"></bcg-input></slot
+        ><div style="padding: 5px;">
+          <p>Hello</p>
+          <bcg-input label="Testinput" placeholder="123"></bcg-input>
+        </div>
+      </slot
     ></bcg-card>
   `;
 

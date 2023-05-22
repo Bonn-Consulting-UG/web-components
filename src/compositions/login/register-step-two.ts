@@ -51,7 +51,7 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup
+      'bcg-checkbox-group': BcgCheckboxGroup,
     };
   }
 
@@ -124,6 +124,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 placeholder=""
                 .validators=${[new Required()]}
                 .modelValue="${password}"
+                @model-value-changed=${({ target }: any) => {
+                  password = target.value;
+                }}
               >
               </bcg-input-password>
 
@@ -133,6 +136,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 placeholder=""
                 .validators=${[new Required()]}
                 .modelValue="${passwordrepeat}"
+                @model-value-changed=${({ target }: any) => {
+                  passwordrepeat = target.value;
+                }}
               ></bcg-input-password>
             </bcg-fieldset>
             <bcg-checkbox-group
@@ -143,11 +149,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
                 .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung. *'}
                 ><p slot="label">
                   Ich akzeptiere die
-                  <a href="https://iwbk-nonprod.ifok.digital/netiquette"
-                    >Netiquette</a
-                  >
+                  <a target="”_blank”" href="/netiquette">Netiquette</a>
                   und die
-                  <a href="https://iwbk-nonprod.ifok.digital/datenschutz"
+                  <a target="”_blank”" href="/datenschutz"
                     >Datenschutzerklärung</a
                   >
                 </p></bcg-checkbox

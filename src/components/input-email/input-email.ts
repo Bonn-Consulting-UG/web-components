@@ -4,7 +4,14 @@ import { BcgInput } from '../input/input';
 
 export class BcgInputEmail extends BcgInput {
   static get styles() {
-    return [...super.styles, css``];
+    return [
+      ...super.styles,
+      css`
+        :host .form-field__feedback {
+          color: var(--alert-color-error);
+        }
+      `,
+    ];
   }
 
   constructor() {
