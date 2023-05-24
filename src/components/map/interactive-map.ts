@@ -6,7 +6,6 @@ import {
   PropertyValues,
   ScopedElementsMixin,
 } from '@lion/core';
-import { MapMouseEvent } from 'mapbox-gl';
 import { SubmissionCard } from '../../compositions/submission-card/submisson-card';
 import { LayerData } from '../../model/LayerData';
 import { BcgButton } from '../button/button';

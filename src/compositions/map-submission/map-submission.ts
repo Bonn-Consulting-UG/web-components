@@ -18,7 +18,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: Array }) layers: LayerData[] = [];
   @property({ type: Number }) mapHeight = 600;
   @property({ type: String }) createSubmissionButtonLabel = 'Hinweis eingeben';
-  @property({ type: Boolean }) showCreateSubmissionButton = true;
   @property({ type: Boolean }) showOverlayButton = true;
 
   // map-overlay properties
@@ -100,7 +99,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   };
 
   updated(changed: any) {
-    this.showCreateSubmissionButton = this.isRegistrationRequiredToCreateSubmissions ? !!this.isLoggedIn : true;
     this.stepper = this.renderRoot.querySelector('.stepper') as any; 
     const wrapperElement = this.renderRoot.querySelector('.wrapper');
     if (!this.geocoder) {
@@ -221,7 +219,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             ? `Bearer ${localStorage.getItem('accessToken')}`
             : '',
         },
-        body: this.isLoggedIn
+        body: this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed)
           ? JSON.stringify({
               description: this.currentMapSubmission.description,
               title: this.currentMapSubmission.title,
@@ -468,7 +466,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                           </div>
                         </div>
                         <div class="step-navigation">
-                          ${this.isLoggedIn ? '1/2' : '1/3'}
+                          ${this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed) ? '1/2' : '1/3'}
                           <bcg-button
                           variant="primary"
                           .disabled=${
@@ -491,7 +489,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                 'error'
                               )
                             ) {
-                              this.isLoggedIn
+                              this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed)
                                 ? await this.submitSubmission()
                                 : null;
                               this.stepper?.next();
@@ -542,7 +540,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                         <
                       </bcg-button>
 
-                          ${this.isLoggedIn ? '2/2' : '2/3'}
+                          ${this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed) ? '2/2' : '2/3'}
                           <bcg-button
                       variant="primary"
                       .disabled=${
@@ -558,7 +556,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                       </lion-step>
 
                       ${
-                        !this.isLoggedIn
+                        !this.isLoggedIn && !this.isHiddenUserAllowed
                           ? html`
                               <lion-step class="submission-step">
                                 <div class="step-content">

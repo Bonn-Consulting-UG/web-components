@@ -90,7 +90,11 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
       <slot name="content">
         <div class="content-wrapper">
           <div class="text-container">
-            <p class="creator-text">${this.submission?.firstName} ${this.submission?.lastName}</p>
+            <p class="creator-text">
+            ${(!this.submission?.firstName && !this.submission?.lastName)
+              ? 'Anonym'
+              : `${this.submission?.firstName} ${this.submission?.lastName}`}
+            </p>
             <p class="creator-text">${new Date(this.submission?.createdAt ?? '').toLocaleDateString()}</p>
             <p class="title-text">${this.submission?.title}</p>
           </div>
