@@ -19,6 +19,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: Number }) mapHeight = 600;
   @property({ type: String }) createSubmissionButtonLabel = 'Hinweis eingeben';
   @property({ type: Boolean }) showOverlayButton = true;
+  @property({ type: Boolean }) showCreateSubmissionButton = true;
 
   // map-overlay properties
   @property({ type: String }) actionButtonLabel = 'Open Overlay';
@@ -301,24 +302,25 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         type="text/css"
       />
       <div class="wrapper">
-        ${this.createSubmissionHtml(html`<bcg-button
-        variant="primary"
-        class="submission-button"
-        @click=${() => {
-          this.showOverlay = true;
-          this.showLayerContent = false;
-          this.currentTabIndex = 0;
-        }}
-      >
-        <div>
-          <lion-icon
-            class="button-icon"
-            icon-id="bcg:general:edit"
-          ></lion-icon>
-          ${this.createSubmissionButtonLabel}
-        </div>
-      </bcg-button>
-      `)}
+        ${this.showCreateSubmissionButton ? 
+          this.createSubmissionHtml(html`<bcg-button
+          variant="primary"
+          class="submission-button"
+          @click=${() => {
+            this.showOverlay = true;
+            this.showLayerContent = false;
+            this.currentTabIndex = 0;
+          }}
+        >
+          <div>
+            <lion-icon
+              class="button-icon"
+              icon-id="bcg:general:edit"
+            ></lion-icon>
+            ${this.createSubmissionButtonLabel}
+          </div>
+        </bcg-button>
+        `) : ``}
 
         ${this.currentTabIndex === 1 ? html`
           <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
