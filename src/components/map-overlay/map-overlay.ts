@@ -1,9 +1,9 @@
-import { html, property, ScopedElementsMixin } from '@lion/core';
-import { BcgModule } from '../../components/module';
+import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
+import { BcgModule } from '../module';
 import { LayerData } from '../../model/LayerData';
 import { mapOverlayStyle } from './style-map-overlay';
 
-export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
+export class BcgMapOverlay extends ScopedElementsMixin(LitElement) {
   // settable properies
   @property({ type: Boolean }) showActionButton = true;
   @property({ type: String }) actionButtonLabel = 'Action Button';
@@ -46,6 +46,7 @@ export class BcgMapOverlay extends ScopedElementsMixin(BcgModule) {
         ${this.showOverlay
           ? html` <div
               class="overlay-wrapper"
+              style="width: ${this.overlayWidth}"
             >
               <bcg-overlay
                 .closeButtonCallback=${() => this.closeButtonCallback()}

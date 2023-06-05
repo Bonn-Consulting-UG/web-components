@@ -375,65 +375,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                   ${this.showLayerContent
                     ? html`
                         <h2>${this.overlayHeader}</h2>
-                        <bcg-checkbox-group
-                          name="layers"
-                          .modelValue=${this.activeLayers}
-                          @model-value-changed=${(ev: any) => {
-                            this.activeLayers = ev.target.modelValue;
-                            this.requestUpdate();
-                          }}
-                        >
-                          ${this.categories.map(category => {
-                            return html`
-                              <h4
-                                class="category-label"
-                                @click=${() =>
-                                  this.switchCategoryExpandedState(category)}
-                              >
-                                ${category}
-                                <lion-icon
-                                  class="expand-icon"
-                                  icon-id=${this.expandedCategories.includes(
-                                    category
-                                  )
-                                    ? 'bcg:general:collapse'
-                                    : 'bcg:general:expand'}
-                                ></lion-icon>
-                              </h4>
-                              ${this.layers
-                                .filter(
-                                  layer =>
-                                    layer.category === category &&
-                                    this.expandedCategories.includes(category)
-                                )
-                                .map(
-                                  layer => html`
-                                    <bcg-checkbox
-                                      class="layer-option"
-                                      .choiceValue=${layer}
-                                    >
-                                      <span
-                                        slot="label"
-                                        style="position: relative"
-                                      >
-                                        <lion-icon
-                                          class="layer-icon"
-                                          icon-id="bcg:general:layer"
-                                          style="fill: ${layer.color
-                                            ? layer.color
-                                            : '#0080ff'}"
-                                        ></lion-icon>
-                                        <span class="layer-label"
-                                          >${layer.label}</span
-                                        >
-                                      </span>
-                                    </bcg-checkbox>
-                                  `
-                                )}
-                              <div class="separator"></div>
-                            `;
-                          })}
-                        </bcg-checkbox-group>
+                        <bcg-selectable-layers
+                        .layers=${this.layers}
+                        .activeLayersChanged=${(activeLayers: LayerData[]) => {
+                          this.activeLayers = activeLayers;
+                        }}
+                        ></bcg-selectable-layers>
                       `
                     : html`
                     <lion-steps style="height: 100%" class="stepper">
