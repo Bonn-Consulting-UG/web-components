@@ -4,6 +4,6 @@ import { BcgMapOverlay } from './map-overlay';
 import { componentNames } from '../../utils/config';
 
 customElements.define(
-  componentNames.compositions.mapOverlay,
+  componentNames.mapOverlay,
   BcgMapOverlay
 );

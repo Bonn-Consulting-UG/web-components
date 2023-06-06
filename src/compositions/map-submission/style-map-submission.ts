@@ -21,42 +21,6 @@ export const mapSubmissionStyle = css
     padding-right: 20px;
 }
 
-.category-label {
-    cursor: pointer;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.separator {
-    margin-top: 15px;
-    width: 100%;
-    border-bottom: 1px solid var(--background-color-500);
-}
-  
-.expand-icon {
-    width: 12px;
-    height: 12px;
-}
-
-.layer-option {
-    margin-left: -4px;
-    margin-bottom: 6px;
-}
-
-.layer-label {
-    margin-left: 35px;
-}
-
-.layer-icon {
-    position: absolute;
-    left: 5px;
-    top: 0;
-    width: 23px;
-    height: 100%;
-}
-
 .submission-step {
     height: 100%;
 }
@@ -150,6 +114,10 @@ export const mapSubmissionStyle = css
     gap: 10px;
     grid-template-columns: 500px 500px;
     height: 100%";
+}
+
+.submission-permission-hint {
+    float: right;
 }
 
 @media screen and (max-width:1010px) {

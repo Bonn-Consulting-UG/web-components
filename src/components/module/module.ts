@@ -1,6 +1,6 @@
 import { html, LitElement, property } from '@lion/core';
 import jwtDecode from 'jwt-decode';
-import { PropertyValueMap } from 'lit';
+import { PropertyValueMap, TemplateResult } from 'lit';
 import { getSubmission } from '../../utils/services/comments';
 import {
   sendGetNewAccessTokenRequest,
@@ -26,6 +26,7 @@ export class BcgModule extends LitElement {
     localStorage.getItem('accessToken');
 
   @property({ type: Object }) user: any = '';
+  @property({ type: Boolean }) hasModeratorRole = false;
 
   isOpen: any = false;
 
@@ -73,6 +74,24 @@ export class BcgModule extends LitElement {
 
   @property({ type: LitElement || null }) dialogHtml: any = null;
 
+  // Permissions
+  @property({ type: Boolean }) isRegistrationRequiredToCreateSubmissions = true;
+  @property({ type: Boolean }) isHiddenUserAllowed = false;
+  @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
+
+  @property({ type: LitElement || null }) createSubmissionHtml = (content: TemplateResult): any => {
+
+    if (this.isEditOnlyByModeratorAllowed) {
+      return this.hasModeratorRole ? content : html``;
+    }
+
+    if (!this.isRegistrationRequiredToCreateSubmissions || (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn)) {
+      return content;
+    } else {
+      return html`<div class="submission-permission-hint">Sie müssen angemeldet sein, um sich beteiligen zu können</div>`;
+    }
+  }
+
   checkAuthToken() {
     if (
       this.accessToken === undefined ||
@@ -114,6 +133,7 @@ export class BcgModule extends LitElement {
         this.isLoggedIn = true;
       }
     }
+    this.hasModeratorRole = this.user?.realm_access?.roles?.includes('MODERATOR');
     console.log(this.user);
   }
 
@@ -150,12 +170,20 @@ export class BcgModule extends LitElement {
   async loadConfig() {
     if (this.moduleId !== 0 && this.submissionId === 0) {
       this.config = await getModule(this.moduleId);
+      this.assignAccessabilities();
       console.table(this.config);
     }
     if (this.submissionId !== 0 && this.moduleId === 0) {
       this.config = await getSubmission(this.submissionId);
+      this.assignAccessabilities();
       console.table(this.config);
     }
+  }
+
+  assignAccessabilities() {
+    this.isRegistrationRequiredToCreateSubmissions = this.config.config?.isRegistrationRequired;
+    this.isHiddenUserAllowed = this.config.config?.isHiddenUserAllowed;
+    this.isEditOnlyByModeratorAllowed = this.config.config?.isEditOnlyByModeratorAllowed;
   }
 
   connectedCallback() {
@@ -163,6 +191,5 @@ export class BcgModule extends LitElement {
     this.checkAuthToken();
     this.setupLoggedinUser();
     super.connectedCallback();
-    console.log(this.isLoggedIn);
   }
 }

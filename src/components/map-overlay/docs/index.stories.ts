@@ -1,10 +1,10 @@
 import { html } from '@lion/core';
 import { Story } from '../../../model/story-interfaces.js';
 import '../index.js';
-import { token } from '../testAccessToken';
+import { token } from '../testAccessToken.js';
 
 export default {
-  title: 'Compositions/MapOverlay',
+  title: 'Components/MapOverlay',
   component: 'bcg-map-overlay',
   argTypes: {
     content: {},

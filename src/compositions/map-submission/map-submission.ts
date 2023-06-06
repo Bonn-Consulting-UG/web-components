@@ -18,8 +18,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: Array }) layers: LayerData[] = [];
   @property({ type: Number }) mapHeight = 600;
   @property({ type: String }) createSubmissionButtonLabel = 'Hinweis eingeben';
-  @property({ type: Boolean }) showCreateSubmissionButton = true;
   @property({ type: Boolean }) showOverlayButton = true;
+  @property({ type: Boolean }) showCreateSubmissionButton = true;
 
   // map-overlay properties
   @property({ type: String }) actionButtonLabel = 'Open Overlay';
@@ -220,7 +220,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             ? `Bearer ${localStorage.getItem('accessToken')}`
             : '',
         },
-        body: this.isLoggedIn
+        body: this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed)
           ? JSON.stringify({
               description: this.currentMapSubmission.description,
               title: this.currentMapSubmission.title,
@@ -302,25 +302,25 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         type="text/css"
       />
       <div class="wrapper">
-        ${this.showCreateSubmissionButton ? html`
-          <bcg-button
-            variant="primary"
-            class="submission-button"
-            @click=${() => {
-              this.showOverlay = true;
-              this.showLayerContent = false;
-              this.currentTabIndex = 0;
-            }}
-          >
-            <div>
-              <lion-icon
-                class="button-icon"
-                icon-id="bcg:general:edit"
-              ></lion-icon>
-              ${this.createSubmissionButtonLabel}
-            </div>
-          </bcg-button>
-        ` : ``}
+        ${this.showCreateSubmissionButton ? 
+          this.createSubmissionHtml(html`<bcg-button
+          variant="primary"
+          class="submission-button"
+          @click=${() => {
+            this.showOverlay = true;
+            this.showLayerContent = false;
+            this.currentTabIndex = 0;
+          }}
+        >
+          <div>
+            <lion-icon
+              class="button-icon"
+              icon-id="bcg:general:edit"
+            ></lion-icon>
+            ${this.createSubmissionButtonLabel}
+          </div>
+        </bcg-button>
+        `) : ``}
 
         ${this.currentTabIndex === 1 ? html`
           <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
@@ -375,65 +375,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                   ${this.showLayerContent
                     ? html`
                         <h2>${this.overlayHeader}</h2>
-                        <bcg-checkbox-group
-                          name="layers"
-                          .modelValue=${this.activeLayers}
-                          @model-value-changed=${(ev: any) => {
-                            this.activeLayers = ev.target.modelValue;
-                            this.requestUpdate();
-                          }}
-                        >
-                          ${this.categories.map(category => {
-                            return html`
-                              <h4
-                                class="category-label"
-                                @click=${() =>
-                                  this.switchCategoryExpandedState(category)}
-                              >
-                                ${category}
-                                <lion-icon
-                                  class="expand-icon"
-                                  icon-id=${this.expandedCategories.includes(
-                                    category
-                                  )
-                                    ? 'bcg:general:collapse'
-                                    : 'bcg:general:expand'}
-                                ></lion-icon>
-                              </h4>
-                              ${this.layers
-                                .filter(
-                                  layer =>
-                                    layer.category === category &&
-                                    this.expandedCategories.includes(category)
-                                )
-                                .map(
-                                  layer => html`
-                                    <bcg-checkbox
-                                      class="layer-option"
-                                      .choiceValue=${layer}
-                                    >
-                                      <span
-                                        slot="label"
-                                        style="position: relative"
-                                      >
-                                        <lion-icon
-                                          class="layer-icon"
-                                          icon-id="bcg:general:layer"
-                                          style="fill: ${layer.color
-                                            ? layer.color
-                                            : '#0080ff'}"
-                                        ></lion-icon>
-                                        <span class="layer-label"
-                                          >${layer.label}</span
-                                        >
-                                      </span>
-                                    </bcg-checkbox>
-                                  `
-                                )}
-                              <div class="separator"></div>
-                            `;
-                          })}
-                        </bcg-checkbox-group>
+                        <bcg-selectable-layers
+                        .layers=${this.layers}
+                        .activeLayersChanged=${(activeLayers: LayerData[]) => {
+                          this.activeLayers = activeLayers;
+                        }}
+                        ></bcg-selectable-layers>
                       `
                     : html`
                     <lion-steps style="height: 100%" class="stepper">
@@ -468,7 +415,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                           </div>
                         </div>
                         <div class="step-navigation">
-                          ${this.isLoggedIn ? '1/2' : '1/3'}
+                          ${this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed) ? '1/2' : '1/3'}
                           <bcg-button
                           variant="primary"
                           .disabled=${
@@ -491,7 +438,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                 'error'
                               )
                             ) {
-                              this.isLoggedIn
+                              this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed)
                                 ? await this.submitSubmission()
                                 : null;
                               this.stepper?.next();
@@ -542,7 +489,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                         <
                       </bcg-button>
 
-                          ${this.isLoggedIn ? '2/2' : '2/3'}
+                          ${this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed) ? '2/2' : '2/3'}
                           <bcg-button
                       variant="primary"
                       .disabled=${
@@ -558,7 +505,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                       </lion-step>
 
                       ${
-                        !this.isLoggedIn
+                        !this.isLoggedIn && !this.isHiddenUserAllowed
                           ? html`
                               <lion-step class="submission-step">
                                 <div class="step-content">

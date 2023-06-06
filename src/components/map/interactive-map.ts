@@ -6,7 +6,6 @@ import {
   PropertyValues,
   ScopedElementsMixin,
 } from '@lion/core';
-import { MapMouseEvent } from 'mapbox-gl';
 import { SubmissionCard } from '../../compositions/submission-card/submisson-card';
 import { LayerData } from '../../model/LayerData';
 import { BcgButton } from '../button/button';
@@ -91,7 +90,11 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
                 </div>
       
                 <div class="actions-container">
-                  <bcg-button variant="primary">Zum Hinweis</bcg-button>
+                  <a
+                  href=${window.origin + '/' + submission?.id}
+                  target="_blank">
+                    <bcg-button variant="primary">Zum Hinweis</bcg-button>
+                  </a>
                   <div class="reactions-container">
                     <lion-icon
                     class="comment-icon"
