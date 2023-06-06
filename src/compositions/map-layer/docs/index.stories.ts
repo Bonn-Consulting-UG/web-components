@@ -28,6 +28,7 @@ html`
       mapAccessToken=${token}
       actionButtonLabel="Fachkarten"
       initialZoom="8"
+      mapHeight="600"
       .layers=${testLayers}
       .initialPosition=${[-70.94416, 43.46633]}
       overlayWidth="300px"

@@ -8,6 +8,7 @@ export class BcgMapLayer extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) overlayHeader: string = 'Overlay';
   @property({ type: Boolean }) showOverlayButton = true;
   @property({ type: Boolean }) showOverlay: boolean = false;
+  @property({ type: Number }) mapHeight = 600;
   @property({ type: Array }) layers: LayerData[] = [];
   @property({ type: Array }) activeLayers: LayerData[] = [];
   // map-overlay properties
@@ -30,6 +31,7 @@ export class BcgMapLayer extends ScopedElementsMixin(BcgModule) {
 
   render() {
     return html`
+    <div style="width: 100%; height: ${this.mapHeight}px">
         <bcg-map-overlay
           class="bcg-overlay"
           mapAccessToken=${this.mapAccessToken}
@@ -57,6 +59,7 @@ export class BcgMapLayer extends ScopedElementsMixin(BcgModule) {
             ></bcg-selectable-layers>
           </div>
         </bcg-map-overlay>
+    </div>
     `;
   }
 }
