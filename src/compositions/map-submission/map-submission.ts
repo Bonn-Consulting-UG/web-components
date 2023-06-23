@@ -345,7 +345,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
-            <div style="width: 100%; height: ${this.mapHeight}px">
+            <div class="map-wrapper" style="height: ${this.mapHeight}px">
               <bcg-map-overlay
                 class="bcg-overlay"
                 mapAccessToken=${this.mapAccessToken}
@@ -388,31 +388,33 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                       <lion-step initial-step class="submission-step" >
                         <div class="step-content">
                           <h3>Standort auswählen</h3>
-                          <h4>Option 1: Ort suchen</h4>
+                          <h4><span class="option-1-label">Option 1: </span>Ort suchen</h4>
                           <div class="geocoder-container"></div>
-                          <h4>Option 2: Pin setzen<h4>
-                          <div class="pin-container">
-                            ${
-                              !this.currentMarker
-                                ? html`
-                                    <lion-icon
-                                      draggable="true"
-                                      @dragstart=${() => {}}
-                                      class="marker-icon"
-                                      style="fill: ${this.pinColor}"
-                                      icon-id="bcg:general:marker"
-                                    ></lion-icon>
-                                  `
-                                : html`<div style="width:27px"></div>`
-                            }
-                            <span class="pin-text">Platzieren Sie diesen Pin durch Ziehen und Ablegen an der von Ihnen gewählten Position auf der Karte</span>
-                          </div>
-                          <div class="current-marker-info">
-                            ${this.currentMarker ? html`
-                            <p class="pin-info-text">${this.currentAdress}</p>
-                            <span class="pin-info-text">[ Lng: ${this.currentMapSubmission.points[0]?.longitude?.toFixed(4)}, Lat: ${this.currentMapSubmission.points[0]?.latitude?.toFixed(4)} ]
-                            </span>` : ``}
-                          </div>
+                          <span class="place-marker-section">
+                            <h4>Option 2: Pin setzen<h4>
+                            <div class="pin-container">
+                              ${
+                                !this.currentMarker
+                                  ? html`
+                                      <lion-icon
+                                        draggable="true"
+                                        @dragstart=${() => {}}
+                                        class="marker-icon"
+                                        style="fill: ${this.pinColor}"
+                                        icon-id="bcg:general:marker"
+                                      ></lion-icon>
+                                    `
+                                  : html`<div style="width:27px"></div>`
+                              }
+                              <span class="pin-text">Platzieren Sie diesen Pin durch Ziehen und Ablegen an der von Ihnen gewählten Position auf der Karte</span>
+                            </div>
+                            <div class="current-marker-info">
+                              ${this.currentMarker ? html`
+                              <p class="pin-info-text">${this.currentAdress}</p>
+                              <span class="pin-info-text">[ Lng: ${this.currentMapSubmission.points[0]?.longitude?.toFixed(4)}, Lat: ${this.currentMapSubmission.points[0]?.latitude?.toFixed(4)} ]
+                              </span>` : ``}
+                            </div>
+                          </span>
                         </div>
                         <div class="step-navigation">
                           ${this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed) ? '1/2' : '1/3'}
@@ -446,7 +448,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                           }}>
                             <form @submit=${(e: any) => e.preventDefault()}>
                               <h3>Ihr Hinweis</h3>
-                              <bcg-input
+                              <bcg-textarea
+                              class="input-area"
                               label="Titel"
                               placeholder=""
                               name="title"
@@ -458,8 +461,9 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                   ...this.currentMapSubmission,
                                 };
                               }}
-                              ></bcg-input>
-                              <bcg-input
+                              ></bcg-textarea>
+                              <bcg-textarea
+                              class="input-area"
                               label="Ihr Hinweis"
                               placeholder=""
                               name="description"
@@ -474,7 +478,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                   ...this.currentMapSubmission,
                                 };
                               }}
-                              ></bcg-input>
+                              ></bcg-textarea>
                             </form>
                           </bcg-form>
                         </div>

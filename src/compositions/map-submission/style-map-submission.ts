@@ -8,6 +8,10 @@ export const mapSubmissionStyle = css
     overflow-y: auto;
 }
 
+.map-wrapper {
+    width: 100%;
+}
+
 .submission-button {
     float: right;
     cursor: pointer;
@@ -23,6 +27,10 @@ export const mapSubmissionStyle = css
 
 .submission-step {
     height: 100%;
+}
+
+.input-area textarea {
+    max-height: 150px;
 }
 
 .step-content {
@@ -131,6 +139,15 @@ export const mapSubmissionStyle = css
         float: unset;
         width: 100%;
         margin-bottom: 10px;
+    }
+
+    .map-wrapper {
+        width: 85%;
+        margin: auto;
+    }
+
+    .option-1-label, .place-marker-section {
+        display: none;
     }
 
     .sort-button {
