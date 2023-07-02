@@ -79,18 +79,24 @@ export class BcgModule extends LitElement {
   @property({ type: Boolean }) isHiddenUserAllowed = false;
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
 
-  @property({ type: LitElement || null }) createSubmissionHtml = (content: TemplateResult): any => {
-
+  @property({ type: LitElement || null }) createSubmissionHtml = (
+    content: TemplateResult
+  ): any => {
     if (this.isEditOnlyByModeratorAllowed) {
       return this.hasModeratorRole ? content : html``;
     }
 
-    if (!this.isRegistrationRequiredToCreateSubmissions || (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn)) {
+    if (
+      !this.isRegistrationRequiredToCreateSubmissions ||
+      (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn)
+    ) {
       return content;
     } else {
-      return html`<div class="submission-permission-hint">Sie müssen angemeldet sein, um sich beteiligen zu können</div>`;
+      return html`<div class="submission-permission-hint">
+        Sie müssen angemeldet sein, um sich beteiligen zu können
+      </div>`;
     }
-  }
+  };
 
   checkAuthToken() {
     if (
@@ -133,7 +139,8 @@ export class BcgModule extends LitElement {
         this.isLoggedIn = true;
       }
     }
-    this.hasModeratorRole = this.user?.realm_access?.roles?.includes('MODERATOR');
+    this.hasModeratorRole =
+      this.user?.realm_access?.roles?.includes('MODERATOR');
     console.log(this.user);
   }
 
@@ -181,9 +188,11 @@ export class BcgModule extends LitElement {
   }
 
   assignAccessabilities() {
-    this.isRegistrationRequiredToCreateSubmissions = this.config.config?.isRegistrationRequired;
+    this.isRegistrationRequiredToCreateSubmissions =
+      this.config.config?.isRegistrationRequired;
     this.isHiddenUserAllowed = this.config.config?.isHiddenUserAllowed;
-    this.isEditOnlyByModeratorAllowed = this.config.config?.isEditOnlyByModeratorAllowed;
+    this.isEditOnlyByModeratorAllowed =
+      this.config.config?.isEditOnlyByModeratorAllowed;
   }
 
   connectedCallback() {
