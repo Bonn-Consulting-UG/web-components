@@ -8,6 +8,7 @@ import {
 import { BcgModule } from '../../components/module';
 import { ideaSubmissionEndpoint } from '../../utils/services/config';
 import { sendIdeaSubmissionRequest } from '../../utils/services/module';
+import { toNumber } from 'cypress/types/lodash';
 
 export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
   ideaRequest: any = {
@@ -85,7 +86,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    return html`
+    return this.createSubmissionHtml(html`
       <bcg-form @submit=${(e: any) => submitHandler(e)}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${this.showNotification
@@ -127,7 +128,8 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                 placeholder=""
               ></bcg-textarea>
 
-              ${!this.isLoggedIn
+              ${!this.isLoggedIn &&
+              (this.isLoggedIn || this.isHiddenUserAllowed)
                 ? html`
                     <h1 style="flex-grow: 1;">Über Sie</h1>
                     <p style="width:650px;">
@@ -184,6 +186,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           </div>
         </form></bcg-form
       >
-    `;
+    `);
   }
 }

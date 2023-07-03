@@ -83,7 +83,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    return html`
+    return this.createSubmissionHtml(html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${
@@ -106,7 +106,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                   this.isLoading
                     ? html` <bcg-progress></bcg-progress>`
                     : html`
-                        ${!this.isLoggedIn
+                        ${!this.isLoggedIn && !this.isHiddenUserAllowed
                           ? html` <bcg-input
                                 label="Ihr Vorname *"
                                 placeholder=""
@@ -187,6 +187,6 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           </div>
         </form></bcg-form
       >
-    `;
+    `);
   }
 }
