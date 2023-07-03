@@ -10,10 +10,9 @@ import { SubmissionCard } from '../../compositions/submission-card/submisson-car
 import { LayerData } from '../../model/LayerData';
 import { BcgButton } from '../button/button';
 import { BcgCard } from '../card/card';
-import mapboxgl from 'mapbox-gl';
 
-// @ts-ignore
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+const mapboxgl = require('mapbox-gl');
+const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 
 export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) mapAccessToken: string = '';
