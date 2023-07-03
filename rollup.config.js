@@ -14,7 +14,7 @@ export default {
     json(),
     typescript(),
     nodeResolve(),  
-    commonjs({include: 'node_modules/**'}),
+    commonjs(),
     babel({ babelHelpers: 'bundled' }),
     minifyHTML(),
     terser({
