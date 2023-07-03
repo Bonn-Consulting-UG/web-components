@@ -1,13 +1,13 @@
 {
-  "name": "bcg-components",
-  "description": "Bcg-components following open-wc recommendations",
+  "name": "my-webpack-project",
+  "description": "My webpack project",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "0.0.3-81",
+  "version": "1.0.1-0",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && npm run analyze",
+    "build": "webpack --mode=production --node-env=production",
     "prepublish": "tsc && npm run analyze",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
@@ -16,7 +16,10 @@
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "npm run cleanup && tsc &&  concurrently -k -r \"tsc --watch --preserveWatchOutput \" \" start-storybook -p 8000\"",
     "storybook:build": "npm run cleanup && tsc && npm run analyze && build-storybook && rollup -c rollup.config.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
   },
   "dependencies": {
     "@lion/accordion": "^0.10.0",
@@ -115,6 +118,8 @@
     "rollup-plugin-minify-html-literals": "^1.2.6",
     "rollup-plugin-summary": "^1.4.3",
     "rollup-plugin-terser": "^7.0.2",
+    "terser-webpack-plugin": "^5.3.9",
+    "ts-loader": "^9.4.4",
     "tslib": "^2.4.0",
     "typescript": "^4.8.2"
   },

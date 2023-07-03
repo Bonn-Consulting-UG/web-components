@@ -14,7 +14,7 @@ export default {
     json(),
     typescript(),
     nodeResolve(),  
-    commonjs({include: 'node_modules/**'}),
+    commonjs({include: 'node_modules/mapbox-gl'}),
     babel({ babelHelpers: 'bundled' }),
     minifyHTML(),
     terser({

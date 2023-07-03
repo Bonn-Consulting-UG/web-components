@@ -85,7 +85,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    return html`
+    return this.createSubmissionHtml(html`
       <bcg-form @submit=${(e: any) => submitHandler(e)}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${this.showNotification
@@ -184,6 +184,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           </div>
         </form></bcg-form
       >
-    `;
+    `);
   }
 }

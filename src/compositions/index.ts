@@ -1,3 +1,4 @@
+import '../components/index.js';
 import './comments/index.js';
 import './contact-submission/index.js';
 import './faq-submission/index.js';

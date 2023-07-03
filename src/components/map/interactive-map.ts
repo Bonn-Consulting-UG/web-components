@@ -19,7 +19,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) mapAccessToken: string = '';
   @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
   @property({ type: Number }) initialZoom = 10;
-  @property({ type: Array }) maxBounds = undefined;
+  @property({ type: Array }) maxBounds: any = undefined;
   @property({ type: Array }) layerData?: LayerData[];
   @property({ type: Array }) submissions: any[] = [];
   @property({ type: Function }) geocoderInputCallback: Function = (
