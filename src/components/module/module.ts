@@ -195,7 +195,7 @@ export class BcgModule extends LitElement {
     this.isHiddenUserAllowed = this.config.config?.isHiddenUserAllowed;
     this.isEditOnlyByModeratorAllowed =
       this.config.config?.isEditOnlyByModeratorAllowed;
-    this.isCommentsAllowed = true;
+    this.isCommentsAllowed = this.config.config?.isCommentsAllowed;
   }
 
   connectedCallback() {
