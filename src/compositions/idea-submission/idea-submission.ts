@@ -128,8 +128,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                 placeholder=""
               ></bcg-textarea>
 
-              ${!this.isLoggedIn &&
-              (this.isLoggedIn || this.isHiddenUserAllowed)
+              ${!this.isLoggedIn
                 ? html`
                     <h1 style="flex-grow: 1;">Über Sie</h1>
                     <p style="width:650px;">

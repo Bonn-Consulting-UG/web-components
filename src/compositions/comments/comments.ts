@@ -224,6 +224,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                   if (comment.comments) {
                     return html`
                   <bcg-comment
+                  .config=${this.config}
                     id=${comment.id}
                     .changeDialog=${this.changeDialog}
                     .refresh=${this.setupComments}
@@ -237,6 +238,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                     border: none!important;"
                     >
                       <bcg-comment
+                        .config=${this.config}
                         id="${subcomment.id}"
                         .changeDialog=${this.changeDialog}
                         .refresh=${this.setupComments}
@@ -248,6 +250,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                   }
                   if (!comment.comments)
                     return html`<bcg-comment
+                      .config=${this.config}
                       id=${comment}
                       .changeDialog=${this.changeDialog}
                       .refresh=${this.setupComments}

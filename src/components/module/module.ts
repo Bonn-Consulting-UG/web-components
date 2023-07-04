@@ -179,12 +179,13 @@ export class BcgModule extends LitElement {
     if (this.moduleId !== 0 && this.submissionId === 0) {
       this.config = await getModule(this.moduleId);
       this.assignAccessabilities();
-      console.table(this.config);
+
+      console.log(this.config);
     }
     if (this.submissionId !== 0 && this.moduleId === 0) {
       this.config = await getSubmission(this.submissionId);
       this.assignAccessabilities();
-      console.table(this.config);
+      console.log(this.config);
     }
   }
 
@@ -194,7 +195,7 @@ export class BcgModule extends LitElement {
     this.isHiddenUserAllowed = this.config.config?.isHiddenUserAllowed;
     this.isEditOnlyByModeratorAllowed =
       this.config.config?.isEditOnlyByModeratorAllowed;
-    this.isCommentsAllowed = this.config.config?.isCommentsAllowed;
+    this.isCommentsAllowed = true;
   }
 
   connectedCallback() {
