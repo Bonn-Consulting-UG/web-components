@@ -72,7 +72,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    return html`
+    return this.createSubmissionHtml(html`
       <bcg-form @submit=${(ev: any) => submitHandler(ev)}>
         <form @submit=${(e: any) => e.preventDefault()}>
         ${
@@ -126,7 +126,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
  
 
                 ${
-                  !this.isLoggedIn
+                  !this.isLoggedIn && this.isHiddenUserAllowed
                     ? html` <bcg-input
                           label="Ihr Vorname "
                           placeholder=""
@@ -185,6 +185,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </div>
         </form></bcg-form>
-    `;
+    `);
   }
 }

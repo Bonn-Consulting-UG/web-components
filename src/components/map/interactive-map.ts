@@ -98,13 +98,18 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
         ]);
       if (this.enablePopup) {
         marker.setPopup(
+         // @ts-ignore
           new mapboxgl.Popup().addClassName('popup').setHTML(`
           <bcg-card>
             <slot name="content">
               <div class="content-wrapper"">
                 <div class="text-container">
-                  <p class="creator-text">${submission?.firstName} ${submission?.lastName}</p>
-                  <p class="creator-text">${new Date(submission?.createdAt ?? '').toLocaleDateString()}</p>
+                  <p class="creator-text">${submission?.firstName} ${
+            submission?.lastName
+          }</p>
+                  <p class="creator-text">${new Date(
+                    submission?.createdAt ?? ''
+                  ).toLocaleDateString()}</p>
                   <p class="title-text">${submission?.title}</p>
                 </div>
       
@@ -119,8 +124,14 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
                     class="comment-icon"
                     icon-id="bcg:comments:comment"
                     ></lion-icon>
-                    <span style="margin-right: 20px">${submission?._count?.comments}</span>
-                    <bcg-idea-reaction likeCount=${submission?._count?.likes} dislikeCount=${submission?._count?.dislikes}></bcg-idea-reaction>
+                    <span style="margin-right: 20px">${
+                      submission?._count?.comments
+                    }</span>
+                    <bcg-idea-reaction likeCount=${
+                      submission?._count?.likes
+                    } dislikeCount=${
+            submission?._count?.dislikes
+          }></bcg-idea-reaction>
                   </div>
                 </div>
               </div>
@@ -142,20 +153,23 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   }
 
   static get styles() {
-    return [SubmissionCard.styles, css`
-    #map {
-      width: 100%;
-      height: 100%;
-    }
+    return [
+      SubmissionCard.styles,
+      css`
+        #map {
+          width: 100%;
+          height: 100%;
+        }
 
-    .popup {
-      max-width: 500px !important;
-    }
+        .popup {
+          max-width: 500px !important;
+        }
 
-    .mapboxgl-popup-content {
-      padding: 0;
-    }
-  `];
+        .mapboxgl-popup-content {
+          padding: 0;
+        }
+      `,
+    ];
   }
 
   initMap() {
@@ -172,7 +186,9 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
-      bbox: this.maxBounds ? [...this.maxBounds[0], ...this.maxBounds[1]] : undefined
+      bbox: this.maxBounds
+        ? [...this.maxBounds[0], ...this.maxBounds[1]]
+        : undefined,
     });
 
     this.map.addControl(geocoder);
@@ -228,29 +244,35 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
 
       this.flyToLayer(this.map.getSource(data.id)?._data);
     });
-
   }
 
   flyToLayer(layerData: any) {
     let isVisible = false;
-    let centerCoordinates: any[] = []
+    let centerCoordinates: any[] = [];
 
     if (layerData.type === 'FeatureCollection') {
-      for (let i = 0; i <  layerData.features.length; i++) {
-        isVisible = this.isLayerVisible(layerData.features[i].geometry?.coordinates, centerCoordinates);
+      for (let i = 0; i < layerData.features.length; i++) {
+        isVisible = this.isLayerVisible(
+          layerData.features[i].geometry?.coordinates,
+          centerCoordinates
+        );
         if (isVisible) {
           break;
         }
       }
     } else {
-      isVisible = this.isLayerVisible(layerData.geometry?.coordinates, centerCoordinates);
+      isVisible = this.isLayerVisible(
+        layerData.geometry?.coordinates,
+        centerCoordinates
+      );
     }
 
     if (!isVisible) {
       this.map.flyTo({
         // take value in the middle (multiple values possible if it is a feature collection)
-        center: centerCoordinates[+(centerCoordinates.length / 2).toFixed(0) - 1],
-      })
+        center:
+          centerCoordinates[+(centerCoordinates.length / 2).toFixed(0) - 1],
+      });
     }
   }
 
@@ -263,13 +285,21 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     let middleCoordinate = [];
 
     for (let i = 0; i < flatCoordinates.length; i++) {
-      if (flatCoordinates[i][0] > bounds._sw.lng && flatCoordinates[i][1] > bounds._sw.lat && flatCoordinates[i][0] < bounds._ne.lng && flatCoordinates[i][1] < bounds._ne.lat) {
+      if (
+        flatCoordinates[i][0] > bounds._sw.lng &&
+        flatCoordinates[i][1] > bounds._sw.lat &&
+        flatCoordinates[i][0] < bounds._ne.lng &&
+        flatCoordinates[i][1] < bounds._ne.lat
+      ) {
         res = true;
         break;
       }
       if (i === flatCoordinates.length / 2) {
         middleCoordinate = flatCoordinates[i];
-        centerCoordinates?.push([(firstCoordinate[0] + middleCoordinate[0]) / 2, (firstCoordinate[1] + middleCoordinate[1]) / 2])
+        centerCoordinates?.push([
+          (firstCoordinate[0] + middleCoordinate[0]) / 2,
+          (firstCoordinate[1] + middleCoordinate[1]) / 2,
+        ]);
       }
     }
     return res;
@@ -279,12 +309,12 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const res: any = [];
     const func = (value: any) => {
       if (value?.[0]?.length) {
-        value.map((value:any) => func(value))
+        value.map((value: any) => func(value));
       } else {
         res.push(value);
       }
-    }
-    func(value)
+    };
+    func(value);
     return res;
   }
 

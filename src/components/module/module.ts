@@ -78,19 +78,26 @@ export class BcgModule extends LitElement {
   @property({ type: Boolean }) isRegistrationRequiredToCreateSubmissions = true;
   @property({ type: Boolean }) isHiddenUserAllowed = false;
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
+  @property({ type: Boolean }) isCommentsAllowed = true;
 
-  @property({ type: LitElement || null }) createSubmissionHtml = (content: TemplateResult): any => {
-
+  @property({ type: LitElement || null }) createSubmissionHtml = (
+    content: TemplateResult
+  ): any => {
     if (this.isEditOnlyByModeratorAllowed) {
       return this.hasModeratorRole ? content : html``;
     }
 
-    if (!this.isRegistrationRequiredToCreateSubmissions || (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn)) {
+    if (
+      !this.isRegistrationRequiredToCreateSubmissions ||
+      (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn)
+    ) {
       return content;
     } else {
-      return html`<div class="submission-permission-hint">Sie müssen angemeldet sein, um sich beteiligen zu können</div>`;
+      return html`<div class="submission-permission-hint">
+        Sie müssen angemeldet sein, um sich beteiligen zu können
+      </div>`;
     }
-  }
+  };
 
   checkAuthToken() {
     if (
@@ -133,7 +140,8 @@ export class BcgModule extends LitElement {
         this.isLoggedIn = true;
       }
     }
-    this.hasModeratorRole = this.user?.realm_access?.roles?.includes('MODERATOR');
+    this.hasModeratorRole =
+      this.user?.realm_access?.roles?.includes('MODERATOR');
     console.log(this.user);
   }
 
@@ -171,19 +179,23 @@ export class BcgModule extends LitElement {
     if (this.moduleId !== 0 && this.submissionId === 0) {
       this.config = await getModule(this.moduleId);
       this.assignAccessabilities();
-      console.table(this.config);
+
+      console.log(this.config);
     }
     if (this.submissionId !== 0 && this.moduleId === 0) {
       this.config = await getSubmission(this.submissionId);
       this.assignAccessabilities();
-      console.table(this.config);
+      console.log(this.config);
     }
   }
 
   assignAccessabilities() {
-    this.isRegistrationRequiredToCreateSubmissions = this.config.config?.isRegistrationRequired;
+    this.isRegistrationRequiredToCreateSubmissions =
+      this.config.config?.isRegistrationRequired;
     this.isHiddenUserAllowed = this.config.config?.isHiddenUserAllowed;
-    this.isEditOnlyByModeratorAllowed = this.config.config?.isEditOnlyByModeratorAllowed;
+    this.isEditOnlyByModeratorAllowed =
+      this.config.config?.isEditOnlyByModeratorAllowed;
+    this.isCommentsAllowed = this.config.config?.isCommentsAllowed;
   }
 
   connectedCallback() {

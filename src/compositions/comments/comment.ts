@@ -36,6 +36,8 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
 
   @property({ type: Function }) canEdit: any = false;
 
+  @property({ type: Object }) config: any = {};
+
   @property({ type: Function }) setResponseTo: any;
 
   @property({ type: Function }) newComment: any;
@@ -129,10 +131,13 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     this?.shadowRoot
       ?.querySelector(`#comment`)
       ?.addEventListener('mouseleave', () => (this.isFocused = false));
-
+    console.log(this.config);
     super.updated(changedProperties);
   }
 
+  connectedCallback(): void {
+    super.connectedCallback();
+  }
   render() {
     const likeReaction = (comment: any) =>
       comment.$userReactions.find((e: any) => e.type === 'LIKE');
@@ -288,31 +293,44 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                     >`
               }
             </p>
-
             ${
               (this.isLoggedIn && status !== 'CENSORED') ||
               (this.isLoggedIn &&
                 this.user.realm_access &&
                 this.user.realm_access.roles.includes('MODERATOR'))
                 ? html`<div style="display:flex;">
-                    <bcg-button @click=${() => this.changeReaction('LIKE')}>
-                      <bcg-reaction
-                        .value=${_count?.likes}
-                        .icon=${'bcg:comments:thumbsup'}
-                        iconclass=${likeReaction(this.comments) ? 'filled' : ''}
-                      ></bcg-reaction>
-                    </bcg-button>
-
-                    <bcg-button @click=${() => this.changeReaction('DISLIKE')}>
-                      <bcg-reaction
-                        .value=${_count?.dislikes}
-                        .icon=${'bcg:comments:thumbsdown'}
-                        iconclass=${dislikeReaction(this.comments)
-                          ? 'filled'
-                          : ''}
-                      ></bcg-reaction>
-                    </bcg-button>
-
+                    ${this.config.config?.allowedCommentReactionTypes?.includes(
+                      'LIKE'
+                    )
+                      ? html`<bcg-button
+                          @click=${() => this.changeReaction('LIKE')}
+                        >
+                          <bcg-reaction
+                            .value=${_count?.likes}
+                            .icon=${'bcg:comments:thumbsup'}
+                            iconclass=${likeReaction(this.comments)
+                              ? 'filled'
+                              : ''}
+                          ></bcg-reaction>
+                        </bcg-button>`
+                      : null}
+                    ${this.config.config?.allowedCommentReactionTypes?.includes(
+                      'DISLIKE'
+                    )
+                      ? html`
+                          <bcg-button
+                            @click=${() => this.changeReaction('DISLIKE')}
+                          >
+                            <bcg-reaction
+                              .value=${_count?.dislikes}
+                              .icon=${'bcg:comments:thumbsdown'}
+                              iconclass=${dislikeReaction(this.comments)
+                                ? 'filled'
+                                : ''}
+                            ></bcg-reaction>
+                          </bcg-button>
+                        `
+                      : null}
                     ${this.setResponseTo
                       ? html`<bcg-button
                           @click=${() => this.setResponseTo(this.comments)}
