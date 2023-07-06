@@ -28,9 +28,11 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     marker: any
   ) => {};
   @property({ type: String }) pinColor = '#9747FF';
+  @property({ type: Boolean }) enablePopup = true;
 
   map: any;
   isSettingMarker = false;
+  markers: Map<String, mapboxgl.Marker> = new Map<String, mapboxgl.Marker>();
 
   firstUpdated() {
     this.initMap();
@@ -39,6 +41,12 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   updated(changedProperties: PropertyValues<this>) {
     this.updateLayers(changedProperties.get('layerData'));
     this.updateSubmissions(changedProperties.get('submissions'));
+
+    if (changedProperties.get('initialPosition')
+      && (changedProperties.get('initialPosition')[0] !== this.initialPosition?.[0] 
+      || changedProperties.get('initialPosition')[1] !== this.initialPosition?.[1])) {
+      this.map.setCenter(this.initialPosition);
+    }
     super.updated(changedProperties);
   }
 
@@ -72,13 +80,24 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const newSubmissions = this.submissions.filter(
       (sub: any) => !prevSubmissions.includes(sub)
     );
+    const removedSubmissions = prevSubmissions.filter(
+      (sub: any) => !this.submissions.includes(sub)
+    );
+  
+    if (removedSubmissions.length > 0) {
+      removedSubmissions.map(submission => {
+        this.markers.get(submission?.id)?.remove();
+      })
+    }
+
     newSubmissions.map(submission => {
-      new mapboxgl.Marker()
+      const marker = new mapboxgl.Marker()
         .setLngLat([
           submission.points[0].longitude,
           submission.points[0].latitude,
-        ])
-        .setPopup(
+        ]);
+      if (this.enablePopup) {
+        marker.setPopup(
           new mapboxgl.Popup().addClassName('popup').setHTML(`
           <bcg-card>
             <slot name="content">
@@ -109,7 +128,9 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
           </bcg-card>
           `)
         )
-        .addTo(this.map);
+      }
+      marker.addTo(this.map);
+      this.markers.set(submission.id, marker);
     });
   }
 

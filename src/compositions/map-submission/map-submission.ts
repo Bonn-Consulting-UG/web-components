@@ -3,26 +3,22 @@ import { Required } from '@lion/form-core';
 import { LionStep, LionSteps } from '@lion/steps';
 import { LionTabs } from '@lion/tabs';
 import { BcgModule } from '../../components/module';
-import { LayerData } from '../../model/LayerData';
 import { MapSubmission } from '../../model/MapSubmission';
 import {
-  getReverseGeocodingEndpoint,
   getSubmissionsEndpointforModule,
   mapSubmissionEndpoint,
 } from '../../utils/services/config';
 import { mapSubmissionStyle } from './style-map-submission';
+import { MapService } from '../../utils/services/map';
 
 export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   // settable properties
   @property({ type: String }) overlayHeader: string = 'Overlay';
-  @property({ type: Array }) layers: LayerData[] = [];
   @property({ type: Number }) mapHeight = 600;
   @property({ type: String }) createSubmissionButtonLabel = 'Hinweis eingeben';
-  @property({ type: Boolean }) showOverlayButton = true;
   @property({ type: Boolean }) showCreateSubmissionButton = true;
 
   // map-overlay properties
-  @property({ type: String }) actionButtonLabel = 'Open Overlay';
   @property({ type: String }) overlayWidth: string = '40%';
   // mapbox properties
   @property({ type: String }) mapAccessToken: string = '';
@@ -32,10 +28,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) pinColor = '#9747FF';
 
   // internal use
-  @property({ type: Array }) activeLayers: LayerData[] = [];
-  @property({ type: Array }) expandedCategories: string[] = [];
   @property({ type: Boolean }) showOverlay: boolean = false;
-  @property({ type: Boolean }) showLayerContent: boolean = true;
   @property({ type: Object }) currentMarker: any;
   @property({ type: Object }) currentGeocoderInput: any;
   @property({ type: Object }) currentMapSubmission: MapSubmission = { points: [] };
@@ -59,8 +52,10 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   geocoder: any;
   submissionForm: any;
   contactForm: any;
+  mapService: MapService = new MapService(this);
 
   @property({ type: String }) currentAdress: string = '';
+
 
   static get scopedElements() {
     return {
@@ -74,10 +69,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     return [mapSubmissionStyle];
   }
 
-  get categories() {
-    return [...new Set(this.layers.map(layer => layer.category))];
-  }
-
   firstUpdated(changed: any) {
     this.fetchSubmissions().then(res => {
       this.submissions = res.results.filter(
@@ -87,43 +78,9 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     super.firstUpdated(changed);
   }
 
-  switchCategoryExpandedState = (category: string) => {
-    if (this.expandedCategories.includes(category)) {
-      this.expandedCategories.splice(
-        this.expandedCategories.indexOf(category),
-        1
-      );
-    } else {
-      this.expandedCategories.push(category);
-    }
-    this.expandedCategories = [...this.expandedCategories];
-  };
-
   updated(changed: any) {
     this.stepper = this.renderRoot.querySelector('.stepper') as any; 
-    const wrapperElement = this.renderRoot.querySelector('.wrapper');
-    if (!this.geocoder) {
-      this.geocoder = this.renderRoot
-        .querySelector('.bcg-overlay')
-        ?.shadowRoot?.querySelector('.interactive-map')
-        ?.shadowRoot?.querySelectorAll('.mapboxgl-ctrl-geocoder')[0];
-      if (this.geocoder) {
-        wrapperElement?.appendChild(this.geocoder);
-      }
-    }
-
-    const geocoderContainer = this.renderRoot.querySelector(
-      '.geocoder-container'
-    );
-    if (geocoderContainer) {
-      if (!geocoderContainer.hasChildNodes()) {
-        geocoderContainer.appendChild(this.geocoder);
-        (this.geocoder as HTMLElement).style.visibility = 'visible';
-      } else if (!this.showOverlay) {
-        wrapperElement?.appendChild(this.geocoder);
-        (this.geocoder as HTMLElement).style.visibility = 'hidden';
-      }
-    }
+    this.mapService.assignGeocoder();
     this.stepper = !this.stepper
       ? (this.renderRoot.querySelector('.stepper') as any)
       : this.stepper;
@@ -135,55 +92,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
       : this.contactForm;
 
     super.updated(changed);
-  }
-
-  handleGeocoderInput(input: any) {
-    this.currentGeocoderInput = input;
-    this.removeCurrentMarker();
-    this.currentMapSubmission.points = [
-      {
-        longitude: input.result.center[0],
-        latitude: input.result.center[1],
-      },
-    ];
-  }
-
-  async handleMarkerInput(marker: any) {
-    this.currentMarker = marker;
-    // reverse geocoding
-    const resp = await fetch(
-      getReverseGeocodingEndpoint(marker.getLngLat().lng, marker.getLngLat().lat, this.mapAccessToken)
-    )
-    resp.json().then(res => {
-      this.currentAdress = res.features[0].place_name;
-    });
-    this.clearGeocoder();
-
-    this.currentMapSubmission.points = [
-      {
-        longitude: marker.getLngLat().lng,
-        latitude: marker.getLngLat().lat,
-      },
-    ];
-  }
-
-  removeCurrentMarker() {
-    if (!this.currentMarker) {
-      return;
-    }
-    this.currentMarker.remove();
-    this.currentMarker = undefined;
-    this.currentMapSubmission.points = [];
-  }
-
-  clearGeocoder() {
-    this.currentGeocoderInput = undefined;
-    this.currentMapSubmission.points = [];
-    (
-      this.geocoder.querySelector(
-        '.mapboxgl-ctrl-geocoder--button'
-      ) as HTMLButtonElement
-    )?.click();
   }
 
   async fetchSubmissions() {
@@ -237,7 +145,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
       const resp = await fetch(mapSubmissionEndpoint(''), fetchOptions);
 
       if (resp.status === 201) {
-        this.resetCurrentSubmission();
+        this.mapService.resetCurrentSubmission();
         this.fetchSubmissions().then(res => {
           this.submissions = res.results.filter(
             (submission: any) => submission.points?.length >= 1
@@ -251,25 +159,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     } catch (err) {
       console.log(err);
 
-      this.resetCurrentSubmission();
+      this.mapService.resetCurrentSubmission();
       this.notificationType = 'error';
       this.notificationMessage = 'Fehler ist aufgetreten';
       this.isLoading = false;
     }
-  }
-
-  resetCurrentSubmission() {
-    this.clearGeocoder();
-    this.removeCurrentMarker();
-    this.currentMapSubmission = {
-      description: '',
-      lastName: '',
-      title: '',
-      email: '',
-      firstName: '',
-      points: [],
-    };
-    this.privacyChecked = false;
   }
 
   resetStepper() {
@@ -278,7 +172,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
   closeOverlay() {
     this.showOverlay = false;
-    this.resetCurrentSubmission();
+    this.mapService.resetCurrentSubmission();
     this.submissionForm?.reset();
     this.contactForm?.reset();
     this.resetStepper();
@@ -308,7 +202,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
           class="submission-button"
           @click=${() => {
             this.showOverlay = true;
-            this.showLayerContent = false;
             this.currentTabIndex = 0;
           }}
         >
@@ -349,40 +242,24 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
               <bcg-map-overlay
                 class="bcg-overlay"
                 mapAccessToken=${this.mapAccessToken}
-                .showActionButton=${this.showOverlayButton}
-                actionButtonLabel=${this.actionButtonLabel}
+                .showActionButton=${false}
                 .pinColor=${this.pinColor}
-                .actionButtonCallback=${() => {
-                  this.showOverlay = true;
-                  this.showLayerContent = true;
-                }}
                 .closeButtonCallback=${() => this.closeOverlay()}
                 initialZoom=${this.initialZoom}
                 .maxBounds=${this.maxBounds}
                 .initialPosition=${this.initialPosition}
                 overlayWidth=${this.overlayWidth}
-                .activeLayers=${this.activeLayers}
                 .submissions=${this.submissions}
                 .showOverlay=${this.showOverlay}
                 .geocoderInputCallback=${(input: any) => {
-                  this.handleGeocoderInput(input);
+                  this.mapService.handleGeocoderInput(input);
                 }}
                 .markerSetCallback=${(marker: any) => {
-                  this.handleMarkerInput(marker);
+                  this.mapService.handleMarkerInput(marker);
                 }}
               >
                 <div class="overlay-content" slot="overlay-content">
-                  ${this.showLayerContent
-                    ? html`
-                        <h2>${this.overlayHeader}</h2>
-                        <bcg-selectable-layers
-                        .layers=${this.layers}
-                        .activeLayersChanged=${(activeLayers: LayerData[]) => {
-                          this.activeLayers = activeLayers;
-                        }}
-                        ></bcg-selectable-layers>
-                      `
-                    : html`
+                  ${html`
                     <lion-steps style="height: 100%" class="stepper">
 
                       <lion-step initial-step class="submission-step" >
@@ -521,6 +398,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                           'error'
                                         )
                                       ) {
+                                        this.submitSubmission();
+                                        this.stepper?.next();
                                       }
                                     }}
                                   >
@@ -607,8 +486,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
                                   <bcg-button-submit
                                     @click=${() => {
-                                      this.submitSubmission();
-                                      this.stepper?.next();
+                                      this.contactForm.submit()
                                     }}
                                     variant="primary"
                                     .disabled=${!this.currentMarker &&
