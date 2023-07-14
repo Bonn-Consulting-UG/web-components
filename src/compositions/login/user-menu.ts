@@ -81,25 +81,29 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     } = this;
 
     return html`
+          <div style="background-color: var(--primary-color); padding:20px;display:flex;justify-content:space-between; color:white"> 
+  
 
           ${
             !isLoggedIn
               ? html`
-                  <li
+                  <a
                     id="login-button"
                     style="margin-right:10px;"
                     variant="secondary"
-                    >Anmelden</bcg-button
-                  ><li
+                    href=""
+                    onclick="()=>ev.preventDefault()"
+                    >Anmelden</a
+                  ><a
                     id="register-button"
                     variant="primary"
                     @click=${registerHandler}
                     >Registrieren
-          </li>
+                  </a>
                 `
-              : html`<li
+              : html`<span
                   @click="${clickHandler}"
-                  style="margin-bottom:3px;"
+                  style="margin-bottom:3px;align-self:flex-start"
                   variant="primary"
                   >Hallo, ${user.given_name} ${user.family_name}</bcg-button
                 >`
@@ -139,27 +143,29 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
           </dialog>
 
           ${
-            isOpen
+            this.isLoggedIn
               ? html`<div>
-                  <li
-                    style="margin-bottom:3px; "
-                    variant="secondary"
-                    id="edit-button"
-                  >
-                    <a onclick="()=>ev.preventDefault()" )> Mein Profil </a>
-                  </li>
-                  <li
-                    variant="secondary"
-                    @click="${() => {
-                      clickHandler();
-                      logOutHandler();
-                    }}"
-                  >
-                    Abmelden
-                  </li>
-                </div>`
+            <a
+              style="margin-bottom:3px; "
+              variant="secondary"
+              id="edit-button"
+            >
+              <a onclick="()=>ev.preventDefault()" )> Mein Profil </a>
+          </a>
+            <a
+              variant="secondary"
+              @click="${() => {
+                clickHandler();
+                logOutHandler();
+              }}"
+            >
+              Abmelden
+            </a>
+            
+            </a>`
               : null
           }
+          </a> 
     `;
   }
 }
