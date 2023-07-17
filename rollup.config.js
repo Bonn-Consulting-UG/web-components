@@ -13,7 +13,6 @@ export default {
   plugins: [
     json(),
     typescript(),
-    nodeResolve(),  
     commonjs({include: 'node_modules/mapbox-gl'}),
     babel({ babelHelpers: 'bundled' }),
     minifyHTML(),

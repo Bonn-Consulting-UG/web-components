@@ -3,7 +3,7 @@
   "description": "My webpack project",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "1.0.1-2",
+  "version": "1.0.1-3",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
