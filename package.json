@@ -3,7 +3,7 @@
   "description": "My webpack project",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "1.0.1-1",
+  "version": "1.0.1-2",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
@@ -121,7 +121,8 @@
     "terser-webpack-plugin": "^5.3.9",
     "ts-loader": "^9.4.4",
     "tslib": "^2.4.0",
-    "typescript": "^4.8.2"
+    "typescript": "^4.8.2",
+    "webpack": "^5.88.1"
   },
   "customElements": "custom-elements.json",
   "production": [
