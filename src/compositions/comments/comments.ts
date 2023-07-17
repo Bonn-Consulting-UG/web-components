@@ -54,6 +54,9 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   @property() count: any = [];
 
   @property() newComment: any = '';
+  @property() firstName: any = '';
+  @property() lastName: any = '';
+  @property() email: any = '';
 
   @property() responseTo: any = {};
 
@@ -134,7 +137,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         const resp = await addComment(
           this.moduleId,
           this.newComment,
-          this.submissionId
+          this.submissionId,
+          {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+          }
         );
         newCommentId = resp.id;
       }
@@ -176,21 +184,55 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                 </div>`
               : null}
             <div></div>
-            ${this.isLoggedIn
-              ? html`<bcg-textarea
-                  @model-value-changed=${({ target }: any) => {
-                    this.newComment = target.value;
-                  }}
-                  .validators=${[
-                    new Required(),
-                    new MinLength(3),
-                    new MaxLength(500),
-                  ]}
-                  name="comment"
-                  id="comment-textarea"
-                  rows="4"
-                  placeholder="Was denken Sie?"
-                ></bcg-textarea>`
+            ${this.isCommentsAllowed &&
+            (!this.config.config.isRegistrationRequired || this.isLoggedIn)
+              ? html`${this.config.config.commentWriters.includes('USER') &&
+                  !this.isLoggedIn
+                    ? html`<bcg-input
+                          label="Ihr Vorname *"
+                          placeholder=""
+                          name="firstname"
+                          .validators=${[new Required()]}
+                          .modelValue="${this.firstName}"
+                          @model-value-changed=${({ target }: any) => {
+                            this.firstName = target.value;
+                          }}
+                        ></bcg-input>
+                        <bcg-input
+                          label="Ihr Nachname  *"
+                          placeholder=""
+                          name="lastname"
+                          .validators=${[new Required()]}
+                          .modelValue="${this.lastName}"
+                          @model-value-changed=${({ target }: any) => {
+                            this.lastName = target.value;
+                          }}
+                        ></bcg-input>
+
+                        <bcg-input-email
+                          name="email"
+                          .validators=${[new Required()]}
+                          .modelValue="${this.email}"
+                          @model-value-changed=${({ target }: any) => {
+                            this.email = target.value;
+                          }}
+                          label="Ihre E-Mail  *"
+                          placeholder=""
+                        ></bcg-input-email></br>`
+                    : null}<bcg-textarea
+                    @model-value-changed=${({ target }: any) => {
+                      this.newComment = target.value;
+                    }}
+                    .validators=${[
+                      new Required(),
+                      new MinLength(3),
+                      new MaxLength(500),
+                    ]}
+                    name="comment"
+                    id="comment-textarea"
+                    rows="4"
+                    placeholder="Was denken Sie?"
+                  ></bcg-textarea>`
               : this.isCommentsAllowed
               ? html`<div>
                   <h3>
@@ -198,7 +240,8 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                   </h3>
                 </div>`
               : null}
-            ${this.isLoggedIn
+            ${this.isCommentsAllowed &&
+            (!this.config.config.isRegistrationRequired || this.isLoggedIn)
               ? html`
                   <div style="display:flex;margin-top:20px;">
                     <p style="flex-grow: 1;"></p>

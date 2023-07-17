@@ -87,13 +87,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
           ${
             !isLoggedIn
               ? html`
-                  <a
-                    id="login-button"
-                    style="margin-right:10px;"
-                    variant="secondary"
-                    href=""
-                    onclick="()=>ev.preventDefault()"
-                    >Anmelden</a
+                  <a id="login-button" style="margin-right:10px;">Anmelden</a
                   ><a
                     id="register-button"
                     variant="primary"

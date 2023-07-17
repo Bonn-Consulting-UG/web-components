@@ -82,7 +82,8 @@ export const getSubmission = async (submissionId: any) => {
 export const addComment = async (
   moduleId: number,
   commentConent: any,
-  submissionId: number
+  submissionId: number,
+  user: any
 ) => {
   try {
     const fetchOptions = {
@@ -96,6 +97,9 @@ export const addComment = async (
         content: commentConent,
         moduleId: moduleId ? moduleId : null,
         submissionId: submissionId ? submissionId : null,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
       }),
     };
 

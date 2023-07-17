@@ -11,8 +11,8 @@ import { LayerData } from '../../model/LayerData';
 import { BcgButton } from '../button/button';
 import { BcgCard } from '../card/card';
 
-const mapboxgl = require('mapbox-gl');
-const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+import * as mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) mapAccessToken: string = '';
@@ -152,7 +152,9 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   }
 
   initMap() {
+    /* @ts-ignore */
     mapboxgl.accessToken = this.mapAccessToken;
+
     this.map = new mapboxgl.Map({
       container: this.renderRoot.querySelector('#map') as HTMLElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL

@@ -294,10 +294,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
               }
             </p>
             ${
-              (this.isLoggedIn && status !== 'CENSORED') ||
-              (this.isLoggedIn &&
-                this.user.realm_access &&
-                this.user.realm_access.roles.includes('MODERATOR'))
+              this.config.config?.isReactionsAllowed && status !== 'CENSORED'
                 ? html`<div style="display:flex;">
                     ${this.config.config?.allowedCommentReactionTypes?.includes(
                       'LIKE'
