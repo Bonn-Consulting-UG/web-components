@@ -13,7 +13,7 @@ export default {
   plugins: [
     json(),
     typescript(),
-    nodeResolve(),
+    nodeResolve({preferBuiltins: false}),
     commonjs({transformMixedEsModules:true}),
     babel({ babelHelpers: 'bundled',  }),
     minifyHTML(),
