@@ -3,7 +3,7 @@
   "description": "Bcg-components following open-wc recommendations",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "0.0.3-90",
+  "version": "0.0.3-91",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "prepublish": "tsc && npm run analyze",

@@ -11,6 +11,8 @@ import { LayerData } from '../../model/LayerData';
 import { BcgButton } from '../button/button';
 import { BcgCard } from '../card/card';
 
+// const mapboxgl = require('mapboxgl');
+// const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 import * as mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
@@ -151,12 +153,29 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     ];
   }
 
+  private assign(obj: any, prop: any, value: any) {
+    if (typeof prop === 'string') prop = prop.split('.');
+
+    if (prop.length > 1) {
+      var e = prop.shift();
+      this.assign(
+        (obj[e] =
+          Object.prototype.toString.call(obj[e]) === '[object Object]'
+            ? obj[e]
+            : {}),
+        prop,
+        value
+      );
+    } else obj[prop[0]] = value;
+  }
+
   initMap() {
     /* @ts-ignore */
-    mapboxgl.accessToken = this.mapAccessToken;
-
+    (mapboxgl as any).accessToken = this.mapAccessToken;
+    console.log(this.mapAccessToken);
     this.map = new mapboxgl.Map({
-      container: this.renderRoot.querySelector('#map') as HTMLElement, // container ID
+      container: this.renderRoot.querySelector('#map') as HTMLElement,
+      accessToken: this.mapAccessToken,
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: this.initialPosition, // starting position [lng, lat]
       maxBounds: this.maxBounds,
