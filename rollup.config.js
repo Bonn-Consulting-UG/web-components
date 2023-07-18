@@ -1,4 +1,4 @@
-import { copy } from '@web/rollup-plugin-copy';
+import copy from 'rollup-plugin-copy'
 import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser';
@@ -13,9 +13,9 @@ export default {
   plugins: [
     json(),
     typescript(),
-    nodeResolve(),  
-    commonjs(),
-    babel({ babelHelpers: 'bundled' }),
+    nodeResolve(),
+    commonjs({transformMixedEsModules:true}),
+    babel({ babelHelpers: 'bundled',  }),
     minifyHTML(),
     terser({
       ecma: 2020,

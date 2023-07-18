@@ -2,12 +2,13 @@ import { html } from '@lion/core';
 import { Story } from '../../../model/story-interfaces.js';
 import '../index.js';
 
+import '../../../components/index.js';
+
 export default {
   title: 'Compositions/ContactSubmission',
   component: 'bcg-cantact-submission',
   argTypes: {
-    content: {},
-    buttonLabel: {},
+    'Wer kann das Einreichungsformular sehen?': { control: 'boolean' },
   },
 };
 

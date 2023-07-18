@@ -158,6 +158,10 @@ button {
   --header-L-default-height: 320px;
 
   /*footer*/
+
+  --loading-color: pink;
+  --loading-spinner-color: var(--loading-color);
+
   --footer-L-padding-top-bottom: 15px;
   --footer-L-padding-left-right: 30px;
   --footer-background-color: var(--primary-color);
@@ -210,7 +214,7 @@ button {
   --secondary-button-default-L-line-height: var(
     --primary-body-medium-L-line-height
   );
-  --secondary-button-default-L-foreground-color: var(--primary-color);
+  --secondary-button-default-L-foreground-color: var(--primary-color, #0057b8);
   --secondary-button-default-L-background-color: white;
   --secondary-button-default-L-box-shadow: none;
   --secondary-button-default-L-border-color: var(--primary-color);

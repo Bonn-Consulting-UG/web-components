@@ -99,14 +99,12 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           <div>
 
               <div style="display:flex; flex-direction:column;flex-basis:100%;">
-              <p style="">
-                Alle mit * gekennzeichneten Felder sind Pflichtfelder.
-              </p>
+              <p> Alle mit * gekennzeichneten Felder sind Pflichtfelder.</p>
                 ${
                   this.isLoading
                     ? html` <bcg-progress></bcg-progress>`
                     : html`
-                        ${!this.isLoggedIn && !this.isHiddenUserAllowed
+                        ${!this.isLoggedIn
                           ? html` <bcg-input
                                 label="Ihr Vorname *"
                                 placeholder=""
