@@ -1,4 +1,4 @@
-import { copy } from '@web/rollup-plugin-copy';
+import copy from 'rollup-plugin-copy'
 import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser';
@@ -13,7 +13,7 @@ export default {
   plugins: [
     json(),
     typescript(),
-    commonjs({include: 'node_modules/mapbox-gl'}),
+
     babel({ babelHelpers: 'bundled' }),
     minifyHTML(),
     terser({

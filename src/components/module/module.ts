@@ -78,6 +78,7 @@ export class BcgModule extends LitElement {
   @property({ type: Boolean }) isRegistrationRequiredToCreateSubmissions = true;
   @property({ type: Boolean }) isHiddenUserAllowed = false;
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
+  @property({ type: Boolean }) isCommentsAllowed = false;
 
   @property({ type: LitElement || null }) createSubmissionHtml = (
     content: TemplateResult
@@ -178,12 +179,13 @@ export class BcgModule extends LitElement {
     if (this.moduleId !== 0 && this.submissionId === 0) {
       this.config = await getModule(this.moduleId);
       this.assignAccessabilities();
-      console.table(this.config);
+
+      console.log(this.config);
     }
     if (this.submissionId !== 0 && this.moduleId === 0) {
       this.config = await getSubmission(this.submissionId);
       this.assignAccessabilities();
-      console.table(this.config);
+      console.log(this.config);
     }
   }
 
@@ -193,6 +195,7 @@ export class BcgModule extends LitElement {
     this.isHiddenUserAllowed = this.config.config?.isHiddenUserAllowed;
     this.isEditOnlyByModeratorAllowed =
       this.config.config?.isEditOnlyByModeratorAllowed;
+    this.isCommentsAllowed = this.config.config?.isCommentsAllowed;
   }
 
   connectedCallback() {

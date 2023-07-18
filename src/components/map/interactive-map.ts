@@ -10,9 +10,10 @@ import { SubmissionCard } from '../../compositions/submission-card/submisson-car
 import { LayerData } from '../../model/LayerData';
 import { BcgButton } from '../button/button';
 import { BcgCard } from '../card/card';
-import mapboxgl from 'mapbox-gl';
 
-// @ts-ignore
+// const mapboxgl = require('mapboxgl');
+// const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+import * as mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
@@ -29,9 +30,11 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     marker: any
   ) => {};
   @property({ type: String }) pinColor = '#9747FF';
+  @property({ type: Boolean }) enablePopup = true;
 
   map: any;
   isSettingMarker = false;
+  markers: Map<String, mapboxgl.Marker> = new Map<String, mapboxgl.Marker>();
 
   firstUpdated() {
     this.initMap();
@@ -40,6 +43,12 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   updated(changedProperties: PropertyValues<this>) {
     this.updateLayers(changedProperties.get('layerData'));
     this.updateSubmissions(changedProperties.get('submissions'));
+
+    if (changedProperties.get('initialPosition')
+      && (changedProperties.get('initialPosition')[0] !== this.initialPosition?.[0] 
+      || changedProperties.get('initialPosition')[1] !== this.initialPosition?.[1])) {
+      this.map.setCenter(this.initialPosition);
+    }
     super.updated(changedProperties);
   }
 
@@ -73,14 +82,25 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const newSubmissions = this.submissions.filter(
       (sub: any) => !prevSubmissions.includes(sub)
     );
+    const removedSubmissions = prevSubmissions.filter(
+      (sub: any) => !this.submissions.includes(sub)
+    );
+  
+    if (removedSubmissions.length > 0) {
+      removedSubmissions.map(submission => {
+        this.markers.get(submission?.id)?.remove();
+      })
+    }
+
     newSubmissions.map(submission => {
-      new mapboxgl.Marker()
+      const marker = new mapboxgl.Marker()
         .setLngLat([
           submission.points[0].longitude,
           submission.points[0].latitude,
-        ])
-        .setPopup(
-          // @ts-ignore
+        ]);
+      if (this.enablePopup) {
+        marker.setPopup(
+         // @ts-ignore
           new mapboxgl.Popup().addClassName('popup').setHTML(`
           <bcg-card>
             <slot name="content">
@@ -121,7 +141,9 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
           </bcg-card>
           `)
         )
-        .addTo(this.map);
+      }
+      marker.addTo(this.map);
+      this.markers.set(submission.id, marker);
     });
   }
 
@@ -152,10 +174,29 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     ];
   }
 
+  private assign(obj: any, prop: any, value: any) {
+    if (typeof prop === 'string') prop = prop.split('.');
+
+    if (prop.length > 1) {
+      var e = prop.shift();
+      this.assign(
+        (obj[e] =
+          Object.prototype.toString.call(obj[e]) === '[object Object]'
+            ? obj[e]
+            : {}),
+        prop,
+        value
+      );
+    } else obj[prop[0]] = value;
+  }
+
   initMap() {
-    mapboxgl.accessToken = this.mapAccessToken;
+    /* @ts-ignore */
+    (mapboxgl as any).accessToken = this.mapAccessToken;
+    console.log(this.mapAccessToken);
     this.map = new mapboxgl.Map({
-      container: this.renderRoot.querySelector('#map') as HTMLElement, // container ID
+      container: this.renderRoot.querySelector('#map') as HTMLElement,
+      accessToken: this.mapAccessToken,
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: this.initialPosition, // starting position [lng, lat]
       maxBounds: this.maxBounds,

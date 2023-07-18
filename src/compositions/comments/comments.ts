@@ -54,6 +54,9 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   @property() count: any = [];
 
   @property() newComment: any = '';
+  @property() firstName: any = '';
+  @property() lastName: any = '';
+  @property() email: any = '';
 
   @property() responseTo: any = {};
 
@@ -134,7 +137,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         const resp = await addComment(
           this.moduleId,
           this.newComment,
-          this.submissionId
+          this.submissionId,
+          {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+          }
         );
         newCommentId = resp.id;
       }
@@ -176,27 +184,64 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                 </div>`
               : null}
             <div></div>
-            ${this.isLoggedIn
-              ? html`<bcg-textarea
-                  @model-value-changed=${({ target }: any) => {
-                    this.newComment = target.value;
-                  }}
-                  .validators=${[
-                    new Required(),
-                    new MinLength(3),
-                    new MaxLength(500),
-                  ]}
-                  name="comment"
-                  id="comment-textarea"
-                  rows="4"
-                  placeholder="Was denken Sie?"
-                ></bcg-textarea>`
-              : html`<div>
+            ${this.isCommentsAllowed &&
+            (!this.config.config.isRegistrationRequired || this.isLoggedIn)
+              ? html`${this.config.config.commentWriters.includes('USER') &&
+                  !this.isLoggedIn
+                    ? html`<bcg-input
+                          label="Ihr Vorname *"
+                          placeholder=""
+                          name="firstname"
+                          .validators=${[new Required()]}
+                          .modelValue="${this.firstName}"
+                          @model-value-changed=${({ target }: any) => {
+                            this.firstName = target.value;
+                          }}
+                        ></bcg-input>
+                        <bcg-input
+                          label="Ihr Nachname  *"
+                          placeholder=""
+                          name="lastname"
+                          .validators=${[new Required()]}
+                          .modelValue="${this.lastName}"
+                          @model-value-changed=${({ target }: any) => {
+                            this.lastName = target.value;
+                          }}
+                        ></bcg-input>
+
+                        <bcg-input-email
+                          name="email"
+                          .validators=${[new Required()]}
+                          .modelValue="${this.email}"
+                          @model-value-changed=${({ target }: any) => {
+                            this.email = target.value;
+                          }}
+                          label="Ihre E-Mail  *"
+                          placeholder=""
+                        ></bcg-input-email></br>`
+                    : null}<bcg-textarea
+                    @model-value-changed=${({ target }: any) => {
+                      this.newComment = target.value;
+                    }}
+                    .validators=${[
+                      new Required(),
+                      new MinLength(3),
+                      new MaxLength(500),
+                    ]}
+                    name="comment"
+                    id="comment-textarea"
+                    rows="4"
+                    placeholder="Was denken Sie?"
+                  ></bcg-textarea>`
+              : this.isCommentsAllowed
+              ? html`<div>
                   <h3>
                     Sie müssen sich erst anmelden, um sich beteiligen zu können.
                   </h3>
-                </div>`}
-            ${this.isLoggedIn
+                </div>`
+              : null}
+            ${this.isCommentsAllowed &&
+            (!this.config.config.isRegistrationRequired || this.isLoggedIn)
               ? html`
                   <div style="display:flex;margin-top:20px;">
                     <p style="flex-grow: 1;"></p>
@@ -206,18 +251,23 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                   </div>
                 `
               : null}
-
-            <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
+            ${this.isCommentsAllowed
+              ? html` <h2 style="flex-grow: 1;">
+                  Kommentare (${this.count || 0})
+                </h2>`
+              : null}
           </form>
         </bcg-form>
 
         <div>
-          ${this.comments &&
-          this.comments.map((comment: any, index: any) => {
-            if (index <= this.displayedComments) {
-              if (comment.comments) {
-                return html`
+          ${this.isCommentsAllowed
+            ? this.comments &&
+              this.comments.map((comment: any, index: any) => {
+                if (index <= this.displayedComments) {
+                  if (comment.comments) {
+                    return html`
                   <bcg-comment
+                  .config=${this.config}
                     id=${comment.id}
                     .changeDialog=${this.changeDialog}
                     .refresh=${this.setupComments}
@@ -231,6 +281,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                     border: none!important;"
                     >
                       <bcg-comment
+                        .config=${this.config}
                         id="${subcomment.id}"
                         .changeDialog=${this.changeDialog}
                         .refresh=${this.setupComments}
@@ -239,17 +290,19 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                     </div>`;
                   })}
                 </div>`;
-              }
-              if (!comment.comments)
-                return html`<bcg-comment
-                  id=${comment}
-                  .changeDialog=${this.changeDialog}
-                  .refresh=${this.setupComments}
-                  .comments="${comment}"
-                  .setResponseTo=${this.setResponseTo}
-                ></bcg-comment> `;
-            }
-          })}
+                  }
+                  if (!comment.comments)
+                    return html`<bcg-comment
+                      .config=${this.config}
+                      id=${comment}
+                      .changeDialog=${this.changeDialog}
+                      .refresh=${this.setupComments}
+                      .comments="${comment}"
+                      .setResponseTo=${this.setResponseTo}
+                    ></bcg-comment> `;
+                }
+              })
+            : 'Keine Kommentare möglich'}
         </div>
         <div
           style="display:flex;align-items: center; align-content: center;justify-content: center; margin-top:20px;"

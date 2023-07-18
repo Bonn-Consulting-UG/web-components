@@ -8,6 +8,7 @@ import {
 import { BcgModule } from '../../components/module';
 import { ideaSubmissionEndpoint } from '../../utils/services/config';
 import { sendIdeaSubmissionRequest } from '../../utils/services/module';
+import { toNumber } from 'cypress/types/lodash';
 
 export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
   ideaRequest: any = {

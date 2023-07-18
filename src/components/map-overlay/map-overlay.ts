@@ -1,5 +1,4 @@
 import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
-import { BcgModule } from '../module';
 import { LayerData } from '../../model/LayerData';
 import { mapOverlayStyle } from './style-map-overlay';
 
@@ -70,6 +69,7 @@ export class BcgMapOverlay extends ScopedElementsMixin(LitElement) {
           .geocoderInputCallback=${this.geocoderInputCallback}
           .markerSetCallback=${this.markerSetCallback}
           .submissions=${this.submissions}
+          .pinColor=${this.pinColor}
         >
         </bcg-interactive-map>
       </div>

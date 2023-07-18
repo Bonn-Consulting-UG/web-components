@@ -83,7 +83,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    return html`
+    return this.createSubmissionHtml(html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${
@@ -99,9 +99,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           <div>
 
               <div style="display:flex; flex-direction:column;flex-basis:100%;">
-              <p style="">
-                Alle mit * gekennzeichneten Felder sind Pflichtfelder.
-              </p>
+              <p> Alle mit * gekennzeichneten Felder sind Pflichtfelder.</p>
                 ${
                   this.isLoading
                     ? html` <bcg-progress></bcg-progress>`
@@ -187,6 +185,6 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           </div>
         </form></bcg-form
       >
-    `;
+    `);
   }
 }

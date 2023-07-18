@@ -1,11 +1,12 @@
 import { html } from '@lion/core';
 import { Story } from '../../../model/story-interfaces.js';
 import { token } from '../../../components/map-overlay/testAccessToken.js';
+import { testLayers } from '../../../components/map-overlay/testLayers.js';
 import '../index.js';
 
 export default {
-  title: 'Compositions/MapSubmission',
-  component: 'bcg-map-submission',
+  title: 'Compositions/MaSingleSubmission',
+  component: 'bcg-map-single-submission',
   argTypes: {
     content: {},
     buttonLabel: {},
@@ -22,19 +23,15 @@ interface ArgTypes {
 const DefaultTemplate: Story<ArgTypes> = () =>
   html`
     <div style="width: 100%; height: 800px">
-      <bcg-map-submission
+      <bcg-map-single-submission
+        .submissionId=${'2c37246e-02a7-462b-aee6-6fe6192aaab5'}
         mapAccessToken=${token}
-        moduleId="3275cc46-38da-4033-a281-acedadc93db6"
         mapHeight="600"
         .maxBounds=${undefined}
-        overlayButtonLabel="Fachkarten"
-        actionButtonLabel="Fachkarten"
         initialZoom="8"
         .initialPosition=${[-70.94416, 43.46633]}
-        overlayWidth="300px"
-        overlayHeader="Fachkarten"
         .pinColor=${'red'}
-      ></bcg-map-submission>
+      ></bcg-map-single-submission>
     </div>
   `;
 

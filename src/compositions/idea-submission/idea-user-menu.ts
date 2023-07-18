@@ -86,23 +86,33 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
       this.showDialog = false;
     };
   }
+  connectedCallback(): void {
+    super.connectedCallback();
+  }
 
+  protected updated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    console.log(this.user);
+    super.updated(_changedProperties);
+  }
   render() {
     const { moduleId } = this;
-
-    return html`
-      ${this.dialogHtml}
-      <div style="display:flex;">
-        <bcg-button
-          style="margin-right:10px;"
-          @click=${this.onEditHandler}
-          variant="primary"
-          >Bearbeiten</bcg-button
-        >
-        <bcg-button @click=${this.onDeleteHandler} variant="primary"
-          >Löschen</bcg-button
-        >
-      </div>
-    `;
+    return this.user?.sub === this.config.authorId || this.hasModeratorRole
+      ? html`
+          ${this.dialogHtml}
+          <div style="display:flex;">
+            <bcg-button
+              style="margin-right:10px;"
+              @click=${this.onEditHandler}
+              variant="primary"
+              >Bearbeiten</bcg-button
+            >
+            <bcg-button @click=${this.onDeleteHandler} variant="primary"
+              >Löschen</bcg-button
+            >
+          </div>
+        `
+      : null;
   }
 }

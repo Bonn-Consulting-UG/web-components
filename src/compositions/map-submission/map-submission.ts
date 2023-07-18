@@ -3,26 +3,22 @@ import { Required } from '@lion/form-core';
 import { LionStep, LionSteps } from '@lion/steps';
 import { LionTabs } from '@lion/tabs';
 import { BcgModule } from '../../components/module';
-import { LayerData } from '../../model/LayerData';
 import { MapSubmission } from '../../model/MapSubmission';
 import {
-  getReverseGeocodingEndpoint,
   getSubmissionsEndpointforModule,
   mapSubmissionEndpoint,
 } from '../../utils/services/config';
 import { mapSubmissionStyle } from './style-map-submission';
+import { MapService } from '../../utils/services/map';
 
 export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   // settable properties
   @property({ type: String }) overlayHeader: string = 'Overlay';
-  @property({ type: Array }) layers: LayerData[] = [];
   @property({ type: Number }) mapHeight = 600;
   @property({ type: String }) createSubmissionButtonLabel = 'Hinweis eingeben';
-  @property({ type: Boolean }) showOverlayButton = true;
   @property({ type: Boolean }) showCreateSubmissionButton = true;
 
   // map-overlay properties
-  @property({ type: String }) actionButtonLabel = 'Open Overlay';
   @property({ type: String }) overlayWidth: string = '40%';
   // mapbox properties
   @property({ type: String }) mapAccessToken: string = '';
@@ -32,10 +28,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) pinColor = '#9747FF';
 
   // internal use
-  @property({ type: Array }) activeLayers: LayerData[] = [];
-  @property({ type: Array }) expandedCategories: string[] = [];
   @property({ type: Boolean }) showOverlay: boolean = false;
-  @property({ type: Boolean }) showLayerContent: boolean = true;
   @property({ type: Object }) currentMarker: any;
   @property({ type: Object }) currentGeocoderInput: any;
   @property({ type: Object }) currentMapSubmission: MapSubmission = {
@@ -62,8 +55,10 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   geocoder: any;
   submissionForm: any;
   contactForm: any;
+  mapService: MapService = new MapService(this);
 
   @property({ type: String }) currentAdress: string = '';
+
 
   static get scopedElements() {
     return {
@@ -77,10 +72,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     return [mapSubmissionStyle];
   }
 
-  get categories() {
-    return [...new Set(this.layers.map(layer => layer.category))];
-  }
-
   firstUpdated(changed: any) {
     this.fetchSubmissions().then(res => {
       this.submissions = res.results.filter(
@@ -89,18 +80,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     });
     super.firstUpdated(changed);
   }
-
-  switchCategoryExpandedState = (category: string) => {
-    if (this.expandedCategories.includes(category)) {
-      this.expandedCategories.splice(
-        this.expandedCategories.indexOf(category),
-        1
-      );
-    } else {
-      this.expandedCategories.push(category);
-    }
-    this.expandedCategories = [...this.expandedCategories];
-  };
 
   updated(changed: any) {
     this.stepper = this.renderRoot.querySelector('.stepper') as any;
@@ -245,7 +224,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
       const resp = await fetch(mapSubmissionEndpoint(''), fetchOptions);
 
       if (resp.status === 201) {
-        this.resetCurrentSubmission();
+        this.mapService.resetCurrentSubmission();
         this.fetchSubmissions().then(res => {
           this.submissions = res.results.filter(
             (submission: any) => submission.points?.length >= 1
@@ -259,25 +238,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     } catch (err) {
       console.log(err);
 
-      this.resetCurrentSubmission();
+      this.mapService.resetCurrentSubmission();
       this.notificationType = 'error';
       this.notificationMessage = 'Fehler ist aufgetreten';
       this.isLoading = false;
     }
-  }
-
-  resetCurrentSubmission() {
-    this.clearGeocoder();
-    this.removeCurrentMarker();
-    this.currentMapSubmission = {
-      description: '',
-      lastName: '',
-      title: '',
-      email: '',
-      firstName: '',
-      points: [],
-    };
-    this.privacyChecked = false;
   }
 
   resetStepper() {
@@ -286,7 +251,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
   closeOverlay() {
     this.showOverlay = false;
-    this.resetCurrentSubmission();
+    this.mapService.resetCurrentSubmission();
     this.submissionForm?.reset();
     this.contactForm?.reset();
     this.resetStepper();
@@ -364,30 +329,24 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
-            <div style="width: 100%; height: ${this.mapHeight}px">
+            <div class="map-wrapper" style="height: ${this.mapHeight}px">
               <bcg-map-overlay
                 class="bcg-overlay"
                 mapAccessToken=${this.mapAccessToken}
-                .showActionButton=${this.showOverlayButton}
-                actionButtonLabel=${this.actionButtonLabel}
+                .showActionButton=${false}
                 .pinColor=${this.pinColor}
-                .actionButtonCallback=${() => {
-                  this.showOverlay = true;
-                  this.showLayerContent = true;
-                }}
                 .closeButtonCallback=${() => this.closeOverlay()}
                 initialZoom=${this.initialZoom}
                 .maxBounds=${this.maxBounds}
                 .initialPosition=${this.initialPosition}
                 overlayWidth=${this.overlayWidth}
-                .activeLayers=${this.activeLayers}
                 .submissions=${this.submissions}
                 .showOverlay=${this.showOverlay}
                 .geocoderInputCallback=${(input: any) => {
-                  this.handleGeocoderInput(input);
+                  this.mapService.handleGeocoderInput(input);
                 }}
                 .markerSetCallback=${(marker: any) => {
-                  this.handleMarkerInput(marker);
+                  this.mapService.handleMarkerInput(marker);
                 }}
               >
                 <div class="overlay-content" slot="overlay-content">
@@ -409,7 +368,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                       <lion-step initial-step class="submission-step" >
                         <div class="step-content">
                           <h3>Standort auswählen</h3>
-                          <h4>Option 1: Ort suchen</h4>
+                          <h4><span class="option-1-label">Option 1: </span>Ort suchen</h4>
                           <div class="geocoder-container"></div>
                           <h4>Option 2: Pin setzen<h4>
                           <div class="pin-container">
@@ -487,7 +446,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                           }}>
                             <form @submit=${(e: any) => e.preventDefault()}>
                               <h3>Ihr Hinweis</h3>
-                              <bcg-input
+                              <bcg-textarea
+                              class="input-area"
                               label="Titel"
                               placeholder=""
                               name="title"
@@ -499,8 +459,9 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                   ...this.currentMapSubmission,
                                 };
                               }}
-                              ></bcg-input>
-                              <bcg-input
+                              ></bcg-textarea>
+                              <bcg-textarea
+                              class="input-area"
                               label="Ihr Hinweis"
                               placeholder=""
                               name="description"
@@ -515,7 +476,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                   ...this.currentMapSubmission,
                                 };
                               }}
-                              ></bcg-input>
+                              ></bcg-textarea>
                             </form>
                           </bcg-form>
                         </div>
@@ -563,6 +524,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                           'error'
                                         )
                                       ) {
+                                        this.submitSubmission();
+                                        this.stepper?.next();
                                       }
                                     }}
                                   >
@@ -649,8 +612,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
                                   <bcg-button-submit
                                     @click=${() => {
-                                      this.submitSubmission();
-                                      this.stepper?.next();
+                                      this.contactForm.submit()
                                     }}
                                     variant="primary"
                                     .disabled=${!this.currentMarker &&
@@ -706,6 +668,17 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
+
+            <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
+            <div style="margin-right: 5px">${this.sortBy === 'newest' ? 'Neuste zuerst' : 'Älteste zuerst'}</div>
+            <lion-icon
+            class="expand-icon"
+            icon-id=${this.sortBy === 'newest'
+              ? 'bcg:general:expand'
+              : 'bcg:general:collapse'}
+            ></lion-icon>
+            </bcg-button>
+
             <div class="list-grid">
               ${this.submissions.sort(this.sortByDateFunction).map(
                 submission => html` <div style="padding: 5px;">
