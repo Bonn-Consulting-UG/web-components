@@ -1,4 +1,3 @@
-import '../components/index';
 import './comments/index';
 import './contact-submission/index';
 import './faq-submission/index';
