@@ -6,15 +6,15 @@ import {
 } from '../../utils/helpers/input-errors';
 import { format } from 'date-fns';
 import de from 'date-fns/locale/de';
-import { BcgModule } from '../../components/module/module.js';
+import { BcgModule } from '../../components/module/module';
 import {
   getAllCommentsForModule,
   addComment,
   addCommentToComment,
   getSubmission,
-} from '../../utils/services/comments.js';
-import { BcgCommentReaction } from './comment-reaction.js';
-import { BcgComment } from './comment.js';
+} from '../../utils/services/comments';
+import { BcgCommentReaction } from './comment-reaction';
+import { BcgComment } from './comment';
 import { LionIcon } from '@lion/icon';
 import { BcgDialog } from '../../components/dialog/dialog';
 import { BcgModeratorMenu } from './comment-moderator-menu';

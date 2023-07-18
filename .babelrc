@@ -1,5 +1,8 @@
 {
   "sourceType": "unambiguous",
+  "assumptions": {
+    "setPublicClassFields": true,
+  },
   "presets": [
     [
       "@babel/preset-env",
@@ -12,5 +15,6 @@
     "@babel/preset-typescript",
     "@babel/preset-react"
   ],
-  "plugins": []
+  "plugins": [["@babel/plugin-proposal-decorators", { "version": "2018-09","decoratorsBeforeExport": true}],["@babel/plugin-transform-class-properties"]]
+
 }

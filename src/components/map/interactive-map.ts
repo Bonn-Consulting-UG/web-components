@@ -20,7 +20,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) mapAccessToken: string = '';
   @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
   @property({ type: Number }) initialZoom = 10;
-  @property({ type: Array }) maxBounds = undefined;
+  @property({ type: Array }) maxBounds: any = undefined;
   @property({ type: Array }) layerData?: LayerData[];
   @property({ type: Array }) submissions: any[] = [];
   @property({ type: Function }) geocoderInputCallback: Function = (
@@ -44,9 +44,13 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     this.updateLayers(changedProperties.get('layerData'));
     this.updateSubmissions(changedProperties.get('submissions'));
 
-    if (changedProperties.get('initialPosition')
-      && (changedProperties.get('initialPosition')[0] !== this.initialPosition?.[0] 
-      || changedProperties.get('initialPosition')[1] !== this.initialPosition?.[1])) {
+    if (
+      changedProperties.get('initialPosition') &&
+      (changedProperties.get('initialPosition')[0] !==
+        this.initialPosition?.[0] ||
+        changedProperties.get('initialPosition')[1] !==
+          this.initialPosition?.[1])
+    ) {
       this.map.setCenter(this.initialPosition);
     }
     super.updated(changedProperties);
@@ -85,22 +89,21 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const removedSubmissions = prevSubmissions.filter(
       (sub: any) => !this.submissions.includes(sub)
     );
-  
+
     if (removedSubmissions.length > 0) {
       removedSubmissions.map(submission => {
         this.markers.get(submission?.id)?.remove();
-      })
+      });
     }
 
     newSubmissions.map(submission => {
-      const marker = new mapboxgl.Marker()
-        .setLngLat([
-          submission.points[0].longitude,
-          submission.points[0].latitude,
-        ]);
+      const marker = new mapboxgl.Marker().setLngLat([
+        submission.points[0].longitude,
+        submission.points[0].latitude,
+      ]);
       if (this.enablePopup) {
         marker.setPopup(
-         // @ts-ignore
+          // @ts-ignore
           new mapboxgl.Popup().addClassName('popup').setHTML(`
           <bcg-card>
             <slot name="content">
@@ -140,7 +143,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
             </slot>
           </bcg-card>
           `)
-        )
+        );
       }
       marker.addTo(this.map);
       this.markers.set(submission.id, marker);
@@ -207,6 +210,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
+      /* @ts-ignore */
       bbox: this.maxBounds
         ? [...this.maxBounds[0], ...this.maxBounds[1]]
         : undefined,

@@ -1,6 +1,6 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces.js';
-import '../index.js';
+import { Story } from '../../../model/story-interfaces';
+import '../index';
 
 export default {
   title: 'Components/Notification',
@@ -8,9 +8,9 @@ export default {
   argTypes: {
     type: {
       control: 'radio',
-      options: ['success', 'info', 'error', 'warning']
-    }
-  }
+      options: ['success', 'info', 'error', 'warning'],
+    },
+  },
 };
 
 interface ArgTypes {
@@ -30,7 +30,7 @@ const Default = Template.bind({});
 
 Default.args = {
   type: 'success',
-  message: `success`
+  message: `success`,
 };
 
 export { Default };

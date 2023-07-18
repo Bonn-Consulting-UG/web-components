@@ -13,9 +13,8 @@ export default {
   plugins: [
     json(),
     typescript(),
-    nodeResolve({preferBuiltins: false}),
-    commonjs({transformMixedEsModules:true}),
-    babel({ babelHelpers: 'bundled',  }),
+
+    babel({ babelHelpers: 'bundled' }),
     minifyHTML(),
     terser({
       ecma: 2020,

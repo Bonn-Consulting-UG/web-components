@@ -15,15 +15,19 @@ export class BcgMapOverlay extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) overlayWidth: string = '40%';
   @property({ type: Boolean }) showOverlay = false;
   // mapbox properties
-  @property({type: String}) mapAccessToken: string = '';
-  @property({type: Array}) initialPosition: [number, number] = [13.4, 52.51];
-  @property({type: Array}) activeLayers: LayerData[] = [];
-  @property({type: Array}) submissions: any[] = [];
-  @property({type: Number}) initialZoom = 10;
-  @property({type: Array}) maxBounds = undefined;
-  @property({type: Function}) geocoderInputCallback: Function = (input: any) => {};
-  @property({type: Function}) markerSetCallback: Function = (marker: any) => {};
-  @property({type: String}) pinColor = '#9747FF';
+  @property({ type: String }) mapAccessToken: string = '';
+  @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
+  @property({ type: Array }) activeLayers: LayerData[] = [];
+  @property({ type: Array }) submissions: any[] = [];
+  @property({ type: Number }) initialZoom = 10;
+  @property({ type: Array }) maxBounds: any = undefined;
+  @property({ type: Function }) geocoderInputCallback: Function = (
+    input: any
+  ) => {};
+  @property({ type: Function }) markerSetCallback: Function = (
+    marker: any
+  ) => {};
+  @property({ type: String }) pinColor = '#9747FF';
 
   static get styles() {
     return [mapOverlayStyle];
@@ -32,16 +36,16 @@ export class BcgMapOverlay extends ScopedElementsMixin(LitElement) {
   render() {
     return html`
       <div class="map-wrapper">
-
-        ${this.showActionButton && !this.showOverlay ? html`
-        <bcg-button
-          class="action-button"
-          variant="secondary"
-          @click=${() => this.actionButtonCallback()}
-          >${this.actionButtonLabel}</bcg-button
-        >
-        ` : ``}
-
+        ${this.showActionButton && !this.showOverlay
+          ? html`
+              <bcg-button
+                class="action-button"
+                variant="secondary"
+                @click=${() => this.actionButtonCallback()}
+                >${this.actionButtonLabel}</bcg-button
+              >
+            `
+          : ``}
         ${this.showOverlay
           ? html` <div
               class="overlay-wrapper"
@@ -61,7 +65,7 @@ export class BcgMapOverlay extends ScopedElementsMixin(LitElement) {
           .layerData=${this.activeLayers}
           .initialPosition=${this.initialPosition}
           .initialZoom=${this.initialZoom}
- 		      .maxBounds=${this.maxBounds}
+          .maxBounds=${this.maxBounds}
           .geocoderInputCallback=${this.geocoderInputCallback}
           .markerSetCallback=${this.markerSetCallback}
           .submissions=${this.submissions}

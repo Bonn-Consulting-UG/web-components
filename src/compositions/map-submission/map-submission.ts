@@ -31,7 +31,9 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: Boolean }) showOverlay: boolean = false;
   @property({ type: Object }) currentMarker: any;
   @property({ type: Object }) currentGeocoderInput: any;
-  @property({ type: Object }) currentMapSubmission: MapSubmission = { points: [] };
+  @property({ type: Object }) currentMapSubmission: MapSubmission = {
+    points: [],
+  };
   @property({ type: Boolean }) privacyChecked = false;
   @property({ type: String }) notificationType = '';
   @property({ type: String }) notificationMessage = '';
@@ -39,13 +41,14 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: LitElement || undefined }) stepper: any;
   @property({ type: Number }) currentTabIndex = 0;
 
-  sortByNewest = (a: MapSubmission, b: MapSubmission) => 
-    new Date(a.createdAt ?? '').getTime() - new Date(b.createdAt ?? '').getTime();
-  sortByOldest = (a: MapSubmission, b: MapSubmission) => 
-    new Date(b.createdAt ?? '').getTime() - new Date(a.createdAt ?? '').getTime();
+  sortByNewest = (a: MapSubmission, b: MapSubmission) =>
+    new Date(a.createdAt ?? '').getTime() -
+    new Date(b.createdAt ?? '').getTime();
+  sortByOldest = (a: MapSubmission, b: MapSubmission) =>
+    new Date(b.createdAt ?? '').getTime() -
+    new Date(a.createdAt ?? '').getTime();
   @property({ type: String }) sortBy: 'newest' | 'oldest' = 'newest';
   @property({ type: Function }) sortByDateFunction = this.sortByNewest;
-
 
   @property({ type: Array }) submissions: any[] = [];
 
@@ -55,7 +58,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   mapService: MapService = new MapService(this);
 
   @property({ type: String }) currentAdress: string = '';
-
 
   static get scopedElements() {
     return {
@@ -79,7 +81,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   }
 
   updated(changed: any) {
-    this.stepper = this.renderRoot.querySelector('.stepper') as any; 
+    this.stepper = this.renderRoot.querySelector('.stepper') as any;
     this.mapService.assignGeocoder();
     this.stepper = !this.stepper
       ? (this.renderRoot.querySelector('.stepper') as any)
@@ -128,17 +130,18 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             ? `Bearer ${localStorage.getItem('accessToken')}`
             : '',
         },
-        body: this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed)
-          ? JSON.stringify({
-              description: this.currentMapSubmission.description,
-              title: this.currentMapSubmission.title,
-              points: this.currentMapSubmission.points,
-              moduleId: this.moduleId,
-            })
-          : JSON.stringify({
-              ...this.currentMapSubmission,
-              moduleId: this.moduleId,
-            }),
+        body:
+          this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed)
+            ? JSON.stringify({
+                description: this.currentMapSubmission.description,
+                title: this.currentMapSubmission.title,
+                points: this.currentMapSubmission.points,
+                moduleId: this.moduleId,
+              })
+            : JSON.stringify({
+                ...this.currentMapSubmission,
+                moduleId: this.moduleId,
+              }),
       };
       this.isLoading = true;
 
@@ -178,9 +181,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     this.resetStepper();
   }
 
-
   switchSortState() {
-    this.sortByDateFunction = this.sortByDateFunction === this.sortByNewest ? this.sortByOldest : this.sortByNewest;
+    this.sortByDateFunction =
+      this.sortByDateFunction === this.sortByNewest
+        ? this.sortByOldest
+        : this.sortByNewest;
     this.sortBy = this.sortBy === 'newest' ? 'oldest' : 'newest';
   }
 
@@ -196,27 +201,31 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         type="text/css"
       />
       <div class="wrapper">
-        ${this.showCreateSubmissionButton ? 
-          this.createSubmissionHtml(html`<bcg-button
-          variant="primary"
-          class="submission-button"
-          @click=${() => {
-            this.showOverlay = true;
-            this.currentTabIndex = 0;
-          }}
-        >
-          <div>
-            <lion-icon
-              class="button-icon"
-              icon-id="bcg:general:edit"
-            ></lion-icon>
-            ${this.createSubmissionButtonLabel}
-          </div>
-        </bcg-button>
-        `) : ``}
+        ${this.showCreateSubmissionButton
+          ? this.createSubmissionHtml(html`<bcg-button
+              variant="primary"
+              class="submission-button"
+              @click=${() => {
+                this.showOverlay = true;
+                this.currentTabIndex = 0;
+              }}
+            >
+              <div>
+                <lion-icon
+                  class="button-icon"
+                  icon-id="bcg:general:edit"
+                ></lion-icon>
+                ${this.createSubmissionButtonLabel}
+              </div>
+            </bcg-button> `)
+          : ``}
 
         <lion-tabs class="tabs" .selectedIndex=${this.currentTabIndex}>
-          <bcg-tab-button @click=${() => this.currentTabIndex = 0} class="tab-button" slot="tab">
+          <bcg-tab-button
+            @click=${() => (this.currentTabIndex = 0)}
+            class="tab-button"
+            slot="tab"
+          >
             <div>
               <lion-icon
                 class="button-icon"
@@ -274,15 +283,34 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                               <span class="pin-text">Platzieren Sie diesen Pin durch Ziehen und Ablegen an der von Ihnen gewählten Position auf der Karte</span>
                             </div>
                             <div class="current-marker-info">
-                              ${this.currentMarker ? html`
-                              <p class="pin-info-text">${this.currentAdress}</p>
-                              <span class="pin-info-text">[ Lng: ${this.currentMapSubmission.points[0]?.longitude?.toFixed(4)}, Lat: ${this.currentMapSubmission.points[0]?.latitude?.toFixed(4)} ]
-                              </span>` : ``}
+                              ${
+                                this.currentMarker
+                                  ? html` <p class="pin-info-text">
+                                        ${this.currentAdress}
+                                      </p>
+                                      <span class="pin-info-text"
+                                        >[ Lng:
+                                        ${this.currentMapSubmission.points[0]?.longitude?.toFixed(
+                                          4
+                                        )},
+                                        Lat:
+                                        ${this.currentMapSubmission.points[0]?.latitude?.toFixed(
+                                          4
+                                        )}
+                                        ]
+                                      </span>`
+                                  : ``
+                              }
                             </div>
                           </span>
                         </div>
                         <div class="step-navigation">
-                          ${this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed) ? '1/2' : '1/3'}
+                          ${
+                            this.isLoggedIn ||
+                            (!this.isLoggedIn && this.isHiddenUserAllowed)
+                              ? '1/2'
+                              : '1/3'
+                          }
                           <bcg-button
                           variant="primary"
                           .disabled=${
@@ -305,7 +333,8 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                 'error'
                               )
                             ) {
-                              this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed)
+                              this.isLoggedIn ||
+                              (!this.isLoggedIn && this.isHiddenUserAllowed)
                                 ? await this.submitSubmission()
                                 : null;
                               this.stepper?.next();
@@ -358,7 +387,12 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                         <
                       </bcg-button>
 
-                          ${this.isLoggedIn || (!this.isLoggedIn && this.isHiddenUserAllowed) ? '2/2' : '2/3'}
+                          ${
+                            this.isLoggedIn ||
+                            (!this.isLoggedIn && this.isHiddenUserAllowed)
+                              ? '2/2'
+                              : '2/3'
+                          }
                           <bcg-button
                       variant="primary"
                       .disabled=${
@@ -474,7 +508,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
                                   <bcg-button-submit
                                     @click=${() => {
-                                      this.contactForm.submit()
+                                      this.contactForm.submit();
                                     }}
                                     variant="primary"
                                     .disabled=${!this.currentMarker &&
@@ -515,7 +549,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-panel>
 
-          <bcg-tab-button class="tab-button" @click=${() => this.currentTabIndex = 1} slot="tab">
+          <bcg-tab-button
+            class="tab-button"
+            @click=${() => (this.currentTabIndex = 1)}
+            slot="tab"
+          >
             <div>
               <lion-icon
                 class="button-icon"
@@ -526,24 +564,30 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
-
-            <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
-            <div style="margin-right: 5px">${this.sortBy === 'newest' ? 'Neuste zuerst' : 'Älteste zuerst'}</div>
-            <lion-icon
-            class="expand-icon"
-            icon-id=${this.sortBy === 'newest'
-              ? 'bcg:general:expand'
-              : 'bcg:general:collapse'}
-            ></lion-icon>
+            <bcg-button
+              variant="secondary"
+              @click=${() => this.switchSortState()}
+              class="sort-button"
+            >
+              <div style="margin-right: 5px">
+                ${this.sortBy === 'newest' ? 'Neuste zuerst' : 'Älteste zuerst'}
+              </div>
+              <lion-icon
+                class="expand-icon"
+                icon-id=${this.sortBy === 'newest'
+                  ? 'bcg:general:expand'
+                  : 'bcg:general:collapse'}
+              ></lion-icon>
             </bcg-button>
 
             <div class="list-grid">
-              ${this.submissions.sort(this.sortByDateFunction).map(submission => html`
-              <div style="padding: 5px;">
-                <bcg-submission-card
-                .submission=${submission}
-                ></bcg-submission-card>
-              </div>`)}
+              ${this.submissions.sort(this.sortByDateFunction).map(
+                submission => html` <div style="padding: 5px;">
+                  <bcg-submission-card
+                    .submission=${submission}
+                  ></bcg-submission-card>
+                </div>`
+              )}
             </div>
           </bcg-tab-panel>
         </lion-tabs>

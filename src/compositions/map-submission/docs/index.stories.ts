@@ -1,7 +1,7 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces.js';
-import { token } from '../../../components/map-overlay/testAccessToken.js';
-import '../index.js';
+import { Story } from '../../../model/story-interfaces';
+import { token } from '../../../components/map-overlay/testAccessToken';
+import '../index';
 
 export default {
   title: 'Compositions/MapSubmission',

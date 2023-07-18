@@ -1,8 +1,8 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces.js';
-import { testLayers } from '../../../components/map-overlay/testLayers.js';
-import '../index.js';
-import { LayerData } from '../../../model/LayerData.js';
+import { Story } from '../../../model/story-interfaces';
+import { testLayers } from '../../../components/map-overlay/testLayers';
+import '../index';
+import { LayerData } from '../../../model/LayerData';
 
 export default {
   title: 'Compositions/SelectableLayers',
@@ -19,12 +19,13 @@ interface ArgTypes {
 }
 
 const DefaultTemplate: Story<ArgTypes> = () =>
-html`
-  <bcg-selectable-layers
-  .layers=${testLayers}
-  .activeLayersChanged=${(activeLayers: LayerData[]) => console.log(activeLayers)}
-  ></bcg-selectable-layers>
-`;
+  html`
+    <bcg-selectable-layers
+      .layers=${testLayers}
+      .activeLayersChanged=${(activeLayers: LayerData[]) =>
+        console.log(activeLayers)}
+    ></bcg-selectable-layers>
+  `;
 
 const Default = DefaultTemplate.bind({});
 

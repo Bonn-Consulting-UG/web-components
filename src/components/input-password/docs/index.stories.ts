@@ -1,7 +1,7 @@
 import { html } from '@lion/core';
 import { Required } from '@lion/form-core';
-import { ArgTypes, Story } from '../../../model/story-interfaces.js';
-import '../index.js';
+import { ArgTypes, Story } from '../../../model/story-interfaces';
+import '../index';
 
 export default {
   title: 'Components/InputPassword',

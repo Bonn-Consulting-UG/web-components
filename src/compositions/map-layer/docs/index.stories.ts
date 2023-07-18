@@ -1,8 +1,8 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces.js';
-import { token } from '../../../components/map-overlay/testAccessToken.js';
-import { testLayers } from '../../../components/map-overlay/testLayers.js';
-import '../index.js';
+import { Story } from '../../../model/story-interfaces';
+import { token } from '../../../components/map-overlay/testAccessToken';
+import { testLayers } from '../../../components/map-overlay/testLayers';
+import '../index';
 
 export default {
   title: 'Compositions/MapLayer',
@@ -22,8 +22,7 @@ let showOverlay = true;
 // test maxBounds: [[-73.9876, 40.7661], [-73.9397, 40.8002]]
 
 const DefaultTemplate: Story<ArgTypes> = () =>
-html`
-  <div style="width: 100%; height: 600px">
+  html` <div style="width: 100%; height: 600px">
     <bcg-map-layer
       mapAccessToken=${token}
       actionButtonLabel="Fachkarten"
@@ -34,7 +33,7 @@ html`
       overlayWidth="300px"
       overlayHeader="Fachkarten"
       .showOverlay=${showOverlay}
-      >
+    >
     </bcg-map-layer>
   </div>`;
 

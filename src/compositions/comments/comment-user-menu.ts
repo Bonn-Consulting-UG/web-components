@@ -15,9 +15,9 @@ import {
   deleteComment,
   removeReaction,
   reportComment,
-} from '../../utils/services/comments.js';
-import { BcgModule } from '../../components/module/module.js';
-import { commentDelteEndPoint } from '../../utils/services/config.js';
+} from '../../utils/services/comments';
+import { BcgModule } from '../../components/module/module';
+import { commentDelteEndPoint } from '../../utils/services/config';
 import { PropertyValueMap } from 'lit';
 
 export class BcgUserMenu extends BcgModule {

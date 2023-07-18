@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import { BcgComments } from './comments';
-import '../index.js';
+import '../index';
 
 import { componentNames } from '../../utils/config';
 

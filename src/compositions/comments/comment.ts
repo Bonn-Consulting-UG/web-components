@@ -16,16 +16,15 @@ import {
   editComment,
   removeReaction,
   reportComment,
-} from '../../utils/services/comments.js';
-import { BcgModule } from '../../components/module/module.js';
-import { BcgModeratorMenu } from './comment-moderator-menu.js';
-import { BcgUserMenu } from './comment-user-menu.js';
+} from '../../utils/services/comments';
+import { BcgModule } from '../../components/module/module';
+import { BcgModeratorMenu } from './comment-moderator-menu';
+import { BcgUserMenu } from './comment-user-menu';
 import {
   MaxLength,
   MinLength,
   Required,
-} from '../../utils/helpers/input-errors.js';
-import { Func } from 'mocha';
+} from '../../utils/helpers/input-errors';
 
 export class BcgComment extends ScopedElementsMixin(BcgModule) {
   @property({ type: Object }) comments: any;
