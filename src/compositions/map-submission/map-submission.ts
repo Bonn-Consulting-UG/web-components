@@ -215,18 +215,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
         </bcg-button>
         `) : ``}
 
-        ${this.currentTabIndex === 1 ? html`
-          <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
-          <div style="margin-right: 5px">${this.sortBy === 'newest' ? 'Neuste zuerst' : 'Älteste zuerst'}</div>
-          <lion-icon
-          class="expand-icon"
-          icon-id=${this.sortBy === 'newest'
-            ? 'bcg:general:expand'
-            : 'bcg:general:collapse'}
-          ></lion-icon>
-          </bcg-button>`
-        : ``}
-
         <lion-tabs class="tabs" .selectedIndex=${this.currentTabIndex}>
           <bcg-tab-button @click=${() => this.currentTabIndex = 0} class="tab-button" slot="tab">
             <div>
@@ -538,6 +526,17 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
+
+            <bcg-button variant="secondary" @click=${() => this.switchSortState()} class="sort-button">
+            <div style="margin-right: 5px">${this.sortBy === 'newest' ? 'Neuste zuerst' : 'Älteste zuerst'}</div>
+            <lion-icon
+            class="expand-icon"
+            icon-id=${this.sortBy === 'newest'
+              ? 'bcg:general:expand'
+              : 'bcg:general:collapse'}
+            ></lion-icon>
+            </bcg-button>
+
             <div class="list-grid">
               ${this.submissions.sort(this.sortByDateFunction).map(submission => html`
               <div style="padding: 5px;">
