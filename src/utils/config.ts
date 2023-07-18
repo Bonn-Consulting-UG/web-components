@@ -66,6 +66,7 @@ export const componentNames: component = {
     selectableLayers: `${tagPrefix}-selectable-layers`,
     mapLayer: `${tagPrefix}-map-layer`,
     mapSubmission: `${tagPrefix}-map-submission`,
+    mapSingleSubmission: `${tagPrefix}-map-single-submission`,
     contactSubmission: `${tagPrefix}-contact-submission`,
     faqOverview: `${tagPrefix}-faq-overview`,
     editUser: `${tagPrefix}-edit-user`,
