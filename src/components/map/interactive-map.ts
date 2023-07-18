@@ -336,7 +336,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
       if (value?.[0]?.length) {
         value.map((value: any) => func(value));
       } else {
-        res.push(value);
+        res?.push(value);
       }
     };
     func(value);
