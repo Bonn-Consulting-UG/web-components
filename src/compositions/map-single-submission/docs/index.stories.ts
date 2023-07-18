@@ -1,8 +1,8 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces.js';
-import { token } from '../../../components/map-overlay/testAccessToken.js';
-import { testLayers } from '../../../components/map-overlay/testLayers.js';
-import '../index.js';
+import { Story } from '../../../model/story-interfaces';
+import { token } from '../../../components/map-overlay/testAccessToken';
+import { testLayers } from '../../../components/map-overlay/testLayers';
+import '../index';
 
 export default {
   title: 'Compositions/MaSingleSubmission',

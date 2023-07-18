@@ -1,8 +1,8 @@
 import { html } from '@lion/core';
-import '../index.js';
-import '../../tab-panel/index.js';
-import '../../tab-button/index.js';
-import { Story } from '../../../model/story-interfaces.js';
+import '../index';
+import '../../tab-panel/index';
+import '../../tab-button/index';
+import { Story } from '../../../model/story-interfaces';
 
 export default {
   title: 'Components/Tabs',

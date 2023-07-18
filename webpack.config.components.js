@@ -9,9 +9,9 @@ const isProduction = process.env.NODE_ENV == 'production';
 
 
 const config = {
-    entry: './src/compoents/index.ts',
+    entry: './src/components/index.ts',
     output: {
-        path: path.resolve(__dirname, 'dist/components'),
+        path: path.resolve(__dirname, 'storybook-static/components'),
     },
     plugins: [
     ],
