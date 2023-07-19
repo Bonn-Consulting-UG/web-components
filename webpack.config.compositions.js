@@ -11,6 +11,7 @@ const isProduction = true
 const config = {
     entry: './src/compositions/index.ts',
     output: {
+        publicPath: 'auto',
         path: path.resolve(__dirname, 'storybook-static/compositions'),
     },
     plugins: [
