@@ -61,7 +61,10 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     if (
       (this?.config?.config?.commentWriters.includes('REGISTERED_USEr') &&
         this.isLoggedIn) ||
-      this?.config?.config?.commentWriters.includes('USER')
+      this?.config?.config?.commentWriters.includes('USER') ||
+      (this?.config?.moduleConfig?.commentWriters.includes('REGISTERED_USEr') &&
+        this.isLoggedIn) ||
+      this?.config?.moduleConfig?.commentWriters.includes('USER')
     ) {
       return content;
     } else {
