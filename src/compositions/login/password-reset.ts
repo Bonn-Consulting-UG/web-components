@@ -14,16 +14,16 @@ import { BcgPasswordResetFinished } from './password-reset-finished';
 import { BcgPasswordResetStart } from './password-reset-start';
 
 export class BcgPasswordReset extends ScopedElementsMixin(BcgModule) {
-  @property({ type: Number }) currentStep: number = 1;
+  @property() currentStep: number = 1;
 
   @property({ type: Function }) back: any = () => console.log('back default');
 
-  maxStep: number = 4;
+  @property({ type: Number }) maxStep: number = 4;
 
-  verifyCode: number = 0;
+  @property({ type: Number }) verifyCode: number = 0;
 
-  user: any = 0;
-  resetEmail: any = '';
+  @property({}) user: any = 0;
+  @property({}) resetEmail: any = '';
 
   static get scopedElements() {
     return {

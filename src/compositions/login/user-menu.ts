@@ -17,11 +17,11 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     return { 'lion-icon': LionIcon };
   }
 
-  @property({ type: Boolean }) isOpen: boolean = false;
+  // @property() isOpen = false;
 
-  clickHandler = () => {
-    this.isOpen = !this.isOpen;
-  };
+  // clickHandler = () => {
+  //   this.isOpen = !this.isOpen;
+  // };
 
   registerHandler() {}
 
@@ -62,7 +62,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
     editButton?.addEventListener('click', () => {
       profileDialog?.show();
-      this.isOpen = false;
+      // this.isOpen = false;
     });
 
     closeButtonEdit?.addEventListener('click', () => {
@@ -71,14 +71,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
-    let {
-      isLoggedIn,
-      user,
-      isOpen,
-      clickHandler,
-      logOutHandler,
-      registerHandler,
-    } = this;
+    let { isLoggedIn, user, logOutHandler, registerHandler } = this;
 
     return html`
           <div style="background-color: var(--primary-color); padding:20px;display:flex;justify-content:space-between; color:white"> 
@@ -95,12 +88,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
                     >Registrieren
                   </a>
                 `
-              : html`<span
-                  @click="${clickHandler}"
-                  style="margin-bottom:3px;align-self:flex-start"
-                  variant="primary"
-                  >Hallo, ${user.given_name} ${user.family_name}</bcg-button
-                >`
+              : html`<span>Hallo, ${user.given_name} ${user.family_name}</bcg-button>`
           }
 
           <dialog id="login-dialog">
@@ -114,7 +102,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
             <bcg-login></bcg-login>
           </dialog>
 
-          <dialog style="" id="edit-dialog">
+          <dialog id="edit-dialog">
             <header
               style=" display:flex;justify-content: flex-end;align-content: flex-end;"
             >
@@ -139,22 +127,20 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
           ${
             this.isLoggedIn
               ? html`<div>
-            <a
-              style="margin-bottom:3px; "
+            <bcg-button 
               variant="secondary"
-              id="edit-button"
-            >
-              <a onclick="()=>ev.preventDefault()" )> Mein Profil </a>
-          </a>
-            <a
+              id="edit-button">
+               Mein Profil </bcg-button>
+            
+            
+            <bcg-button
               variant="secondary"
               @click="${() => {
-                clickHandler();
                 logOutHandler();
               }}"
             >
               Abmelden
-            </a>
+            </bcg-button->
             
             </a>`
               : null

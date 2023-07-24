@@ -23,8 +23,6 @@ export class BcgUserLogin extends ScopedElementsMixin(BcgModule) {
     };
   }
 
-  moduleId: number = 0;
-
   @property({ type: String }) onPasswordReset: any = () => console.log('');
 
   @property({ type: String }) email: string = '';

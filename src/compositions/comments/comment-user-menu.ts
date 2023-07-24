@@ -21,7 +21,7 @@ import { commentDelteEndPoint } from '../../utils/services/config';
 import { PropertyValueMap } from 'lit';
 
 export class BcgUserMenu extends BcgModule {
-  @property({ type: Boolean }) isOpen: boolean = false;
+  @property({ type: Boolean }) open: boolean = false;
 
   @property({ type: Function }) changeDialog: any;
 
@@ -41,7 +41,7 @@ export class BcgUserMenu extends BcgModule {
     this?.shadowRoot
       ?.querySelector(`#wrapper`)
       ?.addEventListener('mouseleave', () => {
-        this.isOpen = false;
+        this.open = false;
       });
 
     console.log(changedProperties);
@@ -98,10 +98,10 @@ export class BcgUserMenu extends BcgModule {
       >
         <bcg-button
           style="align-self: flex-end;"
-          @click=${() => (this.isOpen = !this.isOpen)}
+          @click=${() => (this.open = !this.open)}
           ><lion-icon icon-id="bcg:comments:dots"></lion-icon
         ></bcg-button>
-        ${this.isOpen
+        ${this.open
           ? this.options.map((e: any) => {
               console.log(e.condition);
               if (e.condition) {

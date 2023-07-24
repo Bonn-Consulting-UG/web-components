@@ -88,8 +88,11 @@ export class BcgModule extends LitElement {
     }
 
     if (
-      !this.isRegistrationRequiredToCreateSubmissions ||
-      (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn)
+      (!this.isRegistrationRequiredToCreateSubmissions &&
+        this.isCommentsAllowed) ||
+      (this.isRegistrationRequiredToCreateSubmissions &&
+        this.isLoggedIn &&
+        this.isCommentsAllowed)
     ) {
       return content;
     } else {

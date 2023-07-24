@@ -19,9 +19,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     return [css``];
   }
 
-  nextStep: any;
+  @property() nextStep: any;
 
-  onChange: any;
+  @property() onChange: any;
 
   static get properties() {
     return {
@@ -35,13 +35,13 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     this.nextStep = () => 'test';
   }
 
-  dsgvo: object = { value: 'foo', checked: true };
+  @property() dsgvo: object = { value: 'foo', checked: true };
 
-  firstName: string = '';
+  @property() firstName: string = '';
 
-  lastName: string = '';
+  @property() lastName: string = '';
 
-  email: string = '';
+  @property() email: string = '';
 
   @property() password: string = '';
 

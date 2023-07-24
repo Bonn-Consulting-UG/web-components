@@ -1,7 +1,6 @@
-import { css } from "@lion/core";
+import { css } from '@lion/core';
 
-export const mapSubmissionStyle = css
-`
+export const mapSubmissionStyle = css`
 .wrapper {
     width: 100%;
     height: 100%;
@@ -126,6 +125,7 @@ export const mapSubmissionStyle = css
 }
 
 .submission-permission-hint {
+    padding:20px;
     float: right;
 }
 
@@ -162,4 +162,4 @@ export const mapSubmissionStyle = css
         width: 50%;
     }
 }
-`
+`;
