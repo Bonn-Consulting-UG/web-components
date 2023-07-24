@@ -296,8 +296,6 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                 <bcg-button-submit>Kommentieren</bcg-button-submit>
               </div>
             </div>
-
-            <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
           </form>
         </bcg-form>`)}
         ${this.createCommentHtml(html`<div>

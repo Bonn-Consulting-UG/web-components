@@ -11,13 +11,13 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
   }
 
   async fetchData(): Promise<void> {
-    if (this.submissionId) {
+    if (this.submissionId !== 0) {
       this.config = await getSubmission(this.submissionId);
       this.dislikeCount = this.config._count.dislikes;
       this.likeCount = this.config._count.likes;
     }
 
-    if (this.moduleId) {
+    if (this.moduleId !== 0) {
       this.config = await getModule(this.moduleId);
       this.dislikeCount = this.config._count.dislikes;
       this.likeCount = this.config._count.likes;
