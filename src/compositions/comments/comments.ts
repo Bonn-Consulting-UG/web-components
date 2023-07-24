@@ -59,12 +59,14 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     if (!this.isCommentsAllowed) return null;
 
     if (
-      (this?.config?.config?.commentWriters.includes('REGISTERED_USEr') &&
+      (this?.config?.config?.commentWriters.includes('REGISTERED_USER') &&
         this.isLoggedIn) ||
       this?.config?.config?.commentWriters.includes('USER') ||
-      (this?.config?.moduleConfig?.commentWriters.includes('REGISTERED_USEr') &&
+      (this?.config?.moduleConfig?.commentWriters.includes('REGISTERED_USER') &&
         this.isLoggedIn) ||
-      this?.config?.moduleConfig?.commentWriters.includes('USER')
+      this?.config?.moduleConfig?.commentWriters.includes('USER') ||
+      this?.config?.moduleConfig?.commentWriters.includes('ANONYMOUS') ||
+      this?.config?.config?.commentWriters.includes('ANONYMOUS')
     ) {
       return content;
     } else {
