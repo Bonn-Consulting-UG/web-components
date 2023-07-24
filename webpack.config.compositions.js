@@ -39,6 +39,10 @@ const config = {
          }
     },
     optimization: {
+        
+        runtimeChunk: false,
+        splitChunks: false,
+        
       minimize: true,
       minimizer: [new TerserPlugin()],
     },
