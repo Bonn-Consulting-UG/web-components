@@ -1,8 +1,6 @@
 import { html, property, ScopedElementsMixin } from '@lion/core';
 import { BcgModule } from '../../components/module';
-import {
-  getSubmissionsEndpoint,
-} from '../../utils/services/config';
+import { getSubmissionsEndpoint } from '../../utils/services/config';
 import { mapSubmissionStyle } from '../map-submission/style-map-submission';
 import { MapService } from '../../utils/services/map';
 import { MapSubmission } from '../../model/MapSubmission';
@@ -24,7 +22,9 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: String }) actionButtonLabel = 'Position bearbeiten';
 
   // internal use
-  @property({ type: Object }) currentMapSubmission: MapSubmission = { points: [] };
+  @property({ type: Object }) currentMapSubmission: MapSubmission = {
+    points: [],
+  };
   @property({ type: Object }) currentGeocoderInput: any;
   @property({ type: Boolean }) showOverlay: boolean = false;
   @property({ type: Object }) currentMarker: any;
@@ -33,8 +33,7 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
   mapService: MapService = new MapService(this);
 
   static get scopedElements() {
-    return {
-    };
+    return {};
   }
 
   static get styles() {
@@ -90,12 +89,11 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
             ? `Bearer ${localStorage.getItem('accessToken')}`
             : '',
         },
-        body: 
-          JSON.stringify({
-            moduleId: this.submission.moduleId,
-            description: this.submission.description,
-            points: this.currentMapSubmission.points
-          }),
+        body: JSON.stringify({
+          moduleId: this.submission.moduleId,
+          description: this.submission.description,
+          points: this.currentMapSubmission.points,
+        }),
       };
 
       const resp = await fetch(
@@ -108,7 +106,7 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
           this.isLoading = false;
           this.submission = res;
         });
-      })
+      });
     } catch (err) {
       this.isLoading = false;
       console.error(err);
@@ -135,31 +133,38 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
       <div class="wrapper">
         <div class="map-wrapper" style="height: ${this.mapHeight}px">
           <bcg-map-overlay
-          class="bcg-overlay"
-          mapAccessToken=${this.mapAccessToken}
-          .pinColor=${this.pinColor}
-          actionButtonLabel=${this.actionButtonLabel}
-          initialZoom=${this.initialZoom}
-          .showActionButton=${this.isLoggedIn && (this.hasModeratorRole || this.submission?.authorId === this.user.sub)}
-          .actionButtonCallback=${() => this.showOverlay = true}
-          .closeButtonCallback=${() => this.closeOverlay()}
-          .maxBounds=${this.maxBounds}
-          .initialPosition=${this.submission ? [this.submission.points[0].longitude, this.submission.points[0].latitude] : this.initialPosition}
-          .submissions=${[this.submission]}
-          .overlayWidth=${this.overlayWidth}
-          .showOverlay=${this.showOverlay}
-          .enablePopup=${false}
-          .geocoderInputCallback=${(input: any) => {
-            this.mapService.handleGeocoderInput(input);
-          }}
-          .markerSetCallback=${(marker: any) => {
-            this.mapService.handleMarkerInput(marker);
-          }}
+            class="bcg-overlay"
+            mapAccessToken=${this.mapAccessToken}
+            .pinColor=${this.pinColor}
+            actionButtonLabel=${this.actionButtonLabel}
+            initialZoom=${this.initialZoom}
+            .showActionButton=${this.isLoggedIn &&
+            (this.hasModeratorRole ||
+              this.submission?.authorId === this.user.sub)}
+            .actionButtonCallback=${() => (this.showOverlay = true)}
+            .closeButtonCallback=${() => this.closeOverlay()}
+            .maxBounds=${this.maxBounds}
+            .initialPosition=${this.submission
+              ? [
+                  this.submission?.points[0]?.longitude,
+                  this.submission?.points[0]?.latitude,
+                ]
+              : this.initialPosition}
+            .submissions=${[this.submission]}
+            .overlayWidth=${this.overlayWidth}
+            .showOverlay=${this.showOverlay}
+            .enablePopup=${false}
+            .geocoderInputCallback=${(input: any) => {
+              this.mapService.handleGeocoderInput(input);
+            }}
+            .markerSetCallback=${(marker: any) => {
+              this.mapService.handleMarkerInput(marker);
+            }}
           >
             <div class="overlay-content" slot="overlay-content">
               ${this.isLoading
-              ? html` <bcg-progress></bcg-progress>`
-              : html`
+                ? html` <bcg-progress></bcg-progress>`
+                : html`
                 <h3>Standort auswählen</h3>
                 <h4>Ort suchen</h4>
                 <div class="geocoder-container"></div>
@@ -182,19 +187,31 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
                     <span class="pin-text">Platzieren Sie diesen Pin durch Ziehen und Ablegen an der von Ihnen gewählten Position auf der Karte</span>
                   </div>
                   <div class="current-marker-info">
-                    ${this.currentMarker ? html`
-                    <p class="pin-info-text">${this.currentAdress}</p>
-                    <span class="pin-info-text">[ Lng: ${this.currentMapSubmission.points[0]?.longitude?.toFixed(4)}, Lat: ${this.currentMapSubmission.points[0]?.latitude?.toFixed(4)} ]
-                    </span>` : ``}
+                    ${
+                      this.currentMarker
+                        ? html` <p class="pin-info-text">
+                              ${this.currentAdress}
+                            </p>
+                            <span class="pin-info-text"
+                              >[ Lng:
+                              ${this.currentMapSubmission.points[0]?.longitude?.toFixed(
+                                4
+                              )},
+                              Lat:
+                              ${this.currentMapSubmission.points[0]?.latitude?.toFixed(
+                                4
+                              )}
+                              ]
+                            </span>`
+                        : ``
+                    }
                   </div>
                 </span>
 
                 <bcg-button
                 class="update-button"
                 variant="primary"
-                .disabled=${
-                  !this.currentMarker && !this.currentGeocoderInput
-                }
+                .disabled=${!this.currentMarker && !this.currentGeocoderInput}
                 @click=${() => this.submitChangedPosition()}
                 type="button">
                   Position Aktualisieren

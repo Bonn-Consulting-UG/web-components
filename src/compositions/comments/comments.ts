@@ -95,7 +95,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         return content;
       } else {
         return html`<div class="submission-permission-hint">
-          Sie müssen angemeldet sein, um sich beteiligen zu können
+          Sie müssen angemeldet sein, Kommentare sehen zu können
         </div>`;
       }
     } else {

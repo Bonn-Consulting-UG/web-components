@@ -24,7 +24,7 @@ const DefaultTemplate: Story<ArgTypes> = () =>
   html`
     <div style="width: 100%; height: 800px">
       <bcg-map-single-submission
-        .submissionId=${'2c37246e-02a7-462b-aee6-6fe6192aaab5'}
+        .submissionId=${'ea50bf99-4009-4455-8fb2-a8a85e626a1a'}
         mapAccessToken=${token}
         mapHeight="600"
         .maxBounds=${undefined}
