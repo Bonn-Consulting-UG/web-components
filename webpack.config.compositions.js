@@ -11,7 +11,7 @@ const isProduction = true
 const config = {
     entry: './src/compositions/index.ts',
     output: {
-        publicPath: 'auto',
+        publicPath: 'https://epart-components-dev.ifok.digital/',
         path: path.resolve(__dirname, 'storybook-static/compositions'),
     },
     plugins: [
@@ -39,10 +39,8 @@ const config = {
          }
     },
     optimization: {
-        
         runtimeChunk: false,
         splitChunks: false,
-        
       minimize: true,
       minimizer: [new TerserPlugin()],
     },
