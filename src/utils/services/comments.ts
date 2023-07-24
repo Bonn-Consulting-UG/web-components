@@ -82,20 +82,26 @@ export const getSubmission = async (submissionId: any) => {
 export const addComment = async (
   moduleId: number,
   commentConent: any,
-  submissionId: number
+  submissionId: number,
+  { firstName, lastName, email }: any
 ) => {
   try {
     const fetchOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        Authorization: localStorage.getItem('accessToken')
+          ? `Bearer ${localStorage.getItem('accessToken')}`
+          : '',
       },
       body: JSON.stringify({
         title: '',
         content: commentConent,
         moduleId: moduleId ? moduleId : null,
         submissionId: submissionId ? submissionId : null,
+        firstName,
+        lastName,
+        email,
       }),
     };
 

@@ -195,7 +195,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         const resp = await addComment(
           this.moduleId,
           this.newComment,
-          this.submissionId
+          this.submissionId,
+          {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+          }
         );
         newCommentId = resp.id;
       }
