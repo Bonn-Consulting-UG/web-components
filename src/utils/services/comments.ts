@@ -10,15 +10,19 @@ import {
   commentDelteEndPoint,
 } from './config';
 
+const AuthHeader = localStorage.getItem('accessToken')
+  ? `Bearer ${localStorage.getItem('accessToken')}`
+  : '';
+
+const ContentTypeHeader = 'application/json';
+
 export const getAllCommentsForModule = async (moduleID: any) => {
   try {
     const fetchOptions = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('accessToken')
-          ? `Bearer ${localStorage.getItem('accessToken')}`
-          : '',
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
     };
 
@@ -38,7 +42,7 @@ export const getAllCommentsForModule = async (moduleID: any) => {
 //     const fetchOptions = {
 //       method: 'GET',
 //       headers: {
-//         'Content-Type': 'application/json',
+//         'Content-Type': ContentTypeHeader,
 //         Authorization: localStorage.getItem('accessToken')
 //           ? `Bearer ${localStorage.getItem('accessToken')}`
 //           : '',
@@ -61,10 +65,8 @@ export const getSubmission = async (submissionId: any) => {
     const fetchOptions = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('accessToken')
-          ? `Bearer ${localStorage.getItem('accessToken')}`
-          : '',
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
     };
 
@@ -89,10 +91,8 @@ export const addComment = async (
     const fetchOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('accessToken')
-          ? `Bearer ${localStorage.getItem('accessToken')}`
-          : '',
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
       body: JSON.stringify({
         title: '',
@@ -123,8 +123,8 @@ export const addReaction = async (
     const fetchOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
       body: JSON.stringify({
         ...type,
@@ -147,8 +147,8 @@ export const removeReaction = async (reactionId: any) => {
     const fetchOptions = {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
     };
 
@@ -165,8 +165,8 @@ export const removeComment = async (commentId: any) => {
     const fetchOptions = {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
     };
 
@@ -183,8 +183,8 @@ export const reportComment = async (commentId: any) => {
     const fetchOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
       body: JSON.stringify({
         reason: '',
@@ -204,8 +204,8 @@ export const approveComment = async (commentId: any) => {
     const fetchOptions = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
     };
 
@@ -222,8 +222,8 @@ export const censorComment = async (commentId: any) => {
     const fetchOptions = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
     };
 
@@ -237,19 +237,23 @@ export const censorComment = async (commentId: any) => {
 
 export const addCommentToComment = async (
   commentId: any,
-  commentConent: any
+  commentConent: any,
+  { firstName, lastName, email }: any
 ) => {
   try {
     const fetchOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
       body: JSON.stringify({
         title: '',
         content: commentConent,
         parentCommentId: commentId,
+        firstName,
+        lastName,
+        email,
       }),
     };
 
@@ -266,8 +270,8 @@ export const deleteComment = async (commentId: any) => {
     const fetchOptions = {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
     };
 
@@ -284,8 +288,8 @@ export const editComment = async (commentId: any, commentConent: any) => {
     const fetchOptions = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
       },
       body: JSON.stringify({ content: commentConent }),
     };
