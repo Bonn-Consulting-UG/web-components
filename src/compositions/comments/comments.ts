@@ -242,7 +242,10 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
             <div></div>
             ${!this.isLoggedIn ||
             (!this.isLoggedIn &&
-              this?.config?.config?.commentWriters.includes('ANONYMOUS'))
+              (this?.config?.moduleConfig?.commentWriters.includes(
+                'ANONYMOUS'
+              ) ||
+                this?.config?.config?.commentWriters.includes('ANONYMOUS')))
               ? html`<bcg-input
                         label="Ihr Vorname *"
                         placeholder=""
@@ -300,7 +303,6 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         </bcg-form>`)}
         ${this.createCommentHtml(html`<div>
         <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
-
           ${
             this.comments &&
             this.comments.map((comment: any, index: any) => {
