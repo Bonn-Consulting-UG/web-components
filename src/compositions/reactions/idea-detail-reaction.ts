@@ -68,9 +68,9 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
   render() {
     return html`<div style="display:flex;">
       ${this.loadingHtml}
-      ${this.config?.moduleConfig.allowedSubmissionReactionTypes?.includes(
+      ${this.config?.moduleConfig?.allowedSubmissionReactionTypes?.includes(
         'LIKE'
-      )
+      ) || this.config?.config?.allowedSubmissionReactionTypes?.includes('LIKE')
         ? html` <bcg-reaction
             .value=${this.likeCount}
             .icon=${'bcg:comments:thumbsup'}
@@ -87,9 +87,10 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
             }}
           ></bcg-reaction>`
         : null}
-      ${this.config?.moduleConfig.allowedSubmissionReactionTypes?.includes(
+      ${this.config?.moduleConfig?.allowedSubmissionReactionTypes?.includes(
         'DISLIKE'
-      )
+      ) ||
+      this.config?.config?.allowedSubmissionReactionTypes?.includes('DISLIKE')
         ? html` <bcg-reaction
             .value=${this.dislikeCount}
             .icon=${'bcg:comments:thumbsdown'}

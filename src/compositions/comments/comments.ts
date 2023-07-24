@@ -80,7 +80,24 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     content: TemplateResult
   ): any => {
     if (this.isCommentsAllowed) {
-      return content;
+      if (
+        (this?.config?.config?.commentReaders.includes('REGISTERED_USER') &&
+          this.isLoggedIn) ||
+        this?.config?.config?.commentReaders.includes('USER') ||
+        (this?.config?.moduleConfig?.commentReaders.includes(
+          'REGISTERED_USER'
+        ) &&
+          this.isLoggedIn) ||
+        this?.config?.moduleConfig?.commentReaders.includes('USER') ||
+        this?.config?.moduleConfig?.commentReaders.includes('ANONYMOUS') ||
+        this?.config?.config?.commentReaders.includes('ANONYMOUS')
+      ) {
+        return content;
+      } else {
+        return html`<div class="submission-permission-hint">
+          Sie müssen angemeldet sein, um sich beteiligen zu können
+        </div>`;
+      }
     } else {
       return html`<div class="submission-permission-hint">
         Kommentare sind deaktiviert
