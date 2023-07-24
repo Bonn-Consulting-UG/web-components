@@ -21,6 +21,7 @@ export class BcgMapOverlay extends ScopedElementsMixin(LitElement) {
   @property({ type: Array }) submissions: any[] = [];
   @property({ type: Number }) initialZoom = 10;
   @property({ type: Array }) maxBounds: any = undefined;
+  @property({ type: Boolean }) enablePopup = true;
   @property({ type: Function }) geocoderInputCallback: Function = (
     input: any
   ) => {};
@@ -70,6 +71,7 @@ export class BcgMapOverlay extends ScopedElementsMixin(LitElement) {
           .markerSetCallback=${this.markerSetCallback}
           .submissions=${this.submissions}
           .pinColor=${this.pinColor}
+          .enablePopup=${this.enablePopup}
         >
         </bcg-interactive-map>
       </div>

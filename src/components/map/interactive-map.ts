@@ -120,7 +120,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
       
                 <div class="actions-container">
                   <a
-                  href=${window.origin + '/' + submission?.id}
+                  href=${window.location.href + '/' + submission?.id}
                   target="_blank">
                     <bcg-button variant="primary">Zum Hinweis</bcg-button>
                   </a>
