@@ -9,3 +9,4 @@ import './selectable-layers/index';
 import './map-layer/index';
 import './map-submission/index';
 import './map-single-submission/index';
+import './submission-card/index';
