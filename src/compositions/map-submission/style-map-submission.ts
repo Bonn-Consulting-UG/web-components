@@ -120,13 +120,16 @@ export const mapSubmissionStyle = css`
 .list-grid {
     display: grid;
     gap: 10px;
-    grid-template-columns: 500px 500px;
+    grid-template-columns: 485px 485px;
     height: 100%";
 }
 
 .submission-permission-hint {
     padding:20px;
-    float: right;
+    max-width: 210px;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 @media screen and (max-width:1010px) {

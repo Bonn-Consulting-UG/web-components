@@ -140,6 +140,7 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
           .pinColor=${this.pinColor}
           actionButtonLabel=${this.actionButtonLabel}
           initialZoom=${this.initialZoom}
+          .showActionButton=${this.isLoggedIn && (this.hasModeratorRole || this.submission?.authorId === this.user.sub)}
           .actionButtonCallback=${() => this.showOverlay = true}
           .closeButtonCallback=${() => this.closeOverlay()}
           .maxBounds=${this.maxBounds}
@@ -188,22 +189,16 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
                   </div>
                 </span>
 
-                ${this.isLoggedIn
-                ? html`
-                  <bcg-button
-                  class="update-button"
-                  variant="primary"
-                  .disabled=${
-                    !this.currentMarker && !this.currentGeocoderInput
-                  }
-                  @click=${() => this.submitChangedPosition()}
-                  type="button">
-                    Position Aktualisieren
-                  </bcg-button>
-                ` 
-                : html``
-
+                <bcg-button
+                class="update-button"
+                variant="primary"
+                .disabled=${
+                  !this.currentMarker && !this.currentGeocoderInput
                 }
+                @click=${() => this.submitChangedPosition()}
+                type="button">
+                  Position Aktualisieren
+                </bcg-button>
               `}
             </div>
           </bcg-map-overlay>

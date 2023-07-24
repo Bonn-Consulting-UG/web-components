@@ -88,7 +88,7 @@ export class BcgModule extends LitElement {
     }
 
     if (
-      !this.isRegistrationRequiredToCreateSubmissions &&
+      !this.isRegistrationRequiredToCreateSubmissions ||
       this.isRegistrationRequiredToCreateSubmissions &&
       this.isLoggedIn
     ) {
