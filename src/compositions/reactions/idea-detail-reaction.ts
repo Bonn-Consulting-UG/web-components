@@ -23,88 +23,76 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
       this.likeCount = this.config._count.likes;
     }
   }
+  @property() label: any = 'Hinweis bewerten';
   @property({ type: Object }) likeCount: any = 0;
   @property({ type: Object }) dislikeCount: any = 0;
 
   static get styles() {
     return [
       css`
-        :host .comment-response {
-          background-color: white;
-          margin-left: 100px;
-          border: 1px grey solid;
-        }
-        :host .moderator {
-          border-left: 5px solid green;
-        }
-        :host .moderator-name {
-          color: green;
-        }
-
-        :host .comment-poster {
-          display: flex;
-          flex-direction: row;
-        }
-        :host .comment-wrapper {
-          display: flex;
-          flex-direction: column;
-        }
-        :host .comment-details {
-          display: flex;
-          flex-direction: column;
-        }
-        :host .comment-image {
-          display: flex;
-          align-self: center;
-          width: 42px;
-          height: 42px;
-          border-radius: 50%;
-          margin-right: 15px;
+        .wrapper {
+          background-color: var(--neutral-color);
         }
       `,
     ];
   }
 
   render() {
-    return html`<div style="display:flex;">
+    return html`<div
+      class="wrapper"
+      style="display:flex; flex-direction:column; align-items:center;justify-content:center"
+    >
       ${this.loadingHtml}
       ${this.config?.moduleConfig?.allowedSubmissionReactionTypes?.includes(
         'LIKE'
-      ) || this.config?.config?.allowedSubmissionReactionTypes?.includes('LIKE')
-        ? html` <bcg-reaction
-            .value=${this.likeCount}
-            .icon=${'bcg:comments:thumbsup'}
-            .clickHandler=${async () => {
-              this.isLoading = true;
-              await addReaction(
-                { type: 'LIKE' },
-                '',
-                this.moduleId,
-                this.submissionId
-              ),
-                setTimeout(() => (this.isLoading = false), 3000);
-              this.fetchData();
-            }}
-          ></bcg-reaction>`
-        : null}
-      ${this.config?.moduleConfig?.allowedSubmissionReactionTypes?.includes(
+      ) ||
+      this.config?.config?.allowedSubmissionReactionTypes?.includes('LIKE') ||
+      this.config?.moduleConfig?.allowedSubmissionReactionTypes?.includes(
         'DISLIKE'
       ) ||
       this.config?.config?.allowedSubmissionReactionTypes?.includes('DISLIKE')
-        ? html` <bcg-reaction
-            .value=${this.dislikeCount}
-            .icon=${'bcg:comments:thumbsdown'}
-            .clickHandler=${async () => {
-              await addReaction(
-                { type: 'DISLIKE' },
-                '',
-                this.moduleId,
-                this.submissionId
-              ),
-                this.fetchData();
-            }}
-          ></bcg-reaction>`
+        ? html` <h5>${this.label}</h5>`
         : null}
+      <div style="display:flex;">
+        ${this.config?.moduleConfig?.allowedSubmissionReactionTypes?.includes(
+          'LIKE'
+        ) ||
+        this.config?.config?.allowedSubmissionReactionTypes?.includes('LIKE')
+          ? html` <bcg-reaction
+              .value=${this.likeCount}
+              .icon=${'bcg:comments:thumbsup'}
+              .clickHandler=${async () => {
+                this.isLoading = true;
+                await addReaction(
+                  { type: 'LIKE' },
+                  '',
+                  this.moduleId,
+                  this.submissionId
+                ),
+                  setTimeout(() => (this.isLoading = false), 3000);
+                this.fetchData();
+              }}
+            ></bcg-reaction>`
+          : null}
+        ${this.config?.moduleConfig?.allowedSubmissionReactionTypes?.includes(
+          'DISLIKE'
+        ) ||
+        this.config?.config?.allowedSubmissionReactionTypes?.includes('DISLIKE')
+          ? html` <bcg-reaction
+              .value=${this.dislikeCount}
+              .icon=${'bcg:comments:thumbsdown'}
+              .clickHandler=${async () => {
+                await addReaction(
+                  { type: 'DISLIKE' },
+                  '',
+                  this.moduleId,
+                  this.submissionId
+                ),
+                  this.fetchData();
+              }}
+            ></bcg-reaction>`
+          : null}
+      </div>
     </div>`;
   }
 }

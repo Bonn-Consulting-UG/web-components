@@ -300,7 +300,9 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
             <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
           </form>
         </bcg-form>`)}
-        ${this.createCommentHtml(html` <div>
+        ${this.createCommentHtml(html`<div>
+        <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
+
           ${
             this.comments &&
             this.comments.map((comment: any, index: any) => {
