@@ -32,12 +32,18 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) pinColor = '#9747FF';
   @property({ type: Boolean }) enablePopup = true;
 
+  /**
+   * [lng, lat] ; Use this property for view with one single pin (events etc.)
+   */
+  @property({ type: Array }) pinPosition: [number, number] | undefined = undefined;
+
   map: any;
   isSettingMarker = false;
   markers: Map<String, mapboxgl.Marker> = new Map<String, mapboxgl.Marker>();
 
   firstUpdated() {
     this.initMap();
+    this.updatePinPosition();
   }
 
   updated(changedProperties: PropertyValues<this>) {
@@ -54,6 +60,17 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
       this.map.setCenter(this.initialPosition);
     }
     super.updated(changedProperties);
+  }
+
+ updatePinPosition() {
+    if (!this.pinPosition) {
+      return;
+    }
+    this.initialPosition = this.pinPosition;
+    new mapboxgl.Marker().setLngLat([
+      this.pinPosition[0],
+      this.pinPosition[1],
+    ]).addTo(this.map);
   }
 
   updateLayers(prevLayers?: LayerData[]) {
