@@ -1,5 +1,5 @@
 import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
-import { Required } from '@lion/form-core';
+import { MaxLength, Required } from '@lion/form-core';
 import { LionStep, LionSteps } from '@lion/steps';
 import { LionTabs } from '@lion/tabs';
 import { BcgModule } from '../../components/module';
@@ -347,7 +347,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                               label="Titel"
                               placeholder=""
                               name="title"
-                              .validators=${[new Required()]}
+                              .validators=${[new Required(), new MaxLength(105)]}
                               .modelValue="${this.currentMapSubmission.title}"
                               @model-value-changed=${({ target }: any) => {
                                 this.currentMapSubmission.title = target.value;
@@ -361,7 +361,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                               label="Ihr Hinweis"
                               placeholder=""
                               name="description"
-                              .validators=${[new Required()]}
+                              .validators=${[new Required(), new MaxLength(2000)]}
                               .modelValue="${
                                 this.currentMapSubmission.description
                               }"
