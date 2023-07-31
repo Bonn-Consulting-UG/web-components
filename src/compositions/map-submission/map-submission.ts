@@ -1,5 +1,5 @@
 import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
-import { Required } from '@lion/form-core';
+import { MaxLength, Required } from '../../utils/helpers/input-errors';
 import { LionStep, LionSteps } from '@lion/steps';
 import { LionTabs } from '@lion/tabs';
 import { BcgModule } from '../../components/module';
@@ -347,7 +347,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                               label="Titel"
                               placeholder=""
                               name="title"
-                              .validators=${[new Required()]}
+                              .validators=${[new Required(), new MaxLength(105)]}
                               .modelValue="${this.currentMapSubmission.title}"
                               @model-value-changed=${({ target }: any) => {
                                 this.currentMapSubmission.title = target.value;
@@ -361,7 +361,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                               label="Ihr Hinweis"
                               placeholder=""
                               name="description"
-                              .validators=${[new Required()]}
+                              .validators=${[new Required(), new MaxLength(2000)]}
                               .modelValue="${
                                 this.currentMapSubmission.description
                               }"
@@ -489,8 +489,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                         }: any) => {
                                           this.privacyChecked = target.checked;
                                         }}
-                                        label="Ich habe die Datenschutzerklärung gelesen, verstanden und bin damit einverstanden, dass meine Personendaten gespeichert werden."
-                                      ></bcg-checkbox>
+                                      >
+                                        <label slot="label">
+                                          Ich habe die <a href="${window.origin}/Datenschutz" target="blank">Datenschutzerklärung</a> gelesen, verstanden und bin damit einverstanden, dass meine Personendaten gespeichert werden.
+                                        </label>
+                                      </bcg-checkbox>
                                     </form>
                                   </bcg-form>
                                 </div>
