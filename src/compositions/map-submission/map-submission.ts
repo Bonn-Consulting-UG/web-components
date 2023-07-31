@@ -489,8 +489,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                         }: any) => {
                                           this.privacyChecked = target.checked;
                                         }}
-                                        label="Ich habe die Datenschutzerklärung gelesen, verstanden und bin damit einverstanden, dass meine Personendaten gespeichert werden."
-                                      ></bcg-checkbox>
+                                      >
+                                        <label slot="label">
+                                          Ich habe die <a href="${window.origin}/Datenschutz" target="blank">Datenschutzerklärung</a> gelesen, verstanden und bin damit einverstanden, dass meine Personendaten gespeichert werden.
+                                        </label>
+                                      </bcg-checkbox>
                                     </form>
                                   </bcg-form>
                                 </div>
