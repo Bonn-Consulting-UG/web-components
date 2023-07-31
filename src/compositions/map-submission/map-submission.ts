@@ -1,5 +1,5 @@
 import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
-import { MaxLength, Required } from '@lion/form-core';
+import { MaxLength, Required } from '../../utils/helpers/input-errors';
 import { LionStep, LionSteps } from '@lion/steps';
 import { LionTabs } from '@lion/tabs';
 import { BcgModule } from '../../components/module';
