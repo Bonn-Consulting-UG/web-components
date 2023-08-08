@@ -283,6 +283,28 @@ export const deleteComment = async (commentId: any) => {
   }
 };
 
+
+
+export const deleteSubmission = async (submissionId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
+      },
+    };
+
+    const resp = await fetch(getSubmissionsEndpoint(submissionId), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+
+
 export const editComment = async (commentId: any, commentConent: any) => {
   try {
     const fetchOptions = {

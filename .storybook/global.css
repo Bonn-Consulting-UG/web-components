@@ -243,3 +243,12 @@ button {
   --primary-card-meta-margin: 0px 0px 0px 0px;
   --primary-card-content-margin: 0px 0px 0px 0px;
 }
+
+
+a {
+  text-decoration: var(--link-text-decoration);
+}
+
+a:hover{
+  text-decoration: var(--link-hover-text-decoration);
+ }

@@ -169,10 +169,10 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                         >
                           <bcg-checkbox
                             .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
-                            ><p slot="label">
+                            ><label slot="label">
                               Ich akzeptiere die
                               <a href="/datenschutz">Datenschutzerklärung</a>
-                            </p></bcg-checkbox
+                            </label></bcg-checkbox
                           >
                         </bcg-checkbox-group>`
                     : null

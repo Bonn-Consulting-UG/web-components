@@ -10,3 +10,5 @@ import './map-layer/index';
 import './map-submission/index';
 import './map-single-submission/index';
 import './submission-card/index';
+import '../../.storybook/global.css'
+import '../../node_modules/normalize.css/normalize.css'

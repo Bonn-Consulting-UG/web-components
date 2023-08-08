@@ -8,11 +8,14 @@ import {
 import { BcgModule } from '../../components/module';
 import { ideaSubmissionEndpoint } from '../../utils/services/config';
 import {
+  deleteModule,
   sendIdeaSubmissionRequest,
   updateModule,
+  updateSubmission,
 } from '../../utils/services/module';
 import { PropertyValueMap } from 'lit';
 import { LionIcon } from '@lion/icon';
+import { deleteSubmission } from '../../utils/services/test';
 
 export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
   onCancelLabel = 'Abbrechen';
@@ -65,10 +68,12 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
     `;
     this.showDialog = true;
     this.confirmHandler = async () => {
-      await updateModule(this.moduleId, {
+     const data = {
         name: this.title,
         content: this.content,
-      });
+      }
+      if (this.moduleId !== 0) await updateModule(this.moduleId, data);
+      if (this.submissionId !== 0) await updateSubmission(this.submissionId,data);
     };
   }
 
@@ -83,6 +88,9 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
       dazugehörige Kommentare gelöscht.</span
     >`;
     this.confirmHandler = async () => {
+
+      if(this.submissionId !== 0) await deleteSubmission(this.submissionId)
+      if(this.moduleId !== 0) await deleteModule(this.submissionId)
       this.showDialog = false;
     };
   }

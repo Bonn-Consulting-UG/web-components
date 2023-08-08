@@ -29,7 +29,7 @@ export const mapSubmissionStyle = css`
 }
 
 .input-area textarea {
-    max-height: 150px;
+    max-height: 120px;
 }
 
 .step-content {

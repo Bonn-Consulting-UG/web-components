@@ -147,14 +147,14 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             >
               <bcg-checkbox
                 .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung. *'}
-                ><p slot="label">
+                ><label slot="label">
                   Ich akzeptiere die
                   <a target="”_blank”" href="/netiquette">Netiquette</a>
                   und die
                   <a target="”_blank”" href="/datenschutz"
                     >Datenschutzerklärung</a
                   >
-                </p></bcg-checkbox
+                </label></bcg-checkbox
               >
             </bcg-checkbox-group>
             <bcg-button-submit>Registrieren</bcg-button-submit>

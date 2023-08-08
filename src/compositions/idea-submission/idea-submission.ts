@@ -105,7 +105,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
               <bcg-input
                 label="Titel Ihrer Idee *"
                 .validators=${[
-                  new Required(),
+                  () => this.isHiddenUserAllowed ? null : new Required() ,
                   new MinLength(5),
                   new MaxLength(100),
                 ]}
