@@ -18,11 +18,11 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     return { 'lion-icon': LionIcon };
   }
 
-  // @property() isOpen = false;
+  @property() dropDownOpen:any = false;
 
-  // clickHandler = () => {
-  //   this.isOpen = !this.isOpen;
-  // };
+  clickHandler = () => {
+    this.dropDownOpen = !this.dropDownOpen;
+  };
 
   registerHandler() {}
 
@@ -94,67 +94,58 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
         </div>
           ${!isLoggedIn ? html`
               <div class="login-menu-wrapper">
-                  <bcg-button id="login-button" variant="secondary" class="login-button" >Anmelden</bcg-button>
-                  <bcg-button id="register-button" variant="secondary" @click=${registerHandler}>Registrieren</bcg-button>
+                  <bcg-button id="register-button" class="register-button"  variant="secondary" @click=${registerHandler}>Registrieren</bcg-button>
+                  <bcg-button id="login-button" variant="secondary" >Anmelden</bcg-button>
               </div>`
-            : html`<span>Hallo, ${user.given_name} ${user.family_name}</bcg-button>`
+            : html`<h4 class="user-name" @click=${this.clickHandler}>Hallo, ${user.given_name} ${user.family_name}</h4>`
           }
-
-          <dialog id="login-dialog">
-            <header
-              style="MIN-width: 320px; display:flex;justify-content: flex-end;align-content: flex-end;"
-            >
-              <bcg-button id="close-button" variant="tertiary"
-                ><lion-icon icon-id="bcg:general:cross"></bcg-icon
-              ></bcg-button>
-            </header>
-            <bcg-login></bcg-login>
-          </dialog>
-
-          <dialog id="edit-dialog">
-            <header
-              style=" display:flex;justify-content: flex-end;align-content: flex-end;"
-            >
-              <bcg-button id="close-button-edit" variant="tertiary"
-                ><lion-icon icon-id="bcg:general:cross"></bcg-icon
-              ></bcg-button
-              >
-            </header>
-            <bcg-edit-user></bcg-edit-user>
-          </dialog>
-
-          <dialog id="register-dialog">
-            <header
-              style=" display:flex;justify-content: flex-end;align-content: flex-end;"
-            >
-              <bcg-button id="close-button-reg" variant="tertiary"><lion-icon icon-id="bcg:general:cross"></bcg-icon
-              ></bcg-button>
-            </header>
-            <bcg-register></bcg-register>
-          </dialog>
-
           ${
-            this.isLoggedIn
-              ? html`<div>
+            this.isLoggedIn && this.dropDownOpen
+              ? html`<div class="dropdown">
             <bcg-button 
               variant="secondary"
+              style="margin-bottom:2px;"
               id="edit-button">
+              
                Mein Profil </bcg-button>
             
             
             <bcg-button
               variant="secondary"
-              @click="${() => {
-                logOutHandler();
-              }}"
-            >
+              @click="${logOutHandler}">
               Abmelden
-            </bcg-button->
-            
-            </a>`
+            </bcg-button>`
               : null
-          }
-          </a> 
+          }          <dialog id="login-dialog">
+          <header
+            style="MIN-width: 320px; display:flex;justify-content: flex-end;align-content: flex-end;"
+          >
+            <bcg-button id="close-button" variant="tertiary"
+              ><lion-icon icon-id="bcg:general:cross"></bcg-icon
+            ></bcg-button>
+          </header>
+          <bcg-login></bcg-login>
+        </dialog>
+
+        <dialog id="edit-dialog">
+          <header
+            style=" display:flex;justify-content: flex-end;align-content: flex-end;"
+          >
+            <bcg-button id="close-button-edit" variant="tertiary"
+              ><lion-icon icon-id="bcg:general:cross"></bcg-icon
+            ></bcg-button
+            >
+          </header>
+          <bcg-edit-user></bcg-edit-user>
+        </dialog>
+
+        <dialog id="register-dialog">
+          <header style=" display:flex;justify-content: flex-end;align-content:flex-end;">
+            <bcg-button id="close-button-reg" variant="tertiary"><lion-icon icon-id="bcg:general:cross"></bcg-icon
+            ></bcg-button>
+          </header>
+          <bcg-register></bcg-register>
+        </dialog>
     `;
   }
 }
