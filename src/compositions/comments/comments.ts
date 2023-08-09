@@ -180,7 +180,8 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   render() {
     const { comments } = this;
-
+    const renderRequiredStringForInputs  = !this.isHiddenUserAllowed ? ' *' : null;
+    const hiddenUserValidator = this.isHiddenUserAllowed ? [] : [new Required()];
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
@@ -257,20 +258,20 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
               ) ||
                 this?.config?.config?.commentWriters.includes('ANONYMOUS')))
               ? html`<bcg-input
-                        label="Ihr Vorname *"
+                        label="Ihr Vorname${renderRequiredStringForInputs}"
                         placeholder=""
                         name="firstname"
-                        .validators=${[new Required()]}
+                        .validators=${hiddenUserValidator}
                         .modelValue="${this.firstName}"
                         @model-value-changed=${({ target }: any) => {
                           this.firstName = target.value;
                         }}
                       ></bcg-input>
                       <bcg-input
-                        label="Ihr Nachname  *"
+                        label="Ihr Nachname${renderRequiredStringForInputs}"
                         placeholder=""
                         name="lastname"
-                        .validators=${[new Required()]}
+                        .validators=${hiddenUserValidator}
                         .modelValue="${this.lastName}"
                         @model-value-changed=${({ target }: any) => {
                           this.lastName = target.value;
@@ -279,12 +280,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
                       <bcg-input-email
                         name="email"
-                        .validators=${[new Required()]}
+                        .validators=${hiddenUserValidator}
                         .modelValue="${this.email}"
                         @model-value-changed=${({ target }: any) => {
                           this.email = target.value;
                         }}
-                        label="Ihre E-Mail  *"
+                        label="Ihre E-Mail${renderRequiredStringForInputs}"
                         placeholder=""
                       ></bcg-input-email></br>`
               : null}

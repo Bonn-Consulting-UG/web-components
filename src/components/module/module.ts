@@ -8,6 +8,7 @@ import {
 } from '../../utils/services/login';
 import { getModule } from '../../utils/services/module';
 import { thumbsdown } from '../icon/export-comment-icons';
+import { Required } from '@lion/form-core';
 
 export class BcgModule extends LitElement {
   @property({ type: Boolean }) isLoggedIn: Boolean = false;
@@ -77,8 +78,11 @@ export class BcgModule extends LitElement {
   // Permissions
   @property({ type: Boolean }) isRegistrationRequiredToCreateSubmissions = true;
   @property({ type: Boolean }) isHiddenUserAllowed = false;
+
+  
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
+
 
   @property({ type: LitElement || null }) createSubmissionHtml = (
     content: TemplateResult
@@ -191,10 +195,11 @@ export class BcgModule extends LitElement {
   }
 
   assignAccessabilities() {
+
     this.isRegistrationRequiredToCreateSubmissions =
       this.config.config?.isRegistrationRequired ||
       this.config.moduleConfig?.isRegistrationRequired;
-    this.isHiddenUserAllowed =
+    this.isHiddenUserAllowed = true ||
       this.config.config?.isHiddenUserAllowed ||
       this.config.moduleConfig?.isHiddenUserAllowed;
     this.isEditOnlyByModeratorAllowed =

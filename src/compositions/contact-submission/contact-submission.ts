@@ -3,6 +3,7 @@ import { BcgModule } from '../../components/module';
 import { Required } from '../../utils/helpers/input-errors';
 import { contactSubmissionEndpoint } from '../../utils/services/config';
 import { sendContactSubmissionRequest } from '../../utils/services/module';
+import { property } from 'cypress/types/lodash';
 
 export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
   contactRequest: any = {
@@ -82,6 +83,8 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         this.isLoading = false;
       }
     };
+    const renderRequiredStringForInputs  = !this.isHiddenUserAllowed ? ' *' : null;
+    const hiddenUserValidator = this.isHiddenUserAllowed ? [] : [new Required()];
 
     return this.createSubmissionHtml(html`
       <bcg-form @submit=${submitHandler}>
@@ -106,20 +109,20 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                     : html`
                         ${!this.isLoggedIn
                           ? html` <bcg-input
-                                label="Ihr Vorname *"
+                                label="Ihr Vorname${renderRequiredStringForInputs}"
                                 placeholder=""
                                 name="firstname"
-                                .validators=${[new Required()]}
+                                .validators=${hiddenUserValidator}
                                 .modelValue="${contactRequest.firstName}"
                                 @model-value-changed=${({ target }: any) => {
                                   contactRequest.firstName = target.value;
                                 }}
                               ></bcg-input>
                               <bcg-input
-                                label="Ihr Nachname  *"
+                                label="Ihr Nachname${renderRequiredStringForInputs}"
                                 placeholder=""
                                 name="lastname"
-                                .validators=${[new Required()]}
+                                .validators=${hiddenUserValidator}
                                 .modelValue="${contactRequest.lastName}"
                                 @model-value-changed=${({ target }: any) => {
                                   contactRequest.lastName = target.value;
@@ -128,12 +131,12 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
 
                               <bcg-input-email
                                 name="email"
-                                .validators=${[new Required()]}
+                                .validators=${hiddenUserValidator}
                                 .modelValue="${contactRequest.email}"
                                 @model-value-changed=${({ target }: any) => {
                                   contactRequest.email = target.value;
                                 }}
-                                label="Ihre E-Mail  *"
+                                label="Ihre E-Mail${renderRequiredStringForInputs}"
                                 placeholder=""
                               ></bcg-input-email>`
                           : null}

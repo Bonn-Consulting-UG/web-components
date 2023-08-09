@@ -1,15 +1,16 @@
 import { html, css, ScopedElementsMixin, property } from '@lion/core';
 import { BcgModule } from '../../components/module';
 import { LionIcon } from '@lion/icon';
+import { UserMenuStyles } from './user-menu-styles'
+
 export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
+  @property() easyLanguage:any;
+  @property() signLanguage:any;
+  @property({type:Array}) extraMenu:any = [];
+
   static get styles() {
-    return [
-      css`
-        dialog {
-          color: var(--primary-color);
-          border-radius: var(--border-radius-l);
-        }
-      `,
+    return [UserMenuStyles,
+      
     ];
   }
 
@@ -70,25 +71,33 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     });
   }
 
+ 
+
+
+
   render() {
     let { isLoggedIn, user, logOutHandler, registerHandler } = this;
 
-    return html`
-          <div style="background-color: var(--primary-color); padding:20px;display:flex;justify-content:space-between; color:white"> 
-  
 
-          ${
-            !isLoggedIn
-              ? html`
-                  <a id="login-button" style="margin-right:10px;">Anmelden</a
-                  ><a
-                    id="register-button"
-                    variant="primary"
-                    @click=${registerHandler}
-                    >Registrieren
-                  </a>
-                `
-              : html`<span>Hallo, ${user.given_name} ${user.family_name}</bcg-button>`
+    // epart nav background = --navigation-background-color
+    // epart nav item color = --navigation-item-color
+    // epart nav langlangues icon background color  = --navigation-icon-color
+
+
+    return html`
+          <div class="wrapper" > 
+            <div class="extra-menu-wrapper">
+              <ul class="extra-menu-list">
+                ${this.extraMenu && this.extraMenu.map ? this.extraMenu.map(e => html`<li><a class="extra-menu-listitem" href=${e.url}>${e.label}</a><li>`): null} 
+                ${this.signLanguage ? html`<li><bcg-icon icon-id="bcg:general:signLanguage" alt=${this.signLanguage.label} class="accessibility-icon"></bcg-icon><a class="extra-menu-listitem extra-menu-accessibility" href=${this.signLanguage.url}>${this.signLanguage.label}</a><li>` : null}  
+                ${this.easyLanguage ? html`<li><bcg-icon icon-id="bcg:general:easyLanguage" alt=${this.signLanguage.label} class="accessibility-icon"></bcg-icon><a class="extra-menu-listitem extra-menu-accessibility" href=${this.easyLanguage.url}>${this.easyLanguage.label}</a><li>` : null}        
+        </div>
+          ${!isLoggedIn ? html`
+              <div class="login-menu-wrapper">
+                  <bcg-button id="login-button" variant="secondary" class="login-button" >Anmelden</bcg-button>
+                  <bcg-button id="register-button" variant="secondary" @click=${registerHandler}>Registrieren</bcg-button>
+              </div>`
+            : html`<span>Hallo, ${user.given_name} ${user.family_name}</bcg-button>`
           }
 
           <dialog id="login-dialog">

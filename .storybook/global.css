@@ -42,13 +42,13 @@ button {
   font-weight: var(--primary-body-medium-weight);
   line-height: var(--primary-body-medium-line-height);
 } */
-
+/* 
 @font-face {
   font-family: Sensation;
   src: url(sansation_light.woff);
-}
+} */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap'); */
 
 :root {
   /* Colors */
@@ -242,6 +242,14 @@ button {
   --primary-card-content-padding: 0px 15px;
   --primary-card-meta-margin: 0px 0px 0px 0px;
   --primary-card-content-margin: 0px 0px 0px 0px;
+
+  /* --------
+      EPART NAVIGATION
+     -------- */
+  --navigation-background-color: var(--neutral-color);
+  --navigation-item-color: var(--primary-color);
+  --navigation-icon-color: red;
+
 }
 
 

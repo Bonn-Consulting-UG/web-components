@@ -21,6 +21,9 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   render() {
     const { faqRequest } = this;
 
+    const renderRequiredStringForInputs  = !this.isHiddenUserAllowed ? ' *' : null;
+    const hiddenUserValidator = this.isHiddenUserAllowed ? [new MaxLength(50)] : [new Required(),new MaxLength(50)];
+
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
@@ -128,10 +131,10 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                 ${
                   !this.isLoggedIn && this.isHiddenUserAllowed
                     ? html` <bcg-input
-                          label="Ihr Vorname "
+                          label="Ihr Vorname${renderRequiredStringForInputs}"
                           placeholder=""
                           name="surname"
-                          .validators=${[new MaxLength(50)]}
+                          .validators=${hiddenUserValidator}
                           .modelValue="${faqRequest.firstName}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.firstName = target.value;
@@ -139,10 +142,10 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                         ></bcg-input>
 
                         <bcg-input
-                          label="Ihr Nachname"
+                          label="Ihr Nachname${renderRequiredStringForInputs}"
                           placeholder=""
                           name="lastname"
-                          .validators=${[new MaxLength(50)]}
+                          .validators=${hiddenUserValidator}
                           .modelValue="${faqRequest.lastName}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.lastName = target.value;
@@ -150,10 +153,10 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                         ></bcg-input>
                         <p>Sofern Sie von uns kontaktiert werden möchten.</p>
                         <bcg-input-email
-                          label="Ihre E-Mail "
+                          label="Ihre E-Mail${renderRequiredStringForInputs}"
                           name="email"
                           placeholder=""
-                          .validators=${[]}
+                          .validators=${hiddenUserValidator}
                           .modelValue="${faqRequest.email}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.email = target.value;

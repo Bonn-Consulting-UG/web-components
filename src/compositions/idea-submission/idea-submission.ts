@@ -25,6 +25,10 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
   render() {
     const { ideaRequest, moduleId, externalUser } = this;
 
+    const renderRequiredStringForInputs  = !this.isHiddenUserAllowed ? ' *' : null;
+    const hiddenUserValidator = this.isHiddenUserAllowed ? [] : [new Required()];
+
+
     // sendIdeaSubmissionRequest(123, '123');
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -105,7 +109,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
               <bcg-input
                 label="Titel Ihrer Idee *"
                 .validators=${[
-                  () => this.isHiddenUserAllowed ? null : new Required() ,
+                  new Required(),
                   new MinLength(5),
                   new MaxLength(100),
                 ]}
@@ -136,20 +140,20 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       sichtbar in Verbindung mit Ihrer Idee erscheinen.
                     </p>
                     <bcg-input
-                      label="Ihr Vorname *"
+                      label="Ihr Vorname${renderRequiredStringForInputs}"
                       placeholder=""
                       name="firstname"
-                      .validators=${[new Required()]}
+                      .validators=${hiddenUserValidator}
                       .modelValue="${externalUser.firstName}"
                       @model-value-changed=${({ target }: any) => {
                         externalUser.firstName = target.value;
                       }}
                     ></bcg-input>
                     <bcg-input
-                      label="Ihr Nachname  *"
+                      label="Ihr Nachname${renderRequiredStringForInputs}"
                       placeholder=""
                       name="lastname"
-                      .validators=${[new Required()]}
+                      .validators=${hiddenUserValidator}
                       .modelValue="${externalUser.lastName}"
                       @model-value-changed=${({ target }: any) => {
                         externalUser.lastName = target.value;
@@ -157,10 +161,10 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                     ></bcg-input>
                     <p>Sofern Sie von uns kontaktiert werden möchten.</p>
                     <bcg-input-email
-                      label="Ihre E-Mail  *"
+                      label="Ihre E-Mail${renderRequiredStringForInputs}"
                       name="email"
                       placeholder=""
-                      .validators=${[new Required()]}
+                      .validators=${hiddenUserValidator}
                       .modelValue="${externalUser.email}"
                       @model-value-changed=${({ target }: any) => {
                         externalUser.email = target.value;
