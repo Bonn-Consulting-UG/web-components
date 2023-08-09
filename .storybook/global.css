@@ -248,7 +248,7 @@ button {
      -------- */
   --navigation-background-color: var(--neutral-color);
   --navigation-item-color: var(--primary-color);
-  --navigation-icon-color: red;
+  --navigation-icon-color: var(--primary-color);
 
 }
 
