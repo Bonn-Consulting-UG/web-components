@@ -88,7 +88,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
           <div class="wrapper" > 
             <div class="extra-menu-wrapper">
               <ul class="extra-menu-list">
-                ${this.extraMenu && this.extraMenu.map ? this.extraMenu.map(e => html`<li><a class="extra-menu-listitem" href=${e.url}>${e.label}</a><li>`): null} 
+                ${this.extraMenu && this.extraMenu.map ? this.extraMenu.map((e:any) => html`<li><a class="extra-menu-listitem" href=${e.url}>${e.label}</a><li>`): null} 
                 ${this.signLanguage ? html`<li><bcg-icon icon-id="bcg:general:signLanguage" alt=${this.signLanguage.label} class="accessibility-icon"></bcg-icon><a class="extra-menu-listitem extra-menu-accessibility" href=${this.signLanguage.url}>${this.signLanguage.label}</a><li>` : null}  
                 ${this.easyLanguage ? html`<li><bcg-icon icon-id="bcg:general:easyLanguage" alt=${this.signLanguage.label} class="accessibility-icon"></bcg-icon><a class="extra-menu-listitem extra-menu-accessibility" href=${this.easyLanguage.url}>${this.easyLanguage.label}</a><li>` : null}        
         </div>
