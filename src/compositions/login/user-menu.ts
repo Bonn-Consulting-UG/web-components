@@ -36,7 +36,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
   }
 
 
-  protected updated(changedProperties): void {
+  protected updated(changedProperties:any): void {
     const loginDialog: any = this.shadowRoot?.querySelector('#login-dialog');
     const loginButton = this.shadowRoot?.querySelector('#login-button');
     const closeButton = this.shadowRoot?.querySelector('#close-button');

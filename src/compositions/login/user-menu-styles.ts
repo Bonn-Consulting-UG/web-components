@@ -108,6 +108,8 @@ border
     height: 100%;
     display: block;
     border-bottom: 1px solid var(--primary-color);
+    border-right: 1px solid var(--primary-color);
+    border-left: 1px solid var(--primary-color);
   }
 
   .expand-icon {
