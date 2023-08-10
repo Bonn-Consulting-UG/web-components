@@ -120,7 +120,7 @@ export const mapSubmissionStyle = css`
 .list-grid {
     display: grid;
     gap: 10px;
-    grid-template-columns: 485px 485px;
+    grid-template-columns: 50% 50%;
     height: 100%";
 }
 
