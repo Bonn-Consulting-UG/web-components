@@ -1,10 +1,9 @@
-import { css, html } from '@lion/core';
+import { LitElement, css, html } from '@lion/core';
 import { LionCalendar } from '@lion/calendar';
 
-export class BcgCard extends LionCalendar {
+export class BcgCard extends LitElement {
   static get styles() {
     return [
-      ...super.styles,
       css`
         :host > div {
           border: 1px solid blue;
