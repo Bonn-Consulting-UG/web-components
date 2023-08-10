@@ -11,7 +11,7 @@ dialog {
     background-color: var(--navigation-background-color);
     padding:20px;display:flex;justify-content:flex-end;
     color:white;
-    border-bottom:1px solid var(--primary-color);
+    // border-bottom:1px solid var(--primary-color);
     position: relative;
 }
 
@@ -29,8 +29,13 @@ dialog {
     text-decoration:none;
     padding:10px;
     color:var(--navigation-item-color);
-
 }
+
+.extra-menu-listitem:hover {
+    color:var(--navigation-item-hover-color);
+    fill:var(--navigation-item-hover-color)
+}
+
 .login-menu-wrapper{
     display:flex;
     flex-direction:row;
@@ -46,11 +51,9 @@ dialog {
 
 
 @media only screen and (max-width: 860px) {
-    .extra-menu-accessibility {
-      display:none;
-    }
     .accessibility-icon{
         margin:0 20px;
+        
     }
  
   }
@@ -64,12 +67,55 @@ dialog {
     position:absolute;
     top:70px;
     display:flex;
-    flex-direction:column
-    
+    flex-direction:column 
   }
 
   .user-name{
     color:var(--navigation-item-color);
   }
 
-    `
+  bcg-icon>svg{
+    fill:var(--navigation-icon-color);
+    }
+
+  bcg-icon>svg:hover{
+    fill:var(--navigation-icon-hover-color);
+  }
+
+  a + bcg-icon:hover{
+    fill:blue;
+  }
+
+  .extra-menu-dropdown{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .extra-menu-dropdowncontent{
+    position:absolute;
+    top:40px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .extra-menu-dropdowncontent:first-child{
+border
+  }
+  
+  .extra-menu-dropdownitem{
+    background-color: var(--navigation-background-color);
+    height: 100%;
+    display: block;
+    border-bottom: 1px solid var(--primary-color);
+  }
+
+  .expand-icon {
+    width: 12px;
+    height: 12px;
+}
+
+
+
+
+  `

@@ -33,9 +33,15 @@ const TemplateUserMenu: Story<ArgTypes> = () =>{
     label:"Leichte Sprache"
   }
 
-  const extraMenu = [{
+  const extraMenu = ["Dropdown",{
     url:"http://www.google.com",
     label:"FAQ"
+  },{
+    url:"http://www.google.com",
+    label:"Kontaktformular"
+  },{
+    url:"http://www.google.com",
+    label:"Kontaktformular"
   },{
     url:"http://www.google.com",
     label:"Kontaktformular"

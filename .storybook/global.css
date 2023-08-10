@@ -246,9 +246,11 @@ button {
   /* --------
       EPART NAVIGATION
      -------- */
-  --navigation-background-color: var(--neutral-color);
+  --navigation-background-color: var(--neutral-color-0);
   --navigation-item-color: var(--primary-color);
   --navigation-icon-color: var(--primary-color);
+  --navigation-icon-hover-color: var( --navigation-item-hover-color);
+  --navigation-item-hover-color: red;
 
 }
 
