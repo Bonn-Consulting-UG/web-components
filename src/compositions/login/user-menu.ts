@@ -105,21 +105,22 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
             
             <div class="extra-menu-dropdown">
-            <span  class="extra-menu-dropdownheader extra-menu-listitem" @click=${this.extraDropdownClickHandler}>${this.extraMenu[0]} <lion-icon
+            <span  class="extra-menu-dropdownheader" @click=${this.extraDropdownClickHandler}>${this.extraMenu[0]} <lion-icon
               class="expand-icon"
               icon-id=${this.extraMenuDropDownOpen
                 ? 'bcg:general:collapse'
                 : 'bcg:general:expand'}
             ></lion-icon></span>
             <div class="extra-menu-dropdowncontent">
-              ${this.extraMenu && this.extraMenu.map && this.extraMenuDropDownOpen ? this.extraMenu.map((e:any,index:number) => index !== 0 ?  html`<span><a class="extra-menu-listitem extra-menu-dropdownitem" href=${e.url}>${e.label}</a></spany  >`: null): null} 
+              ${this.extraMenu && this.extraMenu.map && this.extraMenuDropDownOpen ? this.extraMenu.map((e:any,index:number) => index !== 0 ?  html`<span><a class="extra-menu-dropdownitem" href=${e.url}>${e.label}</a></span>`: null): null} 
             </div>
           </div>
 
               <ul class="extra-menu-list">
-                ${this.signLanguage ? html`<li><a class="extra-menu-listitem extra-menu-accessibility" href=${this.signLanguage.url}><bcg-icon icon-id="bcg:general:signLanguage" alt=${this.signLanguage.label} class="accessibility-icon"></bcg-icon>${this.signLanguage.label}</a><li>` : null}  
-                ${this.easyLanguage ? html`<li><bcg-icon icon-id="bcg:general:easyLanguage" alt=${this.signLanguage.label} class="accessibility-icon"></bcg-icon><a class="extra-menu-listitem extra-menu-accessibility" href=${this.easyLanguage.url}>${this.easyLanguage.label}</a><li>` : null}        
-        </div>
+                ${this.signLanguage ? html`<li><bcg-icon icon-id="bcg:general:signLanguage" @click=${()=>window.location.replace(this.signLanguage.url)} alt=${this.signLanguage.label} class="accessibility-icon"></bcg-icon><a class="extra-menu-listitem extra-menu-accessibility" href=${this.signLanguage.url}>${this.signLanguage.label}</a><li>` : null}  
+                ${this.easyLanguage ? html`<li><bcg-icon icon-id="bcg:general:easyLanguage" @click=${()=>window.location.replace(this.easyLanguage.url)} alt=${this.easyLanguage.label} class="accessibility-icon"></bcg-icon><a class="extra-menu-listitem extra-menu-accessibility" href=${this.easyLanguage.url}>${this.easyLanguage.label}</a><li>` : null}        
+              </ul>
+              </div>
           ${!isLoggedIn ? html`
               <div class="login-menu-wrapper">
                   <bcg-button id="register-button" class="register-button"  variant="secondary" @click=${registerHandler}>Registrieren</bcg-button>
