@@ -249,16 +249,14 @@ button {
   --navigation-background-color: var(--neutral-color-0);
   --navigation-item-color: var(--primary-color);
   --navigation-icon-color: var(--primary-color);
-  --navigation-icon-hover-color: var( --navigation-item-hover-color);
-  --navigation-item-hover-color: red;
-
+  --navigation-icon-hover-color: var(--navigation-item-hover-color);
+  --navigation-item-hover-color: var(--primary-color);
 }
-
 
 a {
   text-decoration: var(--link-text-decoration);
 }
 
-a:hover{
+a:hover {
   text-decoration: var(--link-hover-text-decoration);
- }
+}

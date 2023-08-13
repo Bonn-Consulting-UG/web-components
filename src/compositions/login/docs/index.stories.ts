@@ -20,35 +20,46 @@ const TemplateRegister: Story<ArgTypes> = () =>
   html` <bcg-register></bcg-register> `;
 const TemplateProfile: Story<ArgTypes> = () =>
   html` <bcg-edit-user></bcg-edit-user> `;
-  
-const TemplateUserMenu: Story<ArgTypes> = () =>{
 
+const TemplateUserMenu: Story<ArgTypes> = () => {
   const signLanguage = {
-    url:"http://www.google.com",
-    label:"Gebärden Sprache"
-  }
-  
+    url: 'http://www.google.com',
+    label: 'Gebärden Sprache',
+  };
+
   const easyLanguage = {
-    url:"http://www.google.com",
-    label:"Leichte Sprache"
-  }
+    url: 'http://www.google.com',
+    label: 'Leichte Sprache',
+  };
 
-  const extraMenu = ["qwehouqwh",{
-    url:"http://www.google.com",
-    label:"FAQ"
-  },{
-    url:"http://www.google.com",
-    label:"Kontaktformular"
-  },{
-    url:"http://www.google.com",
-    label:"Kontaktformular"
-  },{
-    url:"http://www.google.com",
-    label:"Kontaktformular"
-  }]
+  const extraMenu = [
+    'qwehouqwh',
+    {
+      url: 'http://www.google.com',
+      label: 'FAQ',
+    },
+    {
+      url: 'http://www.google.com',
+      label: 'Kontaktformular',
+    },
+    {
+      url: 'http://www.google.com',
+      label: 'Kontaktformular',
+    },
+    {
+      url: 'http://www.google.com',
+      label: 'Kontaktformular',
+    },
+  ];
 
-return   html` <bcg-user-menu .extraMenu=${extraMenu} .easyLanguage=${easyLanguage} .signLanguage=${signLanguage}></bcg-user-menu> `;
-}
+  return html`
+    <bcg-user-menu
+      .extramenu=${extraMenu}
+      .easylanguage=${easyLanguage}
+      .signlanguage=${signLanguage}
+    ></bcg-user-menu>
+  `;
+};
 
 const PasswordReset: Story<ArgTypes> = () =>
   html` <bcg-password-reset></bcg-password-reset> `;

@@ -1,32 +1,30 @@
 import { html, css, ScopedElementsMixin, property } from '@lion/core';
 import { BcgModule } from '../../components/module';
 import { LionIcon } from '@lion/icon';
-import { UserMenuStyles } from './user-menu-styles'
+import { UserMenuStyles } from './user-menu-styles';
 
 export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
-  @property() easyLanguage:any;
-  @property() signLanguage:any;
-  @property({type:Array}) extraMenu:any = [];
+  @property({ reflect: true }) easyLanguage: any;
+  @property({ reflect: true }) signLanguage: any;
+  @property({ type: Array }) extramenu: any = [];
 
   static get styles() {
-    return [UserMenuStyles,
-      
-    ];
+    return [UserMenuStyles];
   }
 
   static get scopedElements() {
     return { 'lion-icon': LionIcon };
   }
 
-  @property() dropDownOpen:any = false;
-  @property() extraMenuDropDownOpen:any = false;
+  @property() dropDownOpen: any = false;
+  @property() extramenuDropDownOpen: any = false;
 
   clickHandler = () => {
     this.dropDownOpen = !this.dropDownOpen;
   };
 
   extraDropdownClickHandler = () => {
-    this.extraMenuDropDownOpen = !this.extraMenuDropDownOpen;
+    this.extramenuDropDownOpen = !this.extramenuDropDownOpen;
   };
 
   registerHandler() {}
@@ -35,8 +33,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     super.connectedCallback();
   }
 
-
-  protected updated(changedProperties:any): void {
+  protected updated(changedProperties: any): void {
     const loginDialog: any = this.shadowRoot?.querySelector('#login-dialog');
     const loginButton = this.shadowRoot?.querySelector('#login-button');
     const closeButton = this.shadowRoot?.querySelector('#close-button');
@@ -76,28 +73,23 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
       profileDialog?.close();
     });
 
+    this?.shadowRoot
+      ?.querySelector(`.extra-menu-dropdowncontent`)
+      ?.addEventListener('mouseleave', () => {
+        this.extramenuDropDownOpen = false;
+      });
 
-      this?.shadowRoot
-        ?.querySelector(`.extra-menu-dropdowncontent`)
-        ?.addEventListener('mouseleave', () => {
-          this.extraMenuDropDownOpen = false;
-        });
-      super.updated(changedProperties);
+    this.extramenu = [extramenuString];
 
+    super.updated(changedProperties);
   }
-
- 
-
-
 
   render() {
     let { isLoggedIn, user, logOutHandler, registerHandler } = this;
 
-
     // epart nav background = --navigation-background-color
     // epart nav item color = --navigation-item-color
     // epart nav langlangues icon background color  = --navigation-icon-color
-
 
     return html`
           <div class="wrapper" > 
@@ -105,34 +97,107 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
             
             <div class="extra-menu-dropdown">
-            <span  class="extra-menu-dropdownheader" @click=${this.extraDropdownClickHandler}>${this.extraMenu[0]} <lion-icon
+            <span  class="extra-menu-dropdownheader" @click=${
+              this.extraDropdownClickHandler
+            }>${this.extramenu[0]} <lion-icon
               class="expand-icon"
-              icon-id=${this.extraMenuDropDownOpen
-                ? 'bcg:general:collapse'
-                : 'bcg:general:expand'}
+              icon-id=${
+                this.extramenuDropDownOpen
+                  ? 'bcg:general:collapse'
+                  : 'bcg:general:expand'
+              }
             ></lion-icon></span>
             <div class="extra-menu-dropdowncontent">
-              ${this.extraMenu && this.extraMenu.map && this.extraMenuDropDownOpen ? this.extraMenu.map((e:any,index:number) => index !== 0 ?  html`<span><a class="extra-menu-dropdownitem" href=${e.url}>${e.label}</a></span>`: null): null} 
+              ${
+                this.extramenu &&
+                this.extramenu.map &&
+                this.extramenuDropDownOpen
+                  ? this.extramenu.map((e: any, index: number) =>
+                      index !== 0
+                        ? html`<span class="link-wrapper"
+                            ><a class="extra-menu-dropdownitem" href=${e.url}
+                              >${e.label}</a
+                            ></span
+                          >`
+                        : null
+                    )
+                  : null
+              } 
             </div>
           </div>
 
               <ul class="extra-menu-list">
-                ${this.signLanguage ? html`<li><bcg-icon icon-id="bcg:general:signLanguage" @click=${()=>window.location.replace(this.signLanguage.url)} alt=${this.signLanguage.label} class="accessibility-icon"></bcg-icon><a class="extra-menu-listitem extra-menu-accessibility" href=${this.signLanguage.url}>${this.signLanguage.label}</a><li>` : null}  
-                ${this.easyLanguage ? html`<li><bcg-icon icon-id="bcg:general:easyLanguage" @click=${()=>window.location.replace(this.easyLanguage.url)} alt=${this.easyLanguage.label} class="accessibility-icon"></bcg-icon><a class="extra-menu-listitem extra-menu-accessibility" href=${this.easyLanguage.url}>${this.easyLanguage.label}</a><li>` : null}        
+                ${
+                  this.signLanguage
+                    ? html`<li>
+                          <bcg-icon
+                            icon-id="bcg:general:signLanguage"
+                            @click=${() =>
+                              window.location.replace(this.signLanguage.url)}
+                            alt=${this.signLanguage.label}
+                            class="accessibility-icon"
+                          ></bcg-icon
+                          ><a
+                            class="extra-menu-listitem extra-menu-accessibility"
+                            href=${this.signLanguage.url}
+                            >${this.signLanguage.label}</a
+                          >
+                        </li>
+                        <li></li>`
+                    : null
+                }  
+                ${
+                  this.easyLanguage
+                    ? html`<li>
+                          <bcg-icon
+                            icon-id="bcg:general:easyLanguage"
+                            @click=${() =>
+                              window.location.replace(this.easyLanguage.url)}
+                            alt=${this.easyLanguage.label}
+                            class="accessibility-icon"
+                          ></bcg-icon
+                          ><a
+                            class="extra-menu-listitem extra-menu-accessibility"
+                            href=${this.easyLanguage.url}
+                            >${this.easyLanguage.label}</a
+                          >
+                        </li>
+                        <li></li>`
+                    : null
+                }        
               </ul>
               </div>
-          ${!isLoggedIn ? html`
-              <div class="login-menu-wrapper">
-                  <bcg-button id="register-button" class="register-button"  variant="secondary" @click=${registerHandler}>Registrieren</bcg-button>
-                  <bcg-button id="login-button" variant="secondary" >Anmelden</bcg-button>
-              </div>`
-            : html`<h4 class="user-name" @click=${this.clickHandler}>Hallo, ${user.given_name} ${user.family_name}</h4>`
+          ${
+            !isLoggedIn
+              ? html` <div class="login-menu-wrapper">
+                  <bcg-button
+                    id="register-button"
+                    class="register-button"
+                    variant="secondary"
+                    @click=${registerHandler}
+                    >Registrieren</bcg-button
+                  >
+                  <bcg-button id="login-button" variant="secondary"
+                    >Anmelden</bcg-button
+                  >
+                </div>`
+              : html`<h4 class="user-name" @click=${this.clickHandler}>
+                  Hallo, ${user.given_name} ${user.family_name}
+                </h4>`
           }
           ${
             this.isLoggedIn && this.dropDownOpen
               ? html`<div class="dropdown">
-                <bcg-button variant="secondary" style="margin-bottom:2px;" id="edit-button">Mein Profil</bcg-button>
-                <bcg-button variant="secondary" @click="${logOutHandler}"> Abmelden</bcg-button>`
+                  <bcg-button
+                    variant="secondary"
+                    style="margin-bottom:2px;"
+                    id="edit-button"
+                    >Mein Profil</bcg-button
+                  >
+                  <bcg-button variant="secondary" @click="${logOutHandler}">
+                    Abmelden</bcg-button
+                  >
+                </div>`
               : null
           }          <dialog id="login-dialog">
           <header
