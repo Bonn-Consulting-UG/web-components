@@ -79,8 +79,6 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
         this.extramenuDropDownOpen = false;
       });
 
-    this.extramenu = [extramenuString];
-
     super.updated(changedProperties);
   }
 
