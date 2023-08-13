@@ -79,10 +79,8 @@ export class BcgModule extends LitElement {
   @property({ type: Boolean }) isRegistrationRequiredToCreateSubmissions = true;
   @property({ type: Boolean }) isHiddenUserAllowed = false;
 
-  
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
-
 
   @property({ type: LitElement || null }) createSubmissionHtml = (
     content: TemplateResult
@@ -93,8 +91,7 @@ export class BcgModule extends LitElement {
 
     if (
       !this.isRegistrationRequiredToCreateSubmissions ||
-      this.isRegistrationRequiredToCreateSubmissions &&
-      this.isLoggedIn
+      (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn)
     ) {
       return content;
     } else {
@@ -195,11 +192,10 @@ export class BcgModule extends LitElement {
   }
 
   assignAccessabilities() {
-
     this.isRegistrationRequiredToCreateSubmissions =
       this.config.config?.isRegistrationRequired ||
       this.config.moduleConfig?.isRegistrationRequired;
-    this.isHiddenUserAllowed = true ||
+    this.isHiddenUserAllowed =
       this.config.config?.isHiddenUserAllowed ||
       this.config.moduleConfig?.isHiddenUserAllowed;
     this.isEditOnlyByModeratorAllowed =
