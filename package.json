@@ -3,7 +3,7 @@
   "description": "My webpack project",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "0.0.3-147",
+  "version": "0.0.3-148",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "prepublish": "tsc && npm run analyze",
@@ -131,6 +131,7 @@
   "overrides": {
     "enhanced-resolve@5.11.0": "5.10.0"
   },
+  "side-effects": false,
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "extends": [

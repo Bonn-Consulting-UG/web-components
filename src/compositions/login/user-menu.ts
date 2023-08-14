@@ -4,8 +4,8 @@ import { LionIcon } from '@lion/icon';
 import { UserMenuStyles } from './user-menu-styles';
 
 export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
-  @property({ reflect: true }) easylanguage: any;
-  @property({ reflect: true }) signlanguage: any;
+  @property({ type: Object }) easylanguage: any;
+  @property({ type: Object }) signlanguage: any;
   @property({ type: Array }) extramenu: any = [];
 
   static get styles() {
@@ -92,7 +92,6 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     return html`
           <div class="wrapper" > 
             <div class="extra-menu-wrapper">
-
             
             <div class="extra-menu-dropdown">
             <span  class="extra-menu-dropdownheader" @click=${
@@ -126,7 +125,9 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
               <ul class="extra-menu-list">
                 ${
-                  this.signlanguage
+                  this.signlanguage &&
+                  this.signlanguage.label &&
+                  this.signlanguage.url
                     ? html`<li>
                           <bcg-icon
                             icon-id="bcg:general:signLanguage"
@@ -145,7 +146,9 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
                     : null
                 }  
                 ${
-                  this.easylanguage
+                  this.easylanguage &&
+                  this.easylanguage.label &&
+                  this.easylanguage.url
                     ? html`<li>
                           <bcg-icon
                             icon-id="bcg:general:easyLanguage"

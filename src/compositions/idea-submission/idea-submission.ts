@@ -25,9 +25,12 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
   render() {
     const { ideaRequest, moduleId, externalUser } = this;
 
-    const renderRequiredStringForInputs  = !this.isHiddenUserAllowed ? ' *' : null;
-    const hiddenUserValidator = this.isHiddenUserAllowed ? [] : [new Required()];
-
+    const renderRequiredStringForInputs = !this.isHiddenUserAllowed
+      ? ' *'
+      : null;
+    const hiddenUserValidator = this.isHiddenUserAllowed
+      ? []
+      : [new Required()];
 
     // sendIdeaSubmissionRequest(123, '123');
     const submitHandler = async (ev: any) => {
@@ -73,7 +76,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         this.ideaRequest.description = '';
 
         setTimeout(() => {
-          console.log(this.shadowRoot?.querySelector('form'));
           this.shadowRoot?.querySelector('form')?.resetGroup();
         }, 1000);
         this.ideaRequest.title = '';

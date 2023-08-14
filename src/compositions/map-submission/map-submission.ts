@@ -160,8 +160,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
       this.notificationType = 'success';
       this.notificationMessage = 'Vielen Dank für Ihren Hinweis!';
     } catch (err) {
-      console.log(err);
-
       this.mapService.resetCurrentSubmission();
       this.notificationType = 'error';
       this.notificationMessage = 'Fehler ist aufgetreten';
@@ -347,7 +345,10 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                               label="Titel"
                               placeholder=""
                               name="title"
-                              .validators=${[new Required(), new MaxLength(105)]}
+                              .validators=${[
+                                new Required(),
+                                new MaxLength(105),
+                              ]}
                               .modelValue="${this.currentMapSubmission.title}"
                               @model-value-changed=${({ target }: any) => {
                                 this.currentMapSubmission.title = target.value;
@@ -361,7 +362,10 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                               label="Ihr Hinweis"
                               placeholder=""
                               name="description"
-                              .validators=${[new Required(), new MaxLength(2000)]}
+                              .validators=${[
+                                new Required(),
+                                new MaxLength(2000),
+                              ]}
                               .modelValue="${
                                 this.currentMapSubmission.description
                               }"
@@ -491,7 +495,15 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                         }}
                                       >
                                         <label slot="label">
-                                          Ich habe die <a href="${window.origin}/Datenschutz" target="blank">Datenschutzerklärung</a> gelesen, verstanden und bin damit einverstanden, dass meine Personendaten gespeichert werden.
+                                          Ich habe die
+                                          <a
+                                            href="${window.origin}/Datenschutz"
+                                            target="blank"
+                                            >Datenschutzerklärung</a
+                                          >
+                                          gelesen, verstanden und bin damit
+                                          einverstanden, dass meine
+                                          Personendaten gespeichert werden.
                                         </label>
                                       </bcg-checkbox>
                                     </form>

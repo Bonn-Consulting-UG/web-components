@@ -173,7 +173,6 @@ export const sendPasswordResetRequest = async (data: any) => {
 };
 
 export const sendPasswordChangeInitRequest = async (data: any) => {
-  console.log(data);
   try {
     const fetchOptions = {
       method: 'POST',

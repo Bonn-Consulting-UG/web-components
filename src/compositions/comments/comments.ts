@@ -159,7 +159,6 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
       this.count = response._count.comments;
     }
 
-    console.log(this.shadowRoot?.querySelectorAll(`*`));
     setTimeout(
       () =>
         scrollTo
@@ -180,8 +179,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   render() {
     const { comments } = this;
-    const renderRequiredStringForInputs  = !this.isHiddenUserAllowed ? ' *' : null;
-    const hiddenUserValidator = this.isHiddenUserAllowed ? [] : [new Required()];
+    const renderRequiredStringForInputs = !this.isHiddenUserAllowed
+      ? ' *'
+      : null;
+    const hiddenUserValidator = this.isHiddenUserAllowed
+      ? []
+      : [new Required()];
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>

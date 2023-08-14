@@ -33,7 +33,7 @@ const TemplateUserMenu: Story<ArgTypes> = () => {
   };
 
   const extraMenu = [
-    'qwehouqwh',
+    'MenuName',
     {
       url: 'http://www.google.com',
       label: 'FAQ',
@@ -51,12 +51,10 @@ const TemplateUserMenu: Story<ArgTypes> = () => {
       label: 'Kontaktformular',
     },
   ];
-
-  return html`
-    <bcg-user-menu
-      .extramenu=${extraMenu}
-      .easylanguage=${easyLanguage}
-      .signlanguage=${signLanguage}
+  return `<bcg-user-menu
+      extramenu='${JSON.stringify(extraMenu)}'
+      easylanguage='${JSON.stringify(easyLanguage)}'
+      signlanguage='${JSON.stringify(signLanguage)}'
     ></bcg-user-menu>
   `;
 };

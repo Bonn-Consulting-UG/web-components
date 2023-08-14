@@ -68,12 +68,13 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
     `;
     this.showDialog = true;
     this.confirmHandler = async () => {
-     const data = {
+      const data = {
         name: this.title,
         content: this.content,
-      }
+      };
       if (this.moduleId !== 0) await updateModule(this.moduleId, data);
-      if (this.submissionId !== 0) await updateSubmission(this.submissionId,data);
+      if (this.submissionId !== 0)
+        await updateSubmission(this.submissionId, data);
     };
   }
 
@@ -88,9 +89,8 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
       dazugehörige Kommentare gelöscht.</span
     >`;
     this.confirmHandler = async () => {
-
-      if(this.submissionId !== 0) await deleteSubmission(this.submissionId)
-      if(this.moduleId !== 0) await deleteModule(this.submissionId)
+      if (this.submissionId !== 0) await deleteSubmission(this.submissionId);
+      if (this.moduleId !== 0) await deleteModule(this.submissionId);
       this.showDialog = false;
     };
   }
@@ -101,7 +101,6 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
   protected updated(
     _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
   ): void {
-    console.log(this.user);
     super.updated(_changedProperties);
   }
   render() {
