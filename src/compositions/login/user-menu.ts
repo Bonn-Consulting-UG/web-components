@@ -4,8 +4,8 @@ import { LionIcon } from '@lion/icon';
 import { UserMenuStyles } from './user-menu-styles';
 
 export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
-  @property({ reflect: true }) easyLanguage: any;
-  @property({ reflect: true }) signLanguage: any;
+  @property({ reflect: true }) easylanguage: any;
+  @property({ reflect: true }) signlanguage: any;
   @property({ type: Array }) extramenu: any = [];
 
   static get styles() {
@@ -126,38 +126,38 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
               <ul class="extra-menu-list">
                 ${
-                  this.signLanguage
+                  this.signlanguage
                     ? html`<li>
                           <bcg-icon
                             icon-id="bcg:general:signLanguage"
                             @click=${() =>
-                              window.location.replace(this.signLanguage.url)}
-                            alt=${this.signLanguage.label}
+                              window.location.replace(this.signlanguage.url)}
+                            alt=${this.signlanguage.label}
                             class="accessibility-icon"
                           ></bcg-icon
                           ><a
                             class="extra-menu-listitem extra-menu-accessibility"
-                            href=${this.signLanguage.url}
-                            >${this.signLanguage.label}</a
+                            href=${this.signlanguage.url}
+                            >${this.signlanguage.label}</a
                           >
                         </li>
                         <li></li>`
                     : null
                 }  
                 ${
-                  this.easyLanguage
+                  this.easylanguage
                     ? html`<li>
                           <bcg-icon
                             icon-id="bcg:general:easyLanguage"
                             @click=${() =>
-                              window.location.replace(this.easyLanguage.url)}
-                            alt=${this.easyLanguage.label}
+                              window.location.replace(this.easylanguage.url)}
+                            alt=${this.easylanguage.label}
                             class="accessibility-icon"
                           ></bcg-icon
                           ><a
                             class="extra-menu-listitem extra-menu-accessibility"
-                            href=${this.easyLanguage.url}
-                            >${this.easyLanguage.label}</a
+                            href=${this.easylanguage.url}
+                            >${this.easylanguage.label}</a
                           >
                         </li>
                         <li></li>`
