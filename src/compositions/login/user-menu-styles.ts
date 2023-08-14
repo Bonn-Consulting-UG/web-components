@@ -108,7 +108,7 @@ export const UserMenuStyles = css`
   }
   .extra-menu-dropdownheader {
     text-decoration: none;
-    padding-left: 20px;
+    padding-left: 5px;
     color: var(--navigation-item-color);
   }
 
