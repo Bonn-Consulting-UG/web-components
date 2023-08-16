@@ -543,9 +543,6 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                         this.isLoading
                           ? html` <bcg-progress></bcg-progress>`
                           : html`
-                              ${this.notificationType === 'success'
-                                ? html`<span>Success!</span>`
-                                : html`<span>Fehler!</span>`}
                               <h1>${this.notificationMessage}</h1>
                               <bcg-button
                                 variant="secondary"
