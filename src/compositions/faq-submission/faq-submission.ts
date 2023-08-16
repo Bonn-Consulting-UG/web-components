@@ -21,6 +21,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   @property() renderRequiredStringForInputs = !this.isHiddenUserAllowed
     ? ' *'
     : null;
+
   @property() hiddenUserValidator = this.isHiddenUserAllowed
     ? [new MaxLength(50)]
     : [new Required(), new MaxLength(50)];
