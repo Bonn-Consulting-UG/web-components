@@ -17,6 +17,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
   @property() renderRequiredStringForInputs = !this.isHiddenUserAllowed
     ? ' *'
     : null;
+
   @property() hiddenUserValidator = this.isHiddenUserAllowed
     ? []
     : [new Required()];

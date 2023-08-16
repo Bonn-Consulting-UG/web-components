@@ -1,4 +1,4 @@
-import { html, ScopedElementsMixin } from '@lion/core';
+import { html, property, ScopedElementsMixin } from '@lion/core';
 import {
   Required,
   IsEmail,
