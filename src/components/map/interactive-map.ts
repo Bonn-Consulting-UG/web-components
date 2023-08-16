@@ -35,7 +35,8 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   /**
    * [lng, lat] ; Use this property for view with one single pin (events etc.)
    */
-  @property({ type: Array }) pinPosition: [number, number] | undefined = undefined;
+  @property({ type: Array }) pinPosition: [number, number] | undefined =
+    undefined;
 
   map: any;
   isSettingMarker = false;
@@ -62,15 +63,14 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     super.updated(changedProperties);
   }
 
- updatePinPosition() {
+  updatePinPosition() {
     if (!this.pinPosition) {
       return;
     }
     this.initialPosition = this.pinPosition;
-    new mapboxgl.Marker().setLngLat([
-      this.pinPosition[0],
-      this.pinPosition[1],
-    ]).addTo(this.map);
+    new mapboxgl.Marker()
+      .setLngLat([this.pinPosition[0], this.pinPosition[1]])
+      .addTo(this.map);
   }
 
   updateLayers(prevLayers?: LayerData[]) {
@@ -139,7 +139,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
                   <a
                   href=${window.location.href + '/' + submission?.id}
                   target="_blank">
-                    <bcg-button variant="primary">Zum Hinweis</bcg-button>
+                    <bcg-button variant="secondary">Zum Hinweis</bcg-button>
                   </a>
                   <div class="reactions-container">
                     <lion-icon

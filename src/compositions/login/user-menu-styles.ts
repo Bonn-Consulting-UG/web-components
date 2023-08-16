@@ -46,6 +46,7 @@ export const UserMenuStyles = css`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    z-index: 999999;
   }
 
   .register-button {
@@ -74,6 +75,7 @@ export const UserMenuStyles = css`
     top: 70px;
     display: flex;
     flex-direction: column;
+    z-index: 999999;
   }
 
   .user-name {

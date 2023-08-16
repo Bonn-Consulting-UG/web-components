@@ -22,15 +22,22 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
     email: '',
   };
 
-  render() {
-    const { ideaRequest, moduleId, externalUser } = this;
+  @property() renderRequiredStringForInputs = !this.isHiddenUserAllowed
+    ? ' *'
+    : null;
 
-    const renderRequiredStringForInputs = !this.isHiddenUserAllowed
-      ? ' *'
-      : null;
-    const hiddenUserValidator = this.isHiddenUserAllowed
-      ? []
-      : [new Required()];
+  @property() hiddenUserValidator = this.isHiddenUserAllowed
+    ? [new MaxLength(50)]
+    : [new Required()];
+
+  render() {
+    const {
+      ideaRequest,
+      moduleId,
+      externalUser,
+      renderRequiredStringForInputs,
+      hiddenUserValidator,
+    } = this;
 
     // sendIdeaSubmissionRequest(123, '123');
     const submitHandler = async (ev: any) => {

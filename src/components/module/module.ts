@@ -195,12 +195,15 @@ export class BcgModule extends LitElement {
     this.isRegistrationRequiredToCreateSubmissions =
       this.config.config?.isRegistrationRequired ||
       this.config.moduleConfig?.isRegistrationRequired;
+
     this.isHiddenUserAllowed =
       this.config.config?.isHiddenUserAllowed ||
       this.config.moduleConfig?.isHiddenUserAllowed;
+
     this.isEditOnlyByModeratorAllowed =
       this.config.config?.isEditOnlyByModeratorAllowed ||
       this.config.moduleConfig?.isEditOnlyByModeratorAllowed;
+      
     this.isCommentsAllowed =
       this.config.config?.isCommentsAllowed ||
       this.config.moduleConfig?.isCommentsAllowed;
