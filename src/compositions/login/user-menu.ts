@@ -74,12 +74,6 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     });
 
     this?.shadowRoot
-      ?.querySelector(`.extra-menu-dropdowncontent`)
-      ?.addEventListener('mouseleave', () => {
-        this.dropDownOpen = false;
-      });
-
-    this?.shadowRoot
       ?.querySelector(`.dropdown`)
       ?.addEventListener('mouseleave', () => {
         this.extramenuDropDownOpen = false;
@@ -89,6 +83,12 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
+    this?.shadowRoot
+      ?.querySelector(`.extra-menu-dropdowncontent`)
+      ?.addEventListener('mouseleave', () => {
+        this.dropDownOpen = false;
+      });
+
     let { isLoggedIn, user, logOutHandler, registerHandler } = this;
 
     // epart nav background = --navigation-background-color
