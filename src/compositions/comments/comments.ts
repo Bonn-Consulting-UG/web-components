@@ -107,13 +107,6 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   @property({ type: Number }) displayedComments: number = 9;
 
-  @property() renderRequiredStringForInputs = !this.isHiddenUserAllowed
-    ? ' *'
-    : null;
-  @property() hiddenUserValidator = this.isHiddenUserAllowed
-    ? []
-    : [new Required()];
-
   @property() comments: any = [];
 
   @property() count: any = [];
@@ -185,8 +178,15 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
-    const { comments, renderRequiredStringForInputs, hiddenUserValidator } =
-      this;
+    const renderRequiredStringForInputs = this.isHiddenUserAllowed
+      ? null
+      : ' *';
+
+    const hiddenUserValidator = this.isHiddenUserAllowed
+      ? [new MaxLength(50)]
+      : [new Required(), new MaxLength(50)];
+    this.isHiddenUserAllowed = true;
+    const { comments } = this;
 
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {

@@ -14,20 +14,16 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
     firstName: '',
   };
 
-  @property() renderRequiredStringForInputs = !this.isHiddenUserAllowed
-    ? ' *'
-    : null;
-
-  @property() hiddenUserValidator = this.isHiddenUserAllowed
-    ? []
-    : [new Required()];
-
   render() {
-    const {
-      contactRequest,
-      renderRequiredStringForInputs,
-      hiddenUserValidator,
-    } = this;
+    const renderRequiredStringForInputs = this.isHiddenUserAllowed
+      ? null
+      : ' *';
+
+    const hiddenUserValidator = this.isHiddenUserAllowed
+      ? []
+      : [new Required()];
+
+    const { contactRequest } = this;
 
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {

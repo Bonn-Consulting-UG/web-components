@@ -18,17 +18,16 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
     description: '',
   };
 
-  @property() renderRequiredStringForInputs = !this.isHiddenUserAllowed
-    ? ' *'
-    : null;
-
-  @property() hiddenUserValidator = this.isHiddenUserAllowed
-    ? [new MaxLength(50)]
-    : [new Required(), new MaxLength(50)];
-
   render() {
-    const { faqRequest, renderRequiredStringForInputs, hiddenUserValidator } =
-      this;
+    const renderRequiredStringForInputs = this.isHiddenUserAllowed
+      ? null
+      : ' *';
+
+    const hiddenUserValidator = this.isHiddenUserAllowed
+      ? [new MaxLength(50)]
+      : [new Required(), new MaxLength(50)];
+
+    const { faqRequest } = this;
 
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {

@@ -77,7 +77,7 @@ export class BcgModule extends LitElement {
 
   // Permissions
   @property({ type: Boolean }) isRegistrationRequiredToCreateSubmissions = true;
-  @property({ type: Boolean }) isHiddenUserAllowed = false;
+  @property({ type: Boolean }) isHiddenUserAllowed: any;
 
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
@@ -181,7 +181,6 @@ export class BcgModule extends LitElement {
     if (this.moduleId !== 0 && this.submissionId === 0) {
       this.config = await getModule(this.moduleId);
       this.assignAccessabilities();
-
       console.log(this.config);
     }
     if (this.submissionId !== 0 && this.moduleId === 0) {
@@ -203,7 +202,7 @@ export class BcgModule extends LitElement {
     this.isEditOnlyByModeratorAllowed =
       this.config.config?.isEditOnlyByModeratorAllowed ||
       this.config.moduleConfig?.isEditOnlyByModeratorAllowed;
-      
+
     this.isCommentsAllowed =
       this.config.config?.isCommentsAllowed ||
       this.config.moduleConfig?.isCommentsAllowed;
