@@ -74,21 +74,21 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     });
 
     this?.shadowRoot
-      ?.querySelector(`.dropdown`)
+      ?.querySelector(`.extra-menu-dropdowncontent`)
       ?.addEventListener('mouseleave', () => {
         this.extramenuDropDownOpen = false;
+      });
+
+    this?.shadowRoot
+      ?.querySelector(`.dropdown`)
+      ?.addEventListener('mouseleave', () => {
+        this.dropDownOpen = false;
       });
 
     super.updated(changedProperties);
   }
 
   render() {
-    this?.shadowRoot
-      ?.querySelector(`.extra-menu-dropdowncontent`)
-      ?.addEventListener('mouseleave', () => {
-        this.dropDownOpen = false;
-      });
-
     let { isLoggedIn, user, logOutHandler, registerHandler } = this;
 
     // epart nav background = --navigation-background-color
@@ -219,7 +219,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
         <dialog id="edit-dialog">
           <header
-            style=" display:flex;justify-content: flex-end;align-content: flex-end;"
+            style="z-index:999999; display:flex;justify-content: flex-end;align-content: flex-end;"
           >
             <bcg-button id="close-button-edit" variant="tertiary"
               ><lion-icon icon-id="bcg:general:cross"></bcg-icon
