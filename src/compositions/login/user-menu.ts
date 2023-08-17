@@ -184,7 +184,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
                     @click=${registerHandler}
                     >Registrieren</bcg-button
                   >
-                  <bcg-button id="login-button" variant="secondary"
+                  <bcg-button id="login-button" variant="primary"
                     >Anmelden</bcg-button
                   >
                 </div>`
