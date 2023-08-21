@@ -130,7 +130,6 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     this?.shadowRoot
       ?.querySelector(`#comment`)
       ?.addEventListener('mouseleave', () => (this.isFocused = false));
-    console.log(this.config);
     super.updated(changedProperties);
   }
 

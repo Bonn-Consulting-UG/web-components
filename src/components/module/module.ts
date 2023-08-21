@@ -81,6 +81,7 @@ export class BcgModule extends LitElement {
 
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
+  @property({ type: Array }) commentWriters: any = [];
 
   @property({ type: LitElement || null }) createSubmissionHtml = (
     content: TemplateResult
@@ -144,7 +145,6 @@ export class BcgModule extends LitElement {
     }
     this.hasModeratorRole =
       this.user?.realm_access?.roles?.includes('MODERATOR');
-    console.log(this.user);
   }
 
   async getNewAccessToken() {
@@ -181,12 +181,10 @@ export class BcgModule extends LitElement {
     if (this.moduleId !== 0 && this.submissionId === 0) {
       this.config = await getModule(this.moduleId);
       this.assignAccessabilities();
-      console.log(this.config);
     }
     if (this.submissionId !== 0 && this.moduleId === 0) {
       this.config = await getSubmission(this.submissionId);
       this.assignAccessabilities();
-      console.log(this.config);
     }
   }
 
@@ -206,6 +204,10 @@ export class BcgModule extends LitElement {
     this.isCommentsAllowed =
       this.config.config?.isCommentsAllowed ||
       this.config.moduleConfig?.isCommentsAllowed;
+
+    this.commentWriters =
+      this.config.config?.commentWriters ||
+      this.config.moduleConfig?.commentWriters;
   }
 
   connectedCallback() {

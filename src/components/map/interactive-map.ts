@@ -213,7 +213,6 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   initMap() {
     /* @ts-ignore */
     (mapboxgl as any).accessToken = this.mapAccessToken;
-    console.log(this.mapAccessToken);
     this.map = new mapboxgl.Map({
       container: this.renderRoot.querySelector('#map') as HTMLElement,
       accessToken: this.mapAccessToken,
