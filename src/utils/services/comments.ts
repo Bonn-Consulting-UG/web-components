@@ -99,9 +99,9 @@ export const addComment = async (
         content: commentConent,
         moduleId: moduleId ? moduleId : null,
         submissionId: submissionId ? submissionId : null,
-        firstName,
-        lastName,
-        email,
+        firstName: firstName ? firstName : null,
+        lastName: lastName ? lastName : null,
+        email: email ? email : null,
       }),
     };
 

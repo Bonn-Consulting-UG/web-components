@@ -43,8 +43,6 @@ export class BcgUserMenu extends BcgModule {
       ?.addEventListener('mouseleave', () => {
         this.open = false;
       });
-
-    console.log(changedProperties);
     super.updated(changedProperties);
   }
 

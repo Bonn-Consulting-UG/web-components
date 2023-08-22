@@ -178,13 +178,18 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
+    const renderRequiredStringForInputs =
+      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
+        ? null
+        : ' *';
+
+    const hiddenUserValidator =
+      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
+        ? [new MaxLength(50)]
+        : [new Required(), new MaxLength(50)];
+
     const { comments } = this;
-    const renderRequiredStringForInputs = !this.isHiddenUserAllowed
-      ? ' *'
-      : null;
-    const hiddenUserValidator = this.isHiddenUserAllowed
-      ? []
-      : [new Required()];
+
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>

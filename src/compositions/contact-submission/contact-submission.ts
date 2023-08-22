@@ -1,21 +1,28 @@
-import { html, ScopedElementsMixin } from '@lion/core';
+import { html, property, ScopedElementsMixin } from '@lion/core';
 import { BcgModule } from '../../components/module';
 import { Required } from '../../utils/helpers/input-errors';
 import { contactSubmissionEndpoint } from '../../utils/services/config';
 import { sendContactSubmissionRequest } from '../../utils/services/module';
-import { property } from 'cypress/types/lodash';
 
 export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
   contactRequest: any = {
     description: '',
     templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
-    lastName: '',
+    lastName: null,
     title: '',
-    email: '',
-    firstName: '',
+    email: null,
+    firstName: null,
   };
 
   render() {
+    const renderRequiredStringForInputs = this.isHiddenUserAllowed
+      ? null
+      : ' *';
+
+    const hiddenUserValidator = this.isHiddenUserAllowed
+      ? []
+      : [new Required()];
+
     const { contactRequest } = this;
 
     const submitHandler = async (ev: any) => {
@@ -83,8 +90,6 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
         this.isLoading = false;
       }
     };
-    const renderRequiredStringForInputs  = !this.isHiddenUserAllowed ? ' *' : null;
-    const hiddenUserValidator = this.isHiddenUserAllowed ? [] : [new Required()];
 
     return this.createSubmissionHtml(html`
       <bcg-form @submit=${submitHandler}>
@@ -172,7 +177,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                             ><label slot="label">
                               Ich akzeptiere die
                               <a href="/datenschutz">Datenschutzerklärung *</a>
-                        </label></bcg-checkbox
+                            </label></bcg-checkbox
                           >
                         </bcg-checkbox-group>
 

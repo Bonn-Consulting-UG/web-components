@@ -79,6 +79,12 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
         this.extramenuDropDownOpen = false;
       });
 
+    this?.shadowRoot
+      ?.querySelector(`.dropdown`)
+      ?.addEventListener('mouseleave', () => {
+        this.dropDownOpen = false;
+      });
+
     super.updated(changedProperties);
   }
 
@@ -178,7 +184,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
                     @click=${registerHandler}
                     >Registrieren</bcg-button
                   >
-                  <bcg-button id="login-button" variant="secondary"
+                  <bcg-button id="login-button" variant="primary"
                     >Anmelden</bcg-button
                   >
                 </div>`
@@ -213,7 +219,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
         <dialog id="edit-dialog">
           <header
-            style=" display:flex;justify-content: flex-end;align-content: flex-end;"
+            style="z-index:999999; display:flex;justify-content: flex-end;align-content: flex-end;"
           >
             <bcg-button id="close-button-edit" variant="tertiary"
               ><lion-icon icon-id="bcg:general:cross"></bcg-icon

@@ -130,7 +130,6 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     this?.shadowRoot
       ?.querySelector(`#comment`)
       ?.addEventListener('mouseleave', () => (this.isFocused = false));
-    console.log(this.config);
     super.updated(changedProperties);
   }
 
@@ -293,11 +292,9 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
               }
             </p>
             ${
-              this.config.config?.isReactionsAllowed && status !== 'CENSORED'
+              this.isReactionsAllowed && status !== 'CENSORED'
                 ? html`<div style="display:flex;">
-                    ${this.config.config?.allowedCommentReactionTypes?.includes(
-                      'LIKE'
-                    )
+                    ${this.allowedCommentReactionTypes?.includes('LIKE')
                       ? html`<bcg-button
                           @click=${() => this.changeReaction('LIKE')}
                         >
@@ -310,9 +307,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                           ></bcg-reaction>
                         </bcg-button>`
                       : null}
-                    ${this.config.config?.allowedCommentReactionTypes?.includes(
-                      'DISLIKE'
-                    )
+                    ${this.allowedCommentReactionTypes?.includes('DISLIKE')
                       ? html`
                           <bcg-button
                             @click=${() => this.changeReaction('DISLIKE')}

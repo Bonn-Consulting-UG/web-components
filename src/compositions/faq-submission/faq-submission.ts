@@ -1,4 +1,4 @@
-import { html, ScopedElementsMixin } from '@lion/core';
+import { html, property, ScopedElementsMixin } from '@lion/core';
 import {
   Required,
   MinLength,
@@ -11,18 +11,23 @@ import { sendFaqSubmissionRequest } from '../../utils/services/module';
 
 export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   faqRequest: any = {
-    firstName: '',
-    lastName: '',
+    firstName: null,
+    lastName: null,
     email: '',
     title: '',
     description: '',
   };
 
   render() {
-    const { faqRequest } = this;
+    const renderRequiredStringForInputs = this.isHiddenUserAllowed
+      ? null
+      : ' *';
 
-    const renderRequiredStringForInputs  = !this.isHiddenUserAllowed ? ' *' : null;
-    const hiddenUserValidator = this.isHiddenUserAllowed ? [new MaxLength(50)] : [new Required(),new MaxLength(50)];
+    const hiddenUserValidator = this.isHiddenUserAllowed
+      ? [new MaxLength(50)]
+      : [new Required(), new MaxLength(50)];
+
+    const { faqRequest } = this;
 
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {

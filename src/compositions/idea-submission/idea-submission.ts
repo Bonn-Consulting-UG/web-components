@@ -1,4 +1,4 @@
-import { html, ScopedElementsMixin } from '@lion/core';
+import { html, property, ScopedElementsMixin } from '@lion/core';
 import {
   Required,
   IsEmail,
@@ -25,12 +25,13 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
   render() {
     const { ideaRequest, moduleId, externalUser } = this;
 
-    const renderRequiredStringForInputs = !this.isHiddenUserAllowed
-      ? ' *'
-      : null;
+    const renderRequiredStringForInputs = this.isHiddenUserAllowed
+      ? null
+      : ' *';
+
     const hiddenUserValidator = this.isHiddenUserAllowed
-      ? []
-      : [new Required()];
+      ? [new MaxLength(50)]
+      : [new Required(), new MaxLength(50)];
 
     // sendIdeaSubmissionRequest(123, '123');
     const submitHandler = async (ev: any) => {
@@ -47,9 +48,9 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         const loggedOutpayload = this.isLoggedIn
           ? {}
           : {
-              email: `${externalUser.email}`,
-              firstName: `${externalUser.firstName}`,
-              lastName: `${externalUser.lastName}`,
+              email: externalUser.email ? externalUser.email : null,
+              firstName: externalUser.firstName ? externalUser.firstName : null,
+              lastName: externalUser.lastName ? externalUser.lastName : null,
             };
         const fetchOptions = {
           method: 'POST',
