@@ -8,10 +8,10 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
   contactRequest: any = {
     description: '',
     templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
-    lastName: '',
+    lastName: null,
     title: '',
-    email: '',
-    firstName: '',
+    email: null,
+    firstName: null,
   };
 
   render() {

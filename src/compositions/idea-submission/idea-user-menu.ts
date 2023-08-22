@@ -18,8 +18,8 @@ import { LionIcon } from '@lion/icon';
 import { deleteSubmission } from '../../utils/services/test';
 
 export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
-  onCancelLabel = 'Abbrechen';
-  onConfirmLabel = 'Speichern';
+  @property() onCancelLabel = 'Abbrechen';
+  @property() onConfirmLabel = 'Speichern';
   @property() title = this.config?.name;
   @property() content = this.config?.content;
   onEditHandler() {
@@ -94,6 +94,7 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
       this.showDialog = false;
     };
   }
+
   connectedCallback(): void {
     super.connectedCallback();
   }

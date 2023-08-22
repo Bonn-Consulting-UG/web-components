@@ -81,6 +81,8 @@ export class BcgModule extends LitElement {
 
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
+  @property({ type: Boolean }) isReactionsAllowed = false;
+  @property({ type: Array }) allowedCommentReactionTypes: any = [];
   @property({ type: Array }) commentWriters: any = [];
 
   @property({ type: LitElement || null }) createSubmissionHtml = (
@@ -204,6 +206,14 @@ export class BcgModule extends LitElement {
     this.isCommentsAllowed =
       this.config.config?.isCommentsAllowed ||
       this.config.moduleConfig?.isCommentsAllowed;
+
+    this.allowedCommentReactionTypes =
+      this.config.config?.allowedCommentReactionTypes ||
+      this.config.moduleConfig?.allowedCommentReactionTypes;
+
+    this.isReactionsAllowed =
+      this.config.config?.isReactionsAllowed ||
+      this.config.moduleConfig?.allowedisReactionsAllowedCommentReactionTypes;
 
     this.commentWriters =
       this.config.config?.commentWriters ||

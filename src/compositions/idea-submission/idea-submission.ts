@@ -48,9 +48,9 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         const loggedOutpayload = this.isLoggedIn
           ? {}
           : {
-              email: `${externalUser.email}`,
-              firstName: `${externalUser.firstName}`,
-              lastName: `${externalUser.lastName}`,
+              email: externalUser.email ? externalUser.email : null,
+              firstName: externalUser.firstName ? externalUser.firstName : null,
+              lastName: externalUser.lastName ? externalUser.lastName : null,
             };
         const fetchOptions = {
           method: 'POST',

@@ -11,8 +11,8 @@ import { sendFaqSubmissionRequest } from '../../utils/services/module';
 
 export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   faqRequest: any = {
-    firstName: '',
-    lastName: '',
+    firstName: null,
+    lastName: null,
     email: '',
     title: '',
     description: '',
