@@ -196,31 +196,35 @@ export class BcgModule extends LitElement {
       ? this.config?.config?.isRegistrationRequired
       : this.config?.moduleConfig?.isRegistrationRequired;
 
-    this.isHiddenUserAllowed = this.config.config.isHiddenUsersAllowed
-      ? this.config.config.isHiddenUsersAllowed
-      : this.config?.moduleConfig?.isHiddenUsersAllowed;
+    this.isHiddenUserAllowed =
+      this.config.config !== null
+        ? this.config.config.isHiddenUsersAllowed
+        : this.config?.moduleConfig?.isHiddenUsersAllowed;
 
-    this.isEditOnlyByModeratorAllowed = this.config?.config
-      ?.isEditOnlyByModeratorAllowed
-      ? this.config?.config?.isEditOnlyByModeratorAllowed
-      : this.config?.moduleConfig?.isEditOnlyByModeratorAllowed;
+    this.isEditOnlyByModeratorAllowed =
+      this.config.config !== null
+        ? this.config?.config?.isEditOnlyByModeratorAllowed
+        : this.config?.moduleConfig?.isEditOnlyByModeratorAllowed;
 
-    this.isCommentsAllowed = this.config?.config?.isEditOnlyByModeratorAllowed
-      ? this.config?.config?.isCommentsAllowed
-      : this.config?.moduleConfig?.isCommentsAllowed;
+    this.isCommentsAllowed =
+      this.config.config !== null
+        ? this.config?.config?.isCommentsAllowed
+        : this.config?.moduleConfig?.isCommentsAllowed;
 
-    this.allowedCommentReactionTypes = this.config?.config
-      ?.allowedCommentReactionTypes
-      ? this.config?.config?.allowedCommentReactionTypes
-      : this.config?.moduleConfig?.allowedCommentReactionTypes;
+    this.allowedCommentReactionTypes =
+      this.config.config !== null
+        ? this.config?.config?.allowedCommentReactionTypes
+        : this.config?.moduleConfig?.allowedCommentReactionTypes;
 
-    this.isReactionsAllowed = this.config?.config?.isReactionsAllowed
-      ? this.config?.config?.isReactionsAllowed
-      : this.config?.moduleConfig?.isReactionsAllowed;
+    this.isReactionsAllowed =
+      this.config.config !== null
+        ? this.config?.config?.isReactionsAllowed
+        : this.config?.moduleConfig?.isReactionsAllowed;
 
-    this.commentWriters = this.config?.config?.commentWriters
-      ? this.config?.config?.commentWriters
-      : this.config?.moduleConfig?.commentWriters;
+    this.commentWriters =
+      this.config.config !== null
+        ? this.config?.config?.commentWriters
+        : this.config?.moduleConfig?.commentWriters;
   }
 
   connectedCallback() {
