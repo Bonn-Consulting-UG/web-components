@@ -72,6 +72,10 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
             display: block;
           }
 
+          .reactions-container {
+            margin: 15px 0px;
+          }
+
           .submission-button {
             width: 100%;
           }
@@ -113,7 +117,7 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
                 href=${window.location.href + '/' + this.submission?.id}
                 target="_blank"
               >
-                <bcg-button class="submission-button" variant="primary"
+                <bcg-button class="submission-button" variant="secondary"
                   >${this.buttonLabel}</bcg-button
                 >
               </a>
