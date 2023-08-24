@@ -187,6 +187,14 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
     this.sortBy = this.sortBy === 'newest' ? 'oldest' : 'newest';
   }
 
+  rebindForms() {
+    // null form objects to trigger a reassignment
+    this.submissionForm = undefined;
+    this.contactForm = undefined;
+    this.geocoder = undefined;
+    this.updated([]);
+  }
+
   render() {
     return html`
       <link
@@ -220,7 +228,11 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
 
         <lion-tabs class="tabs" .selectedIndex=${this.currentTabIndex}>
           <bcg-tab-button
-            @click=${() => (this.currentTabIndex = 0)}
+            @click=${() => {
+              this.currentTabIndex = 0;
+              // necessary rebinding caused by rerender
+              this.rebindForms();
+              }}
             class="tab-button"
             slot="tab"
           >
@@ -233,7 +245,9 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
-            <div class="map-wrapper" style="height: ${this.mapHeight}px">
+            ${this.currentTabIndex === 0 
+              ? html`
+              <div class="map-wrapper" style="height: ${this.mapHeight}px">
               <bcg-map-overlay
                 class="bcg-overlay"
                 mapAccessToken=${this.mapAccessToken}
@@ -559,11 +573,16 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                 </div>
               </bcg-map-overlay>
             </div>
+              ` 
+              : ''}
           </bcg-tab-panel>
 
           <bcg-tab-button
             class="tab-button"
-            @click=${() => (this.currentTabIndex = 1)}
+            @click=${() => {
+              this.closeOverlay();
+              this.currentTabIndex = 1;
+            }}
             slot="tab"
           >
             <div>
