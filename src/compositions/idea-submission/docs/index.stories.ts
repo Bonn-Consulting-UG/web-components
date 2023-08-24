@@ -18,12 +18,12 @@ interface ArgTypes {
 
 const DefaultTemplate: Story<ArgTypes> = () =>
   html`<bcg-idea-submission
-    moduleId="01378418-d181-4cea-8998-63bc84e0c0cc"
+    moduleId="5b81a51e-11b6-4718-a971-e95d13e27595"
   ></bcg-idea-submission> `;
 
 const IdeaUserMenuTemplate: Story<ArgTypes> = () =>
   html`<bcg-idea-user-menu
-    moduleId="2b3004fd-8e18-41ad-a763-6b63482cbcdf"
+    moduleId="5b81a51e-11b6-4718-a971-e95d13e27595"
   ></bcg-idea-user-menu> `;
 
 const Default = DefaultTemplate.bind({});

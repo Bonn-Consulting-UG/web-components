@@ -94,12 +94,16 @@ export class BcgModule extends LitElement {
     }
 
     if (
-      !this.isRegistrationRequiredToCreateSubmissions ||
-      (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn) ||
-      (this.submissionWriters.includes('REGISTERED_USER') && this.isLoggedIn)
+      (!this.isRegistrationRequiredToCreateSubmissions &&
+        !this.submissionWriters.includes('REGISTERED_USER')) ||
+      ((this.isRegistrationRequiredToCreateSubmissions ||
+        this.submissionWriters.includes('REGISTERED_USER')) &&
+        this.isLoggedIn)
     ) {
+      console.log('why fletch');
       return content;
     } else {
+      console.log('why not fletch');
       return html`<div class="submission-permission-hint">
         Sie müssen angemeldet sein, um sich beteiligen zu können
       </div>`;
