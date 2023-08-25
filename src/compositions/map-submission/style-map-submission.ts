@@ -126,7 +126,6 @@ export const mapSubmissionStyle = css`
 }
 
 .submission-permission-hint {
-    padding:20px;
     max-width: 210px;
     position: absolute;
     right: 0;
