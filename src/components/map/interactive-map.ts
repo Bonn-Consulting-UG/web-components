@@ -127,9 +127,11 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
             <slot name="content">
               <div class="content-wrapper"">
                 <div class="text-container">
-                  <p class="creator-text">${submission?.firstName} ${
-            submission?.lastName
-          }</p>
+                  <p class="creator-text">
+                  ${!submission?.firstName && !submission?.lastName
+                    ? 'Anonym'
+                    : `${submission?.firstName ?? ''} ${submission?.lastName ?? ''}`}
+                  </p>
                   <p class="creator-text">${new Date(
                     submission?.createdAt ?? ''
                   ).toLocaleDateString()}</p>
