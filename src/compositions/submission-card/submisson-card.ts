@@ -102,7 +102,7 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
               <p class="creator-text">
                 ${!this.submission?.firstName && !this.submission?.lastName
                   ? 'Anonym'
-                  : `${this.submission?.firstName} ${this.submission?.lastName}`}
+                  : `${this.submission?.firstName ?? ''} ${this.submission?.lastName ?? ''}`}
               </p>
               <p class="creator-text">
                 ${new Date(
