@@ -77,7 +77,7 @@ export class BcgModule extends LitElement {
 
   // Permissions
   @property({ type: Boolean }) isRegistrationRequiredToCreateSubmissions = true;
-  @property({ type: Boolean }) isHiddenUserAllowed: any;
+  @property({ type: Boolean }) isHiddenUserAllowed = false;
 
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
@@ -204,7 +204,7 @@ export class BcgModule extends LitElement {
       : this.config?.moduleConfig?.isRegistrationRequired;
 
     this.isHiddenUserAllowed = configOrModuleConfig
-      ? this.config.config.isHiddenUsersAllowed
+      ? this.config?.config?.isHiddenUsersAllowed
       : this.config?.moduleConfig?.isHiddenUsersAllowed;
 
     this.isEditOnlyByModeratorAllowed = configOrModuleConfig

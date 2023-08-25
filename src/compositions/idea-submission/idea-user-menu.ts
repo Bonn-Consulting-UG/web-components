@@ -21,7 +21,7 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
   @property() onCancelLabel = 'Abbrechen';
   @property() onConfirmLabel = 'Speichern';
   @property() title = this.config?.name;
-  @property() content = this.config?.content;
+  @property() description = this.config?.description;
   onEditHandler() {
     const editSubmitHandler = (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -33,8 +33,8 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    this.title = this.config.name;
-    this.content = this.config.content;
+    this.title = this.config.name || this.config.title;
+    this.description = this.config.description;
 
     this.dialogContent = html`
       <bcg-form name="edit-idea" @submit=${(ev: any) => editSubmitHandler(ev)}>
@@ -56,9 +56,9 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
           <bcg-textarea
             name="content"
             .validators=${[new Required()]}
-            .modelValue="${this.content}"
+            .modelValue="${this.description}"
             @model-value-changed=${({ target }: any) => {
-              this.content = target.value;
+              this.description = target.value;
             }}
             rows="5"
             label="Erzählen Sie uns mehr von Ihrer Idee *"
@@ -70,11 +70,16 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
     this.confirmHandler = async () => {
       const data = {
         name: this.title,
-        content: this.content,
+        description: this.description,
       };
       if (this.moduleId !== 0) await updateModule(this.moduleId, data);
-      if (this.submissionId !== 0)
-        await updateSubmission(this.submissionId, data);
+      const submissonData = {
+        title: this.title,
+        description: this.description,
+      };
+      if (this.submissionId !== 0) {
+      }
+      await updateSubmission(this.submissionId, submissonData);
     };
   }
 

@@ -145,10 +145,6 @@ export const mapSubmissionStyle = css`
         margin-bottom: 10px;
     }
 
-    .map-wrapper {
-        width: 85%;
-        margin: auto;
-    }
 
     .option-1-label, .place-marker-section {
         display: none;

@@ -26,9 +26,14 @@ const IdeaUserMenuTemplate: Story<ArgTypes> = () =>
     moduleId="5b81a51e-11b6-4718-a971-e95d13e27595"
   ></bcg-idea-user-menu> `;
 
+const IdeaUserMenuSubmissionTemplate: Story<ArgTypes> = () =>
+  html`<bcg-idea-user-menu
+    submissionId="fed22b38-19ec-4cfb-b4ac-383956360ab7"
+  ></bcg-idea-user-menu> `;
+
 const Default = DefaultTemplate.bind({});
 const IdeaUserMenu = IdeaUserMenuTemplate.bind({});
 
 Default.args = {};
 
-export { Default, IdeaUserMenu };
+export { Default, IdeaUserMenu, IdeaUserMenuSubmissionTemplate };
