@@ -18,7 +18,7 @@ interface ArgTypes {
 
 const DefaultTemplate: Story<ArgTypes> = () =>
   html`<bcg-idea-submission
-    moduleId="5b81a51e-11b6-4718-a971-e95d13e27595"
+    moduleId="28bf3d9e-a00a-44fb-af21-e3b30ffa4473"
   ></bcg-idea-submission> `;
 
 const IdeaUserMenuTemplate: Story<ArgTypes> = () =>

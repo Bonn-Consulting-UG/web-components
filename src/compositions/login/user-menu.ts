@@ -50,6 +50,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
     loginButton?.addEventListener('click', () => {
       loginDialog?.showModal();
+      this.extramenuDropDownOpen = false;
     });
 
     closeButton?.addEventListener('click', () => {
@@ -62,11 +63,13 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
     registerButton?.addEventListener('click', () => {
       registerDialog?.showModal();
+      this.extramenuDropDownOpen = false;
     });
 
     editButton?.addEventListener('click', () => {
+      this.dropDownOpen = false;
+
       profileDialog?.show();
-      // this.isOpen = false;
     });
 
     closeButtonEdit?.addEventListener('click', () => {
