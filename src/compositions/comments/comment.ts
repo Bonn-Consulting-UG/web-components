@@ -25,6 +25,7 @@ import {
   MinLength,
   Required,
 } from '../../utils/helpers/input-errors';
+import { PropertyValueMap } from 'lit';
 
 export class BcgComment extends ScopedElementsMixin(BcgModule) {
   @property({ type: Object }) comments: any;
@@ -50,16 +51,11 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     const dislikeReaction = () =>
       this.comments.$userReactions.find((e: any) => e.type === 'DISLIKE');
 
-    if (this.requestPending) return;
-    this.requestPending = true;
-
     if (!dislikeReaction() && !likeReaction()) {
       await addReaction({ type }, this.comments.id);
       this.refresh();
-      setTimeout(() => (this.requestPending = false), 300);
     } else {
       await removeReaction(likeReaction()?.id || dislikeReaction()?.id);
-      setTimeout(() => (this.requestPending = false), 300);
       this.refresh();
     }
   };
@@ -122,20 +118,6 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     ];
   }
 
-  updated(changedProperties: any): void {
-    this?.shadowRoot
-      ?.querySelector(`#comment`)
-      ?.addEventListener('mouseenter', () => (this.isFocused = true));
-
-    this?.shadowRoot
-      ?.querySelector(`#comment`)
-      ?.addEventListener('mouseleave', () => (this.isFocused = false));
-    super.updated(changedProperties);
-  }
-
-  connectedCallback(): void {
-    super.connectedCallback();
-  }
   render() {
     const likeReaction = (comment: any) =>
       comment.$userReactions.find((e: any) => e.type === 'LIKE');
@@ -250,7 +232,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                         name="editform"
                         @submit=${editSubmitHandler}
                       >
-                        <form @submit=${(e: any) => console.log(e)}>
+                        <form>
                           <div style="display:flex;flex-direction:column;">
                             <bcg-textarea
                               name="edittextarea"
@@ -291,6 +273,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                     >`
               }
             </p>
+
             ${
               this.isReactionsAllowed && status !== 'CENSORED'
                 ? html`<div style="display:flex;">

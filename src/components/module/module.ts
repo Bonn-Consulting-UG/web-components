@@ -84,6 +84,7 @@ export class BcgModule extends LitElement {
   @property({ type: Boolean }) isReactionsAllowed = false;
   @property({ type: Array }) allowedCommentReactionTypes: any = [];
   @property({ type: Array }) commentWriters: any = [];
+  @property({ type: Array }) commentReaders: any = [];
   @property({ type: Array }) submissionWriters: any = [];
 
   @property({ type: LitElement || null }) createSubmissionHtml = (
@@ -93,21 +94,16 @@ export class BcgModule extends LitElement {
       return this.hasModeratorRole ? content : html``;
     }
 
-    if (
-      (!this.isRegistrationRequiredToCreateSubmissions &&
-        !this.submissionWriters.includes('REGISTERED_USER')) ||
-      ((this.isRegistrationRequiredToCreateSubmissions ||
-        this.submissionWriters.includes('REGISTERED_USER')) &&
-        this.isLoggedIn)
-    ) {
-      console.log('why fletch');
+    if (this.submissionWriters.includes('ANONYMOUS')) {
       return content;
-    } else {
-      console.log('why not fletch');
-      return html`<div class="submission-permission-hint">
-        Sie müssen angemeldet sein, um sich beteiligen zu können
-      </div>`;
     }
+    if (this.submissionWriters.includes('REGISTERED_USER') && this.isLoggedIn) {
+      return content;
+    }
+
+    return html`<div class="submission-permission-hint">
+      Sie müssen angemeldet sein, um sich beteiligen zu können
+    </div>`;
   };
 
   checkAuthToken() {
@@ -197,8 +193,7 @@ export class BcgModule extends LitElement {
   }
 
   assignAccessabilities() {
-    const configOrModuleConfig = this.config.config !== null;
-
+    const configOrModuleConfig = this.config.config;
     this.isRegistrationRequiredToCreateSubmissions = configOrModuleConfig
       ? this.config?.config?.isRegistrationRequired
       : this.config?.moduleConfig?.isRegistrationRequired;
@@ -230,6 +225,10 @@ export class BcgModule extends LitElement {
     this.submissionWriters = configOrModuleConfig
       ? this.config?.config?.submissionWriters
       : this.config?.moduleConfig?.submissionWriters;
+
+    this.commentReaders = configOrModuleConfig
+      ? this.config?.config?.commentReaders
+      : this.config?.moduleConfig?.commentReaders;
   }
 
   connectedCallback() {

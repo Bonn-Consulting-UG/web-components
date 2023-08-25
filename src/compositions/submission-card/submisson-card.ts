@@ -102,7 +102,7 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
               <p class="creator-text">
                 ${!this.submission?.firstName && !this.submission?.lastName
                   ? 'Anonym'
-                  : `${this.submission?.firstName} ${this.submission?.lastName}`}
+                  : `${this.submission?.firstName ?? ''} ${this.submission?.lastName ?? ''}`}
               </p>
               <p class="creator-text">
                 ${new Date(
@@ -115,7 +115,6 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
             <div class="actions-container">
               <a
                 href=${window.location.href + '/' + this.submission?.id}
-                target="_blank"
               >
                 <bcg-button class="submission-button" variant="secondary"
                   >${this.buttonLabel}</bcg-button

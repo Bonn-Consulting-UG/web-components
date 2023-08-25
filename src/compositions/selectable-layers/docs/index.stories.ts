@@ -17,7 +17,6 @@ interface ArgTypes {
   buttonLabel: string;
   content: string;
 }
-
 const DefaultTemplate: Story<ArgTypes> = () =>
   html`
     <bcg-selectable-layers
