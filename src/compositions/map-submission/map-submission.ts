@@ -196,6 +196,16 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
+    const renderRequiredStringForInputs =
+      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
+        ? null
+        : ' *';
+
+    const hiddenUserValidator =
+      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
+        ? []
+        : [new Required()];
+
     return html`
       <link
         href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css"
@@ -232,7 +242,7 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
               this.currentTabIndex = 0;
               // necessary rebinding caused by rerender
               this.rebindForms();
-              }}
+            }}
             class="tab-button"
             slot="tab"
           >
@@ -245,30 +255,30 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </bcg-tab-button>
           <bcg-tab-panel slot="panel">
-            ${this.currentTabIndex === 0 
+            ${this.currentTabIndex === 0
               ? html`
-              <div class="map-wrapper" style="height: ${this.mapHeight}px">
-              <bcg-map-overlay
-                class="bcg-overlay"
-                mapAccessToken=${this.mapAccessToken}
-                .showActionButton=${false}
-                .pinColor=${this.pinColor}
-                .closeButtonCallback=${() => this.closeOverlay()}
-                initialZoom=${this.initialZoom}
-                .maxBounds=${this.maxBounds}
-                .initialPosition=${this.initialPosition}
-                overlayWidth=${this.overlayWidth}
-                .submissions=${this.submissions}
-                .showOverlay=${this.showOverlay}
-                .geocoderInputCallback=${(input: any) => {
-                  this.mapService.handleGeocoderInput(input);
-                }}
-                .markerSetCallback=${(marker: any) => {
-                  this.mapService.handleMarkerInput(marker);
-                }}
-              >
-                <div class="overlay-content" slot="overlay-content">
-                  ${html`
+                  <div class="map-wrapper" style="height: ${this.mapHeight}px">
+                    <bcg-map-overlay
+                      class="bcg-overlay"
+                      mapAccessToken=${this.mapAccessToken}
+                      .showActionButton=${false}
+                      .pinColor=${this.pinColor}
+                      .closeButtonCallback=${() => this.closeOverlay()}
+                      initialZoom=${this.initialZoom}
+                      .maxBounds=${this.maxBounds}
+                      .initialPosition=${this.initialPosition}
+                      overlayWidth=${this.overlayWidth}
+                      .submissions=${this.submissions}
+                      .showOverlay=${this.showOverlay}
+                      .geocoderInputCallback=${(input: any) => {
+                        this.mapService.handleGeocoderInput(input);
+                      }}
+                      .markerSetCallback=${(marker: any) => {
+                        this.mapService.handleMarkerInput(marker);
+                      }}
+                    >
+                      <div class="overlay-content" slot="overlay-content">
+                        ${html`
                     <lion-steps style="height: 100%" class="stepper">
 
                       <lion-step initial-step class="submission-step" >
@@ -448,10 +458,10 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                     >
                                       <h3>Über Sie</h3>
                                       <bcg-input
-                                        label="Vorname"
+                                        label="Vorname${renderRequiredStringForInputs}"
                                         placeholder=""
                                         name="firstName"
-                                        .validators=${[new Required()]}
+                                        .validators=${hiddenUserValidator}
                                         .modelValue="${this.currentMapSubmission
                                           .firstName}"
                                         @model-value-changed=${({
@@ -465,10 +475,10 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                         }}
                                       ></bcg-input>
                                       <bcg-input
-                                        label="Nachname"
+                                        label="Nachname${renderRequiredStringForInputs}"
                                         placeholder=""
                                         name="lastName"
-                                        .validators=${[new Required()]}
+                                        .validators=${hiddenUserValidator}
                                         .modelValue="${this.currentMapSubmission
                                           .lastName}"
                                         @model-value-changed=${({
@@ -482,10 +492,10 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                                         }}
                                       ></bcg-input>
                                       <bcg-input-email
-                                        label="E-Mail"
+                                        label="E-Mail${renderRequiredStringForInputs}"
                                         placeholder=""
                                         name="email"
-                                        .validators=${[new Required()]}
+                                        .validators=${hiddenUserValidator}
                                         .modelValue="${this.currentMapSubmission
                                           .email}"
                                         @model-value-changed=${({
@@ -570,10 +580,10 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
                     </lion-steps>
 
                   `}
-                </div>
-              </bcg-map-overlay>
-            </div>
-              ` 
+                      </div>
+                    </bcg-map-overlay>
+                  </div>
+                `
               : ''}
           </bcg-tab-panel>
 

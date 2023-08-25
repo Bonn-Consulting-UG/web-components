@@ -76,6 +76,7 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
       const submissonData = {
         title: this.title,
         description: this.description,
+        moduleId: this.config?.moduleConfig.moduleId,
       };
       if (this.submissionId !== 0) {
       }

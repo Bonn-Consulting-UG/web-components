@@ -24,7 +24,7 @@ const DefaultTemplate: Story<ArgTypes> = () =>
     <div style="width: 100%; height: 800px">
       <bcg-map-submission
         mapAccessToken=${token}
-        moduleId="3275cc46-38da-4033-a281-acedadc93db6"
+        moduleId="e742d45b-4741-4c2a-aeec-98e772a444c5"
         mapHeight="600"
         .maxBounds=${undefined}
         overlayButtonLabel="Fachkarten"
