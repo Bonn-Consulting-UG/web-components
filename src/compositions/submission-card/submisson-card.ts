@@ -115,7 +115,6 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
             <div class="actions-container">
               <a
                 href=${window.location.href + '/' + this.submission?.id}
-                target="_blank"
               >
                 <bcg-button class="submission-button" variant="secondary"
                   >${this.buttonLabel}</bcg-button
