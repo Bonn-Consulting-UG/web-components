@@ -33,7 +33,7 @@ export const mapOverlayStyle = css
 
   .overlay-wrapper {
     position: static;
-    width: 100%;
+    width: 100% !important;
   }
 }
 
