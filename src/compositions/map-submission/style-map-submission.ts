@@ -138,6 +138,15 @@ export const mapSubmissionStyle = css`
     }
 }
 
+@media screen and (max-width:700px) {
+    .sort-button {
+        float: unset;
+        width: 100%;
+        margin-right: 0;
+        margin-top: 0;
+    }
+}
+
 @media screen and (max-width:500px) {
     .submission-button {
         float: unset;
@@ -148,13 +157,6 @@ export const mapSubmissionStyle = css`
 
     .option-1-label, .place-marker-section {
         display: none;
-    }
-
-    .sort-button {
-        float: unset;
-        width: 100%;
-        margin-right: 0;
-        margin-top: 0;
     }
 
     .tab-button {
