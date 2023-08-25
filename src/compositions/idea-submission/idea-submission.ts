@@ -76,13 +76,13 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         const resp = await response.json();
         this.ideaRequest.description = '';
 
+        if (!response.ok) throw Error('Faulty Response');
         setTimeout(() => {
           this.shadowRoot?.querySelector('form')?.resetGroup();
         }, 1000);
         this.ideaRequest.title = '';
         this.showNotification = true;
         this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
-
         location.href = `${location.href}/${resp.id}`;
       } catch (err) {
         this.showNotification = true;
