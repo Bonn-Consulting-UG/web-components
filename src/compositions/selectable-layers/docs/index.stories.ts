@@ -18,14 +18,16 @@ interface ArgTypes {
   content: string;
 }
 
-const DefaultTemplate: Story<ArgTypes> = () =>
-  html`
+const DefaultTemplate: Story<ArgTypes> = () => {
+  console.log(123);
+  return html`
     <bcg-selectable-layers
       .layers=${testLayers}
       .activeLayersChanged=${(activeLayers: LayerData[]) =>
         console.log(activeLayers)}
     ></bcg-selectable-layers>
   `;
+};
 
 const Default = DefaultTemplate.bind({});
 
