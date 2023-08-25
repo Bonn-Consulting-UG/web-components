@@ -45,6 +45,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   firstUpdated() {
     this.initMap();
     this.updatePinPosition();
+    this.updateSubmissions([]);
   }
 
   updated(changedProperties: PropertyValues<this>) {
@@ -126,9 +127,11 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
             <slot name="content">
               <div class="content-wrapper"">
                 <div class="text-container">
-                  <p class="creator-text">${submission?.firstName} ${
-            submission?.lastName
-          }</p>
+                  <p class="creator-text">
+                  ${!submission?.firstName && !submission?.lastName
+                    ? 'Anonym'
+                    : `${submission?.firstName ?? ''} ${submission?.lastName ?? ''}`}
+                  </p>
                   <p class="creator-text">${new Date(
                     submission?.createdAt ?? ''
                   ).toLocaleDateString()}</p>
@@ -138,7 +141,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
                 <div class="actions-container">
                   <a
                   href=${window.location.href + '/' + submission?.id}
-                  target="_blank">
+                  >
                     <bcg-button variant="secondary">Zum Hinweis</bcg-button>
                   </a>
                   <div class="reactions-container">

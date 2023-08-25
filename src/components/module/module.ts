@@ -77,13 +77,15 @@ export class BcgModule extends LitElement {
 
   // Permissions
   @property({ type: Boolean }) isRegistrationRequiredToCreateSubmissions = true;
-  @property({ type: Boolean }) isHiddenUserAllowed: any;
+  @property({ type: Boolean }) isHiddenUserAllowed = false;
 
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
   @property({ type: Boolean }) isReactionsAllowed = false;
   @property({ type: Array }) allowedCommentReactionTypes: any = [];
   @property({ type: Array }) commentWriters: any = [];
+  @property({ type: Array }) commentReaders: any = [];
+  @property({ type: Array }) submissionWriters: any = [];
 
   @property({ type: LitElement || null }) createSubmissionHtml = (
     content: TemplateResult
@@ -92,16 +94,16 @@ export class BcgModule extends LitElement {
       return this.hasModeratorRole ? content : html``;
     }
 
-    if (
-      !this.isRegistrationRequiredToCreateSubmissions ||
-      (this.isRegistrationRequiredToCreateSubmissions && this.isLoggedIn)
-    ) {
+    if (this.submissionWriters.includes('ANONYMOUS')) {
       return content;
-    } else {
-      return html`<div class="submission-permission-hint">
-        Sie müssen angemeldet sein, um sich beteiligen zu können
-      </div>`;
     }
+    if (this.submissionWriters.includes('REGISTERED_USER') && this.isLoggedIn) {
+      return content;
+    }
+
+    return html`<div class="submission-permission-hint">
+      Sie müssen angemeldet sein, um sich beteiligen zu können
+    </div>`;
   };
 
   checkAuthToken() {
@@ -191,33 +193,42 @@ export class BcgModule extends LitElement {
   }
 
   assignAccessabilities() {
-    this.isRegistrationRequiredToCreateSubmissions =
-      this.config.config?.isRegistrationRequired ||
-      this.config.moduleConfig?.isRegistrationRequired;
+    const configOrModuleConfig = this.config.config;
+    this.isRegistrationRequiredToCreateSubmissions = configOrModuleConfig
+      ? this.config?.config?.isRegistrationRequired
+      : this.config?.moduleConfig?.isRegistrationRequired;
 
-    this.isHiddenUserAllowed =
-      this.config.config?.isHiddenUserAllowed ||
-      this.config.moduleConfig?.isHiddenUserAllowed;
+    this.isHiddenUserAllowed = configOrModuleConfig
+      ? this.config?.config?.isHiddenUsersAllowed
+      : this.config?.moduleConfig?.isHiddenUsersAllowed;
 
-    this.isEditOnlyByModeratorAllowed =
-      this.config.config?.isEditOnlyByModeratorAllowed ||
-      this.config.moduleConfig?.isEditOnlyByModeratorAllowed;
+    this.isEditOnlyByModeratorAllowed = configOrModuleConfig
+      ? this.config?.config?.isEditOnlyByModeratorAllowed
+      : this.config?.moduleConfig?.isEditOnlyByModeratorAllowed;
 
-    this.isCommentsAllowed =
-      this.config.config?.isCommentsAllowed ||
-      this.config.moduleConfig?.isCommentsAllowed;
+    this.isCommentsAllowed = configOrModuleConfig
+      ? this.config?.config?.isCommentsAllowed
+      : this.config?.moduleConfig?.isCommentsAllowed;
 
-    this.allowedCommentReactionTypes =
-      this.config.config?.allowedCommentReactionTypes ||
-      this.config.moduleConfig?.allowedCommentReactionTypes;
+    this.allowedCommentReactionTypes = configOrModuleConfig
+      ? this.config?.config?.allowedCommentReactionTypes
+      : this.config?.moduleConfig?.allowedCommentReactionTypes;
 
-    this.isReactionsAllowed =
-      this.config.config?.isReactionsAllowed ||
-      this.config.moduleConfig?.allowedisReactionsAllowedCommentReactionTypes;
+    this.isReactionsAllowed = configOrModuleConfig
+      ? this.config?.config?.isReactionsAllowed
+      : this.config?.moduleConfig?.isReactionsAllowed;
 
-    this.commentWriters =
-      this.config.config?.commentWriters ||
-      this.config.moduleConfig?.commentWriters;
+    this.commentWriters = configOrModuleConfig
+      ? this.config?.config?.commentWriters
+      : this.config?.moduleConfig?.commentWriters;
+
+    this.submissionWriters = configOrModuleConfig
+      ? this.config?.config?.submissionWriters
+      : this.config?.moduleConfig?.submissionWriters;
+
+    this.commentReaders = configOrModuleConfig
+      ? this.config?.config?.commentReaders
+      : this.config?.moduleConfig?.commentReaders;
   }
 
   connectedCallback() {

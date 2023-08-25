@@ -58,51 +58,35 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   ): any => {
     if (!this.isCommentsAllowed) return null;
 
-    if (
-      (this?.config?.config?.commentWriters.includes('REGISTERED_USER') &&
-        this.isLoggedIn) ||
-      this?.config?.config?.commentWriters.includes('USER') ||
-      (this?.config?.moduleConfig?.commentWriters.includes('REGISTERED_USER') &&
-        this.isLoggedIn) ||
-      this?.config?.moduleConfig?.commentWriters.includes('USER') ||
-      this?.config?.moduleConfig?.commentWriters.includes('ANONYMOUS') ||
-      this?.config?.config?.commentWriters.includes('ANONYMOUS')
-    ) {
+    if (this.commentReaders.includes('ANONYMOUS')) {
       return content;
-    } else {
-      return html`<div class="submission-permission-hint">
-        Sie müssen angemeldet sein, um sich beteiligen zu können
-      </div>`;
     }
+    if (this.commentReaders.includes('REGISTERED_USER') && this.isLoggedIn) {
+      return content;
+    }
+    return html`<div class="submission-permission-hint">
+      Sie müssen angemeldet sein, um sich beteiligen zu können
+    </div>`;
   };
 
   @property({ type: LitElement || null }) createCommentHtml = (
     content: TemplateResult
   ): any => {
-    if (this.isCommentsAllowed) {
-      if (
-        (this?.config?.config?.commentReaders.includes('REGISTERED_USER') &&
-          this.isLoggedIn) ||
-        this?.config?.config?.commentReaders.includes('USER') ||
-        (this?.config?.moduleConfig?.commentReaders.includes(
-          'REGISTERED_USER'
-        ) &&
-          this.isLoggedIn) ||
-        this?.config?.moduleConfig?.commentReaders.includes('USER') ||
-        this?.config?.moduleConfig?.commentReaders.includes('ANONYMOUS') ||
-        this?.config?.config?.commentReaders.includes('ANONYMOUS')
-      ) {
-        return content;
-      } else {
-        return html`<div class="submission-permission-hint">
-          Sie müssen angemeldet sein, Kommentare sehen zu können
-        </div>`;
-      }
-    } else {
+    if (!this.isCommentsAllowed) {
       return html`<div class="submission-permission-hint">
         Kommentare sind deaktiviert
       </div>`;
     }
+    if (this.commentReaders.includes('ANONYMOUS')) {
+      return content;
+    }
+    if (this.commentReaders.includes('REGISTERED_USER') && this.isLoggedIn) {
+      return content;
+    }
+
+    return html`<div class="submission-permission-hint">
+      Sie müssen angemeldet sein, Kommentare sehen zu können
+    </div>`;
   };
 
   @property({ type: Number }) displayedComments: number = 9;
@@ -322,6 +306,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         </bcg-form>`)}
         ${this.createCommentHtml(html`<div>
         <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
+
           ${
             this.comments &&
             this.comments.map((comment: any, index: any) => {

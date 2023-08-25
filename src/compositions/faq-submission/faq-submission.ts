@@ -13,7 +13,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   faqRequest: any = {
     firstName: null,
     lastName: null,
-    email: '',
+    email: null,
     title: '',
     description: '',
   };
@@ -134,7 +134,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
  
 
                 ${
-                  !this.isLoggedIn && this.isHiddenUserAllowed
+                  !this.isLoggedIn
                     ? html` <bcg-input
                           label="Ihr Vorname${renderRequiredStringForInputs}"
                           placeholder=""

@@ -9,7 +9,14 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
   @property({ type: Array }) extramenu: any = [];
 
   static get styles() {
-    return [UserMenuStyles];
+    return [
+      UserMenuStyles,
+      css`
+        .dialog-sizing {
+          max-width: 85%;
+        }
+      `,
+    ];
   }
 
   static get scopedElements() {
@@ -50,6 +57,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
     loginButton?.addEventListener('click', () => {
       loginDialog?.showModal();
+      this.extramenuDropDownOpen = false;
     });
 
     closeButton?.addEventListener('click', () => {
@@ -62,11 +70,13 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
     registerButton?.addEventListener('click', () => {
       registerDialog?.showModal();
+      this.extramenuDropDownOpen = false;
     });
 
     editButton?.addEventListener('click', () => {
+      this.dropDownOpen = false;
+
       profileDialog?.show();
-      // this.isOpen = false;
     });
 
     closeButtonEdit?.addEventListener('click', () => {
@@ -96,7 +106,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     // epart nav langlangues icon background color  = --navigation-icon-color
 
     return html`
-          <div class="wrapper" > 
+          <div class="wrapper" style="z-index:999999;"> 
             <div class="extra-menu-wrapper">
             
             <div class="extra-menu-dropdown">
@@ -206,7 +216,8 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
                   >
                 </div>`
               : null
-          }          <dialog id="login-dialog">
+          }
+          <dialog id="login-dialog" class="dialog-sizing">
           <header
             style="MIN-width: 320px; display:flex;justify-content: flex-end;align-content: flex-end;"
           >
@@ -217,7 +228,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
           <bcg-login></bcg-login>
         </dialog>
 
-        <dialog id="edit-dialog">
+        <dialog id="edit-dialog" class="dialog-sizing">
           <header
             style="z-index:999999; display:flex;justify-content: flex-end;align-content: flex-end;"
           >
@@ -229,7 +240,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
           <bcg-edit-user></bcg-edit-user>
         </dialog>
 
-        <dialog id="register-dialog">
+        <dialog id="register-dialog" class="dialog-sizing">
           <header style=" display:flex;justify-content: flex-end;align-content:flex-end;">
             <bcg-button id="close-button-reg" variant="tertiary"><lion-icon icon-id="bcg:general:cross"></bcg-icon
             ></bcg-button>

@@ -62,6 +62,7 @@ export const getSubmissionsEndpoint = (submissionId: number) =>
 
 // Modules
 export const getAllModulesEndpoint = `${baseURLwithApiVersion}/modules`;
+
 export const getModuleEndpoint = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}`;
 
