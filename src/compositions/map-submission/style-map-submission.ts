@@ -5,6 +5,7 @@ export const mapSubmissionStyle = css`
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    position: relative;
 }
 
 .map-wrapper {
@@ -125,7 +126,6 @@ export const mapSubmissionStyle = css`
 }
 
 .submission-permission-hint {
-    padding:20px;
     max-width: 210px;
     position: absolute;
     right: 0;
