@@ -129,7 +129,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
                 <div class="text-container">
                   <p class="creator-text">
                   ${!submission?.firstName && !submission?.lastName
-                    ? 'Anonym'
+                    ? submission?.author ? `${submission?.author.firstName ?? ''} ${submission?.author.lastName ?? ''}` : 'Anonym'
                     : `${submission?.firstName ?? ''} ${submission?.lastName ?? ''}`}
                   </p>
                   <p class="creator-text">${new Date(
