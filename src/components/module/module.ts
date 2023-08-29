@@ -106,6 +106,19 @@ export class BcgModule extends LitElement {
     </div>`;
   };
 
+  setCookie() {
+    if (!this.user) return;
+    let date = new Date();
+    date.setTime(date.getTime() + this.user.exp * 24 * 60 * 60 * 1000);
+    const expires = 'expires=' + date.toUTCString();
+    document.cookie = `epart_auth_token=${this.accessToken}; ${expires}; path=/`;
+  }
+
+  deleteCookie() {
+    document.cookie =
+      'epart_auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+  }
+
   checkAuthToken() {
     if (
       this.accessToken === undefined ||
@@ -113,6 +126,7 @@ export class BcgModule extends LitElement {
       this.accessToken === null
     ) {
       localStorage.removeItem('accessToken');
+      ('accessToken');
     }
   }
 
@@ -134,6 +148,7 @@ export class BcgModule extends LitElement {
 
   logOutHandler = () => {
     localStorage.removeItem('accessToken');
+    this.deleteCookie();
     this.isLoggedIn = false;
   };
 
@@ -149,6 +164,7 @@ export class BcgModule extends LitElement {
     }
     this.hasModeratorRole =
       this.user?.realm_access?.roles?.includes('MODERATOR');
+    this.setCookie();
   }
 
   async getNewAccessToken() {

@@ -110,16 +110,22 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
             <div class="extra-menu-wrapper">
             
             <div class="extra-menu-dropdown">
-            <span  class="extra-menu-dropdownheader" @click=${
-              this.extraDropdownClickHandler
-            }>${this.extramenu[0]} <lion-icon
-              class="expand-icon"
-              icon-id=${
-                this.extramenuDropDownOpen
-                  ? 'bcg:general:collapse'
-                  : 'bcg:general:expand'
-              }
-            ></lion-icon></span>
+            ${
+              this.extramenu
+                ? html`<span
+                    class="extra-menu-dropdownheader"
+                    @click=${this.extraDropdownClickHandler}
+                    >${this.extramenu[0]}
+                    <lion-icon
+                      class="expand-icon"
+                      icon-id=${this.extramenuDropDownOpen
+                        ? 'bcg:general:collapse'
+                        : 'bcg:general:expand'}
+                    ></lion-icon
+                  ></span>`
+                : null
+            } 
+            
             <div class="extra-menu-dropdowncontent">
               ${
                 this.extramenu &&
