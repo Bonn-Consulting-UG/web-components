@@ -109,7 +109,7 @@ export class BcgModule extends LitElement {
   setCookie() {
     if (!this.user) return;
     let date = new Date();
-    date.setTime(date.getTime() + this.user.exp * 24 * 60 * 60 * 1000);
+    date.setTime(this.user.exp * 1000);
     const expires = 'expires=' + date.toUTCString();
     document.cookie = `epart_auth_token=${this.accessToken}; ${expires}; path=/`;
   }

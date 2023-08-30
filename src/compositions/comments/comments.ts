@@ -163,12 +163,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   render() {
     const renderRequiredStringForInputs =
-      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
+      this.isHiddenUserAllowed || this.commentWriters.includes('USER')
         ? null
         : ' *';
 
     const hiddenUserValidator =
-      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
+      this.isHiddenUserAllowed || this.commentWriters.includes('USER')
         ? [new MaxLength(50)]
         : [new Required(), new MaxLength(50)];
 

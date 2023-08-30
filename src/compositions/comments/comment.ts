@@ -138,6 +138,8 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
       isDeleted,
     } = this.comments;
 
+    console.log(this.comments);
+
     const editSubmitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
         const firstFormElWithError = ev.target.formElements.find((el: any) =>
@@ -191,9 +193,17 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 ${
                   author && author.firstName
                     ? author.firstName
+                    : this.comments.firstName
+                    ? this.comments.firstName
                     : html`<i><b>Gelöschtes Profil</b></i>`
                 }
-                ${author && author.lastName ? author.lastName : null}
+                ${
+                  author && author.lastName
+                    ? author.lastName
+                    : this.comments.firstName
+                    ? this.comments.firstName
+                    : null
+                }
                
                 <span
                 class=" ${
