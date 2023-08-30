@@ -115,6 +115,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     }
 
     newSubmissions.map(submission => {
+      if(!submission) return;
       const marker = new mapboxgl.Marker().setLngLat([
         submission.points[0].longitude,
         submission.points[0].latitude,
