@@ -82,6 +82,7 @@ export class BcgModule extends LitElement {
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
   @property({ type: Boolean }) isReactionsAllowed = false;
+  @property({ type: Boolean }) isInteractionPossible = false;
   @property({ type: Array }) allowedCommentReactionTypes: any = [];
   @property({ type: Array }) commentWriters: any = [];
   @property({ type: Array }) commentReaders: any = [];
@@ -93,7 +94,11 @@ export class BcgModule extends LitElement {
     if (this.isEditOnlyByModeratorAllowed) {
       return this.hasModeratorRole ? content : html``;
     }
-
+    if (!this.isInteractionPossible) {
+      return html`<div class="submission-permission-hint">
+        Diese Beteiligung ist bereits abgelaufen.
+      </div>`;
+    }
     if (this.submissionWriters.includes('ANONYMOUS')) {
       return content;
     }
@@ -245,6 +250,10 @@ export class BcgModule extends LitElement {
     this.commentReaders = configOrModuleConfig
       ? this.config?.config?.commentReaders
       : this.config?.moduleConfig?.commentReaders;
+
+    this.isInteractionPossible = configOrModuleConfig
+      ? this.config?.config?.isInteractionPossible
+      : this.config?.moduleConfig?.isInteractionPossible;
   }
 
   connectedCallback() {

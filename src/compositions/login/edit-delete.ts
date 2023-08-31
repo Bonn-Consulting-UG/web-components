@@ -51,6 +51,12 @@ export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
     const submitHandler = async (ev: any) => {
       const res = await sendUserDeleteRequest(this.user.sub);
 
+      if (!res.ok) {
+        this.notificationType = 'error';
+        this.showNotification = true;
+        this.notificationMessage =
+          'Es ist ein Fehler aufgetreten bitte probieren Sie es später nochmal';
+      }
       this.showNotification = true;
       this.notificationMessage =
         'Ihr Profil wurde erfolgreich gelöscht Sie werden automatisch ausgeloggt und weitergeleitet';

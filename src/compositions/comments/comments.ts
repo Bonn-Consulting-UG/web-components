@@ -58,6 +58,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   ): any => {
     if (!this.isCommentsAllowed) return null;
 
+    if (!this.isInteractionPossible) {
+      return html`<div class="submission-permission-hint">
+        Diese Beteiligung ist bereits abgelaufen.
+      </div>`;
+    }
+
     if (this.commentReaders.includes('ANONYMOUS')) {
       return content;
     }
