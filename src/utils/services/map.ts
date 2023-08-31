@@ -60,6 +60,7 @@ export class MapService {
     this.mapInstance.currentGeocoderInput = input;
     this.removeCurrentMarker();
     this.mapInstance.currentMarker = undefined
+    this.mapInstance.currentAdress = '';
     this.mapInstance.currentMapSubmission.points = [
       {
         longitude: input.result.center[0],
