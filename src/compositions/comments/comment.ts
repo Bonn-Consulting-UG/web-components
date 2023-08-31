@@ -36,8 +36,6 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
 
   @property({ type: Function }) canEdit: any = false;
 
-  @property({ type: Object }) config: any = {};
-
   @property({ type: Function }) setResponseTo: any;
 
   @property({ type: Function }) newComment: any;
@@ -137,8 +135,6 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
       authorId,
       isDeleted,
     } = this.comments;
-
-    console.log(this.comments);
 
     const editSubmitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -315,19 +311,22 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                           </bcg-button>
                         `
                       : null}
-                    ${this.setResponseTo
-                      ? html`<bcg-button
-                          @click=${() => this.setResponseTo(this.comments)}
-                        >
-                          <bcg-reaction
-                            .value=${'Antworten'}
-                            .icon=${'bcg:comments:message'}
-                          ></bcg-reaction>
-                        </bcg-button>`
-                      : null}
                   </div>`
                 : null
             }
+
+          ${
+            this.setResponseTo && this.isInteractionPossible
+              ? html`<bcg-button
+                  @click=${() => this.setResponseTo(this.comments)}
+                >
+                  <bcg-reaction
+                    .value=${'Antworten'}
+                    .icon=${'bcg:comments:message'}
+                  ></bcg-reaction>
+                </bcg-button>`
+              : null
+          }
           </div>
         </div>
       </dialog>
