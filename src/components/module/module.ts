@@ -106,7 +106,10 @@ export class BcgModule extends LitElement {
         Diese Beteiligung ist noch nicht gestartet.
       </div>`;
     }
-    if (this.submissionWriters.includes('ANONYMOUS')) {
+    if (
+      this.submissionWriters.includes('ANONYMOUS') ||
+      this.submissionWriters.includes('USER')
+    ) {
       return content;
     }
     if (this.submissionWriters.includes('REGISTERED_USER') && this.isLoggedIn) {
