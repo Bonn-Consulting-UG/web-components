@@ -16,7 +16,6 @@ export class BcgInputPassword extends BcgInput {
         .visibility-icon {
           position: absolute;
           right: 2%;
-          top: 32px;
           width: 24px;
           height: 24px;
         }
@@ -36,9 +35,22 @@ export class BcgInputPassword extends BcgInput {
     super();
   }
 
+  calculateIconOffset() {
+    const inputElement = this.shadowRoot?.querySelector('.form-control') as HTMLElement;
+    const iconElement = this.shadowRoot?.querySelector('.visibility-icon') as HTMLElement;
+    if (!iconElement || !inputElement) {
+      return;
+    }
+    const offsetTop = inputElement.offsetTop;
+    const inputHeight = inputElement.clientHeight;
+    const iconHeight = iconElement.clientHeight;
+    const calculatedOffset = offsetTop + inputHeight/2 - iconHeight/2;
+    iconElement.style.top = calculatedOffset + 'px';
+  }
+
   render() {
     const { validators, label, type, placeholder, name } = this;
-
+    this.calculateIconOffset();
     return html` <div class="input-password-wrapper">
       <bcg-input
         .validators=${validators}

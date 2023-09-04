@@ -82,7 +82,8 @@ export class BcgModule extends LitElement {
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
   @property({ type: Boolean }) isReactionsAllowed = false;
-  @property({ type: Boolean }) isInteractionPossible = false;
+  @property({ type: Boolean }) isInteractionStarted = false;
+  @property({ type: Boolean }) isInteractionEnded = false;
   @property({ type: Array }) allowedCommentReactionTypes: any = [];
   @property({ type: Array }) commentWriters: any = [];
   @property({ type: Array }) commentReaders: any = [];
@@ -94,9 +95,14 @@ export class BcgModule extends LitElement {
     if (this.isEditOnlyByModeratorAllowed) {
       return this.hasModeratorRole ? content : html``;
     }
-    if (!this.isInteractionPossible) {
+    if (this.isInteractionEnded) {
       return html`<div class="submission-permission-hint">
         Diese Beteiligung ist bereits abgelaufen.
+      </div>`;
+    }
+    if (!this.isInteractionStarted) {
+      return html`<div class="submission-permission-hint">
+        Diese Beteiligung ist noch nicht gestartet.
       </div>`;
     }
     if (this.submissionWriters.includes('ANONYMOUS')) {
@@ -155,6 +161,7 @@ export class BcgModule extends LitElement {
     localStorage.removeItem('accessToken');
     this.deleteCookie();
     this.isLoggedIn = false;
+    location.reload();
   };
 
   setupLoggedinUser() {
@@ -251,9 +258,13 @@ export class BcgModule extends LitElement {
       ? this.config?.config?.commentReaders
       : this.config?.moduleConfig?.commentReaders;
 
-    this.isInteractionPossible = configOrModuleConfig
+    this.isInteractionStarted = configOrModuleConfig
       ? this.config?.config?.isInteractionPossible
       : this.config?.moduleConfig?.isInteractionPossible;
+
+    this.isInteractionEnded = configOrModuleConfig
+      ? this.config?.config?.isInteractionEnded
+      : this.config?.moduleConfig?.isInteractionEnded;
   }
 
   connectedCallback() {

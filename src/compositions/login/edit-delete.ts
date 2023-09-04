@@ -50,7 +50,6 @@ export class BcgEditDelete extends ScopedElementsMixin(BcgModule) {
   render() {
     const submitHandler = async (ev: any) => {
       const res = await sendUserDeleteRequest(this.user.sub);
-
       if (!res.ok) {
         this.notificationType = 'error';
         this.showNotification = true;
