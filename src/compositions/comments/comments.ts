@@ -58,13 +58,13 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   ): any => {
     if (!this.isCommentsAllowed) return null;
 
-    if (!this.isInteractionEnded) {
+    if (this.isInteractionEnded) {
       return html`<div class="submission-permission-hint">
         Diese Beteiligung ist bereits abgelaufen.
       </div>`;
     }
 
-    if (!this.isInteractionStarted) {
+    if (!this.isInteractionStarted && !this.isInteractionEnded) {
       return html`<div class="submission-permission-hint">
         Diese Beteiligung ist noch nicht gestartet.
       </div>`;

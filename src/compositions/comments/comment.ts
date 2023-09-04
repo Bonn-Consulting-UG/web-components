@@ -38,16 +38,18 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
 
   @property({ type: Function }) setResponseTo: any;
 
+  @property({ type: Object }) config: any = {};
+
   @property({ type: Function }) newComment: any;
 
-  @property({ type: Boolean }) requestPending: boolean = false;
+  // @property({ type: Boolean }) requestPending: boolean = false;
 
   @property({ type: Function }) changeReaction: any = async (type: any) => {
     const likeReaction = () =>
-      this.comments.$userReactions.find((e: any) => e.type === 'LIKE');
+      this.comments?.$userReactions?.find((e: any) => e.type === 'LIKE');
 
     const dislikeReaction = () =>
-      this.comments.$userReactions.find((e: any) => e.type === 'DISLIKE');
+      this.comments?.$userReactions?.find((e: any) => e.type === 'DISLIKE');
 
     if (!dislikeReaction() && !likeReaction()) {
       await addReaction({ type }, this.comments.id);
@@ -118,10 +120,10 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
 
   render() {
     const likeReaction = (comment: any) =>
-      comment.$userReactions.find((e: any) => e.type === 'LIKE');
+      comment?.$userReactions?.find((e: any) => e.type === 'LIKE');
 
     const dislikeReaction = (comment: any) =>
-      comment.$userReactions.find((e: any) => e.type === 'DISLIKE');
+      comment?.$userReactions?.find((e: any) => e.type === 'DISLIKE');
 
     const {
       isModerator,
@@ -151,7 +153,6 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
       this.refresh();
       this.canEdit = false;
     };
-
     return html`
     <a id=${id}></a>
         <div
@@ -279,11 +280,19 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                     >`
               }
             </p>
-
             ${
-              this.isReactionsAllowed && status !== 'CENSORED'
+              (this.config?.config?.isReactionsAllowed ||
+                this.config?.moduleConfig?.isReactionsAllowed) &&
+              status !== 'CENSORED' &&
+              this.isInteractionStarted &&
+              !this.isInteractionEnded
                 ? html`<div style="display:flex;">
-                    ${this.allowedCommentReactionTypes?.includes('LIKE')
+                    ${this.config?.config?.allowedCommentReactionTypes?.includes(
+                      'LIKE'
+                    ) ||
+                    this.config?.moduleConfig.allowedCommentReactionTypes?.includes(
+                      'LIKE'
+                    )
                       ? html`<bcg-button
                           @click=${() => this.changeReaction('LIKE')}
                         >
@@ -296,7 +305,12 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                           ></bcg-reaction>
                         </bcg-button>`
                       : null}
-                    ${this.allowedCommentReactionTypes?.includes('DISLIKE')
+                    ${this.config?.config?.allowedCommentReactionTypes?.includes(
+                      'DISLIKE'
+                    ) ||
+                    this.config?.moduleConfig?.allowedCommentReactionTypes?.includes(
+                      'DISLIKE'
+                    )
                       ? html`
                           <bcg-button
                             @click=${() => this.changeReaction('DISLIKE')}
@@ -316,7 +330,9 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
             }
 
           ${
-            this.setResponseTo && this.isInteractionPossible
+            this.setResponseTo &&
+            this.isInteractionStarted &&
+            !this.isInteractionEnded
               ? html`<bcg-button
                   @click=${() => this.setResponseTo(this.comments)}
                 >

@@ -259,8 +259,8 @@ export class BcgModule extends LitElement {
       : this.config?.moduleConfig?.commentReaders;
 
     this.isInteractionStarted = configOrModuleConfig
-      ? this.config?.config?.isInteractionPossible
-      : this.config?.moduleConfig?.isInteractionPossible;
+      ? this.config?.config?.isInteractionStarted
+      : this.config?.moduleConfig?.isInteractionStarted;
 
     this.isInteractionEnded = configOrModuleConfig
       ? this.config?.config?.isInteractionEnded
