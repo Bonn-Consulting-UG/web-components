@@ -87,7 +87,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
         }
         this.notificationMessage =
-          'Ihre Idee wurde Erfolgreich übersendet - Sie werden per Email infomiert wenn ihr Beitrag geprüft wurde';
+          'Ihre Idee wurde Erfolgreich übersendet - Sie werden per Email informiert wenn ihr Beitrag geprüft wurde';
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';
