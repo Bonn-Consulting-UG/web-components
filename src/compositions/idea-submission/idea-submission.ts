@@ -82,8 +82,12 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         }, 1000);
         this.ideaRequest.title = '';
         this.showNotification = true;
-        this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
-        location.href = `${location.href}/${resp.id}`;
+        if (!this?.commentsPublishMode?.includes('NEEDS_MODERATION')) {
+          location.href = `${location.href}/${resp.id}`;
+          this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
+        }
+        this.notificationMessage =
+          'Ihre Idee wurde Erfolgreich übersendet - Sie werden per Email infomiert wenn ihr Beitrag geprüft wurde';
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';

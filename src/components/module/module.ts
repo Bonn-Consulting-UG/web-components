@@ -84,6 +84,7 @@ export class BcgModule extends LitElement {
   @property({ type: Boolean }) isReactionsAllowed = false;
   @property({ type: Boolean }) isInteractionStarted = false;
   @property({ type: Boolean }) isInteractionEnded = false;
+  @property({ type: Array }) commentsPublishMode: string[] = [];
   @property({ type: Array }) allowedCommentReactionTypes: any = [];
   @property({ type: Array }) commentWriters: any = [];
   @property({ type: Array }) commentReaders: any = [];
@@ -265,6 +266,10 @@ export class BcgModule extends LitElement {
     this.isInteractionEnded = configOrModuleConfig
       ? this.config?.config?.isInteractionEnded
       : this.config?.moduleConfig?.isInteractionEnded;
+
+    this.commentsPublishMode = configOrModuleConfig
+      ? this.config?.config?.commentsPublishMode
+      : this.config?.moduleConfig?.commentsPublishMode;
   }
 
   connectedCallback() {
