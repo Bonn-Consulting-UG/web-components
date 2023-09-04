@@ -118,6 +118,18 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
     ];
   }
 
+  updated(changedProperties: any): void {
+    this?.shadowRoot
+      ?.querySelector(`#comment`)
+      ?.addEventListener('mouseenter', () => (this.isFocused = true));
+
+    this?.shadowRoot
+      ?.querySelector(`#comment`)
+      ?.addEventListener('mouseleave', () => (this.isFocused = false));
+
+    super.updated(changedProperties);
+  }
+
   render() {
     const likeReaction = (comment: any) =>
       comment?.$userReactions?.find((e: any) => e.type === 'LIKE');
@@ -197,8 +209,8 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 ${
                   author && author.lastName
                     ? author.lastName
-                    : this.comments.firstName
-                    ? this.comments.firstName
+                    : this.comments.lastName
+                    ? this.comments.lastName
                     : null
                 }
                
