@@ -196,15 +196,15 @@ export class BcgMapSubmission extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
-    const renderRequiredStringForInputs =
-      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
-        ? null
-        : ' *';
+    const renderRequiredStringForInputs = !this.commentWriters.includes(
+      'ANONYMOUS'
+    )
+      ? ' *'
+      : null;
 
-    const hiddenUserValidator =
-      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
-        ? []
-        : [new Required()];
+    const hiddenUserValidator = !this.commentWriters.includes('ANONYMOUS')
+      ? [new Required()]
+      : [];
 
     return html`
       <link

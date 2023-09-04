@@ -70,10 +70,13 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
       </div>`;
     }
 
-    if (this.commentReaders.includes('ANONYMOUS')) {
+    if (
+      this.commentWriters.includes('ANONYMOUS') ||
+      this.commentWriters.includes('USER')
+    ) {
       return content;
     }
-    if (this.commentReaders.includes('REGISTERED_USER') && this.isLoggedIn) {
+    if (this.commentWriters.includes('REGISTERED_USER') && this.isLoggedIn) {
       return content;
     }
     return html`<div class="submission-permission-hint">
@@ -174,15 +177,15 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
-    const renderRequiredStringForInputs =
-      this.isHiddenUserAllowed || this.commentWriters.includes('USER')
-        ? null
-        : ' *';
+    const renderRequiredStringForInputs = !this.commentWriters.includes(
+      'ANONYMOUS'
+    )
+      ? ' *'
+      : null;
 
-    const hiddenUserValidator =
-      this.isHiddenUserAllowed || this.commentWriters.includes('USER')
-        ? [new MaxLength(50)]
-        : [new Required(), new MaxLength(50)];
+    const hiddenUserValidator = !this.commentWriters.includes('ANONYMOUS')
+      ? [new Required(), new MaxLength(50)]
+      : [new MaxLength(50)];
 
     const { comments } = this;
 

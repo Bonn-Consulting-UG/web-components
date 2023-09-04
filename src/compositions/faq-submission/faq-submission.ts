@@ -19,13 +19,15 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   };
 
   render() {
-    const renderRequiredStringForInputs = this.isHiddenUserAllowed
-      ? null
-      : ' *';
+    const renderRequiredStringForInputs = !this.submissionWriters.includes(
+      'ANONYMOUS'
+    )
+      ? ' *'
+      : null;
 
-    const hiddenUserValidator = this.isHiddenUserAllowed
-      ? [new MaxLength(50)]
-      : [new Required(), new MaxLength(50)];
+    const hiddenUserValidator = !this.submissionWriters.includes('ANONYMOUS')
+      ? [new Required(), new MaxLength(50)]
+      : [new MaxLength(50)];
 
     const { faqRequest } = this;
 
@@ -67,12 +69,11 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
           fetchOptionsloggedout
         );
 
-        ev.path[0].resetGroup();
-
         this.notificationType = 'success';
         this.showNotification = true;
         this.notificationMessage =
           'Danke für Ihre Frage! Wir bearbeiten sie so schnell wie möglich.';
+        setTimeout(() => location.reload(), 1000);
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';

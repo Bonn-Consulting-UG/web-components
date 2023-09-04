@@ -15,13 +15,15 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
   };
 
   render() {
-    const renderRequiredStringForInputs = this.isHiddenUserAllowed
-      ? null
-      : ' *';
+    const renderRequiredStringForInputs = !this.submissionWriters.includes(
+      'ANONYMOUS'
+    )
+      ? ' *'
+      : null;
 
-    const hiddenUserValidator = this.isHiddenUserAllowed
-      ? []
-      : [new Required()];
+    const hiddenUserValidator = !this.submissionWriters.includes('ANONYMOUS')
+      ? [new Required()]
+      : [];
 
     const { contactRequest } = this;
 
