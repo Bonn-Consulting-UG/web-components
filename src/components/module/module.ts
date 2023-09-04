@@ -82,6 +82,8 @@ export class BcgModule extends LitElement {
   @property({ type: Boolean }) isEditOnlyByModeratorAllowed = true;
   @property({ type: Boolean }) isCommentsAllowed = false;
   @property({ type: Boolean }) isReactionsAllowed = false;
+  @property({ type: Boolean }) isInteractionStarted = false;
+  @property({ type: Boolean }) isInteractionEnded = false;
   @property({ type: Array }) allowedCommentReactionTypes: any = [];
   @property({ type: Array }) commentWriters: any = [];
   @property({ type: Array }) commentReaders: any = [];
@@ -93,7 +95,16 @@ export class BcgModule extends LitElement {
     if (this.isEditOnlyByModeratorAllowed) {
       return this.hasModeratorRole ? content : html``;
     }
-
+    if (this.isInteractionEnded) {
+      return html`<div class="submission-permission-hint">
+        Diese Beteiligung ist bereits abgelaufen.
+      </div>`;
+    }
+    if (!this.isInteractionStarted) {
+      return html`<div class="submission-permission-hint">
+        Diese Beteiligung ist noch nicht gestartet.
+      </div>`;
+    }
     if (this.submissionWriters.includes('ANONYMOUS')) {
       return content;
     }
@@ -106,6 +117,19 @@ export class BcgModule extends LitElement {
     </div>`;
   };
 
+  setCookie() {
+    if (!this.user) return;
+    let date = new Date();
+    date.setTime(this.user.exp * 1000);
+    const expires = 'expires=' + date.toUTCString();
+    document.cookie = `epart_auth_token=${this.accessToken}; ${expires}; path=/`;
+  }
+
+  deleteCookie() {
+    document.cookie =
+      'epart_auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+  }
+
   checkAuthToken() {
     if (
       this.accessToken === undefined ||
@@ -113,6 +137,7 @@ export class BcgModule extends LitElement {
       this.accessToken === null
     ) {
       localStorage.removeItem('accessToken');
+      ('accessToken');
     }
   }
 
@@ -134,7 +159,9 @@ export class BcgModule extends LitElement {
 
   logOutHandler = () => {
     localStorage.removeItem('accessToken');
+    this.deleteCookie();
     this.isLoggedIn = false;
+    location.reload();
   };
 
   setupLoggedinUser() {
@@ -149,6 +176,7 @@ export class BcgModule extends LitElement {
     }
     this.hasModeratorRole =
       this.user?.realm_access?.roles?.includes('MODERATOR');
+    this.setCookie();
   }
 
   async getNewAccessToken() {
@@ -229,6 +257,14 @@ export class BcgModule extends LitElement {
     this.commentReaders = configOrModuleConfig
       ? this.config?.config?.commentReaders
       : this.config?.moduleConfig?.commentReaders;
+
+    this.isInteractionStarted = configOrModuleConfig
+      ? this.config?.config?.isInteractionPossible
+      : this.config?.moduleConfig?.isInteractionPossible;
+
+    this.isInteractionEnded = configOrModuleConfig
+      ? this.config?.config?.isInteractionEnded
+      : this.config?.moduleConfig?.isInteractionEnded;
   }
 
   connectedCallback() {

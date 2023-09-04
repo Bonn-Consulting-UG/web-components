@@ -36,8 +36,6 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
 
   @property({ type: Function }) canEdit: any = false;
 
-  @property({ type: Object }) config: any = {};
-
   @property({ type: Function }) setResponseTo: any;
 
   @property({ type: Function }) newComment: any;
@@ -191,9 +189,17 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 ${
                   author && author.firstName
                     ? author.firstName
+                    : this.comments.firstName
+                    ? this.comments.firstName
                     : html`<i><b>Gelöschtes Profil</b></i>`
                 }
-                ${author && author.lastName ? author.lastName : null}
+                ${
+                  author && author.lastName
+                    ? author.lastName
+                    : this.comments.firstName
+                    ? this.comments.firstName
+                    : null
+                }
                
                 <span
                 class=" ${
@@ -305,19 +311,22 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                           </bcg-button>
                         `
                       : null}
-                    ${this.setResponseTo
-                      ? html`<bcg-button
-                          @click=${() => this.setResponseTo(this.comments)}
-                        >
-                          <bcg-reaction
-                            .value=${'Antworten'}
-                            .icon=${'bcg:comments:message'}
-                          ></bcg-reaction>
-                        </bcg-button>`
-                      : null}
                   </div>`
                 : null
             }
+
+          ${
+            this.setResponseTo && this.isInteractionPossible
+              ? html`<bcg-button
+                  @click=${() => this.setResponseTo(this.comments)}
+                >
+                  <bcg-reaction
+                    .value=${'Antworten'}
+                    .icon=${'bcg:comments:message'}
+                  ></bcg-reaction>
+                </bcg-button>`
+              : null
+          }
           </div>
         </div>
       </dialog>

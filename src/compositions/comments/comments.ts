@@ -58,6 +58,18 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   ): any => {
     if (!this.isCommentsAllowed) return null;
 
+    if (!this.isInteractionEnded) {
+      return html`<div class="submission-permission-hint">
+        Diese Beteiligung ist bereits abgelaufen.
+      </div>`;
+    }
+
+    if (!this.isInteractionStarted) {
+      return html`<div class="submission-permission-hint">
+        Diese Beteiligung ist noch nicht gestartet.
+      </div>`;
+    }
+
     if (this.commentReaders.includes('ANONYMOUS')) {
       return content;
     }
@@ -163,12 +175,12 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
 
   render() {
     const renderRequiredStringForInputs =
-      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
+      this.isHiddenUserAllowed || this.commentWriters.includes('USER')
         ? null
         : ' *';
 
     const hiddenUserValidator =
-      this.isHiddenUserAllowed || !this.commentWriters.includes('USER')
+      this.isHiddenUserAllowed || this.commentWriters.includes('USER')
         ? [new MaxLength(50)]
         : [new Required(), new MaxLength(50)];
 

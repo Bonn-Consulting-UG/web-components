@@ -100,9 +100,9 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
           <div class="content-wrapper">
             <div class="text-container">
               <p class="creator-text">
-                ${!this.submission?.firstName && !this.submission?.lastName
-                  ? 'Anonym'
-                  : `${this.submission?.firstName ?? ''} ${this.submission?.lastName ?? ''}`}
+              ${!this.submission?.firstName && !this.submission?.lastName
+                ? this.submission?.author ? `${this.submission?.author.firstName ?? ''} ${this.submission?.author.lastName ?? ''}` : 'Anonym'
+                : `${this.submission?.firstName ?? ''} ${this.submission?.lastName ?? ''}`}
               </p>
               <p class="creator-text">
                 ${new Date(

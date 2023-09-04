@@ -1,6 +1,6 @@
 import { html, property, ScopedElementsMixin } from '@lion/core';
 import { BcgModule } from '../../components/module';
-import { getSubmissionsEndpoint } from '../../utils/services/config';
+import { getReverseGeocodingEndpoint, getSubmissionsEndpoint } from '../../utils/services/config';
 import { mapSubmissionStyle } from '../map-submission/style-map-submission';
 import { MapService } from '../../utils/services/map';
 import { MapSubmission } from '../../model/MapSubmission';
@@ -29,6 +29,7 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
   @property({ type: Boolean }) showOverlay: boolean = false;
   @property({ type: Object }) currentMarker: any;
   @property({ type: String }) currentAdress: string = '';
+  @property({ type: String }) submissionAdress: string = '';
   geocoder: any;
   mapService: MapService = new MapService(this);
 
@@ -44,9 +45,21 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
     if (!this.submission) {
       this.fetchSubmission().then(res => {
         this.submission = res;
+        this.fetchSubmissionAdress();
       });
     }
     super.firstUpdated(changed);
+  }
+
+  async fetchSubmissionAdress() {
+    const res = await fetch(getReverseGeocodingEndpoint(
+      this.submission?.points[0]?.longitude,
+      this.submission?.points[0]?.latitude, 
+      this.mapAccessToken));
+
+    res.json().then(adress => {
+        this.submissionAdress = adress.features[0].place_name
+    });
   }
 
   async fetchSubmission() {
@@ -105,6 +118,11 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
           this.closeOverlay();
           this.isLoading = false;
           this.submission = res;
+          if (!this.currentAdress) {
+            this.fetchSubmissionAdress();
+          } else {
+            this.submissionAdress = this.currentAdress;
+          }
         });
       });
     } catch (err) {
@@ -131,6 +149,7 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
         type="text/css"
       />
       <div class="wrapper">
+        <div class="submission-adress">${this.submissionAdress}</div>
         <div class="map-wrapper" style="height: ${this.mapHeight}px">
           <bcg-map-overlay
             class="bcg-overlay"

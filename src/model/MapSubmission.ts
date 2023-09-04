@@ -1,4 +1,5 @@
 import { MapData } from "./MapData";
+import { Author } from "./Author";
 
 export interface MapSubmission {
   id?: string;
@@ -6,6 +7,7 @@ export interface MapSubmission {
   lastName?: string;
   email?: string;
   title?: string;
+  author?: Author;
   description?: string;
   points: MapData[];
   _count?: any;

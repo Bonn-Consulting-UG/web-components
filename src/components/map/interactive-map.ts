@@ -115,6 +115,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     }
 
     newSubmissions.map(submission => {
+      if(!submission) return;
       const marker = new mapboxgl.Marker().setLngLat([
         submission.points[0].longitude,
         submission.points[0].latitude,
@@ -129,7 +130,7 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
                 <div class="text-container">
                   <p class="creator-text">
                   ${!submission?.firstName && !submission?.lastName
-                    ? 'Anonym'
+                    ? submission?.author ? `${submission?.author.firstName ?? ''} ${submission?.author.lastName ?? ''}` : 'Anonym'
                     : `${submission?.firstName ?? ''} ${submission?.lastName ?? ''}`}
                   </p>
                   <p class="creator-text">${new Date(
