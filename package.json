@@ -3,7 +3,7 @@
   "description": "My webpack project",
   "license": "MIT",
   "author": "bcg-components",
-  "version": "0.0.3-182",
+  "version": "0.0.3-183",
   "scripts": {
     "analyze": "cem analyze --litelement",
     "prepublish": "tsc && npm run analyze",

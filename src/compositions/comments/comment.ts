@@ -276,10 +276,10 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                   Netiquette verstößt.</span
                 >`}
           </p>
-          ${(this.config?.config?.isReactionsAllowed ||
+          ${((this.config?.config?.isReactionsAllowed ||
             this.config?.moduleConfig?.isReactionsAllowed) &&
-          status !== 'CENSORED' &&
-          this.isInteractionStarted &&
+            status !== 'CENSORED' &&
+            this.isInteractionStarted) ||
           !this.isInteractionEnded
             ? html`<div style="display:flex;">
                 ${this.config?.config?.allowedCommentReactionTypes?.includes(
@@ -318,19 +318,18 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                       </bcg-button>
                     `
                   : null}
+                ${(this.setResponseTo && this.isInteractionStarted) ||
+                (this.setResponseTo && !this.isInteractionEnded)
+                  ? html`<bcg-button
+                      @click=${() => this.setResponseTo(this.comments)}
+                    >
+                      <bcg-reaction
+                        .value=${'Antworten'}
+                        .icon=${'bcg:comments:message'}
+                      ></bcg-reaction>
+                    </bcg-button>`
+                  : null}
               </div>`
-            : null}
-          ${this.setResponseTo &&
-          this.isInteractionStarted &&
-          !this.isInteractionEnded
-            ? html`<bcg-button
-                @click=${() => this.setResponseTo(this.comments)}
-              >
-                <bcg-reaction
-                  .value=${'Antworten'}
-                  .icon=${'bcg:comments:message'}
-                ></bcg-reaction>
-              </bcg-button>`
             : null}
         </div>
       </div>

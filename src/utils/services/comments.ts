@@ -1,3 +1,4 @@
+import { first } from 'lodash';
 import {
   getCommentsEndpointforModule,
   setCommentsEndpoint,
@@ -249,12 +250,11 @@ export const addCommentToComment = async (
         Authorization: AuthHeader,
       },
       body: JSON.stringify({
-        title: '',
         content: commentConent,
         parentCommentId: commentId,
-        firstName,
-        lastName,
-        email,
+        firstName: firstName ? firstName : null,
+        lastName: lastName ? lastName : null,
+        email: email ? email : null,
       }),
     };
 

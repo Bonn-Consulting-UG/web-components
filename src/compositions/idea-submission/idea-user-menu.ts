@@ -111,7 +111,10 @@ export class BcgIdeaUserMenu extends ScopedElementsMixin(BcgModule) {
     super.updated(_changedProperties);
   }
   render() {
-    return this.user?.sub === this?.config?.authorId || this.hasModeratorRole
+    return (this.user?.sub === this?.config?.authorId ||
+      this.hasModeratorRole) &&
+      this.isInteractionStarted &&
+      !this.isInteractionEnded
       ? html`
           ${this.dialogHtml}
           <div style="display:flex;">
