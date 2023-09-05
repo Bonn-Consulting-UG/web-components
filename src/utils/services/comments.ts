@@ -8,6 +8,8 @@ import {
   censorCommentEndpoint,
   getSubmissionsEndpoint,
   commentDelteEndPoint,
+  approveSubmissionEndpoint,
+  censorSubmissionEndpoint,
 } from './config';
 
 const AuthHeader = localStorage.getItem('accessToken')
@@ -95,7 +97,6 @@ export const addComment = async (
         Authorization: AuthHeader,
       },
       body: JSON.stringify({
-        title: '',
         content: commentConent,
         moduleId: moduleId ? moduleId : null,
         submissionId: submissionId ? submissionId : null,
@@ -295,6 +296,48 @@ export const editComment = async (commentId: any, commentConent: any) => {
     };
 
     const resp = await fetch(commentDelteEndPoint(commentId), fetchOptions);
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const approveSubmission = async (submissionId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
+      },
+    };
+
+    const resp = await fetch(
+      approveSubmissionEndpoint(submissionId),
+      fetchOptions
+    );
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const censorSubmission = async (submissionId: any) => {
+  try {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': ContentTypeHeader,
+        Authorization: AuthHeader,
+      },
+    };
+
+    const resp = await fetch(
+      censorSubmissionEndpoint(submissionId),
+      fetchOptions
+    );
     return resp.json();
   } catch (err) {
     console.error(err);

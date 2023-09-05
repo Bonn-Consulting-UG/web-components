@@ -23,6 +23,13 @@ const DefaultTemplate: Story<ArgTypes> = () =>
 
 const Default = DefaultTemplate.bind({});
 
+const FaqTemplate: Story<ArgTypes> = () =>
+  html`<bcg-faq-view
+    moduleId="37eb968b-a676-4171-ac79-b28569a5748a"
+  ></bcg-faq-view>`;
+
+const FAQView = FaqTemplate.bind({});
+
 Default.args = {};
 
-export { Default };
+export { Default, FAQView };

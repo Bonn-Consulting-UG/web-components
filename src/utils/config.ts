@@ -68,7 +68,7 @@ export const componentNames: component = {
     mapSubmission: `${tagPrefix}-map-submission`,
     mapSingleSubmission: `${tagPrefix}-map-single-submission`,
     contactSubmission: `${tagPrefix}-contact-submission`,
-    faqOverview: `${tagPrefix}-faq-overview`,
+    faqView: `${tagPrefix}-faq-view`,
     editUser: `${tagPrefix}-edit-user`,
     userMenu: `${tagPrefix}-user-menu`,
     submissionCard: `${tagPrefix}-submission-card`,

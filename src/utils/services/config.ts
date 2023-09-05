@@ -54,8 +54,8 @@ export const ideaSubmissionEndpoint = (moduleID: any) =>
 export const mapSubmissionEndpoint = (moduleID: any) =>
   `${baseURLwithApiVersion}/submissions/map`;
 
-export const getSubmissionsEndpointforModule = (submissionId: number) =>
-  `${baseURLwithApiVersion}/modules/${submissionId}/submissions`;
+export const getSubmissionsEndpointforModule = (moduleId: number) =>
+  `${baseURLwithApiVersion}/modules/${moduleId}/submissions`;
 
 export const getSubmissionsEndpoint = (submissionId: number) =>
   `${baseURLwithApiVersion}/submissions/${submissionId}`;
@@ -78,6 +78,12 @@ export const reportCommentEndpoint = (commentId: number) =>
 
 export const approveCommentEndpoint = (commentId: number) =>
   `${baseURLwithApiVersion}/comments/${commentId}/approve`;
+
+export const approveSubmissionEndpoint = (submissionId: number) =>
+  `${baseURLwithApiVersion}/submissions/${submissionId}/approve`;
+
+export const censorSubmissionEndpoint = (submissionId: number) =>
+  `${baseURLwithApiVersion}/submissions/${submissionId}/censor`;
 
 export const censorCommentEndpoint = (commentId: number) =>
   `${baseURLwithApiVersion}/comments/${commentId}/censor`;
