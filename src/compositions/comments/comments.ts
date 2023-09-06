@@ -24,6 +24,7 @@ import { BcgComment } from './comment';
 import { LionIcon } from '@lion/icon';
 import { BcgDialog } from '../../components/dialog/dialog';
 import { BcgModeratorMenu } from './comment-moderator-menu';
+import { sortCommentsbyCreatedAt } from '../../utils/helpers/function';
 
 export interface CommentInterface {
   id: string;
@@ -149,6 +150,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     if (this.moduleId !== 0 && !this.submissionId) {
       response = await getAllCommentsForModule(this.moduleId);
       this.comments = response.results;
+      this.comments.sort(sortCommentsbyCreatedAt);
       this.count = response.totalCount;
     }
 
