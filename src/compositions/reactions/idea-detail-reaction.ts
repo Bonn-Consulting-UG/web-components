@@ -38,6 +38,12 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
+    const likeReaction = () =>
+      this.config?.$userReactions?.find((e: any) => e.type === 'LIKE');
+
+    const dislikeReaction = () =>
+      this.config?.$userReactions?.find((e: any) => e.type === 'DISLIKE');
+
     return html`<div
       class="wrapper"
       style="display:flex; flex-direction:column; align-items:center;justify-content:center"
@@ -61,6 +67,7 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
           ? html` <bcg-reaction
               .value=${this.likeCount}
               .icon=${'bcg:comments:thumbsup'}
+              iconclass=${likeReaction() ? 'filled' : ''}
               .clickHandler=${async () => {
                 this.isLoading = true;
                 await addReaction(
@@ -81,6 +88,7 @@ export class BcgIdeaReaction extends ScopedElementsMixin(BcgModule) {
           ? html` <bcg-reaction
               .value=${this.dislikeCount}
               .icon=${'bcg:comments:thumbsdown'}
+              iconclass=${dislikeReaction() ? 'filled' : ''}
               .clickHandler=${async () => {
                 await addReaction(
                   { type: 'DISLIKE' },
