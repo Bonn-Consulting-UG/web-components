@@ -28,7 +28,7 @@ const IdeaUserMenuTemplate: Story<ArgTypes> = () =>
 
 const IdeaUserMenuSubmissionTemplate: Story<ArgTypes> = () =>
   html`<bcg-idea-user-menu
-    submissionId="42046753-0c08-416b-bcaf-924e95cf4e59"
+    submissionId="65347e88-80f1-43d1-af0b-fda63f6c9f50"
   ></bcg-idea-user-menu> `;
 
 const Default = DefaultTemplate.bind({});

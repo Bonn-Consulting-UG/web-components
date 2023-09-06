@@ -158,13 +158,14 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
       this.count = response._count.comments;
     }
 
-    setTimeout(
-      () =>
-        scrollTo
-          ? this.shadowRoot?.querySelector(`#${scrollTo}`)?.scrollIntoView()
-          : null,
-      500
-    );
+    if (scrollTo)
+      setTimeout(
+        () =>
+          scrollTo
+            ? this.shadowRoot?.querySelector(`#${scrollTo}`)?.scrollIntoView()
+            : null,
+        500
+      );
   };
 
   static get scopedElements() {
