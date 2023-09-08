@@ -1,6 +1,6 @@
 import { BcgMapSingleSubmission } from "../../compositions/map-single-submission/map-single-submission";
 import { BcgMapSubmission } from "../../compositions/map-submission/map-submission";
-import { getReverseGeocodingEndpoint } from "./config";
+import { getReverseGeocodingEndpoint, getSubmissionsEndpoint } from "./config";
 
 export class MapService {
 
@@ -103,4 +103,37 @@ export class MapService {
       this.mapInstance.privacyChecked = false;
     }
   }
+}
+
+export const fetchSubmission = async (submissionId: number) => {
+  try {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('accessToken')
+          ? `Bearer ${localStorage.getItem('accessToken')}`
+          : '',
+      },
+    };
+
+    const resp = await fetch(
+      getSubmissionsEndpoint(submissionId),
+      fetchOptions
+    );
+
+    return resp.json();
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export const fetchSubmissionAdress = async(submission: any, token: string) => {
+  if (!submission) return;
+  const res = await fetch(getReverseGeocodingEndpoint(
+    submission.points[0]?.longitude,
+    submission.points[0]?.latitude, 
+    token));
+  return res.json().then(adress => adress.features[0].place_name);
 }

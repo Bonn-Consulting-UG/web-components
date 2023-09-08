@@ -24,6 +24,7 @@ let showOverlay = true;
 const DefaultTemplate: Story<ArgTypes> = () =>
   html` <div style="width: 100%; height: 600px">
     <bcg-map-layer
+      .submissionId=${'ea50bf99-4009-4455-8fb2-a8a85e626a1a'}
       mapAccessToken=${token}
       actionButtonLabel="Fachkarten"
       initialZoom="8"
