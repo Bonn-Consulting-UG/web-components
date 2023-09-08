@@ -157,6 +157,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     if (this.submissionId !== 0 && !this.moduleId) {
       response = await getSubmission(this.submissionId);
       this.comments = response.comments;
+      this.comments.sort(sortCommentsbyCreatedAt);
       this.count = response._count.comments;
     }
 
@@ -202,7 +203,11 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
       }
       let newCommentId;
 
-      if (!this.responseTo.author) {
+      if (
+        !this.responseTo?.author &&
+        !this.responseTo?.firstName &&
+        !this.responseTo?.lastName
+      ) {
         const resp = await addComment(
           this.moduleId,
           this.newComment,
@@ -216,7 +221,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         newCommentId = resp.id;
       }
 
-      if (this.responseTo.author) {
+      if (this.responseTo.id) {
         const resp = await addCommentToComment(
           this.responseTo.id,
           this.newComment,
@@ -244,12 +249,20 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
           @submit=${(ev: any) => submitHandler(ev)}
         >
           <form name="sentcomment" @submit=${(e: any) => e.preventDefault()}>
-            ${this.responseTo.author
+            ${this.responseTo?.author ||
+            (this.responseTo?.firstName && this.responseTo?.lastName) ||
+            this.responseTo.id
               ? html`<div class="responseTo" style="flex-grow:1">
-                  Sie antworten: ${this.responseTo.author.firstName}
-                  ${this.responseTo.author.lastName} vom     ${format(
-                  Date.parse(this.responseTo.createdAt),
-                  'dd.MM.yyyy HH:mm ',
+                  Sie antworten: ${
+                    this.responseTo?.author?.firstName ||
+                    this.responseTo?.firstName
+                  }
+                  ${
+                    this.responseTo.author?.lastName ||
+                    this.responseTo?.lastName
+                  } vom     ${format(
+                  Date.parse(this.responseTo?.createdAt),
+                  'dd.MM.yyyy HH:mm',
                   {
                     locale: de,
                   }
