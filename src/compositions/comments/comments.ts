@@ -202,13 +202,8 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         return;
       }
       let newCommentId;
-
-      if (
-        !this.responseTo?.author ||
-        !this.responseTo?.firstName ||
-        !this.responseTo?.lastName ||
-        !this.responseTo?.id
-      ) {
+      console.log(this.responseTo);
+      if (!this.responseTo.id) {
         const resp = await addComment(
           this.moduleId,
           this.newComment,
@@ -256,10 +251,11 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
               ? html`<div class="responseTo" style="flex-grow:1">
                   Sie antworten: ${
                     this.responseTo?.author?.firstName ||
-                    this.responseTo?.firstName
+                    this.responseTo?.firstName ||
+                    this.responseTo.id
                   }
                   ${
-                    this.responseTo.author?.lastName ||
+                    this.responseTo?.author?.lastName ||
                     this.responseTo?.lastName
                   } vom     ${format(
                   Date.parse(this.responseTo?.createdAt),
