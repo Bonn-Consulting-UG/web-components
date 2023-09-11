@@ -200,7 +200,7 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
                 ? author.firstName
                 : this.comments.firstName
                 ? this.comments.firstName
-                : html`<i><b>Gelöschtes Profil</b></i>`}
+                : html`<i><b>Anonymer Benutzer</b></i>`}
               ${author && author.lastName
                 ? author.lastName
                 : this.comments.lastName

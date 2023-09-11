@@ -239,7 +239,7 @@ export const censorComment = async (commentId: any) => {
 
 export const addCommentToComment = async (
   commentId: any,
-  commentConent: any,
+  commentContent: any,
   { firstName, lastName, email }: any
 ) => {
   try {
@@ -250,7 +250,7 @@ export const addCommentToComment = async (
         Authorization: AuthHeader,
       },
       body: JSON.stringify({
-        content: commentConent,
+        content: commentContent,
         parentCommentId: commentId,
         firstName: firstName ? firstName : null,
         lastName: lastName ? lastName : null,
