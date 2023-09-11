@@ -2,7 +2,7 @@ import { html, property, ScopedElementsMixin } from '@lion/core';
 import { BcgModule } from '../../components/module';
 import { getReverseGeocodingEndpoint, getSubmissionsEndpoint } from '../../utils/services/config';
 import { mapSubmissionStyle } from '../map-submission/style-map-submission';
-import { MapService } from '../../utils/services/map';
+import { fetchSubmission, fetchSubmissionAdress, MapService } from '../../utils/services/map';
 import { MapSubmission } from '../../model/MapSubmission';
 import { mapSingleSubmissionStyle } from './style-map-single-submission';
 
@@ -43,47 +43,14 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
 
   firstUpdated(changed: any) {
     if (!this.submission) {
-      this.fetchSubmission().then(res => {
+      fetchSubmission(this.submissionId).then(res => {
         this.submission = res;
-        this.fetchSubmissionAdress();
+        fetchSubmissionAdress(this.submission, this.mapAccessToken).then(res => {
+          this.submissionAdress = res;
+        })
       });
     }
     super.firstUpdated(changed);
-  }
-
-  async fetchSubmissionAdress() {
-    const res = await fetch(getReverseGeocodingEndpoint(
-      this.submission?.points[0]?.longitude,
-      this.submission?.points[0]?.latitude, 
-      this.mapAccessToken));
-
-    res.json().then(adress => {
-        this.submissionAdress = adress.features[0].place_name
-    });
-  }
-
-  async fetchSubmission() {
-    try {
-      const fetchOptions = {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('accessToken')
-            ? `Bearer ${localStorage.getItem('accessToken')}`
-            : '',
-        },
-      };
-
-      const resp = await fetch(
-        getSubmissionsEndpoint(this.submissionId),
-        fetchOptions
-      );
-
-      return resp.json();
-    } catch (err) {
-      console.error(err);
-      return err;
-    }
   }
 
   updated(changed: any) {
@@ -114,12 +81,14 @@ export class BcgMapSingleSubmission extends ScopedElementsMixin(BcgModule) {
         fetchOptions
       );
       resp.json().then(() => {
-        this.fetchSubmission().then(res => {
+        fetchSubmission(this.submissionId).then(res => {
           this.closeOverlay();
           this.isLoading = false;
           this.submission = res;
           if (!this.currentAdress) {
-            this.fetchSubmissionAdress();
+            fetchSubmissionAdress(this.submission, this.mapAccessToken).then(res => {
+              this.submissionAdress = res;
+            });
           } else {
             this.submissionAdress = this.currentAdress;
           }
