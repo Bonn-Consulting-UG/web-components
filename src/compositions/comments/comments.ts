@@ -204,9 +204,10 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
       let newCommentId;
 
       if (
-        !this.responseTo?.author &&
-        !this.responseTo?.firstName &&
-        !this.responseTo?.lastName
+        !this.responseTo?.author ||
+        !this.responseTo?.firstName ||
+        !this.responseTo?.lastName ||
+        !this.responseTo?.id
       ) {
         const resp = await addComment(
           this.moduleId,
