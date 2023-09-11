@@ -51,7 +51,7 @@ export class BcgMapLayer extends ScopedElementsMixin(BcgModule) {
         <bcg-map-overlay
           class="bcg-overlay"
           mapAccessToken=${this.mapAccessToken}
-          .showActionButton=${this.showOverlayButton}
+          .showActionButton=${this.showOverlayButton && this.layers.length > 0}
           actionButtonLabel=${this.actionButtonLabel}
           .pinColor=${this.pinColor}
           .actionButtonCallback=${() => {
@@ -69,7 +69,7 @@ export class BcgMapLayer extends ScopedElementsMixin(BcgModule) {
           .submissions=${[this.submission]}
           overlayWidth=${this.overlayWidth}
           .activeLayers=${this.activeLayers}
-          .showOverlay=${this.showOverlay}
+          .showOverlay=${this.showOverlay && this.layers.length > 0}
         >
           <div class="overlay-content" slot="overlay-content">
             <h2>${this.overlayHeader}</h2>
