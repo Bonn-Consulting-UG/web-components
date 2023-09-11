@@ -249,21 +249,23 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
             (this.responseTo?.firstName && this.responseTo?.lastName) ||
             this.responseTo.id
               ? html`<div class="responseTo" style="flex-grow:1">
-                  Sie antworten: ${
+                  Sie antworten:              <i><b>
+                  ${
                     this.responseTo?.author?.firstName ||
                     this.responseTo?.firstName ||
-                    this.responseTo.id
+                    html`Anonymer Benutzer`
                   }
                   ${
                     this.responseTo?.author?.lastName ||
                     this.responseTo?.lastName
-                  } vom     ${format(
-                  Date.parse(this.responseTo?.createdAt),
-                  'dd.MM.yyyy HH:mm',
-                  {
-                    locale: de,
                   }
-                )}
+                  </b></i> vom     ${format(
+                    Date.parse(this.responseTo?.createdAt),
+                    'dd.MM.yyyy HH:mm',
+                    {
+                      locale: de,
+                    }
+                  )}
                   <lion-icon id="close-button-notification"w  @click=${() => {
                     this.responseTo = {};
                   }}  icon-id="bcg:general:cross"></bcg-icon>
