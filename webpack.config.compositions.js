@@ -13,6 +13,7 @@ const config = {
     output: {
         publicPath: 'https://epart-components-dev.ifok.digital/compositions/',
         path: path.resolve(__dirname, 'storybook-static/compositions'),
+        filename: 'index2.js',
     },
     plugins: [
     ],

@@ -11,6 +11,7 @@ const isProduction = true;
 const config = {
     entry: './src/components/index.ts',
     output: {
+        filename: 'index.js',
         path: path.resolve(__dirname, 'storybook-static/components'),
     },
     plugins: [
