@@ -78,7 +78,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
         this.showNotification = true;
         this.notificationType = 'error';
         this.notificationMessage = 'Ein Fehler ist aufgetreten';
-        console.error(err);
       }
     };
 
