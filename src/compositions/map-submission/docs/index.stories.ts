@@ -1,8 +1,7 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces.js';
-import { token } from '../../map-overlay/testAccessToken.js';
-import { testLayers } from '../../map-overlay/testLayers.js';
-import '../index.js';
+import { Story } from '../../../model/story-interfaces';
+import { token } from '../../../components/map-overlay/testAccessToken';
+import '../index';
 
 export default {
   title: 'Compositions/MapSubmission',
@@ -25,16 +24,16 @@ const DefaultTemplate: Story<ArgTypes> = () =>
     <div style="width: 100%; height: 800px">
       <bcg-map-submission
         mapAccessToken=${token}
-        moduleId="3275cc46-38da-4033-a281-acedadc93db6"
+        moduleId="3c5b845b-9863-421b-a39b-d09db2c4e7e6"
         mapHeight="600"
         .maxBounds=${undefined}
         overlayButtonLabel="Fachkarten"
         actionButtonLabel="Fachkarten"
         initialZoom="8"
         .initialPosition=${[-70.94416, 43.46633]}
-        overlayWidth="30%"
+        overlayWidth="300px"
         overlayHeader="Fachkarten"
-        .layers=${testLayers}
+        .pinColor=${'red'}
       ></bcg-map-submission>
     </div>
   `;

@@ -1,6 +1,6 @@
 import { html } from '@lion/core';
-import { ArgTypes, Story } from '../../../model/story-interfaces.js';
-import '../index.js';
+import { ArgTypes, Story } from '../../../model/story-interfaces';
+import '../index';
 
 export default {
   title: 'Components/Radio Group',

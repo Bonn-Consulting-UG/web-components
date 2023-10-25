@@ -1,6 +1,12 @@
 /* eslint-disable import/extensions */
-import { html, css, LitElement, ScopedElementsMixin } from '@lion/core';
-import { BcgButton } from '../../components/button/button.js';
+import {
+  html,
+  css,
+  LitElement,
+  ScopedElementsMixin,
+  property,
+} from '@lion/core';
+import { BcgButton } from '../../components/button/button';
 import { BcgCheckboxGroup } from '../../components/checkbox-group/checkbox-group';
 import { BcgInput } from '../../components/input/input';
 
@@ -9,11 +15,11 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
     return [css``];
   }
 
-  nextStep: any;
+  @property() nextStep: any;
 
   static get properties() {
     return {
-      nextStep: { type: Function }
+      nextStep: { type: Function },
     };
   }
 
@@ -26,7 +32,7 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
     return {
       'bcg-input': BcgInput,
       'bcg-button': BcgButton,
-      'bcg-checkbox-group': BcgCheckboxGroup
+      'bcg-checkbox-group': BcgCheckboxGroup,
     };
   }
 
@@ -35,10 +41,14 @@ export class BcgRegisterStepOne extends ScopedElementsMixin(LitElement) {
       <div>
         <h2>Registrieren als:</h2>
         <div>
-          <bcg-button variant='primary' @click="${() => this.nextStep()}">
+          <bcg-button variant="primary" @click="${() => this.nextStep()}">
             Als Privat Person
           </bcg-button>
-          <bcg-button  variant='primary' disabled @click="${() => this.nextStep()}">
+          <bcg-button
+            variant="primary"
+            disabled
+            @click="${() => this.nextStep()}"
+          >
             Als Organisation
           </bcg-button>
         </div>

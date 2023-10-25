@@ -15,13 +15,13 @@ import {
   deleteComment,
   removeReaction,
   reportComment,
-} from '../../utils/services/comments.js';
-import { BcgModule } from '../../components/module/module.js';
-import { commentDelteEndPoint } from '../../utils/services/config.js';
+} from '../../utils/services/comments';
+import { BcgModule } from '../../components/module/module';
+import { commentDelteEndPoint } from '../../utils/services/config';
 import { PropertyValueMap } from 'lit';
 
 export class BcgUserMenu extends BcgModule {
-  @property({ type: Boolean }) isOpen: boolean = false;
+  @property({ type: Boolean }) open: boolean = false;
 
   @property({ type: Function }) changeDialog: any;
 
@@ -41,10 +41,8 @@ export class BcgUserMenu extends BcgModule {
     this?.shadowRoot
       ?.querySelector(`#wrapper`)
       ?.addEventListener('mouseleave', () => {
-        this.isOpen = false;
+        this.open = false;
       });
-
-    console.log(changedProperties);
     super.updated(changedProperties);
   }
 
@@ -98,10 +96,10 @@ export class BcgUserMenu extends BcgModule {
       >
         <bcg-button
           style="align-self: flex-end;"
-          @click=${() => (this.isOpen = !this.isOpen)}
+          @click=${() => (this.open = !this.open)}
           ><lion-icon icon-id="bcg:comments:dots"></lion-icon
         ></bcg-button>
-        ${this.isOpen
+        ${this.open
           ? this.options.map((e: any) => {
               console.log(e.condition);
               if (e.condition) {

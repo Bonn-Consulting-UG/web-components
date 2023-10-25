@@ -1,13 +1,19 @@
 import { html, css, ScopedElementsMixin, property } from '@lion/core';
 import { BcgModule } from '../../components/module';
 import { LionIcon } from '@lion/icon';
+import { UserMenuStyles } from './user-menu-styles';
+
 export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
+  @property({ type: Object }) easylanguage: any;
+  @property({ type: Object }) signlanguage: any;
+  @property({ type: Array }) extramenu: any = [];
+
   static get styles() {
     return [
+      UserMenuStyles,
       css`
-        dialog {
-          color: var(--primary-color);
-          border-radius: var(--border-radius-l);
+        .dialog-sizing {
+          max-width: 85%;
         }
       `,
     ];
@@ -17,10 +23,15 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     return { 'lion-icon': LionIcon };
   }
 
-  @property({ type: Boolean }) isOpen: boolean = false;
+  @property() dropDownOpen: any = false;
+  @property() extramenuDropDownOpen: any = false;
 
   clickHandler = () => {
-    this.isOpen = !this.isOpen;
+    this.dropDownOpen = !this.dropDownOpen;
+  };
+
+  extraDropdownClickHandler = () => {
+    this.extramenuDropDownOpen = !this.extramenuDropDownOpen;
   };
 
   registerHandler() {}
@@ -29,7 +40,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
     super.connectedCallback();
   }
 
-  protected updated(): void {
+  protected updated(changedProperties: any): void {
     const loginDialog: any = this.shadowRoot?.querySelector('#login-dialog');
     const loginButton = this.shadowRoot?.querySelector('#login-button');
     const closeButton = this.shadowRoot?.querySelector('#close-button');
@@ -46,6 +57,7 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
     loginButton?.addEventListener('click', () => {
       loginDialog?.showModal();
+      this.extramenuDropDownOpen = false;
     });
 
     closeButton?.addEventListener('click', () => {
@@ -58,108 +70,189 @@ export class BcgUserMenu extends ScopedElementsMixin(BcgModule) {
 
     registerButton?.addEventListener('click', () => {
       registerDialog?.showModal();
+      this.extramenuDropDownOpen = false;
     });
 
     editButton?.addEventListener('click', () => {
+      this.dropDownOpen = false;
+
       profileDialog?.show();
-      this.isOpen = false;
     });
 
     closeButtonEdit?.addEventListener('click', () => {
       profileDialog?.close();
     });
+
+    this?.shadowRoot
+      ?.querySelector(`.extra-menu-dropdowncontent`)
+      ?.addEventListener('mouseleave', () => {
+        this.extramenuDropDownOpen = false;
+      });
+
+    this?.shadowRoot
+      ?.querySelector(`.dropdown`)
+      ?.addEventListener('mouseleave', () => {
+        this.dropDownOpen = false;
+      });
+
+    super.updated(changedProperties);
   }
 
   render() {
-    let {
-      isLoggedIn,
-      user,
-      isOpen,
-      clickHandler,
-      logOutHandler,
-      registerHandler,
-    } = this;
+    let { isLoggedIn, user, logOutHandler, registerHandler } = this;
+
+    // epart nav background = --navigation-background-color
+    // epart nav item color = --navigation-item-color
+    // epart nav langlangues icon background color  = --navigation-icon-color
 
     return html`
+          <div class="wrapper" style="z-index:999999;"> 
+            <div class="extra-menu-wrapper">
+            
+            <div class="extra-menu-dropdown">
+            ${
+              this.extramenu
+                ? html`<span
+                    class="extra-menu-dropdownheader"
+                    @click=${this.extraDropdownClickHandler}
+                    >${this.extramenu[0]}
+                    <lion-icon
+                      class="expand-icon"
+                      icon-id=${this.extramenuDropDownOpen
+                        ? 'bcg:general:collapse'
+                        : 'bcg:general:expand'}
+                    ></lion-icon
+                  ></span>`
+                : null
+            } 
+            
+            <div class="extra-menu-dropdowncontent">
+              ${
+                this.extramenu &&
+                this.extramenu.map &&
+                this.extramenuDropDownOpen
+                  ? this.extramenu.map((e: any, index: number) =>
+                      index !== 0
+                        ? html`<span class="link-wrapper"
+                            ><a class="extra-menu-dropdownitem" href=${e.url}
+                              >${e.label}</a
+                            ></span
+                          >`
+                        : null
+                    )
+                  : null
+              } 
+            </div>
+          </div>
 
+              <ul class="extra-menu-list">
+                ${
+                  this.signlanguage &&
+                  this.signlanguage.label &&
+                  this.signlanguage.url
+                    ? html`<li>
+                          <bcg-icon
+                            icon-id="bcg:general:signLanguage"
+                            @click=${() =>
+                              window.location.replace(this.signlanguage.url)}
+                            alt=${this.signlanguage.label}
+                            class="accessibility-icon"
+                          ></bcg-icon
+                          ><a
+                            class="extra-menu-listitem extra-menu-accessibility"
+                            href=${this.signlanguage.url}
+                            >${this.signlanguage.label}</a
+                          >
+                        </li>
+                        <li></li>`
+                    : null
+                }  
+                ${
+                  this.easylanguage &&
+                  this.easylanguage.label &&
+                  this.easylanguage.url
+                    ? html`<li>
+                          <bcg-icon
+                            icon-id="bcg:general:easyLanguage"
+                            @click=${() =>
+                              window.location.replace(this.easylanguage.url)}
+                            alt=${this.easylanguage.label}
+                            class="accessibility-icon"
+                          ></bcg-icon
+                          ><a
+                            class="extra-menu-listitem extra-menu-accessibility"
+                            href=${this.easylanguage.url}
+                            >${this.easylanguage.label}</a
+                          >
+                        </li>
+                        <li></li>`
+                    : null
+                }        
+              </ul>
+              </div>
           ${
             !isLoggedIn
-              ? html`
-                  <li
-                    id="login-button"
-                    style="margin-right:10px;"
-                    variant="secondary"
-                    >Anmelden</bcg-button
-                  ><li
+              ? html` <div class="login-menu-wrapper">
+                  <bcg-button
                     id="register-button"
-                    variant="primary"
+                    class="register-button"
+                    variant="secondary"
                     @click=${registerHandler}
-                    >Registrieren
-          </li>
-                `
-              : html`<li
-                  @click="${clickHandler}"
-                  style="margin-bottom:3px;"
-                  variant="primary"
-                  >Hallo, ${user.given_name} ${user.family_name}</bcg-button
-                >`
+                    >Registrieren</bcg-button
+                  >
+                  <bcg-button id="login-button" variant="primary"
+                    >Anmelden</bcg-button
+                  >
+                </div>`
+              : html`<h4 class="user-name" @click=${this.clickHandler}>
+                  Hallo, ${user.given_name} ${user.family_name}
+                </h4>`
           }
-
-          <dialog id="login-dialog">
-            <header
-              style="MIN-width: 320px; display:flex;justify-content: flex-end;align-content: flex-end;"
-            >
-              <bcg-button id="close-button" variant="tertiary"
-                ><lion-icon icon-id="bcg:general:cross"></bcg-icon
-              ></bcg-button>
-            </header>
-            <bcg-login></bcg-login>
-          </dialog>
-
-          <dialog style="" id="edit-dialog">
-            <header
-              style=" display:flex;justify-content: flex-end;align-content: flex-end;"
-            >
-              <bcg-button id="close-button-edit" variant="tertiary"
-                ><lion-icon icon-id="bcg:general:cross"></bcg-icon
-              ></bcg-button
-              >
-            </header>
-            <bcg-edit-user></bcg-edit-user>
-          </dialog>
-
-          <dialog id="register-dialog">
-            <header
-              style=" display:flex;justify-content: flex-end;align-content: flex-end;"
-            >
-              <bcg-button id="close-button-reg" variant="tertiary"><lion-icon icon-id="bcg:general:cross"></bcg-icon
-              ></bcg-button>
-            </header>
-            <bcg-register></bcg-register>
-          </dialog>
-
           ${
-            isOpen
-              ? html`<div>
-                  <li
-                    style="margin-bottom:3px; "
+            this.isLoggedIn && this.dropDownOpen
+              ? html`<div class="dropdown">
+                  <bcg-button
                     variant="secondary"
+                    style="margin-bottom:2px;"
                     id="edit-button"
+                    >Mein Profil</bcg-button
                   >
-                    <a onclick="()=>ev.preventDefault()" )> Mein Profil </a>
-                  </li>
-                  <li
-                    variant="secondary"
-                    @click="${() => {
-                      clickHandler();
-                      logOutHandler();
-                    }}"
+                  <bcg-button variant="secondary" @click="${logOutHandler}">
+                    Abmelden</bcg-button
                   >
-                    Abmelden
-                  </li>
                 </div>`
               : null
           }
+          <dialog id="login-dialog" class="dialog-sizing">
+          <header
+            style="MIN-width: 320px; display:flex;justify-content: flex-end;align-content: flex-end;"
+          >
+            <bcg-button id="close-button" variant="tertiary"
+              ><lion-icon icon-id="bcg:general:cross"></bcg-icon
+            ></bcg-button>
+          </header>
+          <bcg-login></bcg-login>
+        </dialog>
+
+        <dialog id="edit-dialog" class="dialog-sizing">
+          <header
+            style="z-index:999999; display:flex;justify-content: flex-end;align-content: flex-end;"
+          >
+            <bcg-button id="close-button-edit" variant="tertiary"
+              ><lion-icon icon-id="bcg:general:cross"></bcg-icon
+            ></bcg-button
+            >
+          </header>
+          <bcg-edit-user></bcg-edit-user>
+        </dialog>
+
+        <dialog id="register-dialog" class="dialog-sizing">
+          <header style=" display:flex;justify-content: flex-end;align-content:flex-end;">
+            <bcg-button id="close-button-reg" variant="tertiary"><lion-icon icon-id="bcg:general:cross"></bcg-icon
+            ></bcg-button>
+          </header>
+          <bcg-register></bcg-register>
+        </dialog>
     `;
   }
 }

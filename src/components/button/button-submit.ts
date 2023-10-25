@@ -10,32 +10,32 @@ export class BcgButtonSubmit extends LionButtonSubmit {
       css`
         :host {
           display: inline-block;
-          font-family: var(--primary-button-default-L-font-family);
-          font-size: var(--primary-button-default-L-font-size);
-          font-weight: var(--primary-button-default-L-font-weight);
-          color: var(--primary-button-default-L-foreground-color);
+          font-family: var(--primary-button-default-font-family);
+          font-size: var(--primary-button-default-font-size);
+          font-weight: var(--primary-button-default-font-weight);
+          color: var(--primary-button-default-foreground-color);
           line-height: var(--button-line-height);
-          background-color: var(--primary-button-default-L-background-color);
-          border: var(--primary-button-default-L-border);
-          border-radius: var(--primary-button-default-L-border-radius);
-          padding: var(--primary-button-default-L-inner-spacing);
+          background-color: var(--primary-button-default-background-color);
+          border: var(--primary-button-default-border);
+          border-radius: var(--primary-button-default-border-radius);
+          padding: var(--primary-button-default-inner-spacing);
         }
         :host(:hover) {
-          background-color: var(--primary-button-default-L-background-color);
+          background-color: var(--primary-button-default-background-color);
           /* States contain default state fallback value*/
           font-family: var(
-            --primary-button-hover-L-font-family,
-            var(--primary-default-hover-L-font-family)
+            --primary-button-hover-font-family,
+            var(--primary-default-hover-font-family)
           );
           font-size: var(
-            --primary-button-hover-L-font-size,
-            var(--primary-default-hover-L-font-size)
+            --primary-button-hover-font-size,
+            var(--primary-default-hover-font-size)
           );
           /* ... usw. */
           /* Only Values that changed need to be defined in global.css*/
           box-shadow: var(
-            --primary-button-hover-L-box-shadow,
-            var(--primary-button-default-L-box-shadow)
+            --primary-button-hover-box-shadow,
+            var(--primary-button-default-box-shadow)
           );
         }
       `,

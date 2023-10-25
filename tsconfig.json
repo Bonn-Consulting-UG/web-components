@@ -10,7 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "outDir": "dist/components",
+    "outDir": "dist",
     "sourceMap": true,
     "inlineSources": true,
     "rootDir": ".",
@@ -19,7 +19,7 @@
     "skipLibCheck": true,
     "useDefineForClassFields": false
   },
-  "include": ["**/*.ts", "src/component/*.js", "src/component/docs/*.js", "src/compositions/docs/*.js"],
+  "files": ["./src/components/index.ts"],
   "exclude": ["src/utils/_mixins", "dist"]
 
 }

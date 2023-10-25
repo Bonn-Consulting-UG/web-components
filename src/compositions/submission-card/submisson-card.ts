@@ -1,4 +1,10 @@
-import { css, html, LitElement, property, ScopedElementsMixin } from '@lion/core';
+import {
+  css,
+  html,
+  LitElement,
+  property,
+  ScopedElementsMixin,
+} from '@lion/core';
 import { LionIcon } from '@lion/icon';
 import { BcgButton } from '../../components/button/button';
 import { BcgCard } from '../../components/card/card';
@@ -6,72 +12,75 @@ import { MapSubmission } from '../../model/MapSubmission';
 import { BcgReaction } from '../reactions/reaction';
 
 export class SubmissionCard extends ScopedElementsMixin(LitElement) {
-
   @property({ type: Object }) submission?: MapSubmission;
   @property({ type: String }) buttonLabel = 'Zum Hinweis';
 
   static get styles() {
     return [
       css`
-      .card {
-        max-width: 500px;
-      }
+        .card {
+          max-width: 500px;
+        }
 
-      .content-wrapper {
-        padding: 10px;
-        max-width: 500px;
-      }
+        .content-wrapper {
+          padding: 10px;
+          max-width: 500px;
+        }
 
-      .text-container {
-        max-width: 500px;
-      }
-      
-      .creator-text {
-        font-size: 0.9em;
-        font-style: italic;
-        margin: 0;
-      }
+        .text-container {
+          max-width: 500px;
+        }
 
-      .title-text {
-        font-size: 1.2em;
-        font-weight: bold;
-        margin: 0;
-      }
+        .creator-text {
+          font-size: 0.9em;
+          font-style: italic;
+          margin: 0;
+        }
 
-      .actions-container {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        margin-top: 20px;
-      }
+        .title-text {
+          font-size: 1.2em;
+          font-weight: bold;
+          margin: 0;
+        }
 
-      .reactions-container {
-        display: flex;
-        align-items: center;
-      }
-
-      .comment {
-        display: flex;
-        align-items: center;
-      }
-
-      .comment-icon {
-        width: 18px;
-        height: 18px;
-        margin-left: 20px;
-        margin-right: 10px
-      }
-
-      @media screen and (max-width:500px) {
         .actions-container {
-          display: block;
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 10px;
+          margin-top: 20px;
         }
 
-        .submission-button {
-          width: 100%;
+        .reactions-container {
+          display: flex;
+          align-items: center;
         }
-      }
-      `
+
+        .comment {
+          display: flex;
+          align-items: center;
+        }
+
+        .comment-icon {
+          width: 18px;
+          height: 18px;
+          margin-left: 20px;
+          margin-right: 10px;
+        }
+
+        @media screen and (max-width: 500px) {
+          .actions-container {
+            display: block;
+          }
+
+          .reactions-container {
+            margin: 15px 0px;
+          }
+
+          .submission-button {
+            width: 100%;
+          }
+        }
+      `,
     ];
   }
 
@@ -80,37 +89,56 @@ export class SubmissionCard extends ScopedElementsMixin(LitElement) {
       'bcg-card': BcgCard,
       'bcg-button': BcgButton,
       'lion-icon': LionIcon,
-      'bcg-reaction': BcgReaction
+      'bcg-reaction': BcgReaction,
     };
   }
 
   render() {
     return html`
-    <bcg-card class="card">
-      <slot name="content">
-        <div class="content-wrapper">
-          <div class="text-container">
-            <p class="creator-text">${this.submission?.firstName} ${this.submission?.lastName}</p>
-            <p class="creator-text">${new Date(this.submission?.createdAt ?? '').toLocaleDateString()}</p>
-            <p class="title-text">${this.submission?.title}</p>
-          </div>
+      <bcg-card class="card">
+        <slot name="content">
+          <div class="content-wrapper">
+            <div class="text-container">
+              <p class="creator-text">
+              ${!this.submission?.firstName && !this.submission?.lastName
+                ? this.submission?.author ? `${this.submission?.author.firstName ?? ''} ${this.submission?.author.lastName ?? ''}` : 'Anonym'
+                : `${this.submission?.firstName ?? ''} ${this.submission?.lastName ?? ''}`}
+              </p>
+              <p class="creator-text">
+                ${new Date(
+                  this.submission?.createdAt ?? ''
+                ).toLocaleDateString()}
+              </p>
+              <p class="title-text">${this.submission?.title}</p>
+            </div>
 
-          <div class="actions-container">
-            <bcg-button class="submission-button" variant="primary">${this.buttonLabel}</bcg-button>
-            <div class="reactions-container">
-              <div class="comment">
-                <lion-icon
-                class="comment-icon"
-                icon-id="bcg:comments:comment"
-                ></lion-icon>
-                <span style="margin-right: 20px">${this.submission?._count?.comments}</span>
+            <div class="actions-container">
+              <a
+                href=${window.location.href + '/' + this.submission?.id}
+              >
+                <bcg-button class="submission-button" variant="secondary"
+                  >${this.buttonLabel}</bcg-button
+                >
+              </a>
+              <div class="reactions-container">
+                <div class="comment">
+                  <lion-icon
+                    class="comment-icon"
+                    icon-id="bcg:comments:comment"
+                  ></lion-icon>
+                  <span style="margin-right: 20px"
+                    >${this.submission?._count?.comments}</span
+                  >
+                </div>
+                <bcg-idea-reaction
+                  likeCount=${this.submission?._count?.likes}
+                  dislikeCount=${this.submission?._count?.dislikes}
+                ></bcg-idea-reaction>
               </div>
-              <bcg-idea-reaction likeCount=${this.submission?._count?.likes} dislikeCount=${this.submission?._count?.dislikes}></bcg-idea-reaction>
             </div>
           </div>
-        </div>
-      </slot>
-    </bcg-card>
+        </slot>
+      </bcg-card>
     `;
   }
 }

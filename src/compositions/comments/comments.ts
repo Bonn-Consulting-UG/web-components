@@ -1,4 +1,10 @@
-import { html, LitElement, property, ScopedElementsMixin } from '@lion/core';
+import {
+  html,
+  LitElement,
+  property,
+  ScopedElementsMixin,
+  TemplateResult,
+} from '@lion/core';
 import {
   Required,
   MinLength,
@@ -6,18 +12,19 @@ import {
 } from '../../utils/helpers/input-errors';
 import { format } from 'date-fns';
 import de from 'date-fns/locale/de';
-import { BcgModule } from '../../components/module/module.js';
+import { BcgModule } from '../../components/module/module';
 import {
   getAllCommentsForModule,
   addComment,
   addCommentToComment,
   getSubmission,
-} from '../../utils/services/comments.js';
-import { BcgCommentReaction } from './comment-reaction.js';
-import { BcgComment } from './comment.js';
+} from '../../utils/services/comments';
+import { BcgCommentReaction } from './comment-reaction';
+import { BcgComment } from './comment';
 import { LionIcon } from '@lion/icon';
 import { BcgDialog } from '../../components/dialog/dialog';
 import { BcgModeratorMenu } from './comment-moderator-menu';
+import { sortCommentsbyCreatedAt } from '../../utils/helpers/function';
 
 export interface CommentInterface {
   id: string;
@@ -47,6 +54,57 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     this.setupComments();
   }
 
+  @property({ type: LitElement || null }) createSubmissionCommentHtml = (
+    content: TemplateResult
+  ): any => {
+    if (!this.isCommentsAllowed) return null;
+
+    if (this.isInteractionEnded) {
+      return html`<div class="submission-permission-hint">
+        Diese Beteiligung ist bereits abgelaufen.
+      </div>`;
+    }
+
+    if (!this.isInteractionStarted && !this.isInteractionEnded) {
+      return html`<div class="submission-permission-hint">
+        Diese Beteiligung ist noch nicht gestartet.
+      </div>`;
+    }
+
+    if (
+      this.commentWriters.includes('ANONYMOUS') ||
+      this.commentWriters.includes('USER')
+    ) {
+      return content;
+    }
+    if (this.commentWriters.includes('REGISTERED_USER') && this.isLoggedIn) {
+      return content;
+    }
+    return html`<div class="submission-permission-hint">
+      Sie müssen angemeldet sein, um sich beteiligen zu können
+    </div>`;
+  };
+
+  @property({ type: LitElement || null }) createCommentHtml = (
+    content: TemplateResult
+  ): any => {
+    if (!this.isCommentsAllowed) {
+      return html`<div class="submission-permission-hint">
+        Kommentare sind deaktiviert
+      </div>`;
+    }
+    if (this.commentReaders.includes('ANONYMOUS')) {
+      return content;
+    }
+    if (this.commentReaders.includes('REGISTERED_USER') && this.isLoggedIn) {
+      return content;
+    }
+
+    return html`<div class="submission-permission-hint">
+      Sie müssen angemeldet sein, Kommentare sehen zu können
+    </div>`;
+  };
+
   @property({ type: Number }) displayedComments: number = 9;
 
   @property() comments: any = [];
@@ -54,6 +112,9 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   @property() count: any = [];
 
   @property() newComment: any = '';
+  @property() firstName: any = '';
+  @property() lastName: any = '';
+  @property() email: any = '';
 
   @property() responseTo: any = {};
 
@@ -89,23 +150,25 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
     if (this.moduleId !== 0 && !this.submissionId) {
       response = await getAllCommentsForModule(this.moduleId);
       this.comments = response.results;
+      this.comments.sort(sortCommentsbyCreatedAt);
       this.count = response.totalCount;
     }
 
     if (this.submissionId !== 0 && !this.moduleId) {
       response = await getSubmission(this.submissionId);
       this.comments = response.comments;
+      this.comments.sort(sortCommentsbyCreatedAt);
       this.count = response._count.comments;
     }
 
-    console.log(this.shadowRoot?.querySelectorAll(`*`));
-    setTimeout(
-      () =>
-        scrollTo
-          ? this.shadowRoot?.querySelector(`#${scrollTo}`)?.scrollIntoView()
-          : null,
-      500
-    );
+    if (scrollTo)
+      setTimeout(
+        () =>
+          scrollTo
+            ? this.shadowRoot?.querySelector(`#${scrollTo}`)?.scrollIntoView()
+            : null,
+        500
+      );
   };
 
   static get scopedElements() {
@@ -118,6 +181,16 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
   }
 
   render() {
+    const renderRequiredStringForInputs = !this.commentWriters.includes(
+      'ANONYMOUS'
+    )
+      ? ' *'
+      : null;
+
+    const hiddenUserValidator = !this.commentWriters.includes('ANONYMOUS')
+      ? [new Required(), new MaxLength(50)]
+      : [new MaxLength(50)];
+
     const { comments } = this;
 
     const submitHandler = async (ev: any) => {
@@ -129,20 +202,30 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
         return;
       }
       let newCommentId;
-
-      if (!this.responseTo.author) {
+      console.log(this.responseTo);
+      if (!this.responseTo.id) {
         const resp = await addComment(
           this.moduleId,
           this.newComment,
-          this.submissionId
+          this.submissionId,
+          {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+          }
         );
         newCommentId = resp.id;
       }
 
-      if (this.responseTo.author) {
+      if (this.responseTo.id) {
         const resp = await addCommentToComment(
           this.responseTo.id,
-          this.newComment
+          this.newComment,
+          {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+          }
         );
         newCommentId = resp.id;
         this.responseTo = {};
@@ -157,18 +240,32 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
       ${this.dialogHtml}
 
       <div style="display:flex; flex-direction:column;">
-        <bcg-form name="sentcomment" @submit=${(ev: any) => submitHandler(ev)}>
+        ${this.createSubmissionCommentHtml(html`<bcg-form
+          name="sentcomment"
+          @submit=${(ev: any) => submitHandler(ev)}
+        >
           <form name="sentcomment" @submit=${(e: any) => e.preventDefault()}>
-            ${this.responseTo.author
+            ${this.responseTo?.author ||
+            (this.responseTo?.firstName && this.responseTo?.lastName) ||
+            this.responseTo.id
               ? html`<div class="responseTo" style="flex-grow:1">
-                  Sie antworten: ${this.responseTo.author.firstName}
-                  ${this.responseTo.author.lastName} vom     ${format(
-                  Date.parse(this.responseTo.createdAt),
-                  'dd.MM.yyyy HH:mm ',
-                  {
-                    locale: de,
+                  Sie antworten:              <i><b>
+                  ${
+                    this.responseTo?.author?.firstName ||
+                    this.responseTo?.firstName ||
+                    html`Anonymer Benutzer`
                   }
-                )}
+                  ${
+                    this.responseTo?.author?.lastName ||
+                    this.responseTo?.lastName
+                  }
+                  </b></i> vom     ${format(
+                    Date.parse(this.responseTo?.createdAt),
+                    'dd.MM.yyyy HH:mm',
+                    {
+                      locale: de,
+                    }
+                  )}
                   <lion-icon id="close-button-notification"w  @click=${() => {
                     this.responseTo = {};
                   }}  icon-id="bcg:general:cross"></bcg-icon>
@@ -176,48 +273,78 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                 </div>`
               : null}
             <div></div>
-            ${this.isLoggedIn
-              ? html`<bcg-textarea
-                  @model-value-changed=${({ target }: any) => {
-                    this.newComment = target.value;
-                  }}
-                  .validators=${[
-                    new Required(),
-                    new MinLength(3),
-                    new MaxLength(500),
-                  ]}
-                  name="comment"
-                  id="comment-textarea"
-                  rows="4"
-                  placeholder="Was denken Sie?"
-                ></bcg-textarea>`
-              : html`<div>
-                  <h3>
-                    Sie müssen sich erst anmelden, um sich beteiligen zu können.
-                  </h3>
-                </div>`}
-            ${this.isLoggedIn
-              ? html`
-                  <div style="display:flex;margin-top:20px;">
-                    <p style="flex-grow: 1;"></p>
-                    <div>
-                      <bcg-button-submit>Kommentieren</bcg-button-submit>
-                    </div>
-                  </div>
-                `
+            ${!this.isLoggedIn ||
+            (!this.isLoggedIn &&
+              (this?.config?.moduleConfig?.commentWriters.includes(
+                'ANONYMOUS'
+              ) ||
+                this?.config?.config?.commentWriters.includes('ANONYMOUS')))
+              ? html`<bcg-input
+                        label="Ihr Vorname${renderRequiredStringForInputs}"
+                        placeholder=""
+                        name="firstname"
+                        .validators=${hiddenUserValidator}
+                        .modelValue="${this.firstName}"
+                        @model-value-changed=${({ target }: any) => {
+                          this.firstName = target.value;
+                        }}
+                      ></bcg-input>
+                      <bcg-input
+                        label="Ihr Nachname${renderRequiredStringForInputs}"
+                        placeholder=""
+                        name="lastname"
+                        .validators=${hiddenUserValidator}
+                        .modelValue="${this.lastName}"
+                        @model-value-changed=${({ target }: any) => {
+                          this.lastName = target.value;
+                        }}
+                      ></bcg-input>
+
+                      <bcg-input-email
+                        name="email"
+                        .validators=${hiddenUserValidator}
+                        .modelValue="${this.email}"
+                        @model-value-changed=${({ target }: any) => {
+                          this.email = target.value;
+                        }}
+                        label="Ihre E-Mail${renderRequiredStringForInputs}"
+                        placeholder=""
+                      ></bcg-input-email></br>`
               : null}
+            <bcg-textarea
+              @model-value-changed=${({ target }: any) => {
+                this.newComment = target.value;
+              }}
+              .validators=${[
+                new Required(),
+                new MinLength(3),
+                new MaxLength(500),
+              ]}
+              name="comment"
+              id="comment-textarea"
+              rows="4"
+              placeholder="Was denken Sie?"
+            ></bcg-textarea>
 
-            <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
+            <div style="display:flex;margin-top:20px;">
+              <p style="flex-grow: 1;"></p>
+              <div>
+                <bcg-button-submit>Kommentieren</bcg-button-submit>
+              </div>
+            </div>
           </form>
-        </bcg-form>
+        </bcg-form>`)}
+        ${this.createCommentHtml(html`<div>
+        <h2 style="flex-grow: 1;">Kommentare (${this.count || 0})</h2>
 
-        <div>
-          ${this.comments &&
-          this.comments.map((comment: any, index: any) => {
-            if (index <= this.displayedComments) {
-              if (comment.comments) {
-                return html`
+          ${
+            this.comments &&
+            this.comments.map((comment: any, index: any) => {
+              if (index <= this.displayedComments) {
+                if (comment.comments) {
+                  return html`
                   <bcg-comment
+                  .config=${this.config}
                     id=${comment.id}
                     .changeDialog=${this.changeDialog}
                     .refresh=${this.setupComments}
@@ -231,6 +358,7 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                     border: none!important;"
                     >
                       <bcg-comment
+                        .config=${this.config}
                         id="${subcomment.id}"
                         .changeDialog=${this.changeDialog}
                         .refresh=${this.setupComments}
@@ -239,30 +367,35 @@ export class BcgComments extends ScopedElementsMixin(BcgModule) {
                     </div>`;
                   })}
                 </div>`;
+                }
+                if (!comment.comments)
+                  return html`<bcg-comment
+                    .config=${this.config}
+                    id=${comment}
+                    .changeDialog=${this.changeDialog}
+                    .refresh=${this.setupComments}
+                    .comments="${comment}"
+                    .setResponseTo=${this.setResponseTo}
+                  ></bcg-comment> `;
               }
-              if (!comment.comments)
-                return html`<bcg-comment
-                  id=${comment}
-                  .changeDialog=${this.changeDialog}
-                  .refresh=${this.setupComments}
-                  .comments="${comment}"
-                  .setResponseTo=${this.setResponseTo}
-                ></bcg-comment> `;
-            }
-          })}
+            })
+          }
         </div>
         <div
           style="display:flex;align-items: center; align-content: center;justify-content: center; margin-top:20px;"
         >
-          ${comments && comments.length > this.displayedComments
-            ? html`<bcg-button
-                variant="secondary"
-                @click=${() =>
-                  (this.displayedComments = this.displayedComments + 10)}
-                >Mehr Laden</bcg-button
-              >`
-            : null}
+          ${
+            comments && comments.length > this.displayedComments
+              ? html`<bcg-button
+                  variant="secondary"
+                  @click=${() =>
+                    (this.displayedComments = this.displayedComments + 10)}
+                  >Mehr Laden</bcg-button
+                >`
+              : null
+          }
         </div>
+      </div>`)}
       </div>
     `;
   }

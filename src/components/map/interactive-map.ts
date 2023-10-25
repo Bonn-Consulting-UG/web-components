@@ -6,20 +6,21 @@ import {
   PropertyValues,
   ScopedElementsMixin,
 } from '@lion/core';
-import { MapMouseEvent } from 'mapbox-gl';
 import { SubmissionCard } from '../../compositions/submission-card/submisson-card';
 import { LayerData } from '../../model/LayerData';
 import { BcgButton } from '../button/button';
 import { BcgCard } from '../card/card';
 
-const mapboxgl = require('mapbox-gl');
-const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+// const mapboxgl = require('mapboxgl');
+// const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+import * as mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   @property({ type: String }) mapAccessToken: string = '';
   @property({ type: Array }) initialPosition: [number, number] = [13.4, 52.51];
   @property({ type: Number }) initialZoom = 10;
-  @property({ type: Array }) maxBounds = undefined;
+  @property({ type: Array }) maxBounds: any = undefined;
   @property({ type: Array }) layerData?: LayerData[];
   @property({ type: Array }) submissions: any[] = [];
   @property({ type: Function }) geocoderInputCallback: Function = (
@@ -29,18 +30,48 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     marker: any
   ) => {};
   @property({ type: String }) pinColor = '#9747FF';
+  @property({ type: Boolean }) enablePopup = true;
+
+  /**
+   * [lng, lat] ; Use this property for view with one single pin (events etc.)
+   */
+  @property({ type: Array }) pinPosition: [number, number] | undefined =
+    undefined;
 
   map: any;
   isSettingMarker = false;
+  markers: Map<String, mapboxgl.Marker> = new Map<String, mapboxgl.Marker>();
 
   firstUpdated() {
     this.initMap();
+    this.updatePinPosition();
+    this.updateSubmissions([]);
   }
 
   updated(changedProperties: PropertyValues<this>) {
     this.updateLayers(changedProperties.get('layerData'));
     this.updateSubmissions(changedProperties.get('submissions'));
+
+    if (
+      changedProperties.get('initialPosition') &&
+      (changedProperties.get('initialPosition')[0] !==
+        this.initialPosition?.[0] ||
+        changedProperties.get('initialPosition')[1] !==
+          this.initialPosition?.[1])
+    ) {
+      this.map.setCenter(this.initialPosition);
+    }
     super.updated(changedProperties);
+  }
+
+  updatePinPosition() {
+    if (!this.pinPosition) {
+      return;
+    }
+    this.initialPosition = this.pinPosition;
+    new mapboxgl.Marker()
+      .setLngLat([this.pinPosition[0], this.pinPosition[1]])
+      .addTo(this.map);
   }
 
   updateLayers(prevLayers?: LayerData[]) {
@@ -73,40 +104,70 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const newSubmissions = this.submissions.filter(
       (sub: any) => !prevSubmissions.includes(sub)
     );
+    const removedSubmissions = prevSubmissions.filter(
+      (sub: any) => !this.submissions.includes(sub)
+    );
+
+    if (removedSubmissions.length > 0) {
+      removedSubmissions.map(submission => {
+        this.markers.get(submission?.id)?.remove();
+      });
+    }
+
     newSubmissions.map(submission => {
-      new mapboxgl.Marker()
-        .setLngLat([
-          submission.points[0].longitude,
-          submission.points[0].latitude,
-        ])
-        .setPopup(
+      if(!submission) return;
+      const marker = new mapboxgl.Marker().setLngLat([
+        submission.points[0].longitude,
+        submission.points[0].latitude,
+      ]);
+      if (this.enablePopup) {
+        marker.setPopup(
+          // @ts-ignore
           new mapboxgl.Popup().addClassName('popup').setHTML(`
           <bcg-card>
             <slot name="content">
               <div class="content-wrapper"">
                 <div class="text-container">
-                  <p class="creator-text">${submission?.firstName} ${submission?.lastName}</p>
-                  <p class="creator-text">${new Date(submission?.createdAt ?? '').toLocaleDateString()}</p>
+                  <p class="creator-text">
+                  ${!submission?.firstName && !submission?.lastName
+                    ? submission?.author ? `${submission?.author.firstName ?? ''} ${submission?.author.lastName ?? ''}` : 'Anonym'
+                    : `${submission?.firstName ?? ''} ${submission?.lastName ?? ''}`}
+                  </p>
+                  <p class="creator-text">${new Date(
+                    submission?.createdAt ?? ''
+                  ).toLocaleDateString()}</p>
                   <p class="title-text">${submission?.title}</p>
                 </div>
       
                 <div class="actions-container">
-                  <bcg-button variant="primary">Zum Hinweis</bcg-button>
+                  <a
+                  href=${window.location.href + '/' + submission?.id}
+                  >
+                    <bcg-button variant="secondary">Zum Hinweis</bcg-button>
+                  </a>
                   <div class="reactions-container">
                     <lion-icon
                     class="comment-icon"
                     icon-id="bcg:comments:comment"
                     ></lion-icon>
-                    <span style="margin-right: 20px">${submission?._count?.comments}</span>
-                    <bcg-idea-reaction likeCount=${submission?._count?.likes} dislikeCount=${submission?._count?.dislikes}></bcg-idea-reaction>
+                    <span style="margin-right: 20px">${
+                      submission?._count?.comments
+                    }</span>
+                    <bcg-idea-reaction likeCount=${
+                      submission?._count?.likes
+                    } dislikeCount=${
+            submission?._count?.dislikes
+          }></bcg-idea-reaction>
                   </div>
                 </div>
               </div>
             </slot>
           </bcg-card>
           `)
-        )
-        .addTo(this.map);
+        );
+      }
+      marker.addTo(this.map);
+      this.markers.set(submission.id, marker);
     });
   }
 
@@ -118,26 +179,47 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
   }
 
   static get styles() {
-    return [SubmissionCard.styles, css`
-    #map {
-      width: 100%;
-      height: 100%;
-    }
+    return [
+      SubmissionCard.styles,
+      css`
+        #map {
+          width: 100%;
+          height: 100%;
+        }
 
-    .popup {
-      max-width: 500px !important;
-    }
+        .popup {
+          max-width: 500px !important;
+        }
 
-    .mapboxgl-popup-content {
-      padding: 0;
-    }
-  `];
+        .mapboxgl-popup-content {
+          padding: 0;
+        }
+      `,
+    ];
+  }
+
+  private assign(obj: any, prop: any, value: any) {
+    if (typeof prop === 'string') prop = prop.split('.');
+
+    if (prop.length > 1) {
+      var e = prop.shift();
+      this.assign(
+        (obj[e] =
+          Object.prototype.toString.call(obj[e]) === '[object Object]'
+            ? obj[e]
+            : {}),
+        prop,
+        value
+      );
+    } else obj[prop[0]] = value;
   }
 
   initMap() {
-    mapboxgl.accessToken = this.mapAccessToken;
+    /* @ts-ignore */
+    (mapboxgl as any).accessToken = this.mapAccessToken;
     this.map = new mapboxgl.Map({
-      container: this.renderRoot.querySelector('#map') as HTMLElement, // container ID
+      container: this.renderRoot.querySelector('#map') as HTMLElement,
+      accessToken: this.mapAccessToken,
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: this.initialPosition, // starting position [lng, lat]
       maxBounds: this.maxBounds,
@@ -148,7 +230,10 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
-      bbox: this.maxBounds ? [...this.maxBounds[0], ...this.maxBounds[1]] : undefined
+      /* @ts-ignore */
+      bbox: this.maxBounds
+        ? [...this.maxBounds[0], ...this.maxBounds[1]]
+        : undefined,
     });
 
     this.map.addControl(geocoder);
@@ -204,29 +289,35 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
 
       this.flyToLayer(this.map.getSource(data.id)?._data);
     });
-
   }
 
   flyToLayer(layerData: any) {
     let isVisible = false;
-    let centerCoordinates: any[] = []
+    let centerCoordinates: any[] = [];
 
     if (layerData.type === 'FeatureCollection') {
-      for (let i = 0; i <  layerData.features.length; i++) {
-        isVisible = this.isLayerVisible(layerData.features[i].geometry?.coordinates, centerCoordinates);
+      for (let i = 0; i < layerData.features.length; i++) {
+        isVisible = this.isLayerVisible(
+          layerData.features[i].geometry?.coordinates,
+          centerCoordinates
+        );
         if (isVisible) {
           break;
         }
       }
     } else {
-      isVisible = this.isLayerVisible(layerData.geometry?.coordinates, centerCoordinates);
+      isVisible = this.isLayerVisible(
+        layerData.geometry?.coordinates,
+        centerCoordinates
+      );
     }
 
     if (!isVisible) {
       this.map.flyTo({
         // take value in the middle (multiple values possible if it is a feature collection)
-        center: centerCoordinates[+(centerCoordinates.length / 2).toFixed(0) - 1],
-      })
+        center:
+          centerCoordinates[+(centerCoordinates.length / 2).toFixed(0) - 1],
+      });
     }
   }
 
@@ -239,13 +330,21 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     let middleCoordinate = [];
 
     for (let i = 0; i < flatCoordinates.length; i++) {
-      if (flatCoordinates[i][0] > bounds._sw.lng && flatCoordinates[i][1] > bounds._sw.lat && flatCoordinates[i][0] < bounds._ne.lng && flatCoordinates[i][1] < bounds._ne.lat) {
+      if (
+        flatCoordinates[i][0] > bounds._sw.lng &&
+        flatCoordinates[i][1] > bounds._sw.lat &&
+        flatCoordinates[i][0] < bounds._ne.lng &&
+        flatCoordinates[i][1] < bounds._ne.lat
+      ) {
         res = true;
         break;
       }
       if (i === flatCoordinates.length / 2) {
         middleCoordinate = flatCoordinates[i];
-        centerCoordinates?.push([(firstCoordinate[0] + middleCoordinate[0]) / 2, (firstCoordinate[1] + middleCoordinate[1]) / 2])
+        centerCoordinates?.push([
+          (firstCoordinate[0] + middleCoordinate[0]) / 2,
+          (firstCoordinate[1] + middleCoordinate[1]) / 2,
+        ]);
       }
     }
     return res;
@@ -255,12 +354,12 @@ export class BcgInteractiveMap extends ScopedElementsMixin(LitElement) {
     const res: any = [];
     const func = (value: any) => {
       if (value?.[0]?.length) {
-        value.map((value:any) => func(value))
+        value.map((value: any) => func(value));
       } else {
-        res.push(value);
+        res?.push(value);
       }
-    }
-    func(value)
+    };
+    func(value);
     return res;
   }
 

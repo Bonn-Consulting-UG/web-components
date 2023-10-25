@@ -1,6 +1,6 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces.js';
-import '../index.js';
+import { Story } from '../../../model/story-interfaces';
+import '../index';
 
 export default {
   title: 'Compositions/Comments',
@@ -25,7 +25,7 @@ Default.args = {};
 const SubmissionComments: Story<ArgTypes> = () =>
   html`
     <bcg-comments
-      submissionId="e49a4102-822e-41c7-b308-2af32736c079"
+      submissionId="69ee348e-33e7-4148-8313-359f1f18ea9b"
     ></bcg-comments>
   `;
 

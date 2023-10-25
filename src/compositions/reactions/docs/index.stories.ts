@@ -1,6 +1,6 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces.js';
-import '../index.js';
+import { Story } from '../../../model/story-interfaces';
+import '../index';
 
 export default {
   title: 'Compositions/Reaction',
@@ -18,7 +18,7 @@ interface ArgTypes {
 const Template: Story<ArgTypes> = () =>
   html`
     <bcg-idea-reaction
-      submissionId="e49a4102-822e-41c7-b308-2af32736c079"
+      submissionId="eee9e6ba-298e-4d75-a97a-e6c160ce68f2"
     ></bcg-idea-reaction>
   `;
 
