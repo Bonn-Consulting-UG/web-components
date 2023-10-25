@@ -1,6 +1,6 @@
 import { html } from '@lion/core';
-import { ArgTypes, Story } from '../../../model/story-interfaces';
-import '../index';
+import { ArgTypes, Story } from '../../../model/story-interfaces.js';
+import '../index.js';
 
 export default {
   title: 'Components/Calendar',

@@ -1,4 +1,4 @@
-import { html, property, ScopedElementsMixin } from '@lion/core';
+import { html, ScopedElementsMixin } from '@lion/core';
 import { BcgModule } from '../../components/module';
 import { Required } from '../../utils/helpers/input-errors';
 import { contactSubmissionEndpoint } from '../../utils/services/config';
@@ -8,23 +8,13 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
   contactRequest: any = {
     description: '',
     templateId: '052c982a-656b-4701-87e7-8dda7ce8ddda',
-    lastName: null,
+    lastName: '',
     title: '',
-    email: null,
-    firstName: null,
+    email: '',
+    firstName: '',
   };
 
   render() {
-    const renderRequiredStringForInputs = !this.submissionWriters.includes(
-      'ANONYMOUS'
-    )
-      ? ' *'
-      : null;
-
-    const hiddenUserValidator = !this.submissionWriters.includes('ANONYMOUS')
-      ? [new Required()]
-      : [];
-
     const { contactRequest } = this;
 
     const submitHandler = async (ev: any) => {
@@ -93,7 +83,7 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    return this.createSubmissionHtml(html`
+    return html`
       <bcg-form @submit=${submitHandler}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${
@@ -109,27 +99,29 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           <div>
 
               <div style="display:flex; flex-direction:column;flex-basis:100%;">
-              <p> Alle mit * gekennzeichneten Felder sind Pflichtfelder.</p>
+              <p style="">
+                Alle mit * gekennzeichneten Felder sind Pflichtfelder.
+              </p>
                 ${
                   this.isLoading
                     ? html` <bcg-progress></bcg-progress>`
                     : html`
                         ${!this.isLoggedIn
                           ? html` <bcg-input
-                                label="Ihr Vorname${renderRequiredStringForInputs}"
+                                label="Ihr Vorname *"
                                 placeholder=""
                                 name="firstname"
-                                .validators=${hiddenUserValidator}
+                                .validators=${[new Required()]}
                                 .modelValue="${contactRequest.firstName}"
                                 @model-value-changed=${({ target }: any) => {
                                   contactRequest.firstName = target.value;
                                 }}
                               ></bcg-input>
                               <bcg-input
-                                label="Ihr Nachname${renderRequiredStringForInputs}"
+                                label="Ihr Nachname  *"
                                 placeholder=""
                                 name="lastname"
-                                .validators=${hiddenUserValidator}
+                                .validators=${[new Required()]}
                                 .modelValue="${contactRequest.lastName}"
                                 @model-value-changed=${({ target }: any) => {
                                   contactRequest.lastName = target.value;
@@ -138,12 +130,12 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
 
                               <bcg-input-email
                                 name="email"
-                                .validators=${hiddenUserValidator}
+                                .validators=${[new Required()]}
                                 .modelValue="${contactRequest.email}"
                                 @model-value-changed=${({ target }: any) => {
                                   contactRequest.email = target.value;
                                 }}
-                                label="Ihre E-Mail${renderRequiredStringForInputs}"
+                                label="Ihre E-Mail  *"
                                 placeholder=""
                               ></bcg-input-email>`
                           : null}
@@ -176,10 +168,10 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
                         >
                           <bcg-checkbox
                             .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
-                            ><label slot="label">
+                            ><p slot="label">
                               Ich akzeptiere die
                               <a href="/datenschutz">Datenschutzerklärung *</a>
-                            </label></bcg-checkbox
+                            </p></bcg-checkbox
                           >
                         </bcg-checkbox-group>
 
@@ -195,6 +187,6 @@ export class BcgContactSubmission extends ScopedElementsMixin(BcgModule) {
           </div>
         </form></bcg-form
       >
-    `);
+    `;
   }
 }

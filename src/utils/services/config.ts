@@ -2,15 +2,11 @@
 const APIVersion = 'v1';
 
 const getApiUrl = () => {
-  if (localStorage.getItem('API_URL')) return localStorage.getItem('API_URL');
-  if (location.href.includes(`-dev`))
-    return 'https://epart-api-dev.ifok.digital';
   if (location.href.includes(`-dev`))
     return 'https://epart-api-dev.ifok.digital';
   if (location.href.includes(`-nonprod`))
     return 'https://epart-api-nonprod.ifok.digital';
   if (location.href.includes(`a4plus`)) return 'https://epart-api.ifok.digital';
-
   return 'https://epart-api-dev.ifok.digital';
 };
 
@@ -52,17 +48,16 @@ export const ideaSubmissionEndpoint = (moduleID: any) =>
   `${baseURLwithApiVersion}/submissions/idea`;
 
 export const mapSubmissionEndpoint = (moduleID: any) =>
-  `${baseURLwithApiVersion}/submissions/map`;
+`${baseURLwithApiVersion}/submissions/map`;
 
-export const getSubmissionsEndpointforModule = (moduleId: number) =>
-  `${baseURLwithApiVersion}/modules/${moduleId}/submissions`;
-
+export const getSubmissionsEndpointforModule = (submissionId: number) =>
+  `${baseURLwithApiVersion}/modules/${submissionId}/submissions`;
+  
 export const getSubmissionsEndpoint = (submissionId: number) =>
   `${baseURLwithApiVersion}/submissions/${submissionId}`;
 
 // Modules
 export const getAllModulesEndpoint = `${baseURLwithApiVersion}/modules`;
-
 export const getModuleEndpoint = (moduleId: number) =>
   `${baseURLwithApiVersion}/modules/${moduleId}`;
 
@@ -78,12 +73,6 @@ export const reportCommentEndpoint = (commentId: number) =>
 
 export const approveCommentEndpoint = (commentId: number) =>
   `${baseURLwithApiVersion}/comments/${commentId}/approve`;
-
-export const approveSubmissionEndpoint = (submissionId: number) =>
-  `${baseURLwithApiVersion}/submissions/${submissionId}/approve`;
-
-export const censorSubmissionEndpoint = (submissionId: number) =>
-  `${baseURLwithApiVersion}/submissions/${submissionId}/censor`;
 
 export const censorCommentEndpoint = (commentId: number) =>
   `${baseURLwithApiVersion}/comments/${commentId}/censor`;
@@ -115,9 +104,5 @@ export const reactionDelteEndPoint = (reactionId: number) =>
   `${baseURLwithApiVersion}/reactions/${reactionId}`;
 
 // Mapbox
-export const getReverseGeocodingEndpoint = (
-  longitude: number,
-  latitude: number,
-  accessToken: string
-) =>
+export const getReverseGeocodingEndpoint = (longitude: number, latitude: number, accessToken: string) => 
   `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`;

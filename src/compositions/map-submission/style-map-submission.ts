@@ -1,15 +1,11 @@
-import { css } from '@lion/core';
+import { css } from "@lion/core";
 
-export const mapSubmissionStyle = css`
+export const mapSubmissionStyle = css
+`
 .wrapper {
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    position: relative;
-}
-
-.map-wrapper {
-    width: 100%;
 }
 
 .submission-button {
@@ -25,12 +21,44 @@ export const mapSubmissionStyle = css`
     padding-right: 20px;
 }
 
-.submission-step {
+.category-label {
+    cursor: pointer;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.separator {
+    margin-top: 15px;
+    width: 100%;
+    border-bottom: 1px solid var(--background-color-500);
+}
+  
+.expand-icon {
+    width: 12px;
+    height: 12px;
+}
+
+.layer-option {
+    margin-left: -4px;
+    margin-bottom: 6px;
+}
+
+.layer-label {
+    margin-left: 35px;
+}
+
+.layer-icon {
+    position: absolute;
+    left: 5px;
+    top: 0;
+    width: 23px;
     height: 100%;
 }
 
-.input-area textarea {
-    max-height: 120px;
+.submission-step {
+    height: 100%;
 }
 
 .step-content {
@@ -111,8 +139,7 @@ export const mapSubmissionStyle = css`
 
 .sort-button {
     float: right;
-    margin-top: -70px;
-    margin-right: 220px;
+    margin-right: 20px;
     border: none;
     box-shadow: none;
     cursor: pointer
@@ -121,29 +148,13 @@ export const mapSubmissionStyle = css`
 .list-grid {
     display: grid;
     gap: 10px;
-    grid-template-columns: calc(50% - 5px) calc(50% - 5px);
+    grid-template-columns: 500px 500px;
     height: 100%";
-}
-
-.submission-permission-hint {
-    max-width: 210px;
-    position: absolute;
-    right: 0;
-    top: 0;
 }
 
 @media screen and (max-width:1010px) {
     .list-grid {
         grid-template-columns: 100%;
-    }
-}
-
-@media screen and (max-width:700px) {
-    .sort-button {
-        float: unset;
-        width: 100%;
-        margin-right: 0;
-        margin-top: 0;
     }
 }
 
@@ -154,13 +165,14 @@ export const mapSubmissionStyle = css`
         margin-bottom: 10px;
     }
 
-
-    .option-1-label, .place-marker-section {
-        display: none;
+    .sort-button {
+        float: unset;
+        width: 100%;
+        margin-right: 0;
     }
 
     .tab-button {
         width: 50%;
     }
 }
-`;
+`

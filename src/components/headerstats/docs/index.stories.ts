@@ -1,7 +1,8 @@
 import { html, TemplateResult } from '@lion/core';
+import '../index.js';
 
 export default {
-  title: 'Components/Stats',
+  title: 'Components/Textarea',
   component: 'bcg-textarea',
   argTypes: {
     content: {

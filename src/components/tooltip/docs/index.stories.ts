@@ -1,7 +1,7 @@
 import { html } from '@lion/core';
-import '../index';
-import '../../textarea/index';
-import { ArgTypes, Story } from '../../../model/story-interfaces';
+import '../index.js';
+import '../../textarea/index.js';
+import { ArgTypes, Story } from '../../../model/story-interfaces.js';
 
 export default {
   title: 'Components/Tooltip',

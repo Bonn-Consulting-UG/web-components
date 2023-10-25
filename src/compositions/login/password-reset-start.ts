@@ -18,13 +18,13 @@ export class BcgPasswordResetStart extends ScopedElementsMixin(LitElement) {
     return [css``];
   }
 
-  @property() nextStep: any;
+  nextStep: any;
 
   @property({ type: Function }) back: any;
   @property({ type: Function }) resetEmail: any;
   @property({ type: Function }) setEmail: any;
 
-  @property() onChange: any;
+  onChange: any;
 
   static get properties() {
     return {

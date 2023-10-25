@@ -16,6 +16,6 @@ export class BcgInputEmail extends BcgInput {
 
   constructor() {
     super();
-    this.defaultValidators?.push(new IsEmail());
+    this.defaultValidators.push(new IsEmail());
   }
 }

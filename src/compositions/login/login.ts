@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import '../';
+
 import {
   html,
   css,

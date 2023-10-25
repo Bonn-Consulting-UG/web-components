@@ -1,4 +1,4 @@
-import { html, property, ScopedElementsMixin } from '@lion/core';
+import { html, ScopedElementsMixin } from '@lion/core';
 import {
   Required,
   IsEmail,
@@ -8,7 +8,6 @@ import {
 import { BcgModule } from '../../components/module';
 import { ideaSubmissionEndpoint } from '../../utils/services/config';
 import { sendIdeaSubmissionRequest } from '../../utils/services/module';
-import { toNumber } from 'cypress/types/lodash';
 
 export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
   ideaRequest: any = {
@@ -25,16 +24,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
   render() {
     const { ideaRequest, moduleId, externalUser } = this;
 
-    const renderRequiredStringForInputs = !this.submissionWriters.includes(
-      'ANONYMOUS'
-    )
-      ? ' *'
-      : null;
-
-    const hiddenUserValidator = !this.submissionWriters.includes('ANONYMOUS')
-      ? [new Required(), new MaxLength(50)]
-      : [new MaxLength(50)];
-
     // sendIdeaSubmissionRequest(123, '123');
     const submitHandler = async (ev: any) => {
       if (ev.target.hasFeedbackFor.includes('error')) {
@@ -50,9 +39,9 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         const loggedOutpayload = this.isLoggedIn
           ? {}
           : {
-              email: externalUser.email ? externalUser.email : null,
-              firstName: externalUser.firstName ? externalUser.firstName : null,
-              lastName: externalUser.lastName ? externalUser.lastName : null,
+              email: `${externalUser.email}`,
+              firstName: `${externalUser.firstName}`,
+              lastName: `${externalUser.lastName}`,
             };
         const fetchOptions = {
           method: 'POST',
@@ -78,18 +67,15 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
         const resp = await response.json();
         this.ideaRequest.description = '';
 
-        if (!response.ok) throw Error('Faulty Response');
         setTimeout(() => {
+          console.log(this.shadowRoot?.querySelector('form'));
           this.shadowRoot?.querySelector('form')?.resetGroup();
         }, 1000);
         this.ideaRequest.title = '';
         this.showNotification = true;
-        if (!this?.commentsPublishMode?.includes('NEEDS_MODERATION')) {
-          location.href = `${location.href}/${resp.id}`;
-          this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
-        }
-        this.notificationMessage =
-          'Ihre Idee wurde Erfolgreich übersendet - Sie werden per Email informiert wenn ihr Beitrag geprüft wurde';
+        this.notificationMessage = 'Ihre Idee wurde Erfolgreich übersendet';
+
+        location.href = `${location.href}/${resp.id}`;
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';
@@ -99,7 +85,7 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    return this.createSubmissionHtml(html`
+    return html`
       <bcg-form @submit=${(e: any) => submitHandler(e)}>
         <form @submit=${(e: any) => e.preventDefault()}>
           ${this.showNotification
@@ -149,20 +135,20 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                       sichtbar in Verbindung mit Ihrer Idee erscheinen.
                     </p>
                     <bcg-input
-                      label="Ihr Vorname${renderRequiredStringForInputs}"
+                      label="Ihr Vorname *"
                       placeholder=""
                       name="firstname"
-                      .validators=${hiddenUserValidator}
+                      .validators=${[new Required()]}
                       .modelValue="${externalUser.firstName}"
                       @model-value-changed=${({ target }: any) => {
                         externalUser.firstName = target.value;
                       }}
                     ></bcg-input>
                     <bcg-input
-                      label="Ihr Nachname${renderRequiredStringForInputs}"
+                      label="Ihr Nachname  *"
                       placeholder=""
                       name="lastname"
-                      .validators=${hiddenUserValidator}
+                      .validators=${[new Required()]}
                       .modelValue="${externalUser.lastName}"
                       @model-value-changed=${({ target }: any) => {
                         externalUser.lastName = target.value;
@@ -170,10 +156,10 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
                     ></bcg-input>
                     <p>Sofern Sie von uns kontaktiert werden möchten.</p>
                     <bcg-input-email
-                      label="Ihre E-Mail${renderRequiredStringForInputs}"
+                      label="Ihre E-Mail  *"
                       name="email"
                       placeholder=""
-                      .validators=${hiddenUserValidator}
+                      .validators=${[new Required()]}
                       .modelValue="${externalUser.email}"
                       @model-value-changed=${({ target }: any) => {
                         externalUser.email = target.value;
@@ -198,6 +184,6 @@ export class BcgIdeaSubmission extends ScopedElementsMixin(BcgModule) {
           </div>
         </form></bcg-form
       >
-    `);
+    `;
   }
 }

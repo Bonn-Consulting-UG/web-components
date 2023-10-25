@@ -16,16 +16,16 @@ import {
   editComment,
   removeReaction,
   reportComment,
-} from '../../utils/services/comments';
-import { BcgModule } from '../../components/module/module';
-import { BcgModeratorMenu } from './comment-moderator-menu';
-import { BcgUserMenu } from './comment-user-menu';
+} from '../../utils/services/comments.js';
+import { BcgModule } from '../../components/module/module.js';
+import { BcgModeratorMenu } from './comment-moderator-menu.js';
+import { BcgUserMenu } from './comment-user-menu.js';
 import {
   MaxLength,
   MinLength,
   Required,
-} from '../../utils/helpers/input-errors';
-import { PropertyValueMap } from 'lit';
+} from '../../utils/helpers/input-errors.js';
+import { Func } from 'mocha';
 
 export class BcgComment extends ScopedElementsMixin(BcgModule) {
   @property({ type: Object }) comments: any;
@@ -38,24 +38,27 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
 
   @property({ type: Function }) setResponseTo: any;
 
-  @property({ type: Object }) config: any = {};
-
   @property({ type: Function }) newComment: any;
 
-  // @property({ type: Boolean }) requestPending: boolean = false;
+  @property({ type: Boolean }) requestPending: boolean = false;
 
   @property({ type: Function }) changeReaction: any = async (type: any) => {
     const likeReaction = () =>
-      this.comments?.$userReactions?.find((e: any) => e.type === 'LIKE');
+      this.comments.$userReactions.find((e: any) => e.type === 'LIKE');
 
     const dislikeReaction = () =>
-      this.comments?.$userReactions?.find((e: any) => e.type === 'DISLIKE');
+      this.comments.$userReactions.find((e: any) => e.type === 'DISLIKE');
+
+    if (this.requestPending) return;
+    this.requestPending = true;
 
     if (!dislikeReaction() && !likeReaction()) {
       await addReaction({ type }, this.comments.id);
       this.refresh();
+      setTimeout(() => (this.requestPending = false), 300);
     } else {
       await removeReaction(likeReaction()?.id || dislikeReaction()?.id);
+      setTimeout(() => (this.requestPending = false), 300);
       this.refresh();
     }
   };
@@ -132,10 +135,10 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
 
   render() {
     const likeReaction = (comment: any) =>
-      comment?.$userReactions?.find((e: any) => e.type === 'LIKE');
+      comment.$userReactions.find((e: any) => e.type === 'LIKE');
 
     const dislikeReaction = (comment: any) =>
-      comment?.$userReactions?.find((e: any) => e.type === 'DISLIKE');
+      comment.$userReactions.find((e: any) => e.type === 'DISLIKE');
 
     const {
       isModerator,
@@ -165,174 +168,167 @@ export class BcgComment extends ScopedElementsMixin(BcgModule) {
       this.refresh();
       this.canEdit = false;
     };
+
     return html`
-      <a id=${id}></a>
-      <div
-        id="comment"
-        data-id=${id}
-        class="comment-wrapper ${isModerator ? 'moderator' : null}"
-      >
-        ${this.isFocused &&
-        this.user?.realm_access?.roles?.includes('MODERATOR')
-          ? html`<bcg-moderator-menu
-              style="position: relative;"
-              .commentStatus=${this.comments.status}
-              .commentId=${this.comments.id}
-              .changeDialog=${this.changeDialog}
-            ></bcg-moderator-menu>`
-          : null}
-        ${this.isFocused && this.isLoggedIn
-          ? html` <bcg-user-comment-menu
-              style="position: relative;"
-              .authorId=${this.comments.authorId}
-              .commentStatus=${this.comments.status}
-              .onEdit=${this.onEdit}
-              .canEdit=${this.canEdit}
-              .commentId=${this.comments.id}
-              .changeDialog=${this.changeDialog}
-            ></bcg-user-comment-menu>`
-          : null}
-
-        <div class="comment-poster">
-          <div class="comment-poster-details">
+    <a id=${id}></a>
+        <div
+          id="comment"
+          data-id=${id}
+          class="comment-wrapper ${isModerator ? 'moderator' : null}"
+        >
+       ${
+         this.isFocused && this.user?.realm_access?.roles?.includes('MODERATOR')
+           ? html`<bcg-moderator-menu
+               style="position: relative;"
+               .commentStatus=${this.comments.status}
+               .commentId=${this.comments.id}
+               .changeDialog=${this.changeDialog}
+             ></bcg-moderator-menu>`
+           : null
+       } 
+       ${
+         this.isFocused && this.isLoggedIn
+           ? html` <bcg-user-comment-menu
+               style="position: relative;"
+               .authorId=${this.comments.authorId}
+               .commentStatus=${this.comments.status}
+               .onEdit=${this.onEdit}
+               .canEdit=${this.canEdit}
+               .commentId=${this.comments.id}
+               .changeDialog=${this.changeDialog}
+             ></bcg-user-comment-menu>`
+           : null
+       }
+       
+          <div class="comment-poster">
+            <div class="comment-poster-details">
             <p>
-              ${author && author.firstName
-                ? author.firstName
-                : this.comments.firstName
-                ? this.comments.firstName
-                : html`<i><b>Anonymer Benutzer</b></i>`}
-              ${author && author.lastName
-                ? author.lastName
-                : this.comments.lastName
-                ? this.comments.lastName
-                : null}
-
-              <span
-                class=" ${author && author.roles.includes('MODERATOR')
-                  ? 'moderator-name'
-                  : null}"
-                >${author && author.roles.includes('MODERATOR')
+                ${
+                  author && author.firstName
+                    ? author.firstName
+                    : html`<i><b>Gelöschtes Profil</b></i>`
+                }
+                ${author && author.lastName ? author.lastName : null}
+               
+                <span
+                class=" ${
+                  author && author.roles.includes('MODERATOR')
+                    ? 'moderator-name'
+                    : null
+                }"
+              >${
+                author && author.roles.includes('MODERATOR')
                   ? '(Moderator)'
-                  : null}</span
-              >
-              <span
-                >${this.user?.realm_access.roles.includes('MODERATOR')
-                  ? `Status:${this.comments.status}`
-                  : null}
+                  : null
+              }</span>
+            <span>${
+              this.user?.realm_access.roles.includes('MODERATOR')
+                ? `Status:${this.comments.status}`
+                : null
+            }
               </span>
             </p>
-            <p>
-              ${format(Date.parse(createdAt), 'dd.MM.yyyy HH:mm ', {
-                locale: de,
-              })}
-              Uhr
-            </p>
+              <p>
+                ${format(Date.parse(createdAt), 'dd.MM.yyyy HH:mm ', {
+                  locale: de,
+                })}
+                Uhr
+              </p>
+            </div>
           </div>
-        </div>
-        <div>
-          <p>
-            ${status !== 'CENSORED' ||
-            (this.isLoggedIn &&
-              this.user.realm_access.roles.includes('MODERATOR'))
-              ? this.canEdit
-                ? html` <bcg-form name="editform" @submit=${editSubmitHandler}>
-                    <form>
-                      <div style="display:flex;flex-direction:column;">
-                        <bcg-textarea
-                          name="edittextarea"
-                          @model-value-changed=${({ target }: any) => {
-                            this.newComment = target.value;
-                          }}
-                          .validators=${[
-                            new Required(),
-                            new MinLength(3),
-                            new MaxLength(500),
-                          ]}
-                          .value=${content}
-                        ></bcg-textarea>
-                        <div>
-                          <bcg-button-submit
-                            style="margin-top:10px;"
-                            variant="primary"
-                            >Speichern</bcg-button-submit
-                          >
-                          <bcg-button
-                            @click=${this.onEdit}
-                            style="margin-top:10px;"
-                            variant="primary"
-                            >Abbrechen</bcg-button
-                          >
-                        </div>
-                      </div>
-                    </form></bcg-form
-                  >`
-                : !isDeleted
-                ? content
-                : html`<span style="color:grey;">
-                    Kommentar wurde durch Autor gelöscht</span
-                  >`
-              : html`<span style="color:grey;">
-                  Dieser Kommentar ist nicht sichtbar, weil er gegen die
-                  Netiquette verstößt.</span
-                >`}
-          </p>
-          ${((this.config?.config?.isReactionsAllowed ||
-            this.config?.moduleConfig?.isReactionsAllowed) &&
-            status !== 'CENSORED' &&
-            this.isInteractionStarted) ||
-          !this.isInteractionEnded
-            ? html`<div style="display:flex;">
-                ${this.config?.config?.allowedCommentReactionTypes?.includes(
-                  'LIKE'
-                ) ||
-                this.config?.moduleConfig.allowedCommentReactionTypes?.includes(
-                  'LIKE'
-                )
-                  ? html`<bcg-button
-                      @click=${() => this.changeReaction('LIKE')}
-                    >
+          <div>
+            <p>
+              ${
+                status !== 'CENSORED' ||
+                (this.isLoggedIn &&
+                  this.user.realm_access.roles.includes('MODERATOR'))
+                  ? this.canEdit
+                    ? html` <bcg-form
+                        name="editform"
+                        @submit=${editSubmitHandler}
+                      >
+                        <form @submit=${(e: any) => console.log(e)}>
+                          <div style="display:flex;flex-direction:column;">
+                            <bcg-textarea
+                              name="edittextarea"
+                              @model-value-changed=${({ target }: any) => {
+                                this.newComment = target.value;
+                              }}
+                              .validators=${[
+                                new Required(),
+                                new MinLength(3),
+                                new MaxLength(500),
+                              ]}
+                              .value=${content}
+                            ></bcg-textarea>
+                            <div>
+                              <bcg-button-submit
+                                style="margin-top:10px;"
+                                variant="primary"
+                                >Speichern</bcg-button-submit
+                              >
+                              <bcg-button
+                                @click=${this.onEdit}
+                                style="margin-top:10px;"
+                                variant="primary"
+                                >Abbrechen</bcg-button
+                              >
+                            </div>
+                          </div>
+                        </form></bcg-form
+                      >`
+                    : !isDeleted
+                    ? content
+                    : html`<span style="color:grey;">
+                        Kommentar wurde durch Autor gelöscht</span
+                      >`
+                  : html`<span style="color:grey;">
+                      Dieser Kommentar ist nicht sichtbar, weil er gegen die
+                      Netiquette verstößt.</span
+                    >`
+              }
+            </p>
+
+            ${
+              (this.isLoggedIn && status !== 'CENSORED') ||
+              (this.isLoggedIn &&
+                this.user.realm_access &&
+                this.user.realm_access.roles.includes('MODERATOR'))
+                ? html`<div style="display:flex;">
+                    <bcg-button @click=${() => this.changeReaction('LIKE')}>
                       <bcg-reaction
                         .value=${_count?.likes}
                         .icon=${'bcg:comments:thumbsup'}
                         iconclass=${likeReaction(this.comments) ? 'filled' : ''}
                       ></bcg-reaction>
-                    </bcg-button>`
-                  : null}
-                ${this.config?.config?.allowedCommentReactionTypes?.includes(
-                  'DISLIKE'
-                ) ||
-                this.config?.moduleConfig?.allowedCommentReactionTypes?.includes(
-                  'DISLIKE'
-                )
-                  ? html`
-                      <bcg-button
-                        @click=${() => this.changeReaction('DISLIKE')}
-                      >
-                        <bcg-reaction
-                          .value=${_count?.dislikes}
-                          .icon=${'bcg:comments:thumbsdown'}
-                          iconclass=${dislikeReaction(this.comments)
-                            ? 'filled'
-                            : ''}
-                        ></bcg-reaction>
-                      </bcg-button>
-                    `
-                  : null}
-                ${(this.setResponseTo && this.isInteractionStarted) ||
-                (this.setResponseTo && !this.isInteractionEnded)
-                  ? html`<bcg-button
-                      @click=${() => this.setResponseTo(this.comments)}
-                    >
+                    </bcg-button>
+
+                    <bcg-button @click=${() => this.changeReaction('DISLIKE')}>
                       <bcg-reaction
-                        .value=${'Antworten'}
-                        .icon=${'bcg:comments:message'}
+                        .value=${_count?.dislikes}
+                        .icon=${'bcg:comments:thumbsdown'}
+                        iconclass=${dislikeReaction(this.comments)
+                          ? 'filled'
+                          : ''}
                       ></bcg-reaction>
-                    </bcg-button>`
-                  : null}
-              </div>`
-            : null}
+                    </bcg-button>
+
+                    ${this.setResponseTo
+                      ? html`<bcg-button
+                          @click=${() => this.setResponseTo(this.comments)}
+                        >
+                          <bcg-reaction
+                            .value=${'Antworten'}
+                            .icon=${'bcg:comments:message'}
+                          ></bcg-reaction>
+                        </bcg-button>`
+                      : null}
+                  </div>`
+                : null
+            }
+          </div>
         </div>
-      </div>
+      </dialog>
     `;
   }
 }

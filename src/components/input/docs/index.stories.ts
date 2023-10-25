@@ -1,11 +1,11 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces';
-import '../index';
+import { Story } from '../../../model/story-interfaces.js';
+import '../index.js';
 
 export default {
   title: 'Components/Input',
   component: 'bcg-input',
-  argTypes: {},
+  argTypes: {}
 };
 
 interface ContentArgs {
@@ -29,7 +29,7 @@ const Default = Template.bind({});
 Default.args = {
   label: 'Firstname',
   helpText: 'Please tell us your Firstname',
-  placeholder: 'Joe',
+  placeholder: 'Joe'
 };
 
 export { Default };

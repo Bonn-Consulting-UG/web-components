@@ -1,16 +1,13 @@
 import { html } from '@lion/core';
-import { Story } from '../../../model/story-interfaces';
-import '../index';
+import { Story } from '../../../model/story-interfaces.js';
+import '../index.js';
 
 export default {
   title: 'Components/Button',
   component: 'bcg-button',
   argTypes: {
-    variant: {
-      control: 'radio',
-      options: ['primary', 'secondary', 'tertiary'],
-    },
-  },
+    variant: { control: 'radio', options: ['primary', 'secondary', 'tertiary'] }
+  }
 };
 
 interface ArgTypes {
@@ -48,17 +45,17 @@ const Teritary = TeritaryTemplate.bind({});
 
 Disabled.args = {
   label: 'Mehr Laden',
-  variant: 'primary',
+  variant: 'primary'
 };
 
 Teritary.args = {
   label: 'x',
-  variant: 'tertiary',
+  variant: 'tertiary'
 };
 
 Basic.args = {
   label: 'Mehr Laden',
-  variant: 'primary',
+  variant: 'primary'
 };
 
 export { Basic, Disabled, Teritary };

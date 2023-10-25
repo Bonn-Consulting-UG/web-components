@@ -1,4 +1,4 @@
-import { html, property, ScopedElementsMixin } from '@lion/core';
+import { html, ScopedElementsMixin } from '@lion/core';
 import {
   Required,
   MinLength,
@@ -11,24 +11,14 @@ import { sendFaqSubmissionRequest } from '../../utils/services/module';
 
 export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
   faqRequest: any = {
-    firstName: null,
-    lastName: null,
-    email: null,
+    firstName: '',
+    lastName: '',
+    email: '',
     title: '',
     description: '',
   };
 
   render() {
-    const renderRequiredStringForInputs = !this.submissionWriters.includes(
-      'ANONYMOUS'
-    )
-      ? ' *'
-      : null;
-
-    const hiddenUserValidator = !this.submissionWriters.includes('ANONYMOUS')
-      ? [new Required(), new MaxLength(50)]
-      : [new MaxLength(50)];
-
     const { faqRequest } = this;
 
     const submitHandler = async (ev: any) => {
@@ -69,11 +59,12 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
           fetchOptionsloggedout
         );
 
+        ev.path[0].resetGroup();
+
         this.notificationType = 'success';
         this.showNotification = true;
         this.notificationMessage =
           'Danke für Ihre Frage! Wir bearbeiten sie so schnell wie möglich.';
-        setTimeout(() => location.reload(), 1000);
       } catch (err) {
         this.showNotification = true;
         this.notificationType = 'error';
@@ -81,7 +72,7 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
       }
     };
 
-    return this.createSubmissionHtml(html`
+    return html`
       <bcg-form @submit=${(ev: any) => submitHandler(ev)}>
         <form @submit=${(e: any) => e.preventDefault()}>
         ${
@@ -137,10 +128,10 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                 ${
                   !this.isLoggedIn
                     ? html` <bcg-input
-                          label="Ihr Vorname${renderRequiredStringForInputs}"
+                          label="Ihr Vorname "
                           placeholder=""
                           name="surname"
-                          .validators=${hiddenUserValidator}
+                          .validators=${[new MaxLength(50)]}
                           .modelValue="${faqRequest.firstName}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.firstName = target.value;
@@ -148,10 +139,10 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                         ></bcg-input>
 
                         <bcg-input
-                          label="Ihr Nachname${renderRequiredStringForInputs}"
+                          label="Ihr Nachname"
                           placeholder=""
                           name="lastname"
-                          .validators=${hiddenUserValidator}
+                          .validators=${[new MaxLength(50)]}
                           .modelValue="${faqRequest.lastName}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.lastName = target.value;
@@ -159,10 +150,10 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                         ></bcg-input>
                         <p>Sofern Sie von uns kontaktiert werden möchten.</p>
                         <bcg-input-email
-                          label="Ihre E-Mail${renderRequiredStringForInputs}"
+                          label="Ihre E-Mail "
                           name="email"
                           placeholder=""
-                          .validators=${hiddenUserValidator}
+                          .validators=${[]}
                           .modelValue="${faqRequest.email}"
                           @model-value-changed=${({ target }: any) => {
                             faqRequest.email = target.value;
@@ -178,10 +169,10 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
                         >
                           <bcg-checkbox
                             .choiceValue=${'Ich akzeptiere die Datenschutzerklärung'}
-                            ><label slot="label">
+                            ><p slot="label">
                               Ich akzeptiere die
                               <a href="/datenschutz">Datenschutzerklärung</a>
-                            </label></bcg-checkbox
+                            </p></bcg-checkbox
                           >
                         </bcg-checkbox-group>`
                     : null
@@ -194,6 +185,6 @@ export class BcgFaqSubmission extends ScopedElementsMixin(BcgModule) {
             </div>
           </div>
         </form></bcg-form>
-    `);
+    `;
   }
 }

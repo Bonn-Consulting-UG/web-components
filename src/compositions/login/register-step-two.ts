@@ -19,9 +19,9 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     return [css``];
   }
 
-  @property() nextStep: any;
+  nextStep: any;
 
-  @property() onChange: any;
+  onChange: any;
 
   static get properties() {
     return {
@@ -35,13 +35,13 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
     this.nextStep = () => 'test';
   }
 
-  @property() dsgvo: object = { value: 'foo', checked: true };
+  dsgvo: object = { value: 'foo', checked: true };
 
-  @property() firstName: string = '';
+  firstName: string = '';
 
-  @property() lastName: string = '';
+  lastName: string = '';
 
-  @property() email: string = '';
+  email: string = '';
 
   @property() password: string = '';
 
@@ -147,14 +147,14 @@ export class BcgRegisterStepTwo extends ScopedElementsMixin(LitElement) {
             >
               <bcg-checkbox
                 .choiceValue=${'Ich akzeptiere die Netiquette und die Datenschutzerklärung. *'}
-                ><label slot="label">
+                ><p slot="label">
                   Ich akzeptiere die
                   <a target="”_blank”" href="/netiquette">Netiquette</a>
                   und die
                   <a target="”_blank”" href="/datenschutz"
                     >Datenschutzerklärung</a
                   >
-                </label></bcg-checkbox
+                </p></bcg-checkbox
               >
             </bcg-checkbox-group>
             <bcg-button-submit>Registrieren</bcg-button-submit>

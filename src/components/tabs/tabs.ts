@@ -1,7 +1,7 @@
 import { LionTabs } from '@lion/tabs';
 import { css, html, ScopedElementsMixin, LitElement } from '@lion/core';
-import { BcgTabPanel } from '../tab-panel/tab-panel';
-import { BcgTabButton } from '../tab-button/tab-button';
+import { BcgTabPanel } from '../tab-panel/tab-panel.js';
+import { BcgTabButton } from '../tab-button/tab-button.js';
 
 export class BcgTabs extends ScopedElementsMixin(LitElement) {
   static get styles() {

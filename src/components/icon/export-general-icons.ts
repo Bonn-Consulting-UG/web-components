@@ -10,5 +10,3 @@ export { marker } from './icons/marker';
 export { map } from './icons/map';
 export { list } from './icons/list';
 export { edit } from './icons/edit';
-export { signLanguage } from './icons/signLanguage';
-export { easyLanguage } from './icons/easyLanguage';

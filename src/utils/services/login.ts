@@ -50,14 +50,15 @@ export const checkVerifyCode = async (userID: any, code: any) => {
 
 export const sendLoginRequest = async (user: any) => {
   try {
-    return await fetch(loginEndpoint, {
+    const fetchOptions = {
       method: 'POST',
-      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
-    });
+    };
+
+    return await fetch(loginEndpoint, fetchOptions);
   } catch (err) {
     // Handle Error Here
     console.error(err);
@@ -172,6 +173,7 @@ export const sendPasswordResetRequest = async (data: any) => {
 };
 
 export const sendPasswordChangeInitRequest = async (data: any) => {
+  console.log(data);
   try {
     const fetchOptions = {
       method: 'POST',

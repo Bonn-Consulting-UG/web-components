@@ -15,7 +15,7 @@ jobs:
           node-version: 16
       - run: npm ci
       # - run: npm run test
-      - run: npm run build
+      - run: npm run storybook:build
       - run: date > storybook-static/info.html
       - run: echo "<p>" >> storybook-static/info.html
       - run: node --eval="process.stdout.write(require('./package.json').version)" >> storybook-static/info.html

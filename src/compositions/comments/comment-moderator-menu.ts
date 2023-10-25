@@ -14,8 +14,8 @@ import {
   censorComment,
   removeReaction,
   reportComment,
-} from '../../utils/services/comments';
-import { BcgModule } from '../../components/module/module';
+} from '../../utils/services/comments.js';
+import { BcgModule } from '../../components/module/module.js';
 
 export class BcgModeratorMenu extends LitElement {
   @property({ type: Boolean }) isOpen: boolean = false;

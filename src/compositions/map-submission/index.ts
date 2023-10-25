@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
 import { BcgMapSubmission } from './map-submission';
-import '../index';
 
 import { componentNames } from '../../utils/config';
 
