@@ -12,8 +12,7 @@ const config = {
     entry: './src/compositions/index.ts',
     output: {
         publicPath: 'https://epart-components-dev.ifok.digital/compositions/',
-        path: path.resolve(__dirname, 'storybook-static/components'),
-        filename: 'index2.js',
+        path: path.resolve(__dirname, 'storybook-static/compositions'),
     },
     plugins: [
     ],
