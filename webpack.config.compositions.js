@@ -7,11 +7,12 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const isProduction = true
 
+// TODO FIX VAR ENV
 
 const config = {
     entry: './src/compositions/index.ts',
     output: {
-        publicPath: 'https://epart-components-dev.ifok.digital/compositions/',
+        publicPath: 'https://epart-components.ifok.digital/compositions/',
         path: path.resolve(__dirname, 'storybook-static/compositions'),
     },
     plugins: [
