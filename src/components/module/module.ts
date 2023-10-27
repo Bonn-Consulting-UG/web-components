@@ -101,7 +101,10 @@ export class BcgModule extends LitElement {
         Diese Beteiligung ist bereits abgelaufen.
       </div>`;
     }
-    if (!this.isInteractionStarted) {
+    if (
+      this.isInteractionStarted === false ||
+      this.isInteractionStarted !== null
+    ) {
       return html`<div class="submission-permission-hint">
         Diese Beteiligung ist noch nicht gestartet.
       </div>`;
