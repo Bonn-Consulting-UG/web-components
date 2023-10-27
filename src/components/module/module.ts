@@ -93,6 +93,8 @@ export class BcgModule extends LitElement {
   @property({ type: LitElement || null }) createSubmissionHtml = (
     content: TemplateResult
   ): any => {
+    return content;
+
     if (this.isEditOnlyByModeratorAllowed) {
       return this.hasModeratorRole ? content : html``;
     }
