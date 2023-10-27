@@ -101,14 +101,13 @@ export class BcgModule extends LitElement {
         Diese Beteiligung ist bereits abgelaufen.
       </div>`;
     }
-    if (
-      this.isInteractionStarted === false ||
-      this.isInteractionStarted !== null
-    ) {
+    if (false) {
       return html`<div class="submission-permission-hint">
         Diese Beteiligung ist noch nicht gestartet.
       </div>`;
     }
+    return content;
+
     if (
       this.submissionWriters.includes('ANONYMOUS') ||
       this.submissionWriters.includes('USER')
